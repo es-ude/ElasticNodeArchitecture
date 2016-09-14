@@ -1,0 +1,34 @@
+{
+	"folders":
+	[
+		{
+			"path": "/Volumes/fileserver.home/git/vhdlmakefile"
+		}
+	],
+	"build_systems":
+	[
+		{
+			"env":
+			{
+				"remote_folder": "git/vhdlmakefile/",
+				"program_host": "arch_vm_local",
+				"make_host": "ubuntu_vm"
+			},
+
+			"name": "make-remote",
+			"cmd": ["sh", "${project_path}/scripts/local-script.sh", "${project_path}", ""],
+
+			"variants":
+			[
+				{
+					"name": "Clean",
+					"cmd": ["sh", "${project_path}/scripts/local-script.sh", "${project_path}", "clean"]
+				},
+				{
+					"name": "Program",
+					"cmd": ["sh", "${project_path}/scripts/remote-program.sh", "xessdemo.bit"]
+				}
+			]
+		}
+	]
+}

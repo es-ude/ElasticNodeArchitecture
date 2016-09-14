@@ -37,8 +37,10 @@ coregen_work_dir ?= ./coregen-tmp
 map_opts ?= -timing -ol high -detail -pr b -register_duplication -w
 par_opts ?= -ol high
 isedir ?= /opt/Xilinx/14.7/ISE_DS
-xil_env ?= @source $(isedir)/settings64.sh
+xil_env ?= $(isedir)/settings64.sh
+build_dir ?= cd ../build/
 flashsize ?= 8192
+intstyle ?= -intstyle xflow
 
 libmks = $(patsubst %,$(libdir)/%/module.mk,$(libs)) 
 mkfiles = Makefile $(libmks) xilinx.mk
@@ -50,7 +52,7 @@ vfiles += $(foreach core,$(xilinx_cores),$(core:.xco=.vhdl))
 junk += $(local_corengcs)
 
 .PHONY: default xilinx_cores clean twr etwr
-default: $(project).bit $(project).mcs
+default: $(project).bit .gitignore # $(project).mcs
 xilinx_cores: $(corengcs)
 twr: $(project).twr
 etwr: $(project)_err.twr
@@ -85,7 +87,9 @@ junk += $(coregen_work_dir)
 date = $(shell date +%F-%H-%M)
 
 # some common junk
-junk += *.xrpt
+junk += *.xrpt 
+junk += _xmsgs/* _xmsgs/
+junk += *.html webtalk.log
 
 programming_files: $(project).bit $(project).mcs
 	mkdir -p $@/$(date)
@@ -95,17 +99,20 @@ programming_files: $(project).bit $(project).mcs
 
 $(project).mcs: $(project).bit
 	$(xil_env); \
+	$(build_dir) && \
 	promgen -w -s $(flashsize) -p mcs -o $@ -u 0 $^
 junk += $(project).mcs $(project).cfi $(project).prm
 
 $(project).bit: $(project)_par.ncd
 	$(xil_env); \
-	bitgen $(intstyle) -g DriveDone:yes -g StartupClk:Cclk -w $(project)_par.ncd $(project).bit
-junk += $(project).bgn $(project).bit $(project).drc $(project)_bd.bmm
+	$(build_dir) && \
+	bitgen $(intstyle) -g DriveDone:yes -g 	StartupClk:Cclk -w $(project)_par.ncd $(project).bit
+junk += $(project).bgn $(project).bit $(project).drc $(project)_bd.bmm $(project)_bitgen.xwbt
 
 
 $(project)_par.ncd: $(project).ncd
 	$(xil_env); \
+	$(build_dir) && \
 	if par $(intstyle) $(par_opts) -w $(project).ncd $(project)_par.ncd; then \
 		:; \
 	else \
@@ -117,6 +124,7 @@ junk += $(project)_par.grf $(project)_par.ptwx
 junk += $(project)_par.unroutes $(project)_par.xpi
 
 $(project).ncd: $(project).ngd
+	$(build_dir) && \
 	if [ -r $(project)_par.ncd ]; then \
 		cp $(project)_par.ncd smartguide.ncd; \
 		smartguide="-smartguide smartguide.ncd"; \
@@ -124,36 +132,39 @@ $(project).ncd: $(project).ngd
 		smartguide=""; \
 	fi; \
 	$(xil_env); \
-	map $(intstyle) $(map_opts) $$smartguide $<
+	map $(intstyle) $(map_opts) $(smartguide) $<
 junk += $(project).ncd $(project).pcf $(project).ngm $(project).mrp $(project).map
 junk += smartguide.ncd $(project).psr 
-junk += $(project)_summary.xml $(project)_usage.xml
+junk += $(project)_summary.xml $(project)_usage.xml xilinx_device_details.xml
 
-$(project).ngd: $(project).ngc $(project).ucf $(project).bmm
-	$(xil_env); ngdbuild $(intstyle) $(project).ngc -bm $(project).bmm
+$(project).ngd: $(project).ngc $(ucffile) $(bmm_file)
+	$(xil_env); $(build_dir) && ngdbuild $(intstyle) $(project).ngc -bm $(bmm_file) -uc $(ucffile)
 junk += $(project).ngd $(project).bld
 
 $(project).ngc: $(vfiles) $(local_corengcs) $(project).scr $(project).prj
-	$(xil_env); xst $(intstyle) -ifn $(project).scr
+	$(xil_env); \
+	$(build_dir) && \
+	xst $(intstyle) -ifn $(project).scr
 
 junk += xlnx_auto* $(top_module).lso $(project).srp 
 junk += netlist.lst xst $(project).ngc
 
 $(project).prj: $(vfiles) $(mkfiles)
 	for src in $(vfiles); do echo "vhdl work $$src" >> $(project).tmpprj; done
-	sort -u $(project).tmpprj > $(project).prj
+	sort -u $(project).tmpprj > ../build/$(project).prj
 	rm -f $(project).tmpprj
 junk += $(project).prj
 
 optfile += $(wildcard $(project).opt)
 top_module ?= $(project)
-$(project).scr: $(optfile) $(mkfiles) ./xilinx.opt
-	echo "run" > $@
-	echo "-p $(part)" >> $@
-	echo "-top $(top_module)" >> $@
-	echo "-ifn $(project).prj" >> $@
-	echo "-ofn $(project).ngc" >> $@
-	cat ./xilinx.opt $(optfile) >> $@
+$(project).scr: $(optfile) $(mkfiles) ../makefile/xilinx.opt
+	$(build_dir) && \
+	echo "run" > $@ && \
+	echo "-p $(part)" >> $@ && \
+	echo "-top $(top_module)" >> $@ && \
+	echo "-ifn $(project).prj" >> $@ && \
+	echo "-ofn $(project).ngc" >> $@ && \
+	cat ../makefile/xilinx.opt $(optfile) >> $@
 junk += $(project).scr
 
 $(project).post_map.twr: $(project).ncd
@@ -169,7 +180,10 @@ $(project)_err.twr: $(project)_par.ncd
 junk += $(project)_err.twr $(project)_err.twx
 
 .gitignore: $(mkfiles)
+	$(build_dir) && \
 	echo programming_files $(junk) | sed 's, ,\n,g' > .gitignore
 
 clean::
+	@echo "Cleaning temporary files"
+	$(build_dir) && \
 	rm -rf $(junk)
