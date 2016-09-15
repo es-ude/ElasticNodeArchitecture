@@ -22,7 +22,13 @@
 			[
 				{
 					"name": "Clean",
-					"cmd": ["sh", "${project_path}/scripts/local-script.sh", "${project_path}", "clean"]
+					"cmd": ["sh", "${project_path}/scripts/local-script.sh", "${project_path}", "clean"],
+
+					"windows":
+					{
+						"cmd": ["${project_path}/scripts/local-script.bat", "${project_path}", "clean"]
+					}
+					
 				},
 				{
 					"name": "Program",
