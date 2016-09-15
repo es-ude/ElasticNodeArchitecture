@@ -424,44 +424,56 @@
 	"buffers":
 	[
 		{
-			"file": "/Users/alwynster/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+			"file": "scripts/local-script.bat",
 			"settings":
 			{
-				"buffer_size": 13844,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "build/xilinx.mk",
-			"settings":
-			{
-				"buffer_size": 5773,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/alwynster/Library/Application Support/Sublime Text 2/Packages/User/make-remote.sublime-build",
-			"settings":
-			{
-				"buffer_size": 283,
-				"line_ending": "Unix"
+				"buffer_size": 228,
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "scripts/local-script.sh",
 			"settings":
 			{
-				"buffer_size": 185,
-				"line_ending": "Unix"
+				"buffer_size": 231,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "vhdlmakefile.sublime-project",
+			"settings":
+			{
+				"buffer_size": 709,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "vhdlmakefile.sublime-workspace",
+			"settings":
+			{
+				"buffer_size": 25548,
+				"line_ending": "Windows"
 			}
 		}
 	],
 	"build_system": "Packages/User/make-remote.sublime-build",
 	"command_palette":
 	{
-		"height": 392.0,
+		"height": 104.0,
 		"selected_items":
 		[
+			[
+				"git pull",
+				"Git: Pull"
+			],
+			[
+				"git stash drop",
+				"Git: Stash Drop"
+			],
+			[
+				"git stash",
+				"Git: Stash Changes"
+			],
 			[
 				"install ",
 				"Package Control: Install Package"
@@ -587,10 +599,6 @@
 				"About"
 			],
 			[
-				"git pull",
-				"Git: Pull"
-			],
-			[
 				"git add cur",
 				"Git: Add Current File"
 			],
@@ -621,10 +629,6 @@
 			[
 				"git comi",
 				"Git: Commit"
-			],
-			[
-				"git stash",
-				"Git: Stash Changes"
 			],
 			[
 				"commit ",
@@ -807,7 +811,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 378.0
+		"width": 400.0
 	},
 	"console":
 	{
@@ -824,11 +828,13 @@
 	},
 	"file_history":
 	[
+		"/Users/alwynster/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/burger/git/vhdlmakefile/build/xilinx.mk",
+		"/Users/alwynster/Library/Application Support/Sublime Text 2/Packages/User/make-remote.sublime-build",
 		"/Volumes/fileserver.home/git/vhdlmakefile/src/PapilioDuo.ucf",
 		"/Volumes/fileserver.home/git/vhdlmakefile/synth/xilinx.mk",
 		"/Volumes/fileserver.home/git/vhdlmakefile/synth/Makefile",
 		"/Volumes/fileserver.home/help.yml",
-		"/Users/alwynster/Library/Application Support/Sublime Text 2/Packages/User/make-remote.sublime-build",
 		"/Volumes/fileserver burger/git/vhdlmakefile/synth/remote-clean.sh",
 		"/Volumes/fileserver burger/git/vhdlmakefile/xilinx-sample/synth/remote-make.sh",
 		"/Volumes/fileserver burger/git/vhdlmakefile/xilinx-sample/src/all_leds.vhdl",
@@ -897,7 +903,6 @@
 		"/Volumes/ES-Share/FiPS/logs/batch_change_singleNPCDuration-2016-08-08-15-07-25.csv",
 		"/Volumes/ES-Share/FiPS/logs/graph_data.py",
 		"/Volumes/ES-Share/FiPS/logs/batch_change_annExecutionDuration-2016-08-08-15-07-25.csv",
-		"/Users/alwynster/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
 		"/Volumes/ES-Share/FiPS/logs/archive_manual/batch_change_annExecutionDuration-2016-08-08-12-11-09.csv",
 		"/Volumes/ES-Share/FiPS/logs/archive_manual/batch_change_singleNPCDuration-2016-08-08-12-11-09.csv",
 		"/Volumes/ES-Share/FiPS/logs/.gitignore",
@@ -948,6 +953,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"/Volumes",
 			"mcs",
 			".ucf",
 			"xst ",
@@ -1074,8 +1080,7 @@
 			"reloadConfig",
 			"client.",
 			"mqtt",
-			"mqttmessage",
-			"parent"
+			"mqttmessage"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1101,57 +1106,54 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/Users/alwynster/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+					"file": "scripts/local-script.bat",
 					"settings":
 					{
-						"buffer_size": 13844,
+						"buffer_size": 228,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								13391,
-								13391
+								193,
+								193
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Batch File/Batch File.tmLanguage"
 						},
-						"translation.x": 2735.0,
-						"translation.y": 5511.0,
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "build/xilinx.mk",
+					"file": "scripts/local-script.sh",
 					"settings":
 					{
-						"buffer_size": 5773,
+						"buffer_size": 231,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2085,
-								2085
+								10,
+								10
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1162,23 +1164,23 @@
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 2,
-					"file": "/Users/alwynster/Library/Application Support/Sublime Text 2/Packages/User/make-remote.sublime-build",
+					"file": "vhdlmakefile.sublime-project",
 					"settings":
 					{
-						"buffer_size": 283,
+						"buffer_size": 709,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								20,
-								20
+								1,
+								1
 							]
 						],
 						"settings":
@@ -1186,7 +1188,7 @@
 							"syntax": "Packages/JavaScript/JSON.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 40.0,
+						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
@@ -1194,26 +1196,27 @@
 				},
 				{
 					"buffer": 3,
-					"file": "scripts/local-script.sh",
+					"file": "vhdlmakefile.sublime-workspace",
 					"settings":
 					{
-						"buffer_size": 185,
+						"buffer_size": 25548,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								123,
-								123
+								10480,
+								10488
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 22576.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

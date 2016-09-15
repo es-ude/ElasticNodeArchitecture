@@ -1,2 +1,1 @@
-cd git/vhdlmakefile//makefile
-make 
+sh git/vhdlmakefile//scripts/remote-script.sh ; /bin/bash 

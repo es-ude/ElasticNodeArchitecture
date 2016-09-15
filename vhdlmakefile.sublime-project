@@ -17,6 +17,10 @@
 
 			"name": "make-remote",
 			"cmd": ["sh", "${project_path}/scripts/local-script.sh", "${project_path}", ""],
+			"windows":
+			{
+				"cmd": ["${project_path}/scripts/local-script.bat", "${project_path}"]
+			},
 
 			"variants":
 			[
