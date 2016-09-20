@@ -427,36 +427,60 @@
 			"file": "scripts/local-script.bat",
 			"settings":
 			{
-				"buffer_size": 228,
-				"line_ending": "Windows"
+				"buffer_size": 0,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "scripts/local-script.sh",
 			"settings":
 			{
-				"buffer_size": 231,
-				"line_ending": "Windows"
+				"buffer_size": 0,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "vhdlmakefile.sublime-project",
 			"settings":
 			{
-				"buffer_size": 709,
-				"line_ending": "Windows"
+				"buffer_size": 0,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "vhdlmakefile.sublime-workspace",
 			"settings":
 			{
-				"buffer_size": 25548,
-				"line_ending": "Windows"
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "makefile/xilinx.mk",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "makefile/Makefile",
+			"settings":
+			{
+				"buffer_size": 274,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "makefile/module.mk",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
 			}
 		}
 	],
-	"build_system": "Packages/User/make-remote.sublime-build",
+	"build_system": "make-remote",
 	"command_palette":
 	{
 		"height": 104.0,
@@ -953,6 +977,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"libdir",
 			"/Volumes",
 			"mcs",
 			".ucf",
@@ -1079,8 +1104,7 @@
 			"1",
 			"reloadConfig",
 			"client.",
-			"mqtt",
-			"mqttmessage"
+			"mqtt"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1106,7 +1130,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 5,
 			"sheets":
 			[
 				{
@@ -1114,15 +1138,15 @@
 					"file": "scripts/local-script.bat",
 					"settings":
 					{
-						"buffer_size": 228,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								193,
-								193
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1140,15 +1164,15 @@
 					"file": "scripts/local-script.sh",
 					"settings":
 					{
-						"buffer_size": 231,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10,
-								10
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1160,27 +1184,21 @@
 						"zoom_level": 1.0
 					},
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 1,
-			"sheets":
-			[
+				},
 				{
 					"buffer": 2,
 					"file": "vhdlmakefile.sublime-project",
 					"settings":
 					{
-						"buffer_size": 709,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1,
-								1
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1199,15 +1217,15 @@
 					"file": "vhdlmakefile.sublime-workspace",
 					"settings":
 					{
-						"buffer_size": 25548,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10480,
-								10488
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1216,7 +1234,86 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 22576.0,
+						"translation.y": 9998.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "makefile/xilinx.mk",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 519.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "makefile/Makefile",
+					"settings":
+					{
+						"buffer_size": 274,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								134,
+								134
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Makefile/Makefile.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "makefile/module.mk",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1241,18 +1338,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.525060358965,
 			1.0
 		],
 		"rows":

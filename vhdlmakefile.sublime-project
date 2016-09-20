@@ -1,44 +1,89 @@
 {
-	"folders":
-	[
-		{
-			"path": "."
-		}
-	],
 	"build_systems":
 	[
 		{
+			"cmd":
+			[
+				"sh",
+				"${project_path}/scripts/local-script.sh",
+				"${project_path}",
+				""
+			],
 			"env":
 			{
-				"remote_folder": "git/vhdlmakefile/",
+				"make_host": "ubuntu_vm",
 				"program_host": "arch_vm_local",
-				"make_host": "ubuntu_vm"
+				"remote_folder": "git/vhdlmakefile/",
+				"project_name": "xessdemo"
 			},
-
 			"name": "make-remote",
-			"cmd": ["sh", "${project_path}/scripts/local-script.sh", "${project_path}", ""],
-			"windows":
-			{
-				"cmd": ["${project_path}/scripts/local-script.bat", "${project_path}"]
-			},
-
 			"variants":
 			[
 				{
+					"cmd":
+					[
+						"sh",
+						"${project_path}/scripts/local-script.sh",
+						"${project_path}",
+						"clean"
+					],
 					"name": "Clean",
-					"cmd": ["sh", "${project_path}/scripts/local-script.sh", "${project_path}", "clean"],
-
 					"windows":
 					{
-						"cmd": ["${project_path}/scripts/local-script.bat", "${project_path}", "clean"]
+						"cmd":
+						[
+							"${project_path}/scripts/local-script.bat",
+							"${project_path}",
+							"clean"
+						]
 					}
-					
 				},
 				{
-					"name": "Program",
-					"cmd": ["sh", "${project_path}/scripts/remote-program.sh", "xessdemo.bit"]
+					"cmd":
+					[
+						"sh",
+						"${project_path}/scripts/local-script.sh",
+						"${project_path}",
+						"ngc"
+					],
+					"name": "Compile",
+					"windows":
+					{
+						"cmd":
+						[
+							"${project_path}/scripts/local-script.bat",
+							"${project_path}",
+							"ngc"
+						]
+					}
+				},
+				{
+					"cmd":
+					[
+						"sh",
+						"${project_path}/scripts/remote-program.sh",
+						"bit"
+					],
+					"name": "Program"
 				}
-			]
+			],
+			"windows":
+			{
+				"cmd":
+				[
+					"${project_path}/scripts/local-script.bat",
+					"${project_path}"
+				]
+			}
+		}
+	],
+	"folders":
+	[
+		{
+			"path": "/Volumes/burger/git/vhdlmakefile"
+		},
+		{
+			"path": "/Volumes/burger/git/fpgamiddlewarelibs"
 		}
 	]
 }

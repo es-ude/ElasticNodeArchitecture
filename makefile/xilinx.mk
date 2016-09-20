@@ -90,7 +90,7 @@ junk += *.xrpt
 junk += _xmsgs/* _xmsgs/
 junk += *.html webtalk.log
 
-programming_files: $(project).bit $(project).mcs
+programming_files: $(project).bit $(project).mcs	
 	mkdir -p $@/$(date)
 	mkdir -p $@/latest
 	for x in .bit .mcs .cfi _bd.bmm; do cp $(project)$$x $@/$(date)/$(project)$$x; cp $(project)$$x $@/latest/$(project)$$x; done
@@ -102,12 +102,14 @@ $(project).mcs: $(project).bit
 junk += $(project).mcs $(project).cfi $(project).prm
 
 $(project).bit: $(project)_par.ncd
+	@echo "\nMaking BIT file"
 	$(build_dir) && \
 	bitgen $(intstyle) -g DriveDone:yes -g 	StartupClk:Cclk -w $(project)_par.ncd $(project).bit
-junk += $(project).bgn $(project).bit $(project).drc $(project)_bd.bmm $(project)_bitgen.xwbt
+junk += $(project).bgn $(project).bit $(project).drc $(project)_bd.bmm $(project)_bitgen.xwbt 
 
 
 $(project)_par.ncd: $(project).ncd
+	@echo "\nMaking _par.NCD file"
 	$(build_dir) && \
 	if par $(intstyle) $(par_opts) -w $(project).ncd $(project)_par.ncd; then \
 		:; \
@@ -120,6 +122,7 @@ junk += $(project)_par.grf $(project)_par.ptwx
 junk += $(project)_par.unroutes $(project)_par.xpi
 
 $(project).ncd: $(project).ngd
+	@echo "\nMaking NCD file"
 	$(build_dir) && \
 	if [ -r $(project)_par.ncd ]; then \
 		cp $(project)_par.ncd smartguide.ncd; \
@@ -137,6 +140,7 @@ $(project).ngd: $(project).ngc $(ucffile) $(bmm_file)
 junk += $(project).ngd $(project).bld
 
 $(project).ngc: $(vfiles) $(local_corengcs) $(project).scr $(project).prj
+	@echo "\nMaking NGC file"
 	$(build_dir) && \
 	xst $(intstyle) -ifn $(project).scr
 
@@ -144,13 +148,14 @@ junk += xlnx_auto* $(top_module).lso $(project).srp
 junk += netlist.lst xst $(project).ngc
 
 $(project).prj: $(vfiles) $(mkfiles)
+	@echo "\nMaking PRJ file"
 	for src in $(vfiles); do echo "vhdl work $$src" >> $(project).tmpprj; done
 	sort -u $(project).tmpprj > ../build/$(project).prj
 	rm -f $(project).tmpprj
 junk += $(project).prj
 
 optfile += $(wildcard $(project).opt)
-top_module ?= $(project)
+dtop_module ?= $(project)
 $(project).scr: $(optfile) $(mkfiles) ../makefile/xilinx.opt
 	$(build_dir) && \
 	echo "run" > $@ && \

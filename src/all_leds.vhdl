@@ -36,10 +36,9 @@ port (
 end all_leds;
 
 architecture Behavioral of all_leds is
-
 begin
 
-led0 <= '1';	
+led0 <= '1';
 
 end Behavioral;
 
