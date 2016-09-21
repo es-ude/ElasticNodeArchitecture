@@ -148,6 +148,7 @@ junk += xlnx_auto* $(top_module).lso $(project).srp
 junk += netlist.lst xst $(project).ngc
 
 $(project).prj: $(vfiles) $(mkfiles)
+	@echo "vfiles $(vfiles)"
 	@echo "\nMaking PRJ file"
 	for src in $(vfiles); do echo "vhdl work $$src" >> $(project).tmpprj; done
 	sort -u $(project).tmpprj > ../build/$(project).prj

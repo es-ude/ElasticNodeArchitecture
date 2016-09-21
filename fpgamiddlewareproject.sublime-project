@@ -2,6 +2,7 @@
 	"build_systems":
 	[
 		{
+			"name": "make-fpgamiddlewareproject",
 			"cmd":
 			[
 				"sh",
@@ -13,10 +14,9 @@
 			{
 				"make_host": "ubuntu_vm",
 				"program_host": "arch_vm_local",
-				"remote_folder": "git/vhdlmakefile/",
-				"project_name": "xessdemo"
+				"project_name": "middleware",
+				"remote_path": "git/fpgamiddlewareproject/"
 			},
-			"name": "make-remote",
 			"variants":
 			[
 				{
@@ -61,8 +61,7 @@
 					"cmd":
 					[
 						"sh",
-						"${project_path}/scripts/remote-program.sh",
-						"bit"
+						"${project_path}/scripts/remote-program.sh"
 					],
 					"name": "Program"
 				}
@@ -80,10 +79,10 @@
 	"folders":
 	[
 		{
-			"path": "/Volumes/burger/git/vhdlmakefile"
+			"path": "."
 		},
 		{
-			"path": "/Volumes/burger/git/fpgamiddlewarelibs"
+			"path": "../fpgamiddlewarelibs"
 		}
 	]
 }

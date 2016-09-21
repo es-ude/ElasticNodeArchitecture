@@ -30,7 +30,7 @@ NET "*" IOSTANDARD = LVTTL;
 
 #NET CLK      LOC="P94"  | IOSTANDARD=LVTTL;               										# CLK
 #TIMESPEC TS_Period_1 = PERIOD "CLK" 31.25 ns HIGH 50%;
-#NET CLK      LOC="P94"  | IOSTANDARD=LVTTL | PERIOD=31.25 ns | CLOCK_DEDICATED_ROUTE = FALSE;
+NET CLK      LOC="P94"  | IOSTANDARD=LVTTL | PERIOD=31.25 ns | CLOCK_DEDICATED_ROUTE = FALSE;
 #NET TXD       LOC="P141" | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=FAST;          										# TX
 #NET RXD       LOC="P46" | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=FAST; 	    											# RX
 
@@ -87,7 +87,7 @@ NET "*" IOSTANDARD = LVTTL;
 #NET Arduino_41     LOC="P66"  | IOSTANDARD=LVTTL ;                            
 #NET Arduino_43     LOC="P61"  | IOSTANDARD=LVTTL ;                             
 #NET Arduino_45     LOC="P58"  | IOSTANDARD=LVTTL ;                               
-#NET Arduino_47     LOC="P56"  | IOSTANDARD=LVTTL ;                              
+NET Arduino_47     LOC="P56"  | IOSTANDARD=LVTTL ;                              
 #NET Arduino_49     LOC="P51"  | IOSTANDARD=LVTTL ;                             
 #NET Arduino_51     LOC="P48"  | IOSTANDARD=LVTTL ;                           
 #NET Arduino_53     LOC="P39"  | IOSTANDARD=LVTTL ;    
