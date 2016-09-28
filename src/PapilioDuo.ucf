@@ -40,8 +40,8 @@ NET CLK      LOC="P94"  | IOSTANDARD=LVTTL | PERIOD=31.25 ns | CLOCK_DEDICATED_R
 #NET Arduino_3          LOC="P119" | IOSTANDARD=LVTTL;                                # A3
 #NET Arduino_4          LOC="P120" | IOSTANDARD=LVTTL;                                # A4
 #NET Arduino_5          LOC="P121" | IOSTANDARD=LVTTL;                                # A5
-#NET Arduino_6          LOC="P123" | IOSTANDARD=LVTTL;                                # A6
-#NET Arduino_7          LOC="P124" | IOSTANDARD=LVTTL;                                # A7
+NET Arduino_6          LOC="P123" | IOSTANDARD=LVTTL;                                # A6
+NET Arduino_7          LOC="P124" | IOSTANDARD=LVTTL;                                # A7
 #NET Arduino_8          LOC="P126" | IOSTANDARD=LVTTL;                                # A8
 #NET Arduino_9          LOC="P127" | IOSTANDARD=LVTTL;                                # A9
 #NET Arduino_10         LOC="P131" | IOSTANDARD=LVTTL;                                # A10

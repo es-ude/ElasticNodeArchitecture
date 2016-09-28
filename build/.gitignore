@@ -2,8 +2,8 @@ programming_files
 ./coregen-tmp
 middleware.ngc_xst.xrpt
 middleware_ngdbuild.xrpt
-top_map.xrpt
-top_par.xrpt
+papilioDuoMiddleware_map.xrpt
+papilioDuoMiddleware_par.xrpt
 _xmsgs/bitgen.xmsgs
 _xmsgs/map.xmsgs
 _xmsgs/ngdbuild.xmsgs
@@ -43,7 +43,7 @@ xilinx_device_details.xml
 middleware.ngd
 middleware.bld
 xlnx_auto_0_xdb
-top.lso
+papilioDuoMiddleware.lso
 middleware.srp
 netlist.lst
 xst

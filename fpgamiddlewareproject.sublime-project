@@ -13,9 +13,9 @@
 			"env":
 			{
 				"make_host": "ubuntu_vm",
-				"program_host": "arch_vm_local",
+				"program_host": "arch_pi",
 				"project_name": "middleware",
-				"remote_path": "git/fpgamiddlewareproject/"
+				"remote_path": "/ES-Homes/burger/git/fpgamiddlewareproject/"
 			},
 			"variants":
 			[
@@ -61,10 +61,34 @@
 					"cmd":
 					[
 						"sh",
-						"${project_path}/scripts/remote-program.sh"
+						"${project_path}/scripts/remote-program.sh", "${project_path}"
 					],
 					"name": "Program"
+				},
+				{
+					"cmd":
+					[
+						// "python",
+						// "${project_path}/scripts/serial_interface.py"
+						"/usr/bin/python2.7", "${project_path}/scripts/serial_interface.py"
+					],
+					"name": "Serial"
+				},
+				{
+					"cmd":
+					[
+						"sh", "-c", "rm -r ${project_path}/doxy; cd ${project_path} && doxygen Doxyfile"
+					],
+					"name": "Doxygen"
+				},
+				{
+					"cmd":
+					[
+						"rm", "-r", "${project_path}/doxy"
+					],
+					"name": "Clean Doxygen"
 				}
+
 			],
 			"windows":
 			{
