@@ -5,7 +5,7 @@ part = xc6slx9-tqg144-2
 top_module = papilioDuoMiddleware
 
 libdir = ../../fpgamiddlewarelibs
-libs = IcapInterface CommunicationInterface
+libs = IcapInterface UartInterface SpiInterface
 vfiles = $(wildcard ../src/*.vhdl) $(wildcard ../src/*.vhd)
 ucffile = ../src/PapilioDuo.ucf
 bmm_file = ../src/xessdemo.bmm
