@@ -45,18 +45,18 @@ NET Arduino_7          LOC="P124" | IOSTANDARD=LVTTL;                           
 #NET Arduino_8          LOC="P126" | IOSTANDARD=LVTTL;                                # A8
 #NET Arduino_9          LOC="P127" | IOSTANDARD=LVTTL;                                # A9
 #NET Arduino_10         LOC="P131" | IOSTANDARD=LVTTL;                                # A10
-#NET Arduino_11         LOC="P132" | IOSTANDARD=LVTTL;                                # A11
+NET Arduino_11         LOC="P132" | IOSTANDARD=LVTTL;                                # A11
 #NET Arduino_12         LOC="P133" | IOSTANDARD=LVTTL;                                # A12
-#NET Arduino_13         LOC="P134" | IOSTANDARD=LVTTL;                                # A13
+NET Arduino_13         LOC="P134" | IOSTANDARD=LVTTL;                                # A13
 #
 #NET Arduino_14          LOC="P115" | IOSTANDARD=LVTTL;                                # B0
 #NET Arduino_15          LOC="P114" | IOSTANDARD=LVTTL;                                # B1
 #NET Arduino_16          LOC="P112" | IOSTANDARD=LVTTL;                                # B2
 #NET Arduino_17          LOC="P111" | IOSTANDARD=LVTTL;                                # B3
-#NET Arduino_18          LOC="P105" | IOSTANDARD=LVTTL;                                # B4
-#NET Arduino_19          LOC="P102" | IOSTANDARD=LVTTL;                                # B5
-#NET Arduino_20          LOC="P101" | IOSTANDARD=LVTTL;                                # B6
-#NET Arduino_21          LOC="P100" | IOSTANDARD=LVTTL;                                # B7                        
+NET Arduino_18          LOC="P105" | IOSTANDARD=LVTTL;                                # B4
+NET Arduino_19          LOC="P102" | IOSTANDARD=LVTTL;                                # B5
+NET Arduino_20          LOC="P101" | IOSTANDARD=LVTTL;                                # B6
+NET Arduino_21          LOC="P100" | IOSTANDARD=LVTTL;                                # B7                        
 #
 #NET Arduino_22          LOC="P99"  | IOSTANDARD=LVTTL;                                # C0
 #NET Arduino_24          LOC="P97"  | IOSTANDARD=LVTTL;                                # C1
@@ -131,10 +131,10 @@ NET Arduino_47     LOC="P56"  | IOSTANDARD=LVTTL ;
 #NET "sram_we" LOC = "P6" | IOSTANDARD=LVTTL | SLEW=FAST ;
 #NET "sram_oe" LOC = "P26" | IOSTANDARD=LVTTL | SLEW=FAST;                               
 #
-#NET SPI_CS      LOC="P38"   | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=FAST;          # FLASH_CS   OK
-#NET SPI_SCK     LOC="P70"  | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=FAST;          # FLASH_CK   OK
-#NET SPI_MOSI    LOC="P64"  | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=FAST;          # FLASH_SI   OK
-#NET SPI_MISO    LOC="P65"  | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=FAST;		 # FLASH_SO   OK
+NET SPI_CS      LOC="P38"   | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=FAST;          # FLASH_CS   OK
+NET SPI_SCK     LOC="P70"  | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=FAST;          # FLASH_CK   OK
+NET SPI_MOSI    LOC="P64"  | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=FAST;          # FLASH_SI   OK
+NET SPI_MISO    LOC="P65"  | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=FAST;		 # FLASH_SO   OK
 #
 ##Dragon MPSSE
 #NET BD0_MPSSE_TCK LOC="P46" | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=SLOW;
@@ -175,6 +175,6 @@ NET Arduino_47     LOC="P56"  | IOSTANDARD=LVTTL ;
 #NET DRAGON_JTAG_GND2		LOC="P58" | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=SLOW;
 
 #Dragon Misc
-#NET user_reset		LOC="P104" | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=SLOW;
+NET user_reset		LOC="P104" | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=SLOW;
 #NET ARD_RESET 	LOC="P139" | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=SLOW; # ARD_RESET
-NET led0					LOC="P134" | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=SLOW;
+#NET led0					LOC="P134" | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=SLOW;

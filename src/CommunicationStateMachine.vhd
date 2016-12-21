@@ -37,10 +37,12 @@ entity CommunicationStateMachine is
 		data_in		: in std_logic_vector(7 downto 0);	-- data from controller
 		data_in_rdy	: in std_logic;							-- new data avail to receive
 		data_out		: out std_logic_vector(7 downto 0);	-- data to be sent 
-		data_out_rdy: out std_logic;							-- new data avail to send
+		data_out_rdy: out std_logic := '0';					-- new data avail to send
 		data_out_done: in std_logic;							-- data send complete
 		
 		spi_en		: out std_logic := '0';					-- activate sending to spi
+		spi_continue: out std_logic := '0';					-- keep spi alive to keep reading/writing
+		spi_busy 	: in std_logic;
 		uart_en		: out std_logic := '0';					-- activate sending to uart
 		icap_en		: out std_logic := '0';
 		multiboot	: out std_logic_vector(23 downto 0);-- for outputting new address to icap
@@ -62,9 +64,17 @@ constant SLEEP_FPGA						: std_logic_vector(7 downto 0) := x"08"; --! header
 constant WAKE_FPGA						: std_logic_vector(7 downto 0) := x"09"; --! header
 
 -- receiving fsm
-type receive_state is (idle, receiving_flash_request_address, receiving_flash_request_size, sending_flash_request, send_flash_response, receiving_next_config, send_icap_multiboot);
+type receive_state is (
+	idle, 									-- 0
+	receiving_flash_request_address, -- 1
+	receiving_flash_request_size,    -- 2
+	sending_flash_request, 				-- 3
+	send_flash_response, 				-- 4
+	receiving_next_config, 				-- 5
+	send_icap_multiboot					-- 6
+	);
 signal current_receive_state: receive_state := idle;
-signal state_count 			: integer range 0 to 5; --! count how many times this state has happened
+signal state_count 			: integer range 0 to 16; --! count how many times this state has happened
 
 signal byte_count				: integer range 0 to 10 := 0;
 
@@ -79,7 +89,7 @@ begin
 	
 	
 	--! React to availability of new byte incoming
-	process (clk, data_in_rdy)
+	process (clk, data_in_rdy, reset, current_receive_state)
 	begin
 		if reset = '1' then 
 			current_receive_state <= idle;
@@ -147,7 +157,7 @@ begin
 				when sending_flash_request =>
 					case state_count is
 
-						when 0 =>
+						when 0 => -- send 9f
 							-- assert cs low and connect spi data registers
 							spi_en <= '1';
 							
@@ -156,26 +166,46 @@ begin
 							data_out_rdy <= '1';
 							
 							state_count <= state_count + 1;
-						when 1 =>
-							-- wait for data to be done sending
+						when 1 => 
+							-- wait for data to be start sending
 							data_out_rdy <= '0';
-							if data_out_done = '1' then -- currently connected to spi di_req_o
+							spi_en <= '0';
+							spi_continue <= '1'; -- make spi interface continue to receive
+							-- TODO: data_out_busy
+							if spi_busy = '1' then -- currently connected to spi di_req_o
 								state_count <= state_count + 1; --! only incremented at end of process
 							end if;
-						when 2 =>
+						when 2 => 
+							-- wait for data to be done sending
+							if spi_busy = '0' then -- currently connected to spi di_req_o
+								state_count <= state_count + 1; --! only incremented at end of process
+							end if;
+						when 3 => -- receive first
+							spi_continue <= '0';
 							-- now wait for incoming data 1
 							if data_in_rdy = '1' then
 								flash_man <= data_in;
 								state_count <= state_count + 1;
+								spi_continue <= '0';
 							end if;
-						when 3 =>
-							-- now wait for incoming data 1
+						when 4 =>
+							-- wait for previous to end
+							if data_in_rdy = '0' then
+								state_count <= state_count + 1;
+							end if;
+						when 5 =>
+							-- now wait for incoming data 2
 							if data_in_rdy = '1' then
 								flash_dev(15 downto 8) <= data_in;
 								state_count <= state_count + 1;
 							end if;
-						when 4 =>
-							-- now wait for incoming data 1
+						when 6 =>
+							-- wait for previous to end
+							if data_in_rdy = '0' then
+								state_count <= state_count + 1;
+							end if;
+						when 7 =>
+							-- now wait for incoming data 3
 							if data_in_rdy = '1' then
 								flash_dev(7 downto 0) <= data_in;
 								current_receive_state <= send_flash_response;

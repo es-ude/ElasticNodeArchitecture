@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/ES/burger/git/fpgamiddlewareproject/TestVectorDotproduct_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="numeric_std" />
+            <top_module name="std_logic_1164" />
+            <top_module name="testvectordotproduct" />
+            <top_module name="userlogicinterface" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="14" />
+   <wvobject fp_name="/testvectordotproduct/clock" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clock</obj_property>
+      <obj_property name="ObjectShortName">clock</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testvectordotproduct/enable" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">enable</obj_property>
+      <obj_property name="ObjectShortName">enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testvectordotproduct/run" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">run</obj_property>
+      <obj_property name="ObjectShortName">run</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testvectordotproduct/uut/ready" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ready</obj_property>
+      <obj_property name="ObjectShortName">ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testvectordotproduct/data_out_rdy" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">data_out_rdy</obj_property>
+      <obj_property name="ObjectShortName">data_out_rdy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testvectordotproduct/data_in_rdy" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">data_in_rdy</obj_property>
+      <obj_property name="ObjectShortName">data_in_rdy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testvectordotproduct/data_in" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_in[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_in[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testvectordotproduct/data_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_out[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testvectordotproduct/sim_busy" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">sim_busy</obj_property>
+      <obj_property name="ObjectShortName">sim_busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider10" type="divider">
+      <obj_property name="label">internal</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testvectordotproduct/uut/vector_width" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">vector_width[31:0]</obj_property>
+      <obj_property name="ObjectShortName">vector_width[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testvectordotproduct/uut/intermediate_result" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">intermediate_result[31:0]</obj_property>
+      <obj_property name="ObjectShortName">intermediate_result[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testvectordotproduct/uut/current_receive_state" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">current_receive_state</obj_property>
+      <obj_property name="ObjectShortName">current_receive_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testvectordotproduct/uut/current_dimension" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">current_dimension[31:0]</obj_property>
+      <obj_property name="ObjectShortName">current_dimension[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+</wave_config>

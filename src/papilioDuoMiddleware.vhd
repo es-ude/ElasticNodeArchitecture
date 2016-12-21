@@ -1,14 +1,18 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
+library work;
 --!
 --! @brief      Wrapping class for the Papilio DUO
 --!
 entity papilioDuoMiddleware is
 	port 
 	(
-		LED0 		: out std_ulogic;	--! Pin D13 (connected to onboard LED)
-		CLK 		: in std_ulogic;	--! PLL clock signal @ 32 MHz
+		user_reset	: in std_logic; -- SW1
+	
+		arduino_13 	: out std_ulogic;	--! Pin D13 (connected to onboard LED)
+		arduino_11	: out std_logic;
+		CLK 			: in std_ulogic;	--! PLL clock signal @ 32 MHz
 
 		--! SPI
 		arduino_0	: out std_logic;
@@ -20,7 +24,19 @@ entity papilioDuoMiddleware is
 		arduino_5	: in std_logic;
 		arduino_6	: in std_logic;
 		arduino_7	: out std_logic;
-		arduino_47 	: in std_logic		--! Pin D47,
+
+		arduino_18	: out std_logic;
+		arduino_19	: out std_logic;
+		arduino_20	: out std_logic;
+		arduino_21	: out std_logic;
+
+		arduino_47 	: in std_logic;		--! Pin D47,
+		
+		-- flash access
+		spi_cs		: out std_logic;
+		spi_sck		: out std_logic;
+		spi_miso		: in std_logic;
+		spi_mosi		: out std_logic
 	);
 end entity;
 
@@ -30,30 +46,38 @@ architecture arch of papilioDuoMiddleware is
 --! @brief      Wrapping class that allows instantiation of the 
 --! 			middleware component on the Papilio DUO hardware
 --!
-component middleware is
-	port (
-		status_out		: out std_ulogic; 	--! Output to indicate activity
-
-		config_sleep	: out std_logic; 	--! Configuration control to cause sleep for energy saving
-		task_complete	: in std_logic;		--! Feedback from configuration about task completion
-		
-		spi_cs		: out std_logic;
-		spi_clk		: out std_logic;
-		spi_mosi	: out std_logic;
-		spi_miso	: in std_logic;
-
-
-		clk 			: in std_ulogic;	--! Clock 32 MHz
-		rx				: in std_logic;
-		tx 				: out std_logic;
-		button			: in std_logic
-	);
-end component;
 
 begin
 
-middle: middleware 
-	port map(status_out => LED0, config_sleep => Arduino_4, task_complete => Arduino_5, spi_cs => Arduino_0, spi_clk => Arduino_1, spi_mosi => arduino_2, spi_miso => arduino_3, clk => CLK, rx => Arduino_6, tx => Arduino_7, button => Arduino_47);
+middle: entity work.middleware(Behavioral)
+	port map(
+		spi_en => arduino_13, 
+		uart_en => Arduino_11,
+		
+		config_sleep => Arduino_4, 
+		task_complete => Arduino_5, 
+		
+		spi_switch => user_reset,
+		flash_cs => spi_cs, 
+		flash_sck => spi_sck, 
+		flash_mosi => spi_mosi, 
+		flash_miso => spi_miso, 
+				
+		ext_cs => Arduino_0, 
+		ext_sck => Arduino_1, 
+		ext_mosi => arduino_2, 
+		ext_miso => arduino_3, 
+		
+		state_leds(3) => arduino_21,
+		state_leds(2) => arduino_20,
+		state_leds(1) => arduino_19,
+		state_leds(0) => arduino_18,
+		
+		clk => CLK, 
+		rx => Arduino_6, 
+		tx => Arduino_7, 
+		button => Arduino_47
+	);
 
 
 end architecture;
