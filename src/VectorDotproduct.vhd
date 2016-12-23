@@ -41,10 +41,11 @@ entity VectorDotproduct is
 		enable			: in std_logic; -- controls functionality (sleep)
 		-- run				: in std_logic; -- indicates the beginning and end
 		ready 			: out std_logic; -- new transmission may begin
-		-- done 				: out std_logic; -- done with entire calculation
+		done 				: out std_logic; -- done with entire calculation
 		
 		-- data control interface
 		data_out_rdy	: out std_logic;
+		data_out_done	: in std_logic;
 		data_in_rdy		: in std_logic;
 		
 		-- data interface
@@ -55,16 +56,16 @@ end VectorDotproduct;
 
 architecture Behavioral of VectorDotproduct is
 	-- signal inputA, inputB : unsigned(31 downto 0);
-	signal intermediate_result : unsigned(31 downto 0);
-
 	type receive_state is (idle, receiveN, receiveA, receiveB, receiveDone);
 	signal current_receive_state : receive_state := idle;
+	signal intermediate_result_out : unsigned(31 downto 0);
 begin
 
 	-- process data receive 
 	process (clock, enable, data_in_rdy, current_receive_state)
 		variable inputA, inputB : unsigned(15 downto 0);
 		variable vector_width, current_dimension : unsigned(31 downto 0);
+		variable intermediate_result : unsigned(31 downto 0);
 	begin
 		if enable = '1' then
 			-- beginning/end
@@ -76,9 +77,17 @@ begin
 						current_dimension := (others => '0');
 						data_out_rdy <= '0';
 						data_out <= (others => '0');
+						intermediate_result := (others => '0');
+						done <= '0';
+--					elsif current_receive_state = receiveDone then
+--						if data_out_done = '1' then
+--							current_receive_state <= headerDone;
+--						end if;
 					elsif current_receive_state = receiveDone then
 						data_out_rdy <= '0';
-						current_receive_state <= idle;
+						if data_out_done = '1' then
+							current_receive_state <= idle;
+						end if;
 						
 					-- respond to incoming data
 					elsif data_in_rdy = '1' then
@@ -87,18 +96,19 @@ begin
 								vector_width := unsigned(data_in);
 								-- reset important counters
 								current_receive_state <= receiveA;
-								intermediate_result <= (others => '0');
+								intermediate_result := (others => '0');
 							when receiveA =>
 								inputA := unsigned(data_in(15 downto 0));
 								current_receive_state <= receiveB;
 								current_dimension := current_dimension + 1;
 							when receiveB =>
 								inputB := unsigned(data_in(15 downto 0));
-								intermediate_result <= intermediate_result + inputA * inputB;
+								intermediate_result := intermediate_result + inputA * inputB;
 								
 								-- receive another dimension or return
 								if current_dimension = vector_width then
 									current_receive_state <= receiveDone; -- display output
+									done <= '1';
 									data_out_rdy <= '1';
 									data_out <= std_logic_vector(intermediate_result);
 								else
@@ -111,14 +121,16 @@ begin
 								
 					end if;
 				-- end if;
-			else
-				data_out_rdy <= '0';
-				data_out <= (others => '0');
 			end if;
+		else
+			data_out_rdy <= '0';
+			data_out <= (others => '0');
+			done <= '0';
 		end if;
+		intermediate_result_out <= intermediate_result;
 	end process;
 	
 	ready <= '1' when enable = '1' and current_receive_state = receiveN else '0';
-
+	
 end Behavioral;
 

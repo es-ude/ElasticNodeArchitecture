@@ -80,6 +80,7 @@ signal spi_miso			: std_logic;
 begin
 	--! Communication interface initialisation
 	uart : entity fpgamiddlewarelibs.uartInterface(arch)
+		generic map ( 278 )
 		port map (
 			rx_data => uart_data_out, --! 8-bit data received
 			rx_rdy => uart_data_out_rdy,	--! received data ready
