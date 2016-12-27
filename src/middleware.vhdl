@@ -20,20 +20,23 @@ entity middleware is
 		config_sleep	: out std_logic := '0'; 	--! Configuration control to cause sleep for energy saving
 		task_complete	: in std_logic;		--! Feedback from configuration about task completion
 		
-		spi_switch	: in std_logic;
-		flash_cs		: out std_logic;
-		flash_sck	: out std_logic;
-		flash_mosi	: out std_logic;
-		flash_miso	: in std_logic;
-
-		ext_cs		: out std_logic;
-		ext_sck		: out std_logic;
-		ext_mosi		: out std_logic;
-		ext_miso		: in std_logic;
+		userlogic_rdy	: out std_logic;
+		userlogic_done	: out std_logic;
+		
+--		spi_switch	: in std_logic;
+--		flash_cs		: out std_logic;
+--		flash_sck	: out std_logic;
+--		flash_mosi	: out std_logic;
+--		flash_miso	: in std_logic;
+--
+--		ext_cs		: out std_logic;
+--		ext_sck		: out std_logic;
+--		ext_mosi		: out std_logic;
+--		ext_miso		: in std_logic;
 
 		state_leds	: out std_logic_vector(3 downto 0);
 		
-		spi_en		: out std_logic;
+		-- spi_en		: out std_logic;
 		uart_en		: out std_logic;
 	
 		clk 			: in std_ulogic;	--! Clock 32 MHz
@@ -50,11 +53,19 @@ signal clk_icap 				: std_logic := '0';
 signal icap_en					: std_logic := '0';
 signal multiboot_address	: std_logic_vector(23 downto 0);
 
-signal incoming_data	 		: std_logic_vector(7 downto 0);
-signal outgoing_data			: std_logic_vector(7 downto 0);
-signal incoming_data_rdy	: std_logic;
-signal outgoing_data_rdy	: std_logic := '0';
-signal outgoing_data_done 	: std_logic := '0';
+-- 8 bit interface
+signal incoming_data	 			: std_logic_vector(7 downto 0);
+signal outgoing_data				: std_logic_vector(7 downto 0);
+signal incoming_data_rdy		: std_logic;
+signal outgoing_data_rdy		: std_logic := '0';
+signal outgoing_data_done 		: std_logic := '0';
+-- 32 bit data interface
+signal incoming_data_32			: std_logic_vector(31 downto 0);
+signal incoming_data_32_rdy	: std_logic;
+signal incoming_data_32_done	: std_logic;
+signal outgoing_data_32			: std_logic_vector(31 downto 0);
+signal outgoing_data_32_rdy	: std_logic := '0';
+signal outgoing_data_32_done	: std_logic := '0';
 
 -- uart variables
 signal uart_en_s					: std_logic := '0';
@@ -64,19 +75,27 @@ signal uart_data_out				: std_logic_vector(7 downto 0);
 signal uart_data_out_rdy		: std_logic := '0';
 signal uart_data_in_done		: std_logic;
 
--- spi variables
-signal spi_en_s		 	: std_logic := '0'; -- general enable to allow sending data
-signal spi_data_in_rdy	: std_logic := '0'; -- stretched strobe to send a byte 
-signal spi_strobe	: std_logic := '0'; -- a byte is available, toggle to show activity
-signal spi_data_in 		: std_logic_vector(7 downto 0);
-signal spi_data_out 		: std_logic_vector(7 downto 0);
-signal spi_data_out_rdy : std_logic := '0';
-signal spi_data_in_done	: std_logic;
-signal spi_cs				: std_logic;
-signal spi_sck				: std_logic;
-signal spi_mosi			: std_logic;
-signal spi_miso			: std_logic; 
- 
+---- spi variables
+--signal spi_en_s		 	: std_logic := '0'; -- general enable to allow sending data
+--signal spi_data_in_rdy	: std_logic := '0'; -- stretched strobe to send a byte 
+--signal spi_strobe	: std_logic := '0'; -- a byte is available, toggle to show activity
+--signal spi_data_in 		: std_logic_vector(7 downto 0);
+--signal spi_data_out 		: std_logic_vector(7 downto 0);
+--signal spi_data_out_rdy : std_logic := '0';
+--signal spi_data_in_done	: std_logic;
+--signal spi_cs				: std_logic;
+--signal spi_sck				: std_logic;
+--signal spi_mosi			: std_logic;
+--signal spi_miso			: std_logic; 
+
+-- userlogic variables
+signal userlogic_en				: std_logic;
+signal userlogic_done_s			: std_logic;
+signal userlogic_rdy_s			: std_logic;
+signal userlogic_data_in_rdy	: std_logic;
+signal userlogic_data_out_rdy	: std_logic;
+signal userlogic_data_out_done: std_logic;
+
 begin
 	--! Communication interface initialisation
 	uart : entity fpgamiddlewarelibs.uartInterface(arch)
@@ -118,58 +137,81 @@ begin
 			data_out => outgoing_data,
 			data_out_rdy => outgoing_data_rdy,
 			data_out_done => outgoing_data_done,
+			data_in_32 => incoming_data_32,
+			data_in_32_rdy => incoming_data_32_rdy,
+			data_in_32_done => incoming_data_32_done,
+			data_out_32 => outgoing_data_32,
+			data_out_32_rdy => outgoing_data_32_rdy,
 			
-			spi_en => spi_en_s,
+			-- spi_en => spi_en_s,
 			uart_en => uart_en_s,
 			icap_en => icap_en,
 			multiboot => multiboot_address,
 			fpga_sleep => config_sleep,
+			userlogic_en => userlogic_en,
+			userlogic_done => userlogic_done_s,
 			
 			--debug
 			ready => open,
 			current_state => state_leds
 		);
-	incoming_data <= spi_data_out when spi_en_s = '1' else uart_data_out;
-	incoming_data_rdy <= spi_data_out_rdy when spi_en_s = '1' else uart_data_out_rdy;
-	outgoing_data_done <= spi_data_in_done when spi_en_s = '1' else uart_data_in_done;
+	incoming_data <= uart_data_out;
+	incoming_data_rdy <= uart_data_out_rdy;
+	outgoing_data_done <= uart_data_in_done;
+--	incoming_data <= spi_data_out when spi_en_s = '1' else uart_data_out;
+--	incoming_data_rdy <= spi_data_out_rdy when spi_en_s = '1' else uart_data_out_rdy;
+--	outgoing_data_done <= spi_data_in_done when spi_en_s = '1' else uart_data_in_done;
 
 	ic : entity fpgamiddlewarelibs.icapInterface(Behavioral)
 		generic map (goldenboot_address => (others => '0')) 
 		port map (clk => clk, enable => icap_en, status_running => open, multiboot_address => multiboot_address);
 
-	--! SPI communication interface
-	spi: entity fpgamiddlewarelibs.spiInterface(arch)
-		generic map (
-			prescaler => 4000000
-		)
-		port map(
-		enable => spi_en_s,
-		data_in => spi_data_in, -- data to be sent 
-		data_out => spi_data_out, -- data received
-		data_i_rdy => spi_data_in_rdy,
-		data_i_req => spi_data_in_done,
-		data_o_rdy => spi_data_out_rdy,
-		clk => clk,
+	-- initialise user logic
+	ul: entity work.VectorDotproduct(Behavioral) port map
+		(
+			clk, '1', userlogic_rdy_s, userlogic_done_s, userlogic_data_out_rdy, userlogic_data_out_done, userlogic_data_in_rdy, outgoing_data_32, incoming_data_32
+		);
+	userlogic_data_in_rdy <= outgoing_data_32_rdy and userlogic_en;
+	-- userlogic_data_in <= outgoing_data_32;
+	-- incoming_data_32 <= userlogic_data_out;
+	incoming_data_32_rdy <= userlogic_data_out_rdy;
+	userlogic_data_out_done <= incoming_data_32_done;
+	userlogic_rdy <= userlogic_rdy_s;
+	userlogic_done <= userlogic_done_s;
 
-		--! SPI physical interfaces 
-		spi_cs => spi_cs,
-		spi_clk => spi_sck,
-		spi_mosi => spi_mosi,
-		spi_miso => spi_miso
-	);
-	
-	spi_data_in <= outgoing_data;
-	spi_data_in_rdy <= outgoing_data_rdy and spi_en_s;
-	spi_en <= spi_en_s;
-
-	-- both spi outputs synced
-	ext_sck <= spi_sck;
-	flash_sck <= spi_sck;
-	ext_mosi <= spi_mosi;
-	flash_mosi <= spi_mosi;
-	-- select spi based on switch
-	ext_cs <= spi_cs 				when spi_switch = '1' else '1'; -- active low
-	flash_cs <= spi_cs 			when spi_switch = '0' else '1';
-	spi_miso <= ext_miso 		when spi_switch = '1' else flash_miso;
+--	--! SPI communication interface
+--	spi: entity fpgamiddlewarelibs.spiInterface(arch)
+--		generic map (
+--			prescaler => 4000000
+--		)
+--		port map(
+--		enable => spi_en_s,
+--		data_in => spi_data_in, -- data to be sent 
+--		data_out => spi_data_out, -- data received
+--		data_i_rdy => spi_data_in_rdy,
+--		data_i_req => spi_data_in_done,
+--		data_o_rdy => spi_data_out_rdy,
+--		clk => clk,
+--
+--		--! SPI physical interfaces 
+--		spi_cs => spi_cs,
+--		spi_clk => spi_sck,
+--		spi_mosi => spi_mosi,
+--		spi_miso => spi_miso
+--	);
+--	
+--	spi_data_in <= outgoing_data;
+--	spi_data_in_rdy <= outgoing_data_rdy and spi_en_s;
+--	spi_en <= spi_en_s;
+--
+--	-- both spi outputs synced
+--	ext_sck <= spi_sck;
+--	flash_sck <= spi_sck;
+--	ext_mosi <= spi_mosi;
+--	flash_mosi <= spi_mosi;
+--	-- select spi based on switch
+--	ext_cs <= spi_cs 				when spi_switch = '1' else '1'; -- active low
+--	flash_cs <= spi_cs 			when spi_switch = '0' else '1';
+--	spi_miso <= ext_miso 		when spi_switch = '1' else flash_miso;
 	
 end Behavioral;

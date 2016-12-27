@@ -269,10 +269,28 @@ BEGIN
    stim_proc: process
    begin		
       -- hold reset state for 100 ns.
-		reset <= '1';
-      wait for 100 ns;	
+		--reset <= '1';
+      -- wait for 100 ns;	
 		reset <= '0';
 	
+		wait for uart_byte_time * 2;
+
+		-- sleep fpga
+		wait for uart_byte_time;
+		data_in <= x"08"; 			-- sleep command
+		data_in_rdy <= '1';
+		wait for clk_period;
+		data_in_rdy <= '0';
+		
+		wait for uart_byte_time * 2;
+
+		-- wake fpga
+		wait for uart_byte_time;
+		data_in <= x"09"; 			-- wake command
+		data_in_rdy <= '1';
+		wait for clk_period;
+		data_in_rdy <= '0';
+
 		wait for clk_period*10;
 		
 		-- write ram data

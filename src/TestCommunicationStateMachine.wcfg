@@ -13,7 +13,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="23" />
+   <WVObjectSize size="24" />
    <wvobject fp_name="/testcommunicationstatemachine/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -50,6 +50,10 @@
          <obj_property name="ElementShortName">data_out_done</obj_property>
          <obj_property name="ObjectShortName">data_out_done</obj_property>
          <obj_property name="label">data_out_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testcommunicationstatemachine/uut/data_out_done_toggle" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">data_out_done_toggle</obj_property>
+         <obj_property name="ObjectShortName">data_out_done_toggle</obj_property>
       </wvobject>
       <wvobject fp_name="/testcommunicationstatemachine/uut/data_in_32" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">data_in_32[31:0]</obj_property>
@@ -144,6 +148,10 @@
    <wvobject fp_name="/testcommunicationstatemachine/uut/current_sending_state" type="other" db_ref_id="1">
       <obj_property name="ElementShortName">current_sending_state</obj_property>
       <obj_property name="ObjectShortName">current_sending_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testcommunicationstatemachine/uut/current_byte" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">current_byte</obj_property>
+      <obj_property name="ObjectShortName">current_byte</obj_property>
    </wvobject>
    <wvobject fp_name="/testcommunicationstatemachine/uut/state_count" type="other" db_ref_id="1">
       <obj_property name="DisplayName">label</obj_property>

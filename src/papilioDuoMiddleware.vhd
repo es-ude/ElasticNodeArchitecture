@@ -15,28 +15,31 @@ entity papilioDuoMiddleware is
 		CLK 			: in std_ulogic;	--! PLL clock signal @ 32 MHz
 
 		--! SPI
-		arduino_0	: out std_logic;
-		arduino_1	: out std_logic;
-		arduino_2	: out std_logic;
-		arduino_3	: in std_logic;
+--		arduino_0	: out std_logic;
+--		arduino_1	: out std_logic;
+--		arduino_2	: out std_logic;
+--		arduino_3	: in std_logic;
 
 		arduino_4	: out std_logic;
 		arduino_5	: in std_logic;
 		arduino_6	: in std_logic;
 		arduino_7	: out std_logic;
 
+		arduino_16	: out std_logic;
+		arduino_17	: out std_logic;
+
 		arduino_18	: out std_logic;
 		arduino_19	: out std_logic;
 		arduino_20	: out std_logic;
 		arduino_21	: out std_logic;
 
-		arduino_47 	: in std_logic;		--! Pin D47,
+		arduino_47 	: in std_logic--;		--! Pin D47,
 		
 		-- flash access
-		spi_cs		: out std_logic;
-		spi_sck		: out std_logic;
-		spi_miso		: in std_logic;
-		spi_mosi		: out std_logic
+--		spi_cs		: out std_logic;
+--		spi_sck		: out std_logic;
+--		spi_miso		: in std_logic;
+--		spi_mosi		: out std_logic
 	);
 end entity;
 
@@ -51,22 +54,25 @@ begin
 
 middle: entity work.middleware(Behavioral)
 	port map(
-		spi_en => arduino_13, 
+		-- spi_en => arduino_13, 
 		uart_en => Arduino_11,
 		
 		config_sleep => Arduino_4, 
 		task_complete => Arduino_5, 
 		
-		spi_switch => user_reset,
-		flash_cs => spi_cs, 
-		flash_sck => spi_sck, 
-		flash_mosi => spi_mosi, 
-		flash_miso => spi_miso, 
-				
-		ext_cs => Arduino_0, 
-		ext_sck => Arduino_1, 
-		ext_mosi => arduino_2, 
-		ext_miso => arduino_3, 
+		userlogic_rdy => Arduino_17,
+		userlogic_done	=> Arduino_16,
+
+--		spi_switch => user_reset,
+--		flash_cs => spi_cs, 
+--		flash_sck => spi_sck, 
+--		flash_mosi => spi_mosi, 
+--		flash_miso => spi_miso, 
+--				
+--		ext_cs => Arduino_0, 
+--		ext_sck => Arduino_1, 
+--		ext_mosi => arduino_2, 
+--		ext_miso => arduino_3, 
 		
 		state_leds(3) => arduino_21,
 		state_leds(2) => arduino_20,
