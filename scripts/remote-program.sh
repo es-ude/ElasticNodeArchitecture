@@ -19,4 +19,4 @@ ssh ${program_host} "sudo /usr/local/bin/papilio-prog -f ${tmp_bit_file}" &&
 # ssh ${program_host} "sudo /usr/local/bin/papilio-prog -f bit_file.bit"
 
 rm ${tmp_bit_file}
-@echo "Done"
+echo "Done"

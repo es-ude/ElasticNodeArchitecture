@@ -463,7 +463,7 @@
 			"file": "src/middleware.vhdl",
 			"settings":
 			{
-				"buffer_size": 3897,
+				"buffer_size": 3787,
 				"line_ending": "Unix"
 			}
 		},
@@ -497,7 +497,7 @@
 			"file": "src/papilioDuoMiddleware.vhd",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 839,
 				"line_ending": "Unix"
 			}
 		},
@@ -513,7 +513,7 @@
 			"file": "makefile/Makefile",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 377,
 				"line_ending": "Unix"
 			}
 		},
@@ -521,7 +521,7 @@
 			"file": "scripts/remote-program.sh",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 574,
 				"line_ending": "Unix"
 			}
 		},
@@ -529,23 +529,47 @@
 			"file": "scripts/serial_interface.py",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 491,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Volumes/ES-Share/FiPS/logs/plotFips.py",
+			"settings":
+			{
+				"buffer_size": 1268,
 				"line_ending": "Unix"
 			}
 		}
 	],
-	"build_system": "make-fpgamiddlewareproject",
+	"build_system": "Packages/Python/Python.sublime-build",
 	"command_palette":
 	{
-		"height": 147.0,
+		"height": 227.0,
 		"selected_items":
 		[
+			[
+				"python",
+				"Set Syntax: Python"
+			],
+			[
+				"program",
+				"Build: Program"
+			],
 			[
 				"serial",
 				"Build: Serial"
 			],
 			[
-				"program",
+				"progra",
+				"Build: Program"
+			],
+			[
+				"seri",
+				"Build: Serial"
+			],
+			[
+				"pogram",
 				"Build: Program"
 			],
 			[
@@ -555,14 +579,6 @@
 			[
 				"clean",
 				"Build: Clean"
-			],
-			[
-				"progra",
-				"Build: Program"
-			],
-			[
-				"python",
-				"Set Syntax: Python"
 			],
 			[
 				"seria",
@@ -1300,7 +1316,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 9,
 			"sheets":
 			[
 				{
@@ -1308,7 +1324,7 @@
 					"file": "src/middleware.vhdl",
 					"settings":
 					{
-						"buffer_size": 3897,
+						"buffer_size": 3787,
 						"regions":
 						{
 						},
@@ -1325,7 +1341,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 16.0,
-						"translation.y": 1810.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1417,7 +1433,7 @@
 					"file": "src/papilioDuoMiddleware.vhd",
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 839,
 						"regions":
 						{
 						},
@@ -1471,7 +1487,7 @@
 					"file": "makefile/Makefile",
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 377,
 						"regions":
 						{
 						},
@@ -1497,7 +1513,7 @@
 					"file": "scripts/remote-program.sh",
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 574,
 						"regions":
 						{
 						},
@@ -1523,20 +1539,47 @@
 					"file": "scripts/serial_interface.py",
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 491,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								491,
+								491
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "/Volumes/ES-Share/FiPS/logs/plotFips.py",
+					"settings":
+					{
+						"buffer_size": 1268,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								110,
+								110
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
