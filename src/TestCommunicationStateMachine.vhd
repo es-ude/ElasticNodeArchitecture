@@ -326,8 +326,8 @@ BEGIN
 
 		uart_op(x"00", data_in, data_in_rdy);
 		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"01", data_in, data_in_rdy);
-		uart_op(x"90", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"09", data_in, data_in_rdy);
 
 		-- row 2
 		uart_op(x"00", data_in, data_in_rdy);

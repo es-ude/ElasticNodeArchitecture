@@ -166,6 +166,7 @@ begin
 	-- 32 bit interface
 	incoming_data_32_rdy <= userlogic_data_out_rdy;
 	
+	
 --	incoming_data <= spi_data_out when spi_en_s = '1' else uart_data_out;
 --	incoming_data_rdy <= spi_data_out_rdy when spi_en_s = '1' else uart_data_out_rdy;
 --	outgoing_data_done <= spi_data_in_done when spi_en_s = '1' else uart_data_in_done;
@@ -186,6 +187,7 @@ begin
 	userlogic_data_out_done <= incoming_data_32_done;
 	userlogic_rdy <= userlogic_rdy_s;
 	userlogic_done <= userlogic_done_s;
+	config_sleep <= userlogic_sleep;
 
 --	--! SPI communication interface
 --	spi: entity fpgamiddlewarelibs.spiInterface(arch)
