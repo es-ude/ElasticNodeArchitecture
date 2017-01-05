@@ -23,6 +23,7 @@
 		
 		-- data control interface
 		signal data_out_rdy	:  std_logic;
+		signal data_out_done : std_logic;
 		signal data_in_rdy	: std_logic;
 		
 		-- data interface
@@ -35,7 +36,7 @@
 
 		-- Component Instantiation
 		uut: entity work.VectorDotproduct(Behavioral)
-			port map (clock, enable, ready, data_out_rdy, data_in_rdy, data_in, data_out);
+			port map (clock, enable, ready, done, data_out_rdy, data_out_done, data_in_rdy, data_in, data_out);
       
 		clock_process : process
 		begin

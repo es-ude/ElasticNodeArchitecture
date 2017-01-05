@@ -13,6 +13,7 @@ entity papilioDuoMiddleware is
 		arduino_13 	: out std_ulogic;	--! Pin D13 (connected to onboard LED)
 		arduino_11	: out std_logic;
 		CLK 			: in std_ulogic;	--! PLL clock signal @ 32 MHz
+		ICAP_CLK 			: in std_ulogic;	--! PLL clock signal @ 20 MHz
 
 		--! SPI
 --		arduino_0	: out std_logic;
@@ -32,6 +33,11 @@ entity papilioDuoMiddleware is
 		arduino_19	: out std_logic;
 		arduino_20	: out std_logic;
 		arduino_21	: out std_logic;
+
+		arduino_22	: out std_logic;
+		arduino_24	: out std_logic;
+		arduino_26	: out std_logic;
+		arduino_28	: out std_logic;
 
 		arduino_47 	: in std_logic--;		--! Pin D47,
 		
@@ -58,7 +64,7 @@ middle: entity work.middleware(Behavioral)
 		uart_en => Arduino_11,
 		
 		config_sleep => Arduino_4, 
-		task_complete => Arduino_5, 
+		task_complete => Arduino_5,
 		
 		userlogic_rdy => Arduino_17,
 		userlogic_done	=> Arduino_16,
@@ -74,12 +80,18 @@ middle: entity work.middleware(Behavioral)
 --		ext_mosi => arduino_2, 
 --		ext_miso => arduino_3, 
 		
-		state_leds(3) => arduino_21,
-		state_leds(2) => arduino_20,
-		state_leds(1) => arduino_19,
-		state_leds(0) => arduino_18,
+		rec_state_leds(3) => arduino_21,
+		rec_state_leds(2) => arduino_20,
+		rec_state_leds(1) => arduino_19,
+		rec_state_leds(0) => arduino_18,
+		
+		send_state_leds(3) => arduino_22,
+		send_state_leds(2) => arduino_24,
+		send_state_leds(1) => arduino_26,
+		send_state_leds(0) => arduino_28,
 		
 		clk => CLK, 
+		icap_clk => ICAP_CLK, 
 		rx => Arduino_6, 
 		tx => Arduino_7, 
 		button => Arduino_47

@@ -34,12 +34,14 @@ entity middleware is
 --		ext_mosi		: out std_logic;
 --		ext_miso		: in std_logic;
 
-		state_leds	: out std_logic_vector(3 downto 0);
+		rec_state_leds	: out std_logic_vector(3 downto 0);
+		send_state_leds: out std_logic_vector(3 downto 0);
 		
 		-- spi_en		: out std_logic;
 		uart_en		: out std_logic;
 	
 		clk 			: in std_ulogic;	--! Clock 32 MHz
+		icap_clk		: in std_ulogic;  --! Clock 20 MHz
 		rx				: in std_logic;
 		tx 			: out std_logic;
 		button		: in std_logic	
@@ -90,6 +92,7 @@ signal uart_data_in_done		: std_logic;
 
 -- userlogic variables
 signal userlogic_en				: std_logic;
+signal userlogic_sleep			: std_logic;
 signal userlogic_done_s			: std_logic;
 signal userlogic_rdy_s			: std_logic;
 signal userlogic_data_in_rdy	: std_logic;
@@ -99,7 +102,7 @@ signal userlogic_data_out_done: std_logic;
 begin
 	--! Communication interface initialisation
 	uart : entity fpgamiddlewarelibs.uartInterface(arch)
-		generic map ( 278 )
+		generic map ( 64 )
 		port map (
 			rx_data => uart_data_out, --! 8-bit data received
 			rx_rdy => uart_data_out_rdy,	--! received data ready
@@ -147,34 +150,39 @@ begin
 			uart_en => uart_en_s,
 			icap_en => icap_en,
 			multiboot => multiboot_address,
-			fpga_sleep => config_sleep,
+			fpga_sleep => userlogic_sleep,
 			userlogic_en => userlogic_en,
 			userlogic_done => userlogic_done_s,
 			
 			--debug
 			ready => open,
-			current_state => state_leds
+			receive_state_out	=> rec_state_leds,
+			send_state_out	=> send_state_leds
 		);
+	-- 8 bit interface
 	incoming_data <= uart_data_out;
 	incoming_data_rdy <= uart_data_out_rdy;
 	outgoing_data_done <= uart_data_in_done;
+	-- 32 bit interface
+	incoming_data_32_rdy <= userlogic_data_out_rdy;
+	
 --	incoming_data <= spi_data_out when spi_en_s = '1' else uart_data_out;
 --	incoming_data_rdy <= spi_data_out_rdy when spi_en_s = '1' else uart_data_out_rdy;
 --	outgoing_data_done <= spi_data_in_done when spi_en_s = '1' else uart_data_in_done;
 
 	ic : entity fpgamiddlewarelibs.icapInterface(Behavioral)
 		generic map (goldenboot_address => (others => '0')) 
-		port map (clk => clk, enable => icap_en, status_running => open, multiboot_address => multiboot_address);
+		port map (clk => icap_clk, enable => icap_en, status_running => open, multiboot_address => multiboot_address);
 
 	-- initialise user logic
-	ul: entity work.VectorDotproduct(Behavioral) port map
+	-- ul: entity work.VectorDotproduct(Behavioral) port map
+	ul: entity work.MatrixMultiplication(Behavioral) port map
 		(
-			clk, '1', userlogic_rdy_s, userlogic_done_s, userlogic_data_out_rdy, userlogic_data_out_done, userlogic_data_in_rdy, outgoing_data_32, incoming_data_32
+			clk, not userlogic_sleep, userlogic_rdy_s, userlogic_done_s, userlogic_data_out_rdy, userlogic_data_out_done, userlogic_data_in_rdy, outgoing_data_32, incoming_data_32
 		);
 	userlogic_data_in_rdy <= outgoing_data_32_rdy and userlogic_en;
-	-- userlogic_data_in <= outgoing_data_32;
+	-- userlogic_data_in <= ;data
 	-- incoming_data_32 <= userlogic_data_out;
-	incoming_data_32_rdy <= userlogic_data_out_rdy;
 	userlogic_data_out_done <= incoming_data_32_done;
 	userlogic_rdy <= userlogic_rdy_s;
 	userlogic_done <= userlogic_done_s;

@@ -30,10 +30,12 @@ USE ieee.std_logic_1164.ALL;
 library fpgamiddlewarelibs;
 use fpgamiddlewarelibs.all;
 
+library work;
+use work.MatrixMultiplication;
  
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---USE ieee.numeric_std.ALL;
+USE ieee.numeric_std.ALL;
  
 ENTITY TestCommunicationStateMachine IS
 END TestCommunicationStateMachine;
@@ -94,7 +96,8 @@ ARCHITECTURE behavior OF TestCommunicationStateMachine IS
    signal multiboot : std_logic_vector(23 downto 0) := (others => '0');
 	signal fpga_sleep : std_logic := '0';
    signal ready : std_logic := '0';
-	signal current_state : std_logic_vector(3 downto 0);
+	signal sending_state : std_logic_vector(3 downto 0);
+	signal receiving_state : std_logic_vector(3 downto 0);
 
    -- Clock period definitions
    constant clk_period : time := 31.25 ns; 
@@ -163,13 +166,15 @@ BEGIN
 			 userlogic_done,
 
           ready,
-			 current_state
+			 receiving_state,
+			 sending_state
         );
 
 	-- initialise user logic
-	ul: entity work.VectorDotproduct(Behavioral) port map
+	-- ul: entity work.VectorDotproduct(Behavioral) port map
+	ul: entity work.MatrixMultiplication(Behavioral) port map
 		(
-			clk, '1', userlogic_rdy, userlogic_done, userlogic_data_out_rdy, userlogic_data_out_done, userlogic_data_in_rdy, userlogic_data_in, userlogic_data_out
+			clk, not fpga_sleep, userlogic_rdy, userlogic_done, userlogic_data_out_rdy, userlogic_data_out_done, userlogic_data_in_rdy, userlogic_data_in, userlogic_data_out
 		);
 	userlogic_data_in_rdy <= data_out_32_rdy and userlogic_en;
 	userlogic_data_in <= data_out_32;
@@ -273,7 +278,7 @@ BEGIN
       -- wait for 100 ns;	
 		reset <= '0';
 	
-		wait for uart_byte_time * 2;
+		wait for uart_byte_time * 20;
 
 		-- sleep fpga
 		wait for uart_byte_time;
@@ -295,6 +300,8 @@ BEGIN
 		
 		-- write ram data
 		uart_op(x"03", data_in, data_in_rdy); 			-- command
+		
+		-- stimulus for matrixmultiplication
 		uart_op(x"10", data_in, data_in_rdy); 			-- address 1
 		uart_op(x"20", data_in, data_in_rdy); 			-- address 2
 		uart_op(x"30", data_in, data_in_rdy); 			-- address 3
@@ -303,22 +310,177 @@ BEGIN
 		uart_op(x"00", data_in, data_in_rdy); 			-- size 1
 		uart_op(x"00", data_in, data_in_rdy); 			-- size 2
 		uart_op(x"00", data_in, data_in_rdy); 			-- size 3
-		uart_op(x"0C", data_in, data_in_rdy); 			-- size 4
+		uart_op(std_logic_vector(to_unsigned(108, 8)), data_in, data_in_rdy); 			-- size 4
 		
-		uart_op(x"00", data_in, data_in_rdy); 			-- data a1
-		uart_op(x"00", data_in, data_in_rdy); 			-- data a2
-		uart_op(x"00", data_in, data_in_rdy); 			-- data a3
-		uart_op(x"01", data_in, data_in_rdy); 			-- data a4
+		-- inputA 12*4=48
+		-- row 1
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"01", data_in, data_in_rdy);
+
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"01", data_in, data_in_rdy);
+		uart_op(x"90", data_in, data_in_rdy);
+
+		-- row 2
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"02", data_in, data_in_rdy);
+
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"01", data_in, data_in_rdy);
+
+		-- row 3
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"01", data_in, data_in_rdy);
+
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"05", data_in, data_in_rdy);
+
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+
+		-- row 4
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"01", data_in, data_in_rdy);
+
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"01", data_in, data_in_rdy);
+
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
 		
-		uart_op(x"00", data_in, data_in_rdy); 			-- data b1
-		uart_op(x"00", data_in, data_in_rdy); 			-- data b2
-		uart_op(x"00", data_in, data_in_rdy); 			-- data b3
-		uart_op(x"0A", data_in, data_in_rdy); 			-- data b4
+		-- input B 15*4=60
+		-- row 1
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"01", data_in, data_in_rdy);
+
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"04", data_in, data_in_rdy);
 		
-		uart_op(x"00", data_in, data_in_rdy); 			-- data c1
-		uart_op(x"00", data_in, data_in_rdy); 			-- data c2
-		uart_op(x"00", data_in, data_in_rdy); 			-- data c3
-		uart_op(x"0B", data_in, data_in_rdy); 			-- data c4
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"02", data_in, data_in_rdy);
+		
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"07", data_in, data_in_rdy);
+		
+		-- row 2
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"01", data_in, data_in_rdy);
+
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"03", data_in, data_in_rdy);
+		
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"02", data_in, data_in_rdy);
+		
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"04", data_in, data_in_rdy);
+		
+		-- row 3
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"02", data_in, data_in_rdy);
+
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"03", data_in, data_in_rdy);
+		
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"04", data_in, data_in_rdy);
+		
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"00", data_in, data_in_rdy);
+		uart_op(x"05", data_in, data_in_rdy);
+		
+		-- stimulus for vectordotproduct
+--		uart_op(x"10", data_in, data_in_rdy); 			-- address 1
+--		uart_op(x"20", data_in, data_in_rdy); 			-- address 2
+--		uart_op(x"30", data_in, data_in_rdy); 			-- address 3
+--		uart_op(x"40", data_in, data_in_rdy); 			-- address 4
+--		
+--		uart_op(x"00", data_in, data_in_rdy); 			-- size 1
+--		uart_op(x"00", data_in, data_in_rdy); 			-- size 2
+--		uart_op(x"00", data_in, data_in_rdy); 			-- size 3
+--		uart_op(x"0C", data_in, data_in_rdy); 			-- size 4
+--		
+--		uart_op(x"00", data_in, data_in_rdy); 			-- data a1
+--		uart_op(x"00", data_in, data_in_rdy); 			-- data a2
+--		uart_op(x"00", data_in, data_in_rdy); 			-- data a3
+--		uart_op(x"01", data_in, data_in_rdy); 			-- data a4
+--		
+--		uart_op(x"00", data_in, data_in_rdy); 			-- data b1
+--		uart_op(x"00", data_in, data_in_rdy); 			-- data b2
+--		uart_op(x"00", data_in, data_in_rdy); 			-- data b3
+--		uart_op(x"AB", data_in, data_in_rdy); 			-- data b4
+--		
+--		uart_op(x"00", data_in, data_in_rdy); 			-- data c1
+--		uart_op(x"00", data_in, data_in_rdy); 			-- data c2
+--		uart_op(x"00", data_in, data_in_rdy); 			-- data c3
+--		uart_op(x"CD", data_in, data_in_rdy); 			-- data c4
 	
 		
 --		-- load new configuration address
@@ -431,9 +593,9 @@ BEGIN
 --		data_in_rdy <= '0';
 		
 		-- wait for uart_byte_time * 20;
-		wait until data_in_32_done = '1';
-		wait for uart_byte_time * 5;
-	
+		wait until data_in_32_rdy = '0';
+		wait for uart_byte_time * 25;
+		
 		busy <= '0';
 		wait;
 

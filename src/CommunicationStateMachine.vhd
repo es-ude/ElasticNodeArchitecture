@@ -57,7 +57,8 @@ entity CommunicationStateMachine is
 		
 		--debug
 		ready					: out std_logic;
-		current_state 		: out std_logic_vector(3 downto 0)
+		receive_state_out	: out std_logic_vector(3 downto 0);
+		send_state_out		: out std_logic_vector(3 downto 0)
 	);
 end CommunicationStateMachine;
 
@@ -91,7 +92,9 @@ signal state_count 			: integer range 0 to 16; --! count how many times this sta
 type sending_state is (
 	idle,
 	sending_header,
-	sending_data
+	sending_data,
+	sending_done,
+	sending_next_value
 	);
 signal current_sending_state: sending_state := idle;
 
@@ -104,7 +107,7 @@ signal flash_size				: std_logic_vector(23 downto 0);
 signal flash_man				: std_logic_vector(7 downto 0);
 signal flash_dev	 			: std_logic_vector(15 downto 0);
 
-signal ram_address, ram_size : unsigned(31 downto 0);
+signal ram_address, ram_size, ram_data : unsigned(31 downto 0);
 
 signal uart_buffer			: std_logic_vector(31 downto 0);
 
@@ -113,7 +116,7 @@ signal next_byte				: std_logic := 'Z';
 signal current_byte			: integer range 0 to 5;	-- decides which byte to send of 32bit data, 0 is header and 5 is done
 shared variable header_done 			: boolean := false;
 signal data_out_done_toggle: std_logic := '0';
-
+signal this_is_header 		: boolean := false;
 begin
 	
 --	newdataProcess: process ( data_in_32_rdy )
@@ -126,37 +129,49 @@ begin
 	
 	
 	-- time 32 bit data to 8 bit by toggling a done signal
-	convert8bit32bitProcess: process  (current_sending_state, data_out_done)
+	-- assuming data_out_done is only high one clock cycle...
+	convert8bit32bitProcess: process  (reset, clk, current_sending_state, data_out_done)
+		variable was_low : boolean := true;
 	begin
-		-- if not currently sending, reset values
-		if (current_sending_state = sending_header) or (current_sending_state = sending_data) then
-			if rising_edge(data_out_done) then
-				data_out_done_toggle <= not data_out_done_toggle;
-
-				if current_byte = 5 then 
-					-- data_out_rdy <= '0';
-				else 
-					-- data_out_rdy <= '1';
-					current_byte <= current_byte + 1;
-				end if;
-				
---				case current_sending_state is
---				when sending_header =>
---					header_done := true;
---					-- bytecount := 0;
---					current_byte <= 0;
---				when sending_data =>
---					-- bytecount := bytecount + 1;
---					current_byte <= current_byte + 1;
---				when others => 
---				end case;
---				data_available := true;
-			end if;
-		else
+		if reset = '1' then
 			data_out_done_toggle <= '0';
 			current_byte <= 0;
---			data_available := false;
---			header_done := false;
+		elsif rising_edge(clk) then
+			-- if not currently sending, reset values
+			if (current_sending_state = sending_data) then -- (current_sending_state = sending_header) or 
+				if data_out_done = '1' and was_low then
+					was_low := false;
+					data_out_done_toggle <= not data_out_done_toggle;
+					
+					-- if this is the header, we do not increment current byte
+					if not this_is_header then
+						if current_byte = 5 then 
+							-- data_out_rdy <= '0';
+						else 
+							-- data_out_rdy <= '1';
+							current_byte <= current_byte + 1;
+						end if;
+					end if;
+				else
+					was_low := true;
+	--				case current_sending_state is
+	--				when sending_header =>
+	--					header_done := true;
+	--					-- bytecount := 0;
+	--					current_byte <= 0;
+	--				when sending_data =>
+	--					-- bytecount := bytecount + 1;
+	--					current_byte <= current_byte + 1;
+	--				when others => 
+	--				end case;
+	--				data_available := true;
+				end if;
+			else
+				data_out_done_toggle <= '0';
+				current_byte <= 0;
+	--			data_available := false;
+	--			header_done := false;
+			end if;
 		end if;
 	end process;		
 	
@@ -164,6 +179,8 @@ begin
 		-- variable bytecount : integer range 0 to 4 := 4;
 		-- variable data_available: boolean := false;
 		variable userlogic_return : boolean := false;
+		variable delay_one_cycle : boolean := false;
+		variable direct_to_first_byte : boolean := false;
 	begin
 		if reset = '0' then
 			-- add return header to next incoming data
@@ -180,6 +197,7 @@ begin
 							current_sending_state <= sending_header;
 						else
 							current_sending_state <= sending_data;
+							-- TODO INTERMEDIATE RESULTS FIRST BYTE
 						end if;
 					end if;
 				when sending_header =>
@@ -189,6 +207,8 @@ begin
 					data_available := false;
 					current_sending_state <= sending_data;
 					uart_en <= '1';
+					direct_to_first_byte := false;
+					this_is_header <= true;
 					-- current_byte <= 1;					
 					
 --					end if;
@@ -197,23 +217,54 @@ begin
 					data_out_rdy <= '1';
 					uart_en <= '1';
 					
-					if data_out_done = '1' then
+					if (data_out_done = '1') or direct_to_first_byte then
+						this_is_header <= false;
+						direct_to_first_byte := false;
 						case current_byte is
-							when 1 =>
+							-- when coming from header first 1, otherwise 0
+							-- when 0 =>
+							-- 	data_out <= uart_buffer(31 downto 24);
+							when 0 =>
 								data_out <= uart_buffer(31 downto 24);
-							when 2 =>
+							when 1 =>
 								data_out <= uart_buffer(23 downto 16);
-							when 3 =>
+							when 2 =>
 								data_out <= uart_buffer(15 downto 8);
-							when 4 =>
+							when 3 =>
 								data_out <= uart_buffer(7 downto 0);
+								-- current_sending_state <= sending_done; -- disable uart next clock cycle
 							when others =>
+								-- data_in_32_done <= '1';
+								data_out_rdy <= '0';
 								data_in_32_done <= '1';
-								-- data_out_rdy <= '0';
-								current_sending_state <= idle;
+								-- current_sending_state <= idle;
+								current_sending_state <= sending_done; -- disable uart next clock cycle
+								delay_one_cycle := false;
 						end case;
 						-- current_byte <= current_byte + 1;
 					end if;
+				when sending_done =>
+					-- disable uart to avoid sending last byte double
+					-- uart_en <= '0';
+					-- if data_out_done = '1' then
+					-- go straight to next 32bit value
+					data_in_32_done <= '0';
+					-- wait one cycle here to see if more data is available
+					--if delay_one_cycle then
+						if data_in_32_rdy = '1' then
+							-- return to idle because last byte has been sent
+							current_sending_state <= sending_next_value;
+						else
+							current_sending_state <= idle;
+						end if;
+--					else
+--						delay_one_cycle := true;
+--					end if;
+				-- delay one clock cycle to give time to prepare next 32bit value
+				when sending_next_value =>
+					uart_buffer <= data_in_32;
+					current_sending_state <= sending_data;
+					direct_to_first_byte := true;
 				when others =>
 					
 				end case;
@@ -223,10 +274,10 @@ begin
 	end process;
 	
 	--! React to availability of new byte incoming
-	receiveProcess: process (clk, data_in_rdy, reset, current_receive_state)
+	receiveProcess: process (clk, data_in_rdy, reset, current_receive_state, data_in_32)
 		-- variable ram_address, ram_size, ram_data : unsigned(31 downto 0);
 		variable data_in_unsigned : unsigned(7 downto 0);
-		variable ram_data_s : unsigned(31 downto 0);
+		-- variable ram_data_s : unsigned(31 downto 0);
 		variable data_count : unsigned(31 downto 0);
 	begin
 		if reset = '1' then 
@@ -262,7 +313,7 @@ begin
 					end if;
 				
 					data_out_32_rdy <= '0';
-					userlogic_en <= '0';
+					-- userlogic_en <= '0';
 				
 				-- ram write command
 				when receiving_ram_write_address =>
@@ -309,17 +360,16 @@ begin
 					if data_in_rdy = '1' then
 
 						data_count := data_count + 1;
-						state_count <= state_count + 1; --! only incremented at end of process
 						
 						case state_count is
 							when 0 =>
-								ram_data_s(31 downto 24) := data_in_unsigned;
+								data_out_32(31 downto 24) <= data_in;
 							when 1 =>
-								ram_data_s(23 downto 16) := data_in_unsigned;
+								data_out_32(23 downto 16) <= data_in;
 							when 2 =>
-								ram_data_s(15 downto 8) := data_in_unsigned;
+								data_out_32(15 downto 8) <= data_in;
 							when 3 =>
-								ram_data_s(7 downto 0) := data_in_unsigned;
+								data_out_32(7 downto 0) <= data_in;
 								
 								if data_count = ram_size then
 									current_receive_state <= idle;
@@ -327,13 +377,18 @@ begin
 									userlogic_en <= '1';
 								end if;
 								
-								state_count <= 0;
 								
 								-- present ram_data as ready
-								data_out_32 <= std_logic_vector(ram_data_s);
+								-- data_out_32 <= std_logic_vector(ram_data);
 								data_out_32_rdy <= '1';
 							when others =>
 						end case;
+						
+						if state_count = 3 then
+							state_count <= 0;
+						else
+							state_count <= state_count + 1; --! only incremented at end of process
+						end if;
 					else 
 						data_out_32_rdy <= '0';
 					end if;
@@ -474,11 +529,13 @@ begin
 					current_receive_state <= idle;
 			end case;
 		end if;
-		current_state <= std_logic_vector(to_unsigned(receive_state'pos(current_receive_state), 4));
+		receive_state_out <= std_logic_vector(to_unsigned(receive_state'pos(current_receive_state), 4));
+		-- send_state_out <= std_logic_vector(to_unsigned(sending_state'pos(current_sending_state), 4));
+		send_state_out <= data_in_32(3 downto 0);
 
 	end process;
 
 icap_en <= '1' when current_receive_state = send_icap_multiboot else '0';
 ready <= '1' when current_receive_state = idle else '0';
-end Behavioral;
+end Behavioral; 
 

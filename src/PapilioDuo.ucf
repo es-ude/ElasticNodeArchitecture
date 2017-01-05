@@ -29,8 +29,11 @@ CONFIG PROHIBIT=P60;
 NET "*" IOSTANDARD = LVTTL;
 
 #NET CLK      LOC="P94"  | IOSTANDARD=LVTTL;               										# CLK
-#TIMESPEC TS_Period_1 = PERIOD "CLK" 31.25 ns HIGH 50%;
-NET CLK      LOC="P94"  | IOSTANDARD=LVTTL | PERIOD=31.25 ns | CLOCK_DEDICATED_ROUTE = FALSE;
+# NET CLK      LOC="P94"  | IOSTANDARD=LVTTL | PERIOD=31.25 ns | CLOCK_DEDICATED_ROUTE = FALSE;
+NET CLK      LOC="P94"  | IOSTANDARD=LVTTL | TNM=CLK_32 | CLOCK_DEDICATED_ROUTE = FALSE;
+NET ICAP_CLK IOSTANDARD=LVTTL | TNM=CLK_ICAP | CLOCK_DEDICATED_ROUTE = FALSE;
+TIMESPEC TS_Period_1 = PERIOD CLK_32 31.25 ns HIGH 50%;
+TIMESPEC TS_Period_2 = PERIOD CLK_ICAP 50.0 ns HIGH 50%;
 #NET TXD       LOC="P141" | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=FAST;          										# TX
 #NET RXD       LOC="P46" | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=FAST; 	    											# RX
 
@@ -58,10 +61,10 @@ NET Arduino_19          LOC="P102" | IOSTANDARD=LVTTL;                          
 NET Arduino_20          LOC="P101" | IOSTANDARD=LVTTL;                                # B6
 NET Arduino_21          LOC="P100" | IOSTANDARD=LVTTL;                                # B7                        
 #
-#NET Arduino_22          LOC="P99"  | IOSTANDARD=LVTTL;                                # C0
-#NET Arduino_24          LOC="P97"  | IOSTANDARD=LVTTL;                                # C1
-#NET Arduino_26          LOC="P93"  | IOSTANDARD=LVTTL;                                # C2
-#NET Arduino_28          LOC="P88"  | IOSTANDARD=LVTTL;                                # C3
+NET Arduino_22          LOC="P99"  | IOSTANDARD=LVTTL;                                # C0
+NET Arduino_24          LOC="P97"  | IOSTANDARD=LVTTL;                                # C1
+NET Arduino_26          LOC="P93"  | IOSTANDARD=LVTTL;                                # C2
+NET Arduino_28          LOC="P88"  | IOSTANDARD=LVTTL;                                # C3
 #NET Arduino_30          LOC="P85"  | IOSTANDARD=LVTTL;                                # C4
 #NET Arduino_32          LOC="P83"  | IOSTANDARD=LVTTL;                                # C5
 #NET Arduino_34          LOC="P81"  | IOSTANDARD=LVTTL;                                # C6
