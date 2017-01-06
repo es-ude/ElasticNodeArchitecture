@@ -97,6 +97,18 @@
       <obj_property name="label">Registers</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/testcommunicationstatemachine/uut/current_receive_state" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">current_receive_state</obj_property>
+         <obj_property name="ObjectShortName">current_receive_state</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testcommunicationstatemachine/uut/state_count" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">state_count</obj_property>
+         <obj_property name="ObjectShortName">state_count</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testcommunicationstatemachine/uut/current_sending_state" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">current_sending_state</obj_property>
+         <obj_property name="ObjectShortName">current_sending_state</obj_property>
+      </wvobject>
       <wvobject fp_name="/testcommunicationstatemachine/sending_state" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">sending_state[3:0]</obj_property>
          <obj_property name="ObjectShortName">sending_state[3:0]</obj_property>
@@ -153,6 +165,25 @@
       <wvobject fp_name="/testcommunicationstatemachine/userlogic_data_out" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">userlogic_data_out[31:0]</obj_property>
          <obj_property name="ObjectShortName">userlogic_data_out[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testcommunicationstatemachine/ul/current_receive_state" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">current_receive_state</obj_property>
+         <obj_property name="ObjectShortName">current_receive_state</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testcommunicationstatemachine/ul/intermediate_result_s" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">intermediate_result_s[0:3]</obj_property>
+         <obj_property name="ObjectShortName">intermediate_result_s[0:3]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testcommunicationstatemachine/ul/inputa_s" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">inputa_s[0:3]</obj_property>
+         <obj_property name="ObjectShortName">inputa_s[0:3]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testcommunicationstatemachine/ul/inputb_s" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">inputb_s[0:2]</obj_property>
+         <obj_property name="ObjectShortName">inputb_s[0:2]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
    </wvobject>

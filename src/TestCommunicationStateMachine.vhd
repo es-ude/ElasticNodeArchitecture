@@ -138,6 +138,90 @@ ARCHITECTURE behavior OF TestCommunicationStateMachine IS
 		data_in_rdy <= '0';
 		wait for uart_byte_time;
 	end uart_op;
+	
+	procedure uart_op_32(constant data : in std_logic_vector(31 downto 0); signal data_in : out std_logic_vector(7 downto 0); signal data_in_rdy : out std_logic) is
+	begin
+		uart_op(data(31 downto 24), data_in, data_in_rdy);
+		uart_op(data(23 downto 16), data_in, data_in_rdy);
+		uart_op(data(15 downto 8), data_in, data_in_rdy);
+		uart_op(data(7 downto 0), data_in, data_in_rdy);
+	end procedure;
+	
+	procedure sleep_fpga(signal data_in : out std_logic_vector(7 downto 0); signal data_in_rdy : out std_logic) is
+	begin
+		-- sleep fpga
+		uart_op(x"08", data_in, data_in_rdy);
+	end sleep_fpga;
+	
+	procedure wake_fpga(signal data_in : out std_logic_vector(7 downto 0); signal data_in_rdy : out std_logic) is
+	begin
+		-- wake fpga
+		uart_op(x"09", data_in, data_in_rdy);
+	end wake_fpga;
+	
+	procedure matrix_multiplication(signal data_in : out std_logic_vector(7 downto 0); signal data_in_rdy : out std_logic) is
+	begin
+		-- write ram data
+		uart_op(x"03", data_in, data_in_rdy); 			-- command
+		
+		-- stimulus for matrixmultiplication
+		uart_op_32(x"10203040", data_in, data_in_rdy); 										-- address
+		
+		uart_op_32(std_logic_vector(to_unsigned(108, 32)), data_in, data_in_rdy); 	-- size
+		
+		-- inputA 12*4=48
+		-- row 1
+		uart_op_32(x"00000000", data_in, data_in_rdy);
+		uart_op_32(x"00000001", data_in, data_in_rdy);
+		uart_op_32(x"00000009", data_in, data_in_rdy);
+
+		-- row 2
+		uart_op_32(x"00000002", data_in, data_in_rdy);
+		uart_op_32(x"00000000", data_in, data_in_rdy);
+		uart_op_32(x"00000001", data_in, data_in_rdy);
+
+		-- row 3
+		uart_op_32(x"00000001", data_in, data_in_rdy);
+		uart_op_32(x"00000005", data_in, data_in_rdy);
+		uart_op_32(x"00000000", data_in, data_in_rdy);
+
+		-- row 4
+		uart_op_32(x"00000001", data_in, data_in_rdy);
+		uart_op_32(x"00000001", data_in, data_in_rdy);
+		uart_op_32(x"00000000", data_in, data_in_rdy);
+		
+		-- input B 15*4=60
+		-- row 1
+		uart_op_32(x"00000000", data_in, data_in_rdy);
+		uart_op_32(x"00000001", data_in, data_in_rdy);
+		uart_op_32(x"00000004", data_in, data_in_rdy);
+		uart_op_32(x"00000002", data_in, data_in_rdy);
+		uart_op_32(x"00000007", data_in, data_in_rdy);
+		
+		-- row 2
+		uart_op_32(x"00000000", data_in, data_in_rdy);
+		uart_op_32(x"00000001", data_in, data_in_rdy);
+		uart_op_32(x"00000003", data_in, data_in_rdy);
+		uart_op_32(x"00000002", data_in, data_in_rdy);
+		uart_op_32(x"00000004", data_in, data_in_rdy);
+		
+		-- row 3
+		uart_op_32(x"00000000", data_in, data_in_rdy);
+		uart_op_32(x"00000002", data_in, data_in_rdy);
+		uart_op_32(x"00000003", data_in, data_in_rdy);
+		uart_op_32(x"00000004", data_in, data_in_rdy);
+		uart_op_32(x"00000005", data_in, data_in_rdy);
+	end procedure;
+	
+	procedure config_address(constant address : std_logic_vector(23 downto 0); signal data_in : out std_logic_vector(7 downto 0); signal data_in_rdy : out std_logic) is
+	begin
+		-- load new configuration address
+		uart_op(x"06", data_in, data_in_rdy); 			-- command
+		uart_op(address(23 downto 16), data_in, data_in_rdy); 			-- first byte
+		uart_op(address(15 downto 8), data_in, data_in_rdy); 			-- second byte
+		uart_op(address(7 downto 0), data_in, data_in_rdy); 			-- third byte
+	end procedure;
+	
 BEGIN
 
 	-- Instantiate the Unit Under Test (UUT)
@@ -279,183 +363,17 @@ BEGIN
 		reset <= '0';
 	
 		wait for uart_byte_time * 20;
-
-		-- sleep fpga
-		wait for uart_byte_time;
-		data_in <= x"08"; 			-- sleep command
-		data_in_rdy <= '1';
-		wait for clk_period;
-		data_in_rdy <= '0';
 		
-		wait for uart_byte_time * 2;
-
-		-- wake fpga
-		wait for uart_byte_time;
-		data_in <= x"09"; 			-- wake command
-		data_in_rdy <= '1';
-		wait for clk_period;
-		data_in_rdy <= '0';
-
-		wait for clk_period*10;
+		sleep_fpga(data_in, data_in_rdy);
+		wake_fpga(data_in, data_in_rdy);
+		wait for uart_byte_time * 8;
 		
-		-- write ram data
-		uart_op(x"03", data_in, data_in_rdy); 			-- command
+		matrix_multiplication(data_in, data_in_rdy);
+		wait until userlogic_rdy = '1';
+		wait for uart_byte_time * 32;
+		-- matrix_multiplication(data_in, data_in_rdy);
 		
-		-- stimulus for matrixmultiplication
-		uart_op(x"10", data_in, data_in_rdy); 			-- address 1
-		uart_op(x"20", data_in, data_in_rdy); 			-- address 2
-		uart_op(x"30", data_in, data_in_rdy); 			-- address 3
-		uart_op(x"40", data_in, data_in_rdy); 			-- address 4
-		
-		uart_op(x"00", data_in, data_in_rdy); 			-- size 1
-		uart_op(x"00", data_in, data_in_rdy); 			-- size 2
-		uart_op(x"00", data_in, data_in_rdy); 			-- size 3
-		uart_op(std_logic_vector(to_unsigned(108, 8)), data_in, data_in_rdy); 			-- size 4
-		
-		-- inputA 12*4=48
-		-- row 1
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"01", data_in, data_in_rdy);
-
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"09", data_in, data_in_rdy);
-
-		-- row 2
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"02", data_in, data_in_rdy);
-
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"01", data_in, data_in_rdy);
-
-		-- row 3
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"01", data_in, data_in_rdy);
-
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"05", data_in, data_in_rdy);
-
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-
-		-- row 4
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"01", data_in, data_in_rdy);
-
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"01", data_in, data_in_rdy);
-
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		
-		-- input B 15*4=60
-		-- row 1
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"01", data_in, data_in_rdy);
-
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"04", data_in, data_in_rdy);
-		
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"02", data_in, data_in_rdy);
-		
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"07", data_in, data_in_rdy);
-		
-		-- row 2
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"01", data_in, data_in_rdy);
-
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"03", data_in, data_in_rdy);
-		
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"02", data_in, data_in_rdy);
-		
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"04", data_in, data_in_rdy);
-		
-		-- row 3
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"02", data_in, data_in_rdy);
-
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"03", data_in, data_in_rdy);
-		
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"04", data_in, data_in_rdy);
-		
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"00", data_in, data_in_rdy);
-		uart_op(x"05", data_in, data_in_rdy);
-		
+		config_address(x"123456", data_in, data_in_rdy);
 		-- stimulus for vectordotproduct
 --		uart_op(x"10", data_in, data_in_rdy); 			-- address 1
 --		uart_op(x"20", data_in, data_in_rdy); 			-- address 2
@@ -483,30 +401,7 @@ BEGIN
 --		uart_op(x"CD", data_in, data_in_rdy); 			-- data c4
 	
 		
---		-- load new configuration address
---      data_in <= x"06"; 			-- command
---		data_in_rdy <= '1';
---		wait for clk_period;
---		data_in_rdy <= '0';
---		
---		wait for uart_byte_time;
---		data_in <= x"10";				-- first byte
---		data_in_rdy <= '1';
---		wait for clk_period;
---		data_in_rdy <= '0';
---		
---		wait for uart_byte_time;
---		data_in <= x"00";				-- second byte
---		data_in_rdy <= '1';
---		wait for clk_period;
---		data_in_rdy <= '0';
---		
---		wait for uart_byte_time;
---		data_in <= x"00";				-- third byte
---		data_in_rdy <= '1';
---		wait for clk_period;
---		data_in_rdy <= '0';
---		wait for uart_byte_time;
+
       -- insert stimulus here 
 		
 

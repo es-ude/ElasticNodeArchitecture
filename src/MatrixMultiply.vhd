@@ -61,6 +61,8 @@ architecture Behavioral of MatrixMultiplication is
 	type receive_state is (idle, receiveA, receiveB, receiveDone, calculating, sendResult);
 	signal current_receive_state : receive_state := idle;
 	signal intermediate_result_s : MatrixMultiplicationPackage.outputMatrix;
+	signal inputA_s : MatrixMultiplicationPackage.inputMatrix1;
+	signal inputB_s : MatrixMultiplicationPackage.inputMatrix2;
 begin
 
 	-- process data receive 
@@ -196,6 +198,8 @@ begin
 			done <= '0';
 		end if;
 		intermediate_result_s <= intermediate_result;
+		inputA_s <= inputA;
+		inputB_s <= inputB;
 	end process;
 	
 	-- ready <= '1' when enable = '1' and current_receive_state = receiveN else '0';
