@@ -159,6 +159,20 @@ ARCHITECTURE behavior OF TestCommunicationStateMachine IS
 		uart_op(x"09", data_in, data_in_rdy);
 	end wake_fpga;
 	
+	procedure vector_dotproduct(signal data_in : out std_logic_vector(7 downto 0); signal data_in_rdy : out std_logic) is
+	begin
+		-- write ram data
+		uart_op(x"03", data_in, data_in_rdy); 			-- command
+
+		-- stimulus for vectordotproduct
+		uart_op_32(x"10203040", data_in, data_in_rdy); 								-- address
+		uart_op_32(x"0000000C", data_in, data_in_rdy); 								-- size
+		
+		uart_op_32(x"00000001", data_in, data_in_rdy); 								-- data a
+		uart_op_32(std_logic_vector(to_unsigned(100, 32)), data_in, data_in_rdy); 	-- data b
+		uart_op_32(std_logic_vector(to_unsigned(75, 32)), data_in, data_in_rdy); 	-- data c
+	end procedure;
+	
 	procedure matrix_multiplication(signal data_in : out std_logic_vector(7 downto 0); signal data_in_rdy : out std_logic) is
 	begin
 		-- write ram data
@@ -254,9 +268,13 @@ BEGIN
 			 sending_state
         );
 
+	ic : entity fpgamiddlewarelibs.icapInterface(Behavioral)
+		generic map (goldenboot_address => (others => '0')) 
+		port map (clk => clk, enable => icap_en, status_running => open, multiboot_address => multiboot);
+
 	-- initialise user logic
-	-- ul: entity work.VectorDotproduct(Behavioral) port map
-	ul: entity work.MatrixMultiplication(Behavioral) port map
+	ul: entity work.VectorDotproduct(Behavioral) port map
+	--ul: entity work.MatrixMultiplication(Behavioral) port map
 		(
 			clk, not fpga_sleep, userlogic_rdy, userlogic_done, userlogic_data_out_rdy, userlogic_data_out_done, userlogic_data_in_rdy, userlogic_data_in, userlogic_data_out
 		);
@@ -368,38 +386,15 @@ BEGIN
 		wake_fpga(data_in, data_in_rdy);
 		wait for uart_byte_time * 8;
 		
-		matrix_multiplication(data_in, data_in_rdy);
+		vector_dotproduct(data_in, data_in_rdy);
+		
+		-- matrix_multiplication(data_in, data_in_rdy);
 		wait until userlogic_rdy = '1';
 		wait for uart_byte_time * 32;
 		-- matrix_multiplication(data_in, data_in_rdy);
 		
 		config_address(x"123456", data_in, data_in_rdy);
-		-- stimulus for vectordotproduct
---		uart_op(x"10", data_in, data_in_rdy); 			-- address 1
---		uart_op(x"20", data_in, data_in_rdy); 			-- address 2
---		uart_op(x"30", data_in, data_in_rdy); 			-- address 3
---		uart_op(x"40", data_in, data_in_rdy); 			-- address 4
---		
---		uart_op(x"00", data_in, data_in_rdy); 			-- size 1
---		uart_op(x"00", data_in, data_in_rdy); 			-- size 2
---		uart_op(x"00", data_in, data_in_rdy); 			-- size 3
---		uart_op(x"0C", data_in, data_in_rdy); 			-- size 4
---		
---		uart_op(x"00", data_in, data_in_rdy); 			-- data a1
---		uart_op(x"00", data_in, data_in_rdy); 			-- data a2
---		uart_op(x"00", data_in, data_in_rdy); 			-- data a3
---		uart_op(x"01", data_in, data_in_rdy); 			-- data a4
---		
---		uart_op(x"00", data_in, data_in_rdy); 			-- data b1
---		uart_op(x"00", data_in, data_in_rdy); 			-- data b2
---		uart_op(x"00", data_in, data_in_rdy); 			-- data b3
---		uart_op(x"AB", data_in, data_in_rdy); 			-- data b4
---		
---		uart_op(x"00", data_in, data_in_rdy); 			-- data c1
---		uart_op(x"00", data_in, data_in_rdy); 			-- data c2
---		uart_op(x"00", data_in, data_in_rdy); 			-- data c3
---		uart_op(x"CD", data_in, data_in_rdy); 			-- data c4
-	
+
 		
 
       -- insert stimulus here 
@@ -488,7 +483,7 @@ BEGIN
 --		data_in_rdy <= '0';
 		
 		-- wait for uart_byte_time * 20;
-		wait until data_in_32_rdy = '0';
+		-- wait until data_in_32_rdy = '0';
 		wait for uart_byte_time * 25;
 		
 		busy <= '0';

@@ -78,7 +78,7 @@ begin
 						data_out_rdy <= '0';
 						data_out <= (others => '0');
 						intermediate_result := (others => '0');
-						done <= '0';
+						-- done <= '0';
 --					elsif current_receive_state = receiveDone then
 --						if data_out_done = '1' then
 --							current_receive_state <= headerDone;
@@ -91,6 +91,7 @@ begin
 						
 					-- respond to incoming data
 					elsif data_in_rdy = '1' then
+						done <= '0';
 						case current_receive_state is
 							when receiveN => 
 								vector_width := unsigned(data_in);
