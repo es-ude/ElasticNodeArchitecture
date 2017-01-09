@@ -78,7 +78,7 @@ NET Arduino_28          LOC="P88"  | IOSTANDARD=LVTTL;                          
 #NET Arduino_50         LOC="P50"  | IOSTANDARD=LVTTL;                                # C14
 #NET Arduino_52         LOC="P47"  | IOSTANDARD=LVTTL;                                # C15
 #
-#NET Arduino_23     LOC="P98"  | IOSTANDARD=LVTTL ;                                
+NET Arduino_23     LOC="P98"  | IOSTANDARD=LVTTL ;                                
 #NET Arduino_25     LOC="P95" | IOSTANDARD=LVTTL ;                                	
 #NET Arduino_27     LOC="P92"  | IOSTANDARD=LVTTL ;                                
 #NET Arduino_29     LOC="P87"  | IOSTANDARD=LVTTL ;                                

@@ -35,6 +35,7 @@ entity papilioDuoMiddleware is
 		arduino_21	: out std_logic;
 
 		arduino_22	: out std_logic;
+		arduino_23	: out std_logic;
 		arduino_24	: out std_logic;
 		arduino_26	: out std_logic;
 		arduino_28	: out std_logic;
@@ -89,6 +90,8 @@ middle: entity work.middleware(Behavioral)
 		send_state_leds(2) => arduino_24,
 		send_state_leds(1) => arduino_26,
 		send_state_leds(0) => arduino_28,
+		
+		status_out => arduino_23,
 		
 		clk => CLK, 
 		icap_clk => ICAP_CLK, 
