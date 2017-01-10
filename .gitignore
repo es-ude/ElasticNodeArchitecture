@@ -4,6 +4,11 @@ scripts/remote-script.sh
 doxy/
 build/*
 
+# PlanAhead files
+*.tcl
+planAhead*
+.Xil/PlanAhead*
+
 # Simulation files
 *.exe
 *.wdb
@@ -11,8 +16,6 @@ isim
 netgen 
 isim*
 fuse*
-
-
 
 # intermediate build files
 *.bgn

@@ -373,7 +373,7 @@ begin
 								
 								if data_count = ram_size then
 									current_receive_state <= idle;
-								else
+								-- else -- TODO WHY WAS ENABLE WHEN NOT IDLE?
 									userlogic_en <= '1';
 								end if;
 								

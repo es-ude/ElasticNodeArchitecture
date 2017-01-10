@@ -225,6 +225,7 @@
       <wvobject fp_name="/testcommunicationstatemachine/ic/icap_in" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">icap_in[15:0]</obj_property>
          <obj_property name="ObjectShortName">icap_in[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/testcommunicationstatemachine/ic/icap_in_reorder" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">icap_in_reorder[15:0]</obj_property>

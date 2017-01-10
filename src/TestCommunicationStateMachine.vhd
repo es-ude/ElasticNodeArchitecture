@@ -159,6 +159,18 @@ ARCHITECTURE behavior OF TestCommunicationStateMachine IS
 		uart_op(x"09", data_in, data_in_rdy);
 	end wake_fpga;
 	
+	procedure dummy(signal data_in : out std_logic_vector(7 downto 0); signal data_in_rdy : out std_logic) is
+	begin
+		-- write ram data
+		uart_op(x"03", data_in, data_in_rdy); 			-- command
+
+		-- stimulus for vectordotproduct
+		uart_op_32(x"10203040", data_in, data_in_rdy); 								-- address
+		uart_op_32(x"00000004", data_in, data_in_rdy); 								-- size
+		
+		uart_op_32(std_logic_vector(to_unsigned(100, 32)), data_in, data_in_rdy); 	-- data
+	end procedure;
+	
 	procedure vector_dotproduct(signal data_in : out std_logic_vector(7 downto 0); signal data_in_rdy : out std_logic) is
 	begin
 		-- write ram data
@@ -268,12 +280,13 @@ BEGIN
 			 sending_state
         );
 
-	ic : entity fpgamiddlewarelibs.icapInterface(Behavioral)
-		generic map (goldenboot_address => (others => '0')) 
-		port map (clk => clk, enable => icap_en, status_running => open, multiboot_address => multiboot);
+	--ic : entity fpgamiddlewarelibs.icapInterface(Behavioral)
+		--generic map (goldenboot_address => (others => '0')) 
+		--port map (clk => clk, enable => icap_en, status_running => open, multiboot_address => multiboot);
 
 	-- initialise user logic
-	ul: entity work.VectorDotproduct(Behavioral) port map
+	ul: entity work.Dummy(Behavioral) port map
+	-- ul: entity work.VectorDotproduct(Behavioral) port map
 	--ul: entity work.MatrixMultiplication(Behavioral) port map
 		(
 			clk, not fpga_sleep, userlogic_rdy, userlogic_done, userlogic_data_out_rdy, userlogic_data_out_done, userlogic_data_in_rdy, userlogic_data_in, userlogic_data_out
@@ -380,20 +393,21 @@ BEGIN
       -- wait for 100 ns;	
 		reset <= '0';
 	
-		wait for uart_byte_time * 20;
+		-- wait for uart_byte_time * 20;
 		
 		sleep_fpga(data_in, data_in_rdy);
 		wake_fpga(data_in, data_in_rdy);
-		wait for uart_byte_time * 8;
+		--wait for uart_byte_time * 8;
 		
-		vector_dotproduct(data_in, data_in_rdy);
-		
+		-- vector_dotproduct(data_in, data_in_rdy);
 		-- matrix_multiplication(data_in, data_in_rdy);
+		dummy(data_in, data_in_rdy);
+		
 		wait until userlogic_rdy = '1';
 		wait for uart_byte_time * 32;
 		-- matrix_multiplication(data_in, data_in_rdy);
 		
-		config_address(x"123456", data_in, data_in_rdy);
+		-- config_address(x"123456", data_in, data_in_rdy);
 
 		
 
@@ -484,7 +498,7 @@ BEGIN
 		
 		-- wait for uart_byte_time * 20;
 		-- wait until data_in_32_rdy = '0';
-		wait for uart_byte_time * 25;
+		-- wait for uart_byte_time * 25;
 		
 		busy <= '0';
 		wait;

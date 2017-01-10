@@ -176,8 +176,9 @@ begin
 		port map (clk => clk_icap, enable => icap_en, status_running => open, multiboot_address => multiboot_address);
 
 	-- initialise user logic
+	ul: entity work.Dummy(Behavioral) port map
 	-- ul: entity work.VectorDotproduct(Behavioral) port map
-	ul: entity work.MatrixMultiplication(Behavioral) port map
+	-- ul: entity work.MatrixMultiplication(Behavioral) port map
 		(
 			clk, not userlogic_sleep, userlogic_rdy_s, userlogic_done_s, userlogic_data_out_rdy, userlogic_data_out_done, userlogic_data_in_rdy, outgoing_data_32, incoming_data_32
 		);
