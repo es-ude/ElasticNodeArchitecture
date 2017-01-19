@@ -11,7 +11,7 @@ import sys
 __dbg__=False
 SLEEP_TIME=0.
 SLEEP_START=0.1
-SLEEP_BETWEEN=1
+SLEEP_BETWEEN=.5
 SLEEP_END=2.5
 MAX_INT=0xffff
 MAX_RANDOM_INT=0xffffffff
@@ -21,11 +21,15 @@ OUTPUT_TYPE=np.uint32
 
 MATRIX_MULTIPLICATION=1
 VECTOR_DOTPRODUCT=2
+DUMMY=3
 #app = VECTOR_DOTPRODUCT
-app = MATRIX_MULTIPLICATION
+app = 2
 FLASH_ADDRESS = {MATRIX_MULTIPLICATION:0x0, VECTOR_DOTPRODUCT:0x60000}
 
-REPEAT = 5
+MCU_TRANSMIT_PARAMETER_DATA_DIRECTLY 	= 0x0D
+FPGA_CALCULATION_RESULT			= 0x0E 
+
+REPEAT = 10
 
 #a = np.array([[0,1,400],[2,0,1],[1,5,0],[1,1,0]])
 #b = np.array([[0,1,4,2,7],[0,1,3,2,4],[0,2,3,4,5]])
@@ -39,11 +43,13 @@ def create_random_data(size=None):
 	if app == MATRIX_MULTIPLICATION:
 		a = np.random.randint(MAX_RANDOM_INT, size=(4,3)).astype(INPUT_TYPE)
 		b = np.random.randint(MAX_RANDOM_INT, size=(3,5)).astype(INPUT_TYPE)
-	else:
+	elif app == VECTOR_DOTPRODUCT:
 		a = np.random.randint(MAX_RANDOM_INT, size=(size,)).astype(INPUT_TYPE)
 		b = np.random.randint(MAX_RANDOM_INT, size=(size,)).astype(INPUT_TYPE)
+	else:
+		a = np.random.randint(MAX_RANDOM_INT, size=(1,)).astype(INPUT_TYPE)[0]
+		b = None
 	return a, b
-
 
 def print_data(data):
 	print data
@@ -54,41 +60,46 @@ def read_thread(serial_port):
 	for i in range(REPEAT):
 		print "REPEAT NUMBER", i
 	
-		if app == MATRIX_MULTIPLICATION:
-			arr = None
-			try:
-				header = serial_port.read(1)
-				header = int(binascii.hexlify(bytearray(header)), 16)
-				if header != 0x05: 
-					print 'weird header:', np.array([int(header)])
-				else:
-					print 'receiving response...'
+		arr = None
+		try:
+			header = serial_port.read(1)
+			header = int(binascii.hexlify(bytearray(header)), 16)
+			if header != FPGA_CALCULATION_RESULT: 
+				print 'weird header:', np.array([int(header)])
+			else:
+				print 'receiving response...'
+			
+			#print 'ignoring one byte...'
+			#skip = serial_port.read(1)
+			#if __dbg__: print 'skipped:', ord(skip), np.array([skip])
 
-				print 'ignoring one byte...'
-				serial_port.read(1)
-	
-				while True:
-					result = bytearray(serial_port.read(4))
-					if __dbg__:
-						print np.array(result)
-						print "read", int(binascii.hexlify(result), 16), "HEX", np.array([int(binascii.hexlify(result), 16)])
-					incoming_data.append(int(binascii.hexlify(result), 16))
-					
-					if len(incoming_data) == local_size:
-						break
-		
-				arr = np.array(incoming_data, dtype=np.uint32)
+			size = int(binascii.hexlify(serial_port.read(4)), 16)
+			if __dbg__: print "size received: ", size
+
+			while True:
+				result = bytearray(serial_port.read(4))
 				if __dbg__:
-					print "printing raw incoming data"
-					arr = np.array(incoming_data, dtype=np.uint16)
-					print arr
-					arr = np.array(incoming_data, dtype=np.uint32)
-					print arr
-				incoming_data = []
-		
-			except serial.SerialException:
-				print "Serial exception..."
-				return	
+					print np.array(result)
+					print "read", int(binascii.hexlify(result), 16), "HEX", np.array([int(binascii.hexlify(result), 16)])
+				incoming_data.append(int(binascii.hexlify(result), 16))
+				
+				
+				if len(incoming_data) == local_size:
+					break
+	
+			arr = np.array(incoming_data, dtype=np.uint32)
+			if __dbg__:
+				print "printing raw incoming data"
+				arr = np.array(incoming_data, dtype=np.uint16)
+				print arr
+				arr = np.array(incoming_data, dtype=np.uint32)
+				print arr
+			incoming_data = []
+	
+		except serial.SerialException:
+			print "Serial exception..."
+			return	
+		if app == MATRIX_MULTIPLICATION:
 			if arr is not None:
 				remote = np.reshape(arr, np.dot(a,b).shape)
 				print 'remote:\n', remote
@@ -105,13 +116,17 @@ def read_thread(serial_port):
 					print remote[where]
 			else:
 				print "No data received"
-
+		elif app == VECTOR_DOTPRODUCT:
+			remote = arr
+			print remote
+		
+		'''
 		else:
-			print "vector dotproduct reader"
-			try:
-				header = serial_port.read(1)
-				header = int(binascii.hexlify(bytearray(header)), 16)
-				if header != 0x05: 
+		print "vector dotproduct reader"
+		try:
+			header = serial_port.read(1)
+			header = int(binascii.hexlify(bytearray(header)), 16)
+				if header != FPGA_CALCULATION_RESULT: 
 					print 'weird header:', np.array([header])
 					int(binascii.hexlify(bytearray(header)), 16)
 				else:
@@ -121,11 +136,12 @@ def read_thread(serial_port):
 				skip = serial_port.read(1)
 				if __dbg__: print 'skipped:', skip, np.array([skip])
 	
-				result = bytearray(serial_port.read(4))
-				if __dbg__:
-					print np.array(result)
-					print "read", int(binascii.hexlify(result), 16), "HEX", np.array([int(binascii.hexlify(result), 16)])
-				incoming_data.append(int(binascii.hexlify(result), 16))				
+				for i in range(2):
+					result = bytearray(serial_port.read(4))
+					if __dbg__:
+						print np.array(result)
+						print "read", int(binascii.hexlify(result), 16), "HEX", np.array([int(binascii.hexlify(result), 16)])
+					incoming_data.append(int(binascii.hexlify(result), 16))				
 				
 				arr = np.array(incoming_data, dtype=np.uint32)
 				if __dbg__:
@@ -145,7 +161,7 @@ def read_thread(serial_port):
 		
 			else:
 				print "No data received"
-			
+		'''
 	print "DONE"
 	
 		
@@ -198,15 +214,22 @@ def fpga_vectordotproduct(size, a, b):
 	fpga_ram_write(args)
 
 	# print local result 
-	print 'this is local'
 	print 'local', np.array([vector_dot_product(args)])
+
+def fpga_dummy(a):
+	args = list()
+	args.append(a)
+	fpga_ram_write(args)
+
+	# print local result 
+	print 'local', np.array([a])
 
 def fpga_ram_write(list_of_ints):
 	bytes = list()
 	# header
-	bytes.append(0x3)
+	bytes.append(MCU_TRANSMIT_PARAMETER_DATA_DIRECTLY)
 	# address
-	for i in range(4): bytes.append(0x11)
+	#for i in range(4): bytes.append(0x11)
 	size = 4*len(list_of_ints)
 	if __dbg__: print 'size:', size
 	bytes.append(size >> 24 & 0xff)
@@ -253,10 +276,12 @@ time.sleep(SLEEP_START)
 fpga_wake()
 time.sleep(SLEEP_START)
 
-app = MATRIX_MULTIPLICATION
+#app = DUMMY
+#recThread = threading.Thread(target=read_thread, args=(ser,))
+#recThread.start()
 
-recThread = threading.Thread(target=read_thread, args=(ser,))
-recThread.start()
+'''
+app = MATRIX_MULTIPLICATION
 
 # first application
 a, b = create_random_data()
@@ -274,27 +299,40 @@ time.sleep(2)
 # switch app
 fpga_multiboot(0x60000)
 time.sleep(3)
-app = VECTOR_DOTPRODUCT
 
-ser.close()
-ser = serial.Serial('/dev/tty.usbserial-A9048DYL', 500000)
+'''
+# app = VECTOR_DOTPRODUCT
+
+#ser.close()
+#ser = serial.Serial('/dev/tty.usbserial-A9048DYL', 500000)
 
 recThread = threading.Thread(target=read_thread, args=(ser,))
 recThread.start()
 
 
 size = 1
-a, b = create_random_data(size)
-fpga_vectordotproduct(size, a, b)
-time.sleep(SLEEP_BETWEEN)
 
-'''
 # second application
-#for i in range(REPEAT):
-#	if app == MATRIX_MULTIPLICATION:
-#	else:
+for i in range(REPEAT):
+	if app == MATRIX_MULTIPLICATION:
+		a, b = create_random_data()
+		local = np.dot(a.astype(OUTPUT_TYPE),b.astype(OUTPUT_TYPE))
+		local_size = local.flatten().shape[0]
+		fpga_matrixmultiplication(a, b)
+		time.sleep(SLEEP_BETWEEN)
+	elif app == VECTOR_DOTPRODUCT:
+		a, b = create_random_data(size)
+		local_size = 1
+		fpga_vectordotproduct(size, a, b)
+		time.sleep(SLEEP_BETWEEN)
+		
+	else:
+		a, _ = create_random_data()
+		fpga_dummy(a)
+		time.sleep(SLEEP_BETWEEN)
+		
 print 'waiting...'	
-'''
+
 time.sleep(SLEEP_END)
 
 ser.close()
