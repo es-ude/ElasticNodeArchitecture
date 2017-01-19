@@ -65,13 +65,15 @@ end CommunicationStateMachine;
 architecture Behavioral of CommunicationStateMachine is
 
 -- communication protocol
-constant WRITE_FLASH 					: std_logic_vector(7 downto 0) := x"00"; --! header;24bit address;32bit size;data
-constant READ_FLASH_REQUEST			: std_logic_vector(7 downto 0) := x"01"; --! header;24bit address;32bit size
-constant WRITE_RAM						: std_logic_vector(7 downto 0) := x"03"; --! header;32bit address;32bit size;data
-constant READ_RAM_RESPONSE				: std_logic_vector(7 downto 0) := x"05"; --! header;data
-constant SET_NEXT_CONFIG_ADDRESS		: std_logic_vector(7 downto 0) := x"06"; --! header;24bit address;
-constant SLEEP_FPGA						: std_logic_vector(7 downto 0) := x"08"; --! header
-constant WAKE_FPGA						: std_logic_vector(7 downto 0) := x"09"; --! header
+constant WRITE_FLASH 								: std_logic_vector(7 downto 0) := x"00"; --! header;24bit address;32bit size;data
+constant READ_FLASH_REQUEST						: std_logic_vector(7 downto 0) := x"01"; --! header;24bit address;32bit size
+constant WRITE_RAM									: std_logic_vector(7 downto 0) := x"03"; --! header;32bit address;32bit size;data
+constant READ_RAM_RESPONSE							: std_logic_vector(7 downto 0) := x"05"; --! header;data
+constant SET_NEXT_CONFIG_ADDRESS					: std_logic_vector(7 downto 0) := x"06"; --! header;24bit address;
+constant SLEEP_FPGA									: std_logic_vector(7 downto 0) := x"08"; --! header
+constant WAKE_FPGA									: std_logic_vector(7 downto 0) := x"09"; --! header
+constant MCU_TRANSMIT_PARAMETER_DATA_DIRECTLY: std_logic_vector(7 downto 0) := x"0D"; --! header;32bit size;data
+constant FPGA_CALCULATION_RESULT					: std_logic_vector(7 downto 0) := x"0E"; --! header;32bit size;data
 
 -- receiving fsm
 type receive_state is (
@@ -84,7 +86,8 @@ type receive_state is (
 	sending_flash_request, 				-- 6
 	send_flash_response, 				-- 7
 	receiving_next_config, 				-- 8
-	send_icap_multiboot					-- 9
+	send_icap_multiboot,					-- 9
+	receiving_parameters
 	);
 signal current_receive_state: receive_state := idle;
 signal state_count 			: integer range 0 to 16; --! count how many times this state has happened
@@ -117,6 +120,7 @@ signal current_byte			: integer range 0 to 5;	-- decides which byte to send of 3
 shared variable header_done 			: boolean := false;
 signal data_out_done_toggle: std_logic := '0';
 signal this_is_header 		: boolean := false;
+
 begin
 	
 --	newdataProcess: process ( data_in_32_rdy )
@@ -136,12 +140,13 @@ begin
 		if reset = '1' then
 			data_out_done_toggle <= '0';
 			current_byte <= 0;
-		elsif rising_edge(clk) then
+		elsif falling_edge(clk) then
 			-- if not currently sending, reset values
 			if (current_sending_state = sending_data) then -- (current_sending_state = sending_header) or 
 				if data_out_done = '1' and was_low then
 					was_low := false;
 					data_out_done_toggle <= not data_out_done_toggle;
+					next_byte <= '1';
 					
 					-- if this is the header, we do not increment current byte
 					if not this_is_header then
@@ -153,6 +158,7 @@ begin
 						end if;
 					end if;
 				else
+					next_byte <= '0';
 					was_low := true;
 	--				case current_sending_state is
 	--				when sending_header =>
@@ -203,7 +209,7 @@ begin
 				when sending_header =>
 					data_out_rdy <= '1';
 					-- if data_ then
-					data_out <= READ_RAM_RESPONSE;
+					data_out <= FPGA_CALCULATION_RESULT;
 					data_available := false;
 					current_sending_state <= sending_data;
 					uart_en <= '1';
@@ -214,12 +220,17 @@ begin
 --					end if;
 
 				when sending_data =>
-					data_out_rdy <= '1';
+					data_out_rdy <= '0';
 					uart_en <= '1';
 					
-					if (data_out_done = '1') or direct_to_first_byte then
+					if next_byte = '1' or direct_to_first_byte then -- (data_out_done = '1')
 						this_is_header <= false;
 						direct_to_first_byte := false;
+						if current_byte < 3 then
+							data_out_rdy <= '1';
+						else
+							data_out_rdy <= '1';
+						end if;
 						case current_byte is
 							-- when coming from header first 1, otherwise 0
 							-- when 0 =>
@@ -297,6 +308,8 @@ begin
 
 						--! see if new command is being received
 						case data_in is
+							when MCU_TRANSMIT_PARAMETER_DATA_DIRECTLY =>
+								current_receive_state <= receiving_parameters;
 							when WRITE_RAM =>
 								current_receive_state <= receiving_ram_write_address;
 							when READ_FLASH_REQUEST =>
@@ -314,6 +327,7 @@ begin
 				
 					data_out_32_rdy <= '0';
 					-- userlogic_en <= '0';
+				
 				
 				-- ram write command
 				when receiving_ram_write_address =>
@@ -335,7 +349,9 @@ begin
 							when others =>
 						end case;
 					end if;
-				when receiving_ram_write_size =>
+				-- userlogic parameters incoming
+				when receiving_parameters =>
+				-- when receiving_ram_write_size =>
 					if data_in_rdy = '1' then
 
 						state_count <= state_count + 1; --! only incremented at end of process
@@ -371,10 +387,10 @@ begin
 							when 3 =>
 								data_out_32(7 downto 0) <= data_in;
 								
+								userlogic_en <= '1';
 								if data_count = ram_size then
 									current_receive_state <= idle;
 								-- else -- TODO WHY WAS ENABLE WHEN NOT IDLE?
-									userlogic_en <= '1';
 								end if;
 								
 								

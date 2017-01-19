@@ -7,14 +7,9 @@
          <top_modules>
             <top_module name="numeric_std" />
             <top_module name="std_logic_1164" />
-            <top_module name="std_logic_arith" />
             <top_module name="testcommunicationstatemachine" />
-            <top_module name="textio" />
             <top_module name="userlogicinterface" />
             <top_module name="vcomponents" />
-            <top_module name="vital_primitives" />
-            <top_module name="vital_timing" />
-            <top_module name="vpkg" />
          </top_modules>
       </db_ref>
    </db_ref_list>
@@ -49,6 +44,14 @@
          <obj_property name="ElementShortName">data_out_rdy</obj_property>
          <obj_property name="ObjectShortName">data_out_rdy</obj_property>
       </wvobject>
+      <wvobject fp_name="/testcommunicationstatemachine/data_out_done" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">data_out_done</obj_property>
+         <obj_property name="ObjectShortName">data_out_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testcommunicationstatemachine/uut/next_byte" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">next_byte</obj_property>
+         <obj_property name="ObjectShortName">next_byte</obj_property>
+      </wvobject>
       <wvobject fp_name="/testcommunicationstatemachine/data_out_32" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">data_out_32[31:0]</obj_property>
          <obj_property name="ObjectShortName">data_out_32[31:0]</obj_property>
@@ -70,10 +73,6 @@
       <wvobject fp_name="/testcommunicationstatemachine/data_out_32_rdy" type="logic" db_ref_id="1">
          <obj_property name="ElementShortName">data_out_32_rdy</obj_property>
          <obj_property name="ObjectShortName">data_out_32_rdy</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/data_out_done" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">data_out_done</obj_property>
-         <obj_property name="ObjectShortName">data_out_done</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group36" type="group">
@@ -128,6 +127,10 @@
          <obj_property name="ObjectShortName">multiboot[23:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
+      <wvobject fp_name="/testcommunicationstatemachine/uut/current_byte" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">current_byte</obj_property>
+         <obj_property name="ObjectShortName">current_byte</obj_property>
+      </wvobject>
    </wvobject>
    <wvobject fp_name="/testcommunicationstatemachine/ready" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">ready</obj_property>
@@ -169,7 +172,7 @@
       <wvobject fp_name="/testcommunicationstatemachine/userlogic_data_out" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">userlogic_data_out[31:0]</obj_property>
          <obj_property name="ObjectShortName">userlogic_data_out[31:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/testcommunicationstatemachine/ul/current_receive_state" type="other" db_ref_id="1">
          <obj_property name="ElementShortName">current_receive_state</obj_property>
@@ -195,49 +198,11 @@
       <wvobject fp_name="/testcommunicationstatemachine/uart_data_out" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">uart_data_out[7:0]</obj_property>
          <obj_property name="ObjectShortName">uart_data_out[7:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group51" type="group">
       <obj_property name="label">ICAP</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <wvobject fp_name="/testcommunicationstatemachine/ic/clk" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">clk</obj_property>
-         <obj_property name="ObjectShortName">clk</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/ic/enable" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">enable</obj_property>
-         <obj_property name="ObjectShortName">enable</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/ic/status_running" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">status_running</obj_property>
-         <obj_property name="ObjectShortName">status_running</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/ic/multiboot_address" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">multiboot_address[23:0]</obj_property>
-         <obj_property name="ObjectShortName">multiboot_address[23:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/ic/current_state" type="other" db_ref_id="1">
-         <obj_property name="ElementShortName">current_state</obj_property>
-         <obj_property name="ObjectShortName">current_state</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/ic/icap_in" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">icap_in[15:0]</obj_property>
-         <obj_property name="ObjectShortName">icap_in[15:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/ic/icap_in_reorder" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">icap_in_reorder[15:0]</obj_property>
-         <obj_property name="ObjectShortName">icap_in_reorder[15:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/ic/icap_ce" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">icap_ce</obj_property>
-         <obj_property name="ObjectShortName">icap_ce</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/ic/goldenboot_address" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">goldenboot_address[23:0]</obj_property>
-         <obj_property name="ObjectShortName">goldenboot_address[23:0]</obj_property>
-      </wvobject>
    </wvobject>
 </wave_config>

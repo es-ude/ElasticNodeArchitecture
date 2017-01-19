@@ -78,17 +78,17 @@ signal uart_data_out_rdy		: std_logic := '0';
 signal uart_data_in_done		: std_logic;
 
 ---- spi variables
---signal spi_en_s		 	: std_logic := '0'; -- general enable to allow sending data
+--signal spi_en_s		 		: std_logic := '0'; -- general enable to allow sending data
 --signal spi_data_in_rdy	: std_logic := '0'; -- stretched strobe to send a byte 
---signal spi_strobe	: std_logic := '0'; -- a byte is available, toggle to show activity
+--signal spi_strobe			: std_logic := '0'; -- a byte is available, toggle to show activity
 --signal spi_data_in 		: std_logic_vector(7 downto 0);
 --signal spi_data_out 		: std_logic_vector(7 downto 0);
---signal spi_data_out_rdy : std_logic := '0';
+--signal spi_data_out_rdy 	: std_logic := '0';
 --signal spi_data_in_done	: std_logic;
 --signal spi_cs				: std_logic;
 --signal spi_sck				: std_logic;
---signal spi_mosi			: std_logic;
---signal spi_miso			: std_logic; 
+--signal spi_mosi				: std_logic;
+--signal spi_miso				: std_logic; 
 
 -- userlogic variables
 signal userlogic_en				: std_logic;
@@ -176,8 +176,8 @@ begin
 		port map (clk => clk_icap, enable => icap_en, status_running => open, multiboot_address => multiboot_address);
 
 	-- initialise user logic
-	ul: entity work.Dummy(Behavioral) port map
-	-- ul: entity work.VectorDotproduct(Behavioral) port map
+	-- ul: entity work.Dummy(Behavioral) port map
+	ul: entity work.VectorDotproduct(Behavioral) port map
 	-- ul: entity work.MatrixMultiplication(Behavioral) port map
 		(
 			clk, not userlogic_sleep, userlogic_rdy_s, userlogic_done_s, userlogic_data_out_rdy, userlogic_data_out_done, userlogic_data_in_rdy, outgoing_data_32, incoming_data_32

@@ -56,9 +56,11 @@ end VectorDotproduct;
 
 architecture Behavioral of VectorDotproduct is
 	-- signal inputA, inputB : unsigned(31 downto 0);
-	type receive_state is (idle, receiveN, receiveA, receiveB, receiveDone);
+	type receive_state is (idle, receiveN, receiveA, receiveB, receiveDone, sendingResult);
 	signal current_receive_state : receive_state := idle;
 	signal intermediate_result_out : unsigned(31 downto 0);
+	
+	constant OUTPUT_SIZE : unsigned := to_unsigned(4, 32);
 begin
 
 	-- process data receive 
@@ -84,11 +86,16 @@ begin
 --							current_receive_state <= headerDone;
 --						end if;
 					elsif current_receive_state = receiveDone then
+						if data_out_done = '1' then
+							current_receive_state <= sendingResult;
+							data_out <= std_logic_vector(intermediate_result);
+						end if;
+					elsif current_receive_state = sendingResult then
 						data_out_rdy <= '0';
 						if data_out_done = '1' then
 							current_receive_state <= idle;
 						end if;
-						
+										
 					-- respond to incoming data
 					elsif data_in_rdy = '1' then
 						done <= '0';
@@ -111,7 +118,7 @@ begin
 									current_receive_state <= receiveDone; -- display output
 									done <= '1';
 									data_out_rdy <= '1';
-									data_out <= std_logic_vector(intermediate_result);
+									data_out <= std_logic_vector(OUTPUT_SIZE);
 								else
 									current_receive_state <= receiveA; -- receive another 
 								end if;
