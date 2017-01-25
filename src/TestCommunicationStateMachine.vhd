@@ -174,10 +174,10 @@ ARCHITECTURE behavior OF TestCommunicationStateMachine IS
 	procedure vector_dotproduct(signal data_in : out std_logic_vector(7 downto 0); signal data_in_rdy : out std_logic) is
 	begin
 		-- write ram data
-		uart_op(x"03", data_in, data_in_rdy); 			-- command
+		uart_op(x"0D", data_in, data_in_rdy); 			-- command
 
 		-- stimulus for vectordotproduct
-		uart_op_32(x"10203040", data_in, data_in_rdy); 								-- address
+		-- uart_op_32(x"10203040", data_in, data_in_rdy); 								-- address
 		uart_op_32(x"0000000C", data_in, data_in_rdy); 								-- size
 		
 		uart_op_32(x"00000001", data_in, data_in_rdy); 								-- data a
@@ -285,13 +285,13 @@ BEGIN
 		--port map (clk => clk, enable => icap_en, status_running => open, multiboot_address => multiboot);
 
 	-- initialise user logic
-	ul: entity work.Dummy(Behavioral) port map
-	-- ul: entity work.VectorDotproduct(Behavioral) port map
-	--ul: entity work.MatrixMultiplication(Behavioral) port map
+	-- ul: entity work.Dummy(Behavioral) port map
+	ul: entity work.VectorDotproduct(Behavioral) port map
+	-- ul: entity work.MatrixMultiplication(Behavioral) port map
 		(
 			clk, not fpga_sleep, userlogic_rdy, userlogic_done, userlogic_data_out_rdy, userlogic_data_out_done, userlogic_data_in_rdy, userlogic_data_in, userlogic_data_out
 		);
-	userlogic_data_in_rdy <= data_out_32_rdy and userlogic_en;
+	userlogic_data_in_rdy <= data_out_32_rdy; -- userlogic_en;
 	userlogic_data_in <= data_out_32;
 	data_in_32 <= userlogic_data_out;
 	userlogic_data_out_done <= data_in_32_done;
@@ -399,9 +399,9 @@ BEGIN
 		wake_fpga(data_in, data_in_rdy);
 		--wait for uart_byte_time * 8;
 		
-		-- vector_dotproduct(data_in, data_in_rdy);
+		vector_dotproduct(data_in, data_in_rdy);
 		-- matrix_multiplication(data_in, data_in_rdy);
-		dummy(data_in, data_in_rdy);
+		-- dummy(data_in, data_in_rdy);
 		
 		wait until userlogic_rdy = '1';
 		wait for uart_byte_time * 32;

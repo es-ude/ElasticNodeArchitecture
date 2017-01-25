@@ -63,6 +63,8 @@ architecture Behavioral of MatrixMultiplication is
 	signal intermediate_result_s : MatrixMultiplicationPackage.outputMatrix;
 	signal inputA_s : MatrixMultiplicationPackage.inputMatrix1;
 	signal inputB_s : MatrixMultiplicationPackage.inputMatrix2;
+	
+	constant OUTPUT_SIZE : unsigned := to_unsigned((MatrixMultiplicationPackage.numrows1 * MatrixMultiplicationPackage.numcols2) * 4, 32);
 begin
 
 	-- process data receive 
@@ -77,6 +79,7 @@ begin
 		variable inputB : MatrixMultiplicationPackage.inputMatrix2 := (others => (others => (others => '0')));
 		
 		variable first : boolean := false;
+		variable sendSize : boolean := false;
 	begin
 		if enable = '1' then
 			-- beginning/end
@@ -117,7 +120,7 @@ begin
 							row1 := row1 + 1;
 						else
 							current_receive_state <= sendResult;
-							first := true; -- ensure first datapoint is sent
+							sendSize := true;
 							done <= '1';
 							row1 := 0;
 							column2 := 0;
@@ -166,7 +169,13 @@ begin
 								current_receive_state <= idle;
 						end case;
 					elsif current_receive_state = sendResult then
-						if data_out_done = '1' or first then
+						if sendSize then
+							sendSize := false;
+							data_out <= std_logic_vector(OUTPUT_SIZE);
+							data_out_rdy <= '1';
+							-- first := true; -- ensure first datapoint is sent
+							
+						elsif data_out_done = '1' or first then
 							first := false;
 							
 							data_out <= std_logic_vector(intermediate_result(row1)(column2));
