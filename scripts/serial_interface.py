@@ -9,8 +9,8 @@ import traceback
 import sys
 import array 
 
-__dbg__=True
-SLEEP_TIME=0.05
+__dbg__=False
+SLEEP_TIME=0.0
 SLEEP_START=0.1
 SLEEP_BETWEEN=.5
 SLEEP_END=2.5
@@ -30,7 +30,7 @@ FLASH_ADDRESS = {MATRIX_MULTIPLICATION:0x0, VECTOR_DOTPRODUCT:0x60000}
 MCU_TRANSMIT_PARAMETER_DATA_DIRECTLY 	= 0x0D
 FPGA_CALCULATION_RESULT			= 0x0E 
 
-REPEAT = 1
+REPEAT = 10
 
 #a = np.array([[0,1,400],[2,0,1],[1,5,0],[1,1,0]])
 #b = np.array([[0,1,4,2,7],[0,1,3,2,4],[0,2,3,4,5]])
@@ -82,7 +82,7 @@ def read_thread(serial_port):
 				
 
 			while True:
-				result = bytearray(serial_port.read(4))
+				result = bytearray(serial_port.read(4)[::-1])
 				if __dbg__:
 					print np.array(result), "read", int(binascii.hexlify(result), 16), "HEX", np.array([int(binascii.hexlify(result), 16)])
 				incoming_data.append(int(binascii.hexlify(result), 16))
@@ -125,48 +125,6 @@ def read_thread(serial_port):
 			remote = arr
 			print remote
 		
-		'''
-		else:
-		print "vector dotproduct reader"
-		try:
-			header = serial_port.read(1)
-			header = int(binascii.hexlify(bytearray(header)), 16)
-				if header != FPGA_CALCULATION_RESULT: 
-					print 'weird header:', np.array([header])
-					int(binascii.hexlify(bytearray(header)), 16)
-				else:
-					print 'receiving response...'
-
-				print 'ignoring one byte...'
-				skip = serial_port.read(1)
-				if __dbg__: print 'skipped:', skip, np.array([skip])
-	
-				for i in range(2):
-					result = bytearray(serial_port.read(4))
-					if __dbg__:
-						print np.array(result)
-						print "read", int(binascii.hexlify(result), 16), "HEX", np.array([int(binascii.hexlify(result), 16)])
-					incoming_data.append(int(binascii.hexlify(result), 16))				
-				
-				arr = np.array(incoming_data, dtype=np.uint32)
-				if __dbg__:
-					print "printing raw incoming data"
-					arr = np.array(incoming_data, dtype=np.uint16)
-					print arr
-					arr = np.array(incoming_data, dtype=np.uint32)
-					print arr
-				incoming_data = []
-		
-			except serial.SerialException:
-				print "Serial exception..."
-				return	
-			if arr is not None:
-				remote = arr
-				print 'remote: ', remote
-		
-			else:
-				print "No data received"
-		'''
 	print "DONE"
 	
 		
@@ -243,10 +201,10 @@ def fpga_ram_write(list_of_ints):
 	bytes.append(size >> 24 & 0xff)
 
 	for num in list_of_ints:
-		bytes.append(num >> 24 & 0xff)
-		bytes.append(num >> 16 & 0xff)
-		bytes.append(num >> 8 & 0xff)
 		bytes.append(num & 0xff)
+		bytes.append(num >> 8 & 0xff)
+		bytes.append(num >> 16 & 0xff)
+		bytes.append(num >> 24 & 0xff)
 
 	# 0x3 32bit_bytes 32bit_address 32bit_size data
 	ba = bytearray(bytes) # bytearray([0x03, 0x1, 0x2, 0x3, 0x4, 0x0, 0x0, 0x0, 0xC, 0x0, 0x0, 0x0, 0x1, 0x0, 0x0, 0x0, 0x2, 0x0, 0x0, 0x0, 0x3])

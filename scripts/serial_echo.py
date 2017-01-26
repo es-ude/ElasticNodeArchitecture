@@ -16,6 +16,8 @@ SLEEP_BETWEEN=.5
 SLEEP_END=2.5
 MAX_INT=0xffff
 MAX_RANDOM_INT=0xffffffff
+BAUD=500000
+TIMEOUT=0.05
 
 INPUT_TYPE=np.uint16
 OUTPUT_TYPE=np.uint32
@@ -65,14 +67,14 @@ def read_thread(serial_port):
 		if ECHO:
 			print "receiving all"
 			while True:
-				header = serial_port.read(100)
+				header = bytearray(serial_port.read(1000))
 				if len(header) > 0:
 					# print len(header)
 					# header = int(binascii.hexlify(bytearray(header)), 16)
-					# print np.array([header])
+					print np.array([header])
 					# print header
-					header = ''.join(str(v) for v in header)
-					print header,
+					#header = ''.join(str(v) for v in header)
+					#print header,
 		try:
 			print 'waiting for header'
 			header = serial_port.read(1)
@@ -281,7 +283,7 @@ def vector_dot_product(args):
 	return output
 
 print 'opening serial port'
-ser = serial.Serial(sys.argv[1], 500000, timeout=0.1)
+ser = serial.Serial(sys.argv[1], BAUD, timeout=TIMEOUT)
 
 time.sleep(SLEEP_START)
 fpga_sleep()
@@ -314,10 +316,6 @@ fpga_multiboot(0x60000)
 time.sleep(3)
 
 '''
-# app = VECTOR_DOTPRODUCT
-
-#ser.close()
-#ser = serial.Serial('/dev/tty.usbserial-A9048DYL', 500000)
 
 recThread = threading.Thread(target=read_thread, args=(ser,))
 recThread.start()
