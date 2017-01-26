@@ -7,10 +7,10 @@ import random
 import numpy as np
 import traceback 
 import sys
-import array 
 
-__dbg__=True
-SLEEP_TIME=0.05
+__dbg__=False
+ECHO=True
+SLEEP_TIME=0.
 SLEEP_START=0.1
 SLEEP_BETWEEN=.5
 SLEEP_END=2.5
@@ -24,13 +24,13 @@ MATRIX_MULTIPLICATION=1
 VECTOR_DOTPRODUCT=2
 DUMMY=3
 #app = VECTOR_DOTPRODUCT
-app = 1
+app = 2
 FLASH_ADDRESS = {MATRIX_MULTIPLICATION:0x0, VECTOR_DOTPRODUCT:0x60000}
 
 MCU_TRANSMIT_PARAMETER_DATA_DIRECTLY 	= 0x0D
 FPGA_CALCULATION_RESULT			= 0x0E 
 
-REPEAT = 1
+REPEAT = 10
 
 #a = np.array([[0,1,400],[2,0,1],[1,5,0],[1,1,0]])
 #b = np.array([[0,1,4,2,7],[0,1,3,2,4],[0,2,3,4,5]])
@@ -62,7 +62,19 @@ def read_thread(serial_port):
 		print "REPEAT NUMBER", i
 	
 		arr = None
+		if ECHO:
+			print "receiving all"
+			while True:
+				header = serial_port.read(100)
+				if len(header) > 0:
+					# print len(header)
+					# header = int(binascii.hexlify(bytearray(header)), 16)
+					# print np.array([header])
+					# print header
+					header = ''.join(str(v) for v in header)
+					print header,
 		try:
+			print 'waiting for header'
 			header = serial_port.read(1)
 			header = int(binascii.hexlify(bytearray(header)), 16)
 			if header != FPGA_CALCULATION_RESULT: 
@@ -74,17 +86,14 @@ def read_thread(serial_port):
 			#skip = serial_port.read(1)
 			#if __dbg__: print 'skipped:', ord(skip), np.array([skip])
 
-			size = serial_port.read(4) [::-1]
-			print np.array(bytearray(size))
-			size = int(binascii.hexlify(bytearray(size)), 16)
-			if __dbg__: 
-				print "size received: ", size
-				
+			size = int(binascii.hexlify(serial_port.read(4)), 16)
+			if __dbg__: print "size received: ", size
 
 			while True:
 				result = bytearray(serial_port.read(4))
 				if __dbg__:
-					print np.array(result), "read", int(binascii.hexlify(result), 16), "HEX", np.array([int(binascii.hexlify(result), 16)])
+					print np.array(result)
+					print "read", int(binascii.hexlify(result), 16), "HEX", np.array([int(binascii.hexlify(result), 16)])
 				incoming_data.append(int(binascii.hexlify(result), 16))
 				
 				
@@ -104,7 +113,6 @@ def read_thread(serial_port):
 			print "Serial exception..."
 			return	
 		if app == MATRIX_MULTIPLICATION:
-			print 'arr in:', arr
 			if arr is not None:
 				remote = np.reshape(arr, np.dot(a,b).shape)
 				print 'remote:\n', remote
@@ -237,10 +245,10 @@ def fpga_ram_write(list_of_ints):
 	#for i in range(4): bytes.append(0x11)
 	size = 4*len(list_of_ints)
 	if __dbg__: print 'size:', size
-	bytes.append(size & 0xff)
-	bytes.append(size >> 8 & 0xff)
-	bytes.append(size >> 16 & 0xff)
 	bytes.append(size >> 24 & 0xff)
+	bytes.append(size >> 16 & 0xff)
+	bytes.append(size >> 8 & 0xff)
+	bytes.append(size & 0xff)
 
 	for num in list_of_ints:
 		bytes.append(num >> 24 & 0xff)
@@ -273,7 +281,7 @@ def vector_dot_product(args):
 	return output
 
 print 'opening serial port'
-ser = serial.Serial('/dev/tty.usbserial-A9048DYL', 500000)
+ser = serial.Serial(sys.argv[1], 500000, timeout=0.1)
 
 time.sleep(SLEEP_START)
 fpga_sleep()
@@ -317,6 +325,7 @@ recThread.start()
 
 size = 1
 
+'''
 # second application
 for i in range(REPEAT):
 	if app == MATRIX_MULTIPLICATION:
@@ -335,9 +344,10 @@ for i in range(REPEAT):
 		a, _ = create_random_data()
 		fpga_dummy(a)
 		time.sleep(SLEEP_BETWEEN)
-		
+
+'''		
 print 'waiting...'	
 
-time.sleep(SLEEP_END)
+#time.sleep(SLEEP_END)
 
-ser.close()
+#ser.close()
