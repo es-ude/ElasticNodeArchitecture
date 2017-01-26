@@ -51,8 +51,9 @@ entity CommunicationStateMachine is
 		uart_en				: out std_logic := '0';					-- activate sending to uart
 		icap_en				: out std_logic := '0';
 		multiboot			: out std_logic_vector(23 downto 0);-- for outputting new address to icap
-		fpga_sleep			: out std_logic := '0';					-- put configuration to sleep
+		fpga_sleep			: out std_logic := '1';					-- put configuration to sleep
 		userlogic_en		: out std_logic := '0'; 				-- communicate directly with userlogic
+		userlogic_rdy		: in std_logic;							-- userlogic boot done
 		userlogic_done		: in std_logic;							-- userlogic operations done
 		
 		--debug
@@ -74,10 +75,13 @@ constant SLEEP_FPGA									: std_logic_vector(7 downto 0) := x"08"; --! header
 constant WAKE_FPGA									: std_logic_vector(7 downto 0) := x"09"; --! header
 constant MCU_TRANSMIT_PARAMETER_DATA_DIRECTLY: std_logic_vector(7 downto 0) := x"0D"; --! header;32bit size;data
 constant FPGA_CALCULATION_RESULT					: std_logic_vector(7 downto 0) := x"0E"; --! header;32bit size;data
+constant FPGA_READY									: std_logic_vector(7 downto 0) := x"10"; --! header
 
 -- receiving fsm
 type receive_state is (
+	booting,
 	idle, 									-- 0
+	done,
 	receiving_flash_request_address, -- 1
 	receiving_flash_request_size,    -- 2
 	receiving_ram_write_address,		-- 3
@@ -89,7 +93,7 @@ type receive_state is (
 	send_icap_multiboot,					-- 9
 	receiving_parameters
 	);
-signal current_receive_state: receive_state := idle;
+signal current_receive_state: receive_state := booting;
 signal state_count 			: integer range 0 to 16; --! count how many times this state has happened
 -- sending fsm
 type sending_state is (
@@ -97,7 +101,8 @@ type sending_state is (
 	sending_header,
 	sending_data,
 	sending_done,
-	sending_next_value
+	sending_next_value,
+	sending_userlogic_rdy
 	);
 signal current_sending_state: sending_state := idle;
 
@@ -160,35 +165,36 @@ begin
 				else
 					next_byte <= '0';
 					was_low := true;
-	--				case current_sending_state is
-	--				when sending_header =>
-	--					header_done := true;
-	--					-- bytecount := 0;
-	--					current_byte <= 0;
-	--				when sending_data =>
-	--					-- bytecount := bytecount + 1;
-	--					current_byte <= current_byte + 1;
-	--				when others => 
-	--				end case;
-	--				data_available := true;
 				end if;
 			else
 				data_out_done_toggle <= '0';
 				current_byte <= 0;
-	--			data_available := false;
-	--			header_done := false;
+
 			end if;
 		end if;
 	end process;		
 	
-	sendingProcess: process (reset, clk, data_in_32_rdy, data_out_done, userlogic_done)
+	sendingProcess: process (reset, clk, data_in_32_rdy, data_out_done, userlogic_done, userlogic_rdy)
 		-- variable bytecount : integer range 0 to 4 := 4;
 		-- variable data_available: boolean := false;
 		variable userlogic_return : boolean := false;
 		variable delay_one_cycle : boolean := false;
 		variable direct_to_first_byte : boolean := false;
+		variable userlogic_was_not_rdy : boolean := true;
+		variable state_count : integer range 0 to 7 := 0;
 	begin
-		if reset = '0' then
+		if reset = '1' then
+			current_sending_state <= idle;
+			userlogic_return := false;
+			delay_one_cycle := false;
+			direct_to_first_byte := false;
+			userlogic_was_not_rdy := true;
+			data_out_rdy <= '0';
+			uart_en <= '0';
+			data_in_32_done <= '0';
+			data_out <= (others => '0');
+			state_count := 0;
+		else
 			-- add return header to next incoming data
 			if rising_edge(clk) then
 				-- advance bytecount when readys
@@ -197,15 +203,35 @@ begin
 					data_out_rdy <= '0';
 					uart_en <= '0';
 					data_in_32_done <= '0';
-					if data_in_32_rdy = '1' then
-						uart_buffer <= data_in_32;
-						if userlogic_done = '1' then
-							current_sending_state <= sending_header;
-						else
-							current_sending_state <= sending_data;
-							-- TODO INTERMEDIATE RESULTS FIRST BYTE
+					if userlogic_was_not_rdy and userlogic_rdy = '1' then
+						current_sending_state <= sending_userlogic_rdy;
+						userlogic_was_not_rdy := false;
+					else
+						if userlogic_rdy = '0' then
+							userlogic_was_not_rdy := true;
+						end if;
+						if data_in_32_rdy = '1' then
+							uart_buffer <= data_in_32;
+							if userlogic_done = '1' then
+								current_sending_state <= sending_header;
+							else
+								current_sending_state <= sending_data;
+								-- TODO INTERMEDIATE RESULTS FIRST BYTE
+							end if;
 						end if;
 					end if;
+				when sending_userlogic_rdy =>
+					data_out_rdy <= '1';
+					data_out <= FPGA_READY;
+					-- current_sending_state <= idle;
+					uart_en <= '1';
+					
+					if state_count < 5 then
+						state_count := state_count + 1;
+					else
+						current_sending_state <= idle;
+					end if;
+					
 				when sending_header =>
 					data_out_rdy <= '1';
 					-- if data_ then
@@ -215,9 +241,6 @@ begin
 					uart_en <= '1';
 					direct_to_first_byte := false;
 					this_is_header <= true;
-					-- current_byte <= 1;					
-					
---					end if;
 
 				when sending_data =>
 					data_out_rdy <= '0';
@@ -236,13 +259,13 @@ begin
 							-- when 0 =>
 							-- 	data_out <= uart_buffer(31 downto 24);
 							when 0 =>
-								data_out <= uart_buffer(31 downto 24);
-							when 1 =>
-								data_out <= uart_buffer(23 downto 16);
-							when 2 =>
-								data_out <= uart_buffer(15 downto 8);
-							when 3 =>
 								data_out <= uart_buffer(7 downto 0);
+							when 1 =>
+								data_out <= uart_buffer(15 downto 8);
+							when 2 =>
+								data_out <= uart_buffer(23 downto 16);
+							when 3 =>
+								data_out <= uart_buffer(31 downto 24);
 								-- current_sending_state <= sending_done; -- disable uart next clock cycle
 							when others =>
 								-- data_in_32_done <= '1';
@@ -292,17 +315,22 @@ begin
 		variable data_count : unsigned(31 downto 0);
 	begin
 		if reset = '1' then 
-			current_receive_state <= idle;
+			current_receive_state <= booting;
 			byte_count <= 0;
 			state_count <= 0;
+			data_out_32_rdy <= '0';
 		elsif rising_edge(clk) then
 			data_in_unsigned := unsigned(data_in);
 			
 			--! Respond based on what state the middleware is in 
 			case current_receive_state is
 				--! different states 
+				when booting =>
+					-- delay starting userlogic one cycle
+					fpga_sleep <= '0';
+					current_receive_state <= idle;
 				when idle =>
-
+				
 					if data_in_rdy = '1' then
 						byte_count <= byte_count + 1;
 
@@ -330,6 +358,7 @@ begin
 				
 				
 				-- ram write command
+				-- TODO ENDIAN
 				when receiving_ram_write_address =>
 					if data_in_rdy = '1' then
 
@@ -358,20 +387,20 @@ begin
 					
 						case state_count is
 							when 0 =>
-								ram_size(31 downto 24) <= data_in_unsigned;
-							when 1 =>
-								ram_size(23 downto 16) <= data_in_unsigned;
-							when 2 =>
-								ram_size(15 downto 8) <= data_in_unsigned;
-							when 3 =>
 								ram_size(7 downto 0) <= data_in_unsigned;
+							when 1 =>
+								ram_size(15 downto 8) <= data_in_unsigned;
+							when 2 =>
+								ram_size(23 downto 16) <= data_in_unsigned;
+							when 3 =>
+								ram_size(31 downto 24) <= data_in_unsigned;
 								current_receive_state <= receiving_ram_write_data;
 								state_count <= 0;
 								data_count := (others => '0');
 							when others =>
 						end case;
 					end if;
-					
+				-- receiving parameter data 
 				when receiving_ram_write_data =>
 					if data_in_rdy = '1' then
 
@@ -379,13 +408,13 @@ begin
 						
 						case state_count is
 							when 0 =>
-								data_out_32(31 downto 24) <= data_in;
-							when 1 =>
-								data_out_32(23 downto 16) <= data_in;
-							when 2 =>
-								data_out_32(15 downto 8) <= data_in;
-							when 3 =>
 								data_out_32(7 downto 0) <= data_in;
+							when 1 =>
+								data_out_32(15 downto 8) <= data_in;
+							when 2 =>
+								data_out_32(23 downto 16) <= data_in;
+							when 3 =>
+								data_out_32(31 downto 24) <= data_in;
 								
 								userlogic_en <= '1';
 								if data_count = ram_size then
@@ -528,11 +557,11 @@ begin
 						--! receive a byte of config
 						case state_count is
 							when 0 =>
-								multiboot(23 downto 16) <= data_in;
+								multiboot(7 downto 0) <= data_in;
 							when 1 =>
 								multiboot(15 downto 8) <= data_in;
 							when 2 =>
-								multiboot(7 downto 0) <= data_in;
+								multiboot(23 downto 16) <= data_in;
 								current_receive_state <= send_icap_multiboot;
 							when others =>
 						end case;
@@ -540,7 +569,9 @@ begin
 					end if;
 				when send_icap_multiboot =>
 					-- set icap for one clock cycle
-					current_receive_state <= idle;
+					current_receive_state <= done;
+				when done =>
+					current_receive_state <= done;
 				when others =>
 					current_receive_state <= idle;
 			end case;
@@ -551,7 +582,7 @@ begin
 
 	end process;
 
-icap_en <= '1' when current_receive_state = send_icap_multiboot else '0';
+icap_en <= '1' when current_receive_state = send_icap_multiboot or current_receive_state = done else '0';
 ready <= '1' when current_receive_state = idle else '0';
 end Behavioral; 
 

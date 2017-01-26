@@ -41,42 +41,7 @@ ENTITY TestCommunicationStateMachine IS
 END TestCommunicationStateMachine;
  
 ARCHITECTURE behavior OF TestCommunicationStateMachine IS 
- 
-    -- Component Declaration for the Unit Under Test (UUT)
- 
---    COMPONENT CommunicationStateMachine
---    PORT(
---		clk					: in std_logic;							-- clock
---		reset					: in std_logic;							-- reset everything
---		
---		data_in				: in std_logic_vector(7 downto 0);	-- data from controller
---		data_in_rdy			: in std_logic;							-- new data avail to receive
---		data_out				: out std_logic_vector(7 downto 0);	-- data to be sent 
---		data_out_rdy		: out std_logic := '0';					-- new data avail to send
---		data_out_done		: in std_logic;							-- data send complete
---		data_in_32			: in std_logic_vector(31 downto 0);-- data to be written to the uart by the middleware
---		data_in_32_rdy		: in std_logic;							-- data for ram is ready (must be high at least one rising edge clock
---		data_in_32_done	: in std_logic := '0';					-- data is done being written to ram
---		data_out_32			: out std_logic_vector(31 downto 0);-- data to be written to the ram by the middleware
---		data_out_32_rdy	: out std_logic := '0';					-- data for ram is ready (must be high at least one rising edge clock
---		
-----		spi_en		: out std_logic := '0';					-- activate sending to spi
-----		spi_continue: out std_logic := '0';					-- keep spi alive to keep reading/writing
-----		spi_busy 	: in std_logic;
---		uart_en				: out std_logic := '0';					-- activate sending to uart
---		icap_en				: out std_logic := '0';
---		multiboot			: out std_logic_vector(23 downto 0);-- for outputting new address to icap
---		fpga_sleep			: out std_logic := '0';					-- put configuration to sleep
---		userlogic_en		: out std_logic := '0'; 				-- communicate directly with userlogic
---		
---		--debug
---		ready					: out std_logic;
---		current_state 		: out std_logic_vector(3 downto 0)
---        );
---    END COMPONENT;
-    
-
-   --Inputs
+    --Inputs
    signal clk : std_logic := '0';
    signal reset : std_logic := '0';
    signal data_in : std_logic_vector(7 downto 0) := (others => '0');
@@ -141,10 +106,10 @@ ARCHITECTURE behavior OF TestCommunicationStateMachine IS
 	
 	procedure uart_op_32(constant data : in std_logic_vector(31 downto 0); signal data_in : out std_logic_vector(7 downto 0); signal data_in_rdy : out std_logic) is
 	begin
-		uart_op(data(31 downto 24), data_in, data_in_rdy);
-		uart_op(data(23 downto 16), data_in, data_in_rdy);
-		uart_op(data(15 downto 8), data_in, data_in_rdy);
 		uart_op(data(7 downto 0), data_in, data_in_rdy);
+		uart_op(data(15 downto 8), data_in, data_in_rdy);
+		uart_op(data(23 downto 16), data_in, data_in_rdy);
+		uart_op(data(31 downto 24), data_in, data_in_rdy);
 	end procedure;
 	
 	procedure sleep_fpga(signal data_in : out std_logic_vector(7 downto 0); signal data_in_rdy : out std_logic) is
@@ -188,10 +153,10 @@ ARCHITECTURE behavior OF TestCommunicationStateMachine IS
 	procedure matrix_multiplication(signal data_in : out std_logic_vector(7 downto 0); signal data_in_rdy : out std_logic) is
 	begin
 		-- write ram data
-		uart_op(x"03", data_in, data_in_rdy); 			-- command
+		uart_op(x"0D", data_in, data_in_rdy); 			-- command
 		
 		-- stimulus for matrixmultiplication
-		uart_op_32(x"10203040", data_in, data_in_rdy); 										-- address
+		-- uart_op_32(x"10203040", data_in, data_in_rdy); 										-- address
 		
 		uart_op_32(std_logic_vector(to_unsigned(108, 32)), data_in, data_in_rdy); 	-- size
 		
@@ -243,9 +208,9 @@ ARCHITECTURE behavior OF TestCommunicationStateMachine IS
 	begin
 		-- load new configuration address
 		uart_op(x"06", data_in, data_in_rdy); 			-- command
-		uart_op(address(23 downto 16), data_in, data_in_rdy); 			-- first byte
-		uart_op(address(15 downto 8), data_in, data_in_rdy); 			-- second byte
 		uart_op(address(7 downto 0), data_in, data_in_rdy); 			-- third byte
+ 		uart_op(address(15 downto 8), data_in, data_in_rdy); 			-- second byte
+		uart_op(address(23 downto 16), data_in, data_in_rdy); 			-- first byte
 	end procedure;
 	
 BEGIN
@@ -273,6 +238,7 @@ BEGIN
 			 multiboot,
 			 fpga_sleep,
           userlogic_en,
+			 userlogic_rdy,
 			 userlogic_done,
 
           ready,
@@ -280,9 +246,9 @@ BEGIN
 			 sending_state
         );
 
-	--ic : entity fpgamiddlewarelibs.icapInterface(Behavioral)
-		--generic map (goldenboot_address => (others => '0')) 
-		--port map (clk => clk, enable => icap_en, status_running => open, multiboot_address => multiboot);
+	ic : entity fpgamiddlewarelibs.icapInterface(Behavioral)
+		generic map (goldenboot_address => (others => '0')) 
+		port map (clk => clk, enable => icap_en, status_running => open, multiboot_address => multiboot);
 
 	-- initialise user logic
 	-- ul: entity work.Dummy(Behavioral) port map
@@ -389,12 +355,12 @@ BEGIN
    stim_proc: process
    begin		
       -- hold reset state for 100 ns.
-		--reset <= '1';
-      -- wait for 100 ns;	
+		reset <= '1';
+      wait for 100 ns;	
 		reset <= '0';
 	
 		-- wait for uart_byte_time * 20;
-		
+		wait for 1000 ns;	
 		sleep_fpga(data_in, data_in_rdy);
 		wake_fpga(data_in, data_in_rdy);
 		--wait for uart_byte_time * 8;
@@ -407,8 +373,9 @@ BEGIN
 		wait for uart_byte_time * 32;
 		-- matrix_multiplication(data_in, data_in_rdy);
 		
-		-- config_address(x"123456", data_in, data_in_rdy);
-
+		config_address(x"000000", data_in, data_in_rdy);
+		wait for uart_byte_time * 8;
+		
 		
 
       -- insert stimulus here 
