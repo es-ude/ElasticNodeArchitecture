@@ -76,6 +76,7 @@ signal uart_data_in_rdy			: std_logic := '0';
 signal uart_data_out				: std_logic_vector(7 downto 0);
 signal uart_data_out_rdy		: std_logic := '0';
 signal uart_data_in_done		: std_logic;
+signal uart_tx_active			: std_logic;
 
 ---- spi variables
 --signal spi_en_s		 		: std_logic := '0'; -- general enable to allow sending data
@@ -99,6 +100,8 @@ signal userlogic_data_in_rdy	: std_logic;
 signal userlogic_data_out_rdy	: std_logic;
 signal userlogic_data_out_done: std_logic;
 
+signal reset 						: std_logic := '1';
+
 begin
 	--! Communication interface initialisation
 	uart : entity fpgamiddlewarelibs.uartInterface(arch)
@@ -112,8 +115,10 @@ begin
 			--! physical interfaces
 			i_uart_rx => rx,
 			o_uart_tx => tx,
-			clk => clk
+			clk => clk,
+			tx_active => uart_tx_active
 		);
+		userlogic_done <= uart_tx_active;
 	uart_data_in_rdy <= outgoing_data_rdy and uart_en_s;
 	uart_data_in <= outgoing_data;
 	uart_en <= uart_en_s;
@@ -133,7 +138,7 @@ begin
 	fsm : entity work.CommunicationStateMachine(Behavioral)
 		port map (
 			clk => clk,
-			reset => '0',
+			reset => reset,
 			
 			data_in => incoming_data,
 			data_in_rdy => incoming_data_rdy,
@@ -152,6 +157,7 @@ begin
 			multiboot => multiboot_address,
 			fpga_sleep => userlogic_sleep,
 			userlogic_en => userlogic_en,
+			userlogic_rdy => userlogic_rdy_s,
 			userlogic_done => userlogic_done_s,
 			
 			--debug
@@ -177,8 +183,8 @@ begin
 
 	-- initialise user logic
 	-- ul: entity work.Dummy(Behavioral) port map
-	ul: entity work.VectorDotproduct(Behavioral) port map
-	-- ul: entity work.MatrixMultiplication(Behavioral) port map
+	-- ul: entity work.VectorDotproduct(Behavioral) port map
+	ul: entity work.MatrixMultiplication(Behavioral) port map
 		(
 			clk, not userlogic_sleep, userlogic_rdy_s, userlogic_done_s, userlogic_data_out_rdy, userlogic_data_out_done, userlogic_data_in_rdy, outgoing_data_32, incoming_data_32
 		);
@@ -187,7 +193,7 @@ begin
 	-- incoming_data_32 <= userlogic_data_out;
 	userlogic_data_out_done <= incoming_data_32_done;
 	userlogic_rdy <= userlogic_rdy_s;
-	userlogic_done <= userlogic_done_s;
+	-- userlogic_done <= userlogic_done_s; temporarily using this for uart debugging
 	config_sleep <= userlogic_sleep;
 
 --	--! SPI communication interface
@@ -224,5 +230,19 @@ begin
 --	ext_cs <= spi_cs 				when spi_switch = '1' else '1'; -- active low
 --	flash_cs <= spi_cs 			when spi_switch = '0' else '1';
 --	spi_miso <= ext_miso 		when spi_switch = '1' else flash_miso;
+	
+	-- process to delay reset for fsm
+	process (clk)
+		variable count : integer range 0 to 10 := 0;
+	begin
+		if rising_edge(clk) then
+			if count < 10 then
+				count := count + 1;
+				reset <= '1';
+			else
+				reset <= '0';
+			end if;
+		end if;
+	end process;
 	
 end Behavioral;

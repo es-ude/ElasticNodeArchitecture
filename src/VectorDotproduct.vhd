@@ -80,6 +80,7 @@ begin
 						data_out_rdy <= '0';
 						data_out <= (others => '0');
 						intermediate_result := (others => '0');
+						ready <= '1';
 						-- done <= '0';
 --					elsif current_receive_state = receiveDone then
 --						if data_out_done = '1' then
@@ -99,6 +100,7 @@ begin
 					-- respond to incoming data
 					elsif data_in_rdy = '1' then
 						done <= '0';
+						ready <= '0';
 						case current_receive_state is
 							when receiveN => 
 								vector_width := unsigned(data_in);
@@ -134,11 +136,13 @@ begin
 			data_out_rdy <= '0';
 			data_out <= (others => '0');
 			done <= '0';
+			ready <= '0';
+			current_receive_state <= idle;
 		end if;
 		intermediate_result_out <= intermediate_result;
 	end process;
 	
-	ready <= '1' when enable = '1' and current_receive_state = receiveN else '0';
+	--ready <= '1' when enable = '1' and current_receive_state = receiveN else '0';
 	
 end Behavioral;
 

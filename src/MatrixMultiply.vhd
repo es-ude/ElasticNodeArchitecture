@@ -205,6 +205,8 @@ begin
 			data_out_rdy <= '0';
 			data_out <= (others => '0');
 			done <= '0';
+			ready <= '0';
+			current_receive_state <= idle;
 		end if;
 		intermediate_result_s <= intermediate_result;
 		inputA_s <= inputA;
