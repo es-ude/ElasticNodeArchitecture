@@ -22,7 +22,7 @@ entity papilioDuoMiddleware is
 --		arduino_3	: in std_logic;
 
 		arduino_4	: out std_logic;
-		arduino_5	: in std_logic;
+		arduino_5	: out std_logic;
 		arduino_6	: in std_logic;
 		arduino_7	: out std_logic;
 

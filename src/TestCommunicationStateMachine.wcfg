@@ -3,7 +3,7 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="/home/ES/burger/git/fpgamiddlewareproject/TestCommunicationStateMachine_isim_beh1.wdb" id="1" type="auto">
+      <db_ref path="/home/ES/burger/git/fpgamiddlewareproject/TestCommunicationStateMachine_isim_beh.wdb" id="1" type="auto">
          <top_modules>
             <top_module name="numeric_std" />
             <top_module name="std_logic_1164" />
@@ -205,54 +205,6 @@
       <wvobject fp_name="/testcommunicationstatemachine/uart_tx" type="logic" db_ref_id="1">
          <obj_property name="ElementShortName">uart_tx</obj_property>
          <obj_property name="ObjectShortName">uart_tx</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/uart/tx/o_tx_active" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">o_tx_active</obj_property>
-         <obj_property name="ObjectShortName">o_tx_active</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/uart/tx/i_tx_dv" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">i_tx_dv</obj_property>
-         <obj_property name="ObjectShortName">i_tx_dv</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/uart/tx/i_tx_byte" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">i_tx_byte[7:0]</obj_property>
-         <obj_property name="ObjectShortName">i_tx_byte[7:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/uart/tx/o_tx_active" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">o_tx_active</obj_property>
-         <obj_property name="ObjectShortName">o_tx_active</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/uart/tx/o_tx_serial" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">o_tx_serial</obj_property>
-         <obj_property name="ObjectShortName">o_tx_serial</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/uart/tx/o_tx_done" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">o_tx_done</obj_property>
-         <obj_property name="ObjectShortName">o_tx_done</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/uart/tx/r_sm_main" type="other" db_ref_id="1">
-         <obj_property name="ElementShortName">r_sm_main</obj_property>
-         <obj_property name="ObjectShortName">r_sm_main</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/uart/tx/r_clk_count" type="other" db_ref_id="1">
-         <obj_property name="ElementShortName">r_clk_count</obj_property>
-         <obj_property name="ObjectShortName">r_clk_count</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/uart/tx/r_bit_index" type="other" db_ref_id="1">
-         <obj_property name="ElementShortName">r_bit_index</obj_property>
-         <obj_property name="ObjectShortName">r_bit_index</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/uart/tx/r_tx_data" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">r_tx_data[7:0]</obj_property>
-         <obj_property name="ObjectShortName">r_tx_data[7:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/uart/tx/r_tx_done" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">r_tx_done</obj_property>
-         <obj_property name="ObjectShortName">r_tx_done</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/uart/tx/g_clks_per_bit" type="other" db_ref_id="1">
-         <obj_property name="ElementShortName">g_clks_per_bit</obj_property>
-         <obj_property name="ObjectShortName">g_clks_per_bit</obj_property>
       </wvobject>
       <wvobject fp_name="/testcommunicationstatemachine/uart_data_out" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">uart_data_out[7:0]</obj_property>

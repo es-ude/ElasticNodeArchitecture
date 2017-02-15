@@ -51,7 +51,7 @@ entity VectorDotproduct is
 		-- data interface
 		data_in			: in std_logic_vector(31 downto 0);
 		data_out			: out std_logic_vector(31 downto 0)
-	);
+		);
 end VectorDotproduct;
 
 architecture Behavioral of VectorDotproduct is

@@ -107,7 +107,7 @@ begin
 					-- perform the required calculations
 					elsif current_receive_state = calculating then
 						
-						-- for i in 0 to MatrixMultiplicationPackage.numrows1-1 loop
+						--for row1 in 0 to MatrixMultiplicationPackage.numrows1-1 loop
 							for column2 in 0 to MatrixMultiplicationPackage.numcols2-1 loop
 								for column1 in 0 to MatrixMultiplicationPackage.numcols1-1 loop
 									intermediate_result(row1)(column2) := intermediate_result(row1)(column2) + (inputA(row1)(column1) * inputB(column1)(column2));
@@ -214,6 +214,6 @@ begin
 	end process;
 	
 	-- ready <= '1' when enable = '1' and current_receive_state = receiveN else '0';
-	
+	-- calculate <= '1' when current_receive_state = calculating else '0';
 end Behavioral;
 

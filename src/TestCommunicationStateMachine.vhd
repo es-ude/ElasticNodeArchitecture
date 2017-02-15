@@ -252,8 +252,8 @@ BEGIN
 
 	-- initialise user logic
 	-- ul: entity work.Dummy(Behavioral) port map
-	ul: entity work.VectorDotproduct(Behavioral) port map
-	-- ul: entity work.MatrixMultiplication(Behavioral) port map
+	-- ul: entity work.VectorDotproduct(Behavioral) port map
+	ul: entity work.MatrixMultiplication(Behavioral) port map
 		(
 			clk, not fpga_sleep, userlogic_rdy, userlogic_done, userlogic_data_out_rdy, userlogic_data_out_done, userlogic_data_in_rdy, userlogic_data_in, userlogic_data_out
 		);
@@ -365,8 +365,8 @@ BEGIN
 		wake_fpga(data_in, data_in_rdy);
 		--wait for uart_byte_time * 8;
 		
-		vector_dotproduct(data_in, data_in_rdy);
-		-- matrix_multiplication(data_in, data_in_rdy);
+		-- vector_dotproduct(data_in, data_in_rdy);
+		matrix_multiplication(data_in, data_in_rdy);
 		-- dummy(data_in, data_in_rdy);
 		
 		wait until userlogic_rdy = '1';

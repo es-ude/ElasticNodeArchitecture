@@ -18,7 +18,7 @@ entity middleware is
 		status_out		: out std_ulogic; 	--! Output to indicate activity
 
 		config_sleep	: out std_logic := '0'; 	--! Configuration control to cause sleep for energy saving
-		task_complete	: in std_logic;		--! Feedback from configuration about task completion
+		task_complete	: out std_logic := '0';		--! Feedback from configuration about task completion
 		
 		userlogic_rdy	: out std_logic;
 		userlogic_done	: out std_logic;
@@ -99,13 +99,14 @@ signal userlogic_rdy_s			: std_logic;
 signal userlogic_data_in_rdy	: std_logic;
 signal userlogic_data_out_rdy	: std_logic;
 signal userlogic_data_out_done: std_logic;
+signal userlogic_calculating	: std_logic;
 
 signal reset 						: std_logic := '1';
 
 begin
 	--! Communication interface initialisation
 	uart : entity fpgamiddlewarelibs.uartInterface(arch)
-		generic map ( 64 )
+		generic map ( 16 )
 		port map (
 			rx_data => uart_data_out, --! 8-bit data received
 			rx_rdy => uart_data_out_rdy,	--! received data ready
@@ -115,10 +116,8 @@ begin
 			--! physical interfaces
 			i_uart_rx => rx,
 			o_uart_tx => tx,
-			clk => clk,
-			tx_active => uart_tx_active
+			clk => clk
 		);
-		userlogic_done <= uart_tx_active;
 	uart_data_in_rdy <= outgoing_data_rdy and uart_en_s;
 	uart_data_in <= outgoing_data;
 	uart_en <= uart_en_s;
@@ -183,17 +182,16 @@ begin
 
 	-- initialise user logic
 	-- ul: entity work.Dummy(Behavioral) port map
-	-- ul: entity work.VectorDotproduct(Behavioral) port map
-	ul: entity work.MatrixMultiplication(Behavioral) port map
+	ul: entity work.VectorDotproduct(Behavioral) port map
+	-- ul: entity work.MatrixMultiplication(Behavioral) port map
 		(
 			clk, not userlogic_sleep, userlogic_rdy_s, userlogic_done_s, userlogic_data_out_rdy, userlogic_data_out_done, userlogic_data_in_rdy, outgoing_data_32, incoming_data_32
 		);
 	userlogic_data_in_rdy <= outgoing_data_32_rdy and userlogic_en;
-	-- userlogic_data_in <= ;data
 	-- incoming_data_32 <= userlogic_data_out;
 	userlogic_data_out_done <= incoming_data_32_done;
 	userlogic_rdy <= userlogic_rdy_s;
-	-- userlogic_done <= userlogic_done_s; temporarily using this for uart debugging
+	userlogic_done <= userlogic_done_s;
 	config_sleep <= userlogic_sleep;
 
 --	--! SPI communication interface
