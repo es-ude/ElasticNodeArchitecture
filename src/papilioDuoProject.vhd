@@ -62,7 +62,7 @@ begin
 proj: entity work.genericProject(Behavioral)
 	port map(
 		-- spi_en => arduino_13, 
-		uart_en => Arduino_11,
+		-- uart_en => Arduino_11,
 		
 		config_sleep => Arduino_4, 
 		task_complete => Arduino_5,

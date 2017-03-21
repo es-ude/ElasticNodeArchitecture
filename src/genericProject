@@ -20,17 +20,8 @@ entity middleware is
 		config_sleep	: out std_logic := '0'; 	--! Configuration control to cause sleep for energy saving
 		task_complete	: out std_logic := '0';		--! Feedback from configuration about task completion
 		
-		userlogic_en	: out std_logic;
 		userlogic_rdy	: out std_logic;
 		userlogic_done	: out std_logic;
-		userlogic_sleep: out std_logic;
-		
-		data_out_rdy	: out std_logic;
-		data_out			: out std_logic_vector(31 downto 0);
-		data_in_rdy		: in std_logic;
-		data_in_done	: out std_logic;
-		data_in			: in std_logic_vector(31 downto 0);
-		
 		
 --		spi_switch	: in std_logic;
 --		flash_cs		: out std_logic;
@@ -47,10 +38,10 @@ entity middleware is
 		send_state_leds: out std_logic_vector(3 downto 0);
 		
 		-- spi_en		: out std_logic;
-		-- uart_en		: out std_logic;
+		uart_en		: out std_logic;
 	
 		clk 			: in std_ulogic;	--! Clock 32 MHz
-		-- icap_clk		: in std_ulogic;  --! Clock 20 MHz
+		icap_clk		: in std_ulogic;  --! Clock 20 MHz
 		rx				: in std_logic;
 		tx 			: out std_logic;
 		button		: in std_logic	
@@ -79,7 +70,7 @@ signal outgoing_data_32_rdy	: std_logic := '0';
 signal outgoing_data_32_done	: std_logic := '0';
 
 -- uart variables
-signal uart_en						: std_logic := '0';
+signal uart_en_s					: std_logic := '0';
 signal uart_data_in				: std_logic_vector(7 downto 0);
 signal uart_data_in_rdy			: std_logic := '0';
 signal uart_data_out				: std_logic_vector(7 downto 0);
@@ -101,8 +92,8 @@ signal uart_tx_active			: std_logic;
 --signal spi_miso				: std_logic; 
 
 -- userlogic variables
--- signal userlogic_en				: std_logic;
--- signal userlogic_sleep			: std_logic;
+signal userlogic_en				: std_logic;
+signal userlogic_sleep			: std_logic;
 signal userlogic_done_s			: std_logic;
 signal userlogic_rdy_s			: std_logic;
 signal userlogic_data_in_rdy	: std_logic;
@@ -127,9 +118,9 @@ begin
 			o_uart_tx => tx,
 			clk => clk
 		);
-	uart_data_in_rdy <= outgoing_data_rdy and uart_en;
+	uart_data_in_rdy <= outgoing_data_rdy and uart_en_s;
 	uart_data_in <= outgoing_data;
-	-- uart_en <= uart_en_s;
+	uart_en <= uart_en_s;
 
 	-- outgoing_data <= multiboot_address(23 downto 16);
 	
@@ -160,7 +151,7 @@ begin
 			data_out_32_rdy => outgoing_data_32_rdy,
 			
 			-- spi_en => spi_en_s,
-			uart_en => uart_en,
+			uart_en => uart_en_s,
 			icap_en => icap_en,
 			multiboot => multiboot_address,
 			fpga_sleep => userlogic_sleep,
@@ -178,7 +169,7 @@ begin
 	incoming_data_rdy <= uart_data_out_rdy;
 	outgoing_data_done <= uart_data_in_done;
 	-- 32 bit interface
-	-- incoming_data_32_rdy <= userlogic_data_out_rdy;
+	incoming_data_32_rdy <= userlogic_data_out_rdy;
 	
 	
 --	incoming_data <= spi_data_out when spi_en_s = '1' else uart_data_out;
@@ -189,26 +180,19 @@ begin
 		generic map (goldenboot_address => (others => '0')) 
 		port map (clk => clk_icap, enable => icap_en, status_running => open, multiboot_address => multiboot_address);
 
-	-- data interface  
-	incoming_data_32 <= data_in;
-	incoming_data_32_rdy <= data_in_rdy;
-	data_in_done <= incoming_data_32_done;
-	data_out <= outgoing_data_32;
-	data_out_rdy <= outgoing_data_32_rdy;
-
---	-- initialise user logic
---	-- ul: entity work.Dummy(Behavioral) port map
---	-- ul: entity work.VectorDotproduct(Behavioral) port map
---	ul: entity work.MatrixMultiplicationSkeleton(Behavioral) port map
---		(
---			clk, not userlogic_sleep, userlogic_rdy_s, userlogic_done_s, userlogic_data_out_rdy, userlogic_data_out_done, userlogic_data_in_rdy, outgoing_data_32, incoming_data_32
---		);
---	userlogic_data_in_rdy <= outgoing_data_32_rdy and userlogic_en;
---	-- incoming_data_32 <= userlogic_data_out;
---	userlogic_data_out_done <= incoming_data_32_done;
---	userlogic_rdy <= userlogic_rdy_s;
---	userlogic_done <= userlogic_done_s;
---	config_sleep <= userlogic_sleep;
+	-- initialise user logic
+	-- ul: entity work.Dummy(Behavioral) port map
+	-- ul: entity work.VectorDotproduct(Behavioral) port map
+	ul: entity work.MatrixMultiplicationSkeleton(Behavioral) port map
+		(
+			clk, not userlogic_sleep, userlogic_rdy_s, userlogic_done_s, userlogic_data_out_rdy, userlogic_data_out_done, userlogic_data_in_rdy, outgoing_data_32, incoming_data_32
+		);
+	userlogic_data_in_rdy <= outgoing_data_32_rdy and userlogic_en;
+	-- incoming_data_32 <= userlogic_data_out;
+	userlogic_data_out_done <= incoming_data_32_done;
+	userlogic_rdy <= userlogic_rdy_s;
+	userlogic_done <= userlogic_done_s;
+	config_sleep <= userlogic_sleep;
 
 --	--! SPI communication interface
 --	spi: entity fpgamiddlewarelibs.spiInterface(arch)

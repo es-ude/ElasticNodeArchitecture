@@ -7,36 +7,36 @@
 	library fpgamiddlewarelibs;
 	use fpgamiddlewarelibs.UserLogicInterface.all;
   
-  ENTITY TestVectorDotproduct IS
-  END TestVectorDotproduct;
+  ENTITY TestVectorDotproductSkeleton IS
+  END TestVectorDotproductSkeleton;
   
   
 
-  ARCHITECTURE behavior OF TestVectorDotproduct IS 
+  ARCHITECTURE behavior OF TestVectorDotproductSkeleton IS 
 
 		-- control interface
 		signal clock			: std_logic := '0';
-		signal reset 			: std_logic := '1';
-		signal enable			: std_logic := '0'; -- controls functionality (sleep)
-		signal run				: std_logic; -- indicates the beginning and end
+		signal reset			: std_logic := '1'; -- controls functionality (sleep)
+		signal run				: std_logic := '0'; -- indicates the beginning and end
 		signal ready 			: std_logic; -- indicates the device is ready to begin
 		signal done				: std_logic; 
-
-		signal vectorA,vectorB,result : unsigned(31 downto 0);
 		
 		-- data control interface
 		signal data_out_rdy	:  std_logic;
 		signal data_out_done : std_logic;
 		signal data_in_rdy	: std_logic;
 		
+		-- data interface
+		signal data_in			: std_logic_vector(31 downto 0);
+		signal data_out		: std_logic_vector(31 downto 0);
+		
 		constant clock_period : time := 100 ns;
-		constant dimensions	: unsigned := to_unsigned(2, 32);
 		signal sim_busy 		: boolean := true;
 	BEGIN
 
 		-- Component Instantiation
-		uut: entity work.VectorDotproduct(Behavioral)
-			port map (clock, enable, reset, ready, done, vectorA, vectorB, result);
+		uut: entity work.VectorDotproductSkeleton(Behavioral)
+			port map (clock, reset, ready, done, data_out_rdy, data_out_done, data_in_rdy, data_in, data_out);
 		-- vdp: entity work.VectorDotproduct(Behavioral)
 		--	port map (clock, enable, ready, done, data_out_rdy, data_out_done, data_in_rdy, data_in, data_out);
       
@@ -55,23 +55,35 @@
 		BEGIN
 			wait for 200 ns; -- wait until global set/reset completes
 			
-			enable <= '1';
 			reset <= '0';
+			run <= '1';
 			
+			-- N
+			wait until ready = '1';
+			wait for clock_period;
+			data_in <= std_logic_vector(to_unsigned(2, 32));
+			data_in_rdy <= '1';
+			wait for clock_period * 2;
+
 			-- first num
-			vectorA <= to_unsigned(10, 32);
-			vectorB <= to_unsigned(5, 32);
+			data_in <= std_logic_vector(to_unsigned(10, 32));
 			wait for clock_period * 2;
 			
 			-- second num
-			vectorA <= to_unsigned(6, 32);
-			vectorB <= to_unsigned(10, 32);
+			data_in <= std_logic_vector(to_unsigned(5, 32));
 			wait for clock_period * 2;
 			
-			enable <= '0';
+			-- third num
+			data_in <= std_logic_vector(to_unsigned(7, 32));
+			wait for clock_period * 2;
+			
+			-- fourth num
+			data_in <= std_logic_vector(to_unsigned(6, 32));
+			wait for clock_period * 2;
+			data_in_rdy <= '0';
 
 			-- result
-			wait for clock_period * 4;
+			wait for clock_period * 10;
 
 			sim_busy <= false;
 
