@@ -33,7 +33,7 @@ library fpgamiddlewarelibs;
 use fpgamiddlewarelibs.UserLogicInterface.all;
 
 library work;
-use work.MatrixMultiplicationPackage;
+use work.MatrixMultiplicationPackage.all;
 
 
 entity MatrixMultiplicationSkeleton is
@@ -45,14 +45,16 @@ entity MatrixMultiplicationSkeleton is
 		ready 			: out std_logic; -- new transmission may begin
 		done 				: out std_logic; -- done with entire calculation
 		
+		data_in 			: in uint32_t_interface;
+		data_out			: out uint32_t_interface;
 		-- data control interface
-		data_out_rdy	: out std_logic;
-		data_out_done	: in std_logic := '0';
-		data_in_rdy		: in std_logic;
+		-- data_out_rdy	: out std_logic;
+		data_out_done	: in std_logic := '0'
+		-- data_in_rdy		: in std_logic;
 		
 		-- data interface
-		data_in			: in std_logic_vector(31 downto 0);
-		data_out			: out std_logic_vector(31 downto 0)
+		-- data_in			: in std_logic_vector(31 downto 0);
+		-- data_out			: out std_logic_vector(31 downto 0)
 	);
 end MatrixMultiplicationSkeleton;
 
@@ -60,29 +62,29 @@ architecture Behavioral of MatrixMultiplicationSkeleton is
 	-- signal inputA, inputB : unsigned(31 downto 0);
 	type receive_state is (idle, receiveA, receiveB, receiveDone, calculating, sendResult);
 	signal current_receive_state : receive_state := idle;
-	signal intermediate_result_s : MatrixMultiplicationPackage.outputMatrix;
-	signal inputA_s : MatrixMultiplicationPackage.inputMatrix1;
-	signal inputB_s : MatrixMultiplicationPackage.inputMatrix2;
-	signal output_s : MatrixMultiplicationPackage.outputMatrix;
+	signal intermediate_result_s : outputMatrix;
+	signal inputA_s : inputMatrix1;
+	signal inputB_s : inputMatrix2;
+	signal output_s : outputMatrix;
 	
-	constant OUTPUT_SIZE : unsigned := to_unsigned((MatrixMultiplicationPackage.numrows1 * MatrixMultiplicationPackage.numcols2) * 4, 32);
+	constant OUTPUT_SIZE : unsigned := to_unsigned((numrows1 * numcols2) * 4, 32);
 	
-	signal mm_enable, mm_data_out_rdy : std_logic := '0';
+	signal mm_enable, mm_done : std_logic := '0';
 begin
 
 uut: entity work.MatrixMultiplication(Behavioral)
-	port map (clock, mm_enable, mm_data_out_rdy, inputA_s, inputB_s, output_s);
+	port map (clock, mm_enable, mm_done, inputA_s, inputB_s, output_s);
 
 	-- process data receive 
 	process (clock, enable, data_in_rdy, current_receive_state)
-		variable column2 	: integer range 0 to MatrixMultiplicationPackage.numcols2 - 1 := 0;
-		variable row2		: integer range 0 to MatrixMultiplicationPackage.numrows2 - 1 := 0;
-		variable column1 	: integer range 0 to MatrixMultiplicationPackage.numcols1 - 1 := 0;
-		variable row1		: integer range 0 to MatrixMultiplicationPackage.numrows1 - 1 := 0;
+		variable column2 	: integer range 0 to numcols2 - 1 := 0;
+		variable row2		: integer range 0 to numrows2 - 1 := 0;
+		variable column1 	: integer range 0 to numcols1 - 1 := 0;
+		variable row1		: integer range 0 to numrows1 - 1 := 0;
 	
 		-- variable intermediate_result : MatrixMultiplicationPackage.outputMatrix := (others => (others => (others => '0')));
-		variable inputA : MatrixMultiplicationPackage.inputMatrix1 := (others => (others => (others => '0')));
-		variable inputB : MatrixMultiplicationPackage.inputMatrix2 := (others => (others => (others => '0')));
+		variable inputA : inputMatrix1 := (others => (others => (others => '0')));
+		variable inputB : inputMatrix2 := (others => (others => (others => '0')));
 		
 		variable first : boolean := false;
 		variable sendSize : boolean := false;
@@ -114,7 +116,7 @@ uut: entity work.MatrixMultiplication(Behavioral)
 					elsif current_receive_state = calculating then
 						mm_enable <= '1';
 						
-						if mm_data_out_rdy = '1' then
+						if mm_done = '1' then
 							intermediate_result_s <= output_s;
 							current_receive_state <= sendResult;
 							sendSize := true;
@@ -132,12 +134,12 @@ uut: entity work.MatrixMultiplication(Behavioral)
 								inputA(row1)(column1) := unsigned(data_in(15 downto 0));
 								
 								-- check if next row
-								if column1 < MatrixMultiplicationPackage.numcols1 - 1 then
+								if column1 < numcols1 - 1 then
 									column1 := column1 + 1;
 								else
 									column1 := 0;
 									
-									if row1 < MatrixMultiplicationPackage.numrows1 - 1 then
+									if row1 < numrows1 - 1 then
 										row1 := row1 + 1;
 									else
 										current_receive_state <= receiveB;
@@ -148,12 +150,12 @@ uut: entity work.MatrixMultiplication(Behavioral)
 							when receiveB =>
 								inputB(row2)(column2) := unsigned(data_in(15 downto 0));
 								
-								if column2 < MatrixMultiplicationPackage.numcols2 - 1 then
+								if column2 < numcols2 - 1 then
 									column2 := column2 + 1;
 								-- check if next row
 								else
 									column2 := 0;
-									if row2 < MatrixMultiplicationPackage.numrows2 - 1 then
+									if row2 < numrows2 - 1 then
 										row2 := row2 + 1;
 									else
 										current_receive_state <= calculating;
@@ -179,11 +181,11 @@ uut: entity work.MatrixMultiplication(Behavioral)
 							data_out_rdy <= '1';
 							
 							-- find next datapoint
-							if column2 < MatrixMultiplicationPackage.numcols2 - 1 then
+							if column2 < numcols2 - 1 then
 								column2 := column2 + 1;
 							else
 									column2 := 0;
-									if row1 < MatrixMultiplicationPackage.numrows1 - 1 then
+									if row1 < numrows1 - 1 then
 										row1 := row1 + 1;
 									else
 										current_receive_state <= idle;
@@ -204,6 +206,8 @@ uut: entity work.MatrixMultiplication(Behavioral)
 			done <= '0';
 			ready <= '0';
 			current_receive_state <= idle;
+			
+			mm_enable <= '0';
 		end if;
 		-- intermediate_result_s <= intermediate_result;
 		inputA_s <= inputA;

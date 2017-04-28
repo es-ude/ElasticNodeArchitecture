@@ -38,7 +38,7 @@ entity genericProject is
 		send_state_leds: out std_logic_vector(3 downto 0);
 		
 		-- spi_en		: out std_logic;
-		uart_en		: out std_logic;
+		-- uart_en		: out std_logic;
 	
 		clk 			: in std_ulogic;	--! Clock 32 MHz
 		icap_clk		: in std_ulogic;  --! Clock 20 MHz
@@ -51,16 +51,16 @@ end genericProject;
 
 architecture Behavioral of genericProject is
 
-signal clk_icap 				: std_logic := '0';
-signal icap_en					: std_logic := '0';
-signal multiboot_address	: std_logic_vector(23 downto 0);
+-- signal clk_icap 				: std_logic := '0';
+-- signal icap_en					: std_logic := '0';
+-- signal multiboot_address	: std_logic_vector(23 downto 0);
 
--- 8 bit interface
-signal incoming_data	 			: std_logic_vector(7 downto 0);
-signal outgoing_data				: std_logic_vector(7 downto 0);
-signal incoming_data_rdy		: std_logic;
-signal outgoing_data_rdy		: std_logic := '0';
-signal outgoing_data_done 		: std_logic := '0';
+---- 8 bit interface
+--signal incoming_data	 			: std_logic_vector(7 downto 0);
+--signal outgoing_data				: std_logic_vector(7 downto 0);
+--signal incoming_data_rdy		: std_logic;
+--signal outgoing_data_rdy		: std_logic := '0';
+--signal outgoing_data_done 		: std_logic := '0';
 -- 32 bit data interface
 signal incoming_data_32			: std_logic_vector(31 downto 0);
 signal incoming_data_32_rdy	: std_logic;
@@ -69,14 +69,14 @@ signal outgoing_data_32			: std_logic_vector(31 downto 0);
 signal outgoing_data_32_rdy	: std_logic := '0';
 signal outgoing_data_32_done	: std_logic := '0';
 
--- uart variables
-signal uart_en_s					: std_logic := '0';
-signal uart_data_in				: std_logic_vector(7 downto 0);
-signal uart_data_in_rdy			: std_logic := '0';
-signal uart_data_out				: std_logic_vector(7 downto 0);
-signal uart_data_out_rdy		: std_logic := '0';
-signal uart_data_in_done		: std_logic;
-signal uart_tx_active			: std_logic;
+---- uart variables
+--signal uart_en_s					: std_logic := '0';
+--signal uart_data_in				: std_logic_vector(7 downto 0);
+--signal uart_data_in_rdy			: std_logic := '0';
+--signal uart_data_out				: std_logic_vector(7 downto 0);
+--signal uart_data_out_rdy		: std_logic := '0';
+--signal uart_data_in_done		: std_logic;
+--signal uart_tx_active			: std_logic;
 
 ---- spi variables
 --signal spi_en_s		 		: std_logic := '0'; -- general enable to allow sending data

@@ -29,28 +29,35 @@ use IEEE.NUMERIC_STD.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
+library fpgamiddlewarelibs;
+use fpgamiddlewarelibs.userlogicinterface.all;
+
 entity CommunicationStateMachine is
 	port(
 		clk					: in std_logic;							-- clock
 		reset					: in std_logic;							-- reset everything
 		
-		data_in				: in std_logic_vector(7 downto 0);	-- data from controller
-		data_in_rdy			: in std_logic;							-- new data avail to receive
-		data_out				: out std_logic_vector(7 downto 0);	-- data to be sent 
-		data_out_rdy		: out std_logic := '0';					-- new data avail to send
+		-- data_in				: in std_logic_vector(7 downto 0);	-- data from controller
+		data_in_8			: in uint8_t_interface;
+		-- data_in_rdy		: in std_logic;							-- new data avail to receive
+		-- data_out			: out std_logic_vector(7 downto 0);	-- data to be sent 
+		data_out_8			: out uint8_t_interface;	-- data to be sent 
+		-- data_out_rdy	: out std_logic := '0';					-- new data avail to send
 		data_out_done		: in std_logic;							-- data send complete
-		data_in_32			: in std_logic_vector(31 downto 0);	-- data to be written to the uart by the middleware
-		data_in_32_rdy 	: in std_logic;							-- data from ram is ready
+		data_in_32			: in uint32_t_interface;
+		-- data_in_32			: in std_logic_vector(31 downto 0);	-- data to be written to the uart by the middleware
+		-- data_in_32_rdy 	: in std_logic;							-- data from ram is ready
 		data_in_32_done	: out std_logic := '0';					-- data is done being written to ram
-		data_out_32			: out std_logic_vector(31 downto 0);-- data to be written to the ram by the middleware
-		data_out_32_rdy	: out std_logic := '0';					-- data for ram is ready (must be high at least one rising edge clock)
+		data_out_32			: out uint32_t_interface;
+		-- data_out_32			: out std_logic_vector(31 downto 0);-- data to be written to the ram by the middleware
+		-- data_out_32_rdy	: out std_logic := '0';					-- data for ram is ready (must be high at least one rising edge clock)
 		
 --		spi_en		: out std_logic := '0';					-- activate sending to spi
 --		spi_continue: out std_logic := '0';					-- keep spi alive to keep reading/writing
 --		spi_busy 	: in std_logic;
 		uart_en				: out std_logic := '0';					-- activate sending to uart
 		icap_en				: out std_logic := '0';
-		multiboot			: out std_logic_vector(23 downto 0);-- for outputting new address to icap
+		multiboot			: out uint24_t; -- std_logic_vector(23 downto 0);-- for outputting new address to icap
 		fpga_sleep			: out std_logic := '1';					-- put configuration to sleep
 		userlogic_en		: out std_logic := '0'; 				-- communicate directly with userlogic
 		userlogic_rdy		: in std_logic;							-- userlogic boot done
@@ -66,16 +73,16 @@ end CommunicationStateMachine;
 architecture Behavioral of CommunicationStateMachine is
 
 -- communication protocol
-constant WRITE_FLASH 								: std_logic_vector(7 downto 0) := x"00"; --! header;24bit address;32bit size;data
-constant READ_FLASH_REQUEST						: std_logic_vector(7 downto 0) := x"01"; --! header;24bit address;32bit size
-constant WRITE_RAM									: std_logic_vector(7 downto 0) := x"03"; --! header;32bit address;32bit size;data
-constant READ_RAM_RESPONSE							: std_logic_vector(7 downto 0) := x"05"; --! header;data
-constant SET_NEXT_CONFIG_ADDRESS					: std_logic_vector(7 downto 0) := x"06"; --! header;24bit address;
-constant SLEEP_FPGA									: std_logic_vector(7 downto 0) := x"08"; --! header
-constant WAKE_FPGA									: std_logic_vector(7 downto 0) := x"09"; --! header
-constant MCU_TRANSMIT_PARAMETER_DATA_DIRECTLY: std_logic_vector(7 downto 0) := x"0D"; --! header;32bit size;data
-constant FPGA_CALCULATION_RESULT					: std_logic_vector(7 downto 0) := x"0E"; --! header;32bit size;data
-constant FPGA_READY									: std_logic_vector(7 downto 0) := x"10"; --! header
+constant WRITE_FLASH 								: uint8_t := x"00"; --! header;24bit address;32bit size;data
+constant READ_FLASH_REQUEST						: uint8_t := x"01"; --! header;24bit address;32bit size
+constant WRITE_RAM									: uint8_t := x"03"; --! header;32bit address;32bit size;data
+constant READ_RAM_RESPONSE							: uint8_t := x"05"; --! header;data
+constant SET_NEXT_CONFIG_ADDRESS					: uint8_t := x"06"; --! header;24bit address;
+constant SLEEP_FPGA									: uint8_t := x"08"; --! header
+constant WAKE_FPGA									: uint8_t := x"09"; --! header
+constant MCU_TRANSMIT_PARAMETER_DATA_DIRECTLY: uint8_t := x"0D"; --! header;32bit size;data
+constant FPGA_CALCULATION_RESULT					: uint8_t := x"0E"; --! header;32bit size;data
+constant FPGA_READY									: uint8_t := x"10"; --! header
 
 -- receiving fsm
 type receive_state is (
@@ -109,15 +116,15 @@ signal current_sending_state: sending_state := idle;
 signal byte_count				: integer range 0 to 10 := 4;
 
 -- intermediate signals for receiving data
-signal flash_address 		: std_logic_vector(23 downto 0);
-signal flash_size				: std_logic_vector(23 downto 0);
+signal flash_address 		: uint24_t; -- std_logic_vector(23 downto 0);
+signal flash_size				: uint24_t; 
 
-signal flash_man				: std_logic_vector(7 downto 0);
-signal flash_dev	 			: std_logic_vector(15 downto 0);
+signal flash_man				: uint8_t;
+signal flash_dev	 			: uint16_t;
 
 signal ram_address, ram_size, ram_data : unsigned(31 downto 0);
 
-signal uart_buffer			: std_logic_vector(31 downto 0);
+signal uart_buffer			: uint32_t;-- std_logic_vector(31 downto 0);
 
 shared variable data_available		: boolean := false;
 signal next_byte				: std_logic := 'Z';
@@ -174,7 +181,7 @@ begin
 		end if;
 	end process;		
 	
-	sendingProcess: process (reset, clk, data_in_32_rdy, data_out_done, userlogic_done, userlogic_rdy)
+	sendingProcess: process (reset, clk, data_in_32.ready, data_out_done, userlogic_done, userlogic_rdy)
 		-- variable bytecount : integer range 0 to 4 := 4;
 		-- variable data_available: boolean := false;
 		variable userlogic_return : boolean := false;
@@ -189,10 +196,10 @@ begin
 			delay_one_cycle := false;
 			direct_to_first_byte := false;
 			userlogic_was_not_rdy := true;
-			data_out_rdy <= '0';
+			data_out_8.ready <= '0';
 			uart_en <= '0';
 			data_in_32_done <= '0';
-			data_out <= (others => '0');
+			data_out_8.data <= (others => '0');
 			state_count := 0;
 		else
 			-- add return header to next incoming data
@@ -200,7 +207,7 @@ begin
 				-- advance bytecount when readys
 				case current_sending_state is
 				when idle =>
-					data_out_rdy <= '0';
+					data_out_8.ready <= '0';
 					uart_en <= '0';
 					data_in_32_done <= '0';
 					if userlogic_was_not_rdy and userlogic_rdy = '1' then
@@ -210,8 +217,8 @@ begin
 						if userlogic_rdy = '0' then
 							userlogic_was_not_rdy := true;
 						end if;
-						if data_in_32_rdy = '1' then
-							uart_buffer <= data_in_32;
+						if data_in_32.ready = '1' then
+							uart_buffer <= data_in_32.data;
 							if userlogic_done = '1' then
 								current_sending_state <= sending_header;
 							else
@@ -221,8 +228,8 @@ begin
 						end if;
 					end if;
 				when sending_userlogic_rdy =>
-					data_out_rdy <= '1';
-					data_out <= FPGA_READY;
+					data_out_8.ready <= '1';
+					data_out_8.data <= FPGA_READY;
 					-- current_sending_state <= idle;
 					uart_en <= '1';
 					
@@ -233,9 +240,9 @@ begin
 					end if;
 					
 				when sending_header =>
-					data_out_rdy <= '1';
+					data_out_8.ready <= '1';
 					-- if data_ then
-					data_out <= FPGA_CALCULATION_RESULT;
+					data_out_8.data <= FPGA_CALCULATION_RESULT;
 					data_available := false;
 					current_sending_state <= sending_data;
 					uart_en <= '1';
@@ -243,33 +250,33 @@ begin
 					this_is_header <= true;
 
 				when sending_data =>
-					data_out_rdy <= '0';
+					data_out_8.ready <= '0';
 					uart_en <= '1';
 					
 					if next_byte = '1' or direct_to_first_byte then -- (data_out_done = '1')
 						this_is_header <= false;
 						direct_to_first_byte := false;
 						if current_byte < 3 then
-							data_out_rdy <= '1';
+							data_out_8.ready <= '1';
 						else
-							data_out_rdy <= '1';
+							data_out_8.ready <= '1';
 						end if;
 						case current_byte is
 							-- when coming from header first 1, otherwise 0
 							-- when 0 =>
 							-- 	data_out <= uart_buffer(31 downto 24);
 							when 0 =>
-								data_out <= uart_buffer(7 downto 0);
+								data_out_8.data <= uart_buffer(7 downto 0);
 							when 1 =>
-								data_out <= uart_buffer(15 downto 8);
+								data_out_8.data <= uart_buffer(15 downto 8);
 							when 2 =>
-								data_out <= uart_buffer(23 downto 16);
+								data_out_8.data <= uart_buffer(23 downto 16);
 							when 3 =>
-								data_out <= uart_buffer(31 downto 24);
+								data_out_8.data <= uart_buffer(31 downto 24);
 								-- current_sending_state <= sending_done; -- disable uart next clock cycle
 							when others =>
 								-- data_in_32_done <= '1';
-								data_out_rdy <= '0';
+								data_out_8.ready <= '0';
 								data_in_32_done <= '1';
 								-- current_sending_state <= idle;
 								current_sending_state <= sending_done; -- disable uart next clock cycle
@@ -285,7 +292,7 @@ begin
 					data_in_32_done <= '0';
 					-- wait one cycle here to see if more data is available
 					--if delay_one_cycle then
-						if data_in_32_rdy = '1' then
+						if data_in_32.ready = '1' then
 							-- return to idle because last byte has been sent
 							current_sending_state <= sending_next_value;
 						else
@@ -296,7 +303,7 @@ begin
 --					end if;
 				-- delay one clock cycle to give time to prepare next 32bit value
 				when sending_next_value =>
-					uart_buffer <= data_in_32;
+					uart_buffer <= data_in_32.data;
 					current_sending_state <= sending_data;
 					direct_to_first_byte := true;
 				when others =>
@@ -308,9 +315,9 @@ begin
 	end process;
 	
 	--! React to availability of new byte incoming
-	receiveProcess: process (clk, data_in_rdy, reset, current_receive_state, data_in_32)
+	receiveProcess: process (clk, data_in_8.ready, reset, current_receive_state, data_in_32.data)
 		-- variable ram_address, ram_size, ram_data : unsigned(31 downto 0);
-		variable data_in_unsigned : unsigned(7 downto 0);
+		-- variable data_in_unsigned : unsigned(7 downto 0);
 		-- variable ram_data_s : unsigned(31 downto 0);
 		variable data_count : unsigned(31 downto 0);
 	begin
@@ -318,9 +325,9 @@ begin
 			current_receive_state <= booting;
 			byte_count <= 0;
 			state_count <= 0;
-			data_out_32_rdy <= '0';
+			data_out_32.ready <= '0';
 		elsif rising_edge(clk) then
-			data_in_unsigned := unsigned(data_in);
+			-- data_in_unsigned := unsigned(data_in);
 			
 			--! Respond based on what state the middleware is in 
 			case current_receive_state is
@@ -331,11 +338,11 @@ begin
 					current_receive_state <= idle;
 				when idle =>
 				
-					if data_in_rdy = '1' then
+					if  data_in_8.ready = '1' then
 						byte_count <= byte_count + 1;
 
 						--! see if new command is being received
-						case data_in is
+						case data_in_8.data is
 							when MCU_TRANSMIT_PARAMETER_DATA_DIRECTLY =>
 								current_receive_state <= receiving_parameters;
 							when WRITE_RAM =>
@@ -353,26 +360,26 @@ begin
 						state_count <= 0;
 					end if;
 				
-					data_out_32_rdy <= '0';
+					data_out_32.ready <= '0';
 					-- userlogic_en <= '0';
 				
 				
 				-- ram write command
 				-- TODO ENDIAN
 				when receiving_ram_write_address =>
-					if data_in_rdy = '1' then
+					if data_in_8.ready = '1' then
 
 						state_count <= state_count + 1; --! only incremented at end of process
 					
 						case state_count is
 							when 0 =>
-								ram_address(31 downto 24) <= data_in_unsigned;
+								ram_address(31 downto 24) <= data_in_8.data;
 							when 1 =>
-								ram_address(23 downto 16) <= data_in_unsigned;
+								ram_address(23 downto 16) <= data_in_8.data;
 							when 2 =>
-								ram_address(15 downto 8) <= data_in_unsigned;
+								ram_address(15 downto 8) <= data_in_8.data;
 							when 3 =>
-								ram_address(7 downto 0) <= data_in_unsigned;
+								ram_address(7 downto 0) <= data_in_8.data;
 								current_receive_state <= receiving_ram_write_size;
 								state_count <= 0;
 							when others =>
@@ -381,19 +388,19 @@ begin
 				-- userlogic parameters incoming
 				when receiving_parameters =>
 				-- when receiving_ram_write_size =>
-					if data_in_rdy = '1' then
+					if data_in_8.ready = '1' then
 
 						state_count <= state_count + 1; --! only incremented at end of process
 					
 						case state_count is
 							when 0 =>
-								ram_size(7 downto 0) <= data_in_unsigned;
+								ram_size(7 downto 0) <= data_in_8.data;
 							when 1 =>
-								ram_size(15 downto 8) <= data_in_unsigned;
+								ram_size(15 downto 8) <= data_in_8.data;
 							when 2 =>
-								ram_size(23 downto 16) <= data_in_unsigned;
+								ram_size(23 downto 16) <= data_in_8.data;
 							when 3 =>
-								ram_size(31 downto 24) <= data_in_unsigned;
+								ram_size(31 downto 24) <= data_in_8.data;
 								current_receive_state <= receiving_ram_write_data;
 								state_count <= 0;
 								data_count := (others => '0');
@@ -402,19 +409,19 @@ begin
 					end if;
 				-- receiving parameter data 
 				when receiving_ram_write_data =>
-					if data_in_rdy = '1' then
+					if data_in_8.ready = '1' then
 
 						data_count := data_count + 1;
 						
 						case state_count is
 							when 0 =>
-								data_out_32(7 downto 0) <= data_in;
+								data_out_32.data(7 downto 0) <= data_in_8.data;
 							when 1 =>
-								data_out_32(15 downto 8) <= data_in;
+								data_out_32.data(15 downto 8) <= data_in_8.data;
 							when 2 =>
-								data_out_32(23 downto 16) <= data_in;
+								data_out_32.data(23 downto 16) <= data_in_8.data;
 							when 3 =>
-								data_out_32(31 downto 24) <= data_in;
+								data_out_32.data(31 downto 24) <= data_in_8.data;
 								
 								userlogic_en <= '1';
 								if data_count = ram_size then
@@ -425,7 +432,7 @@ begin
 								
 								-- present ram_data as ready
 								-- data_out_32 <= std_logic_vector(ram_data);
-								data_out_32_rdy <= '1';
+								data_out_32.ready <= '1';
 							when others =>
 						end case;
 						
@@ -435,7 +442,7 @@ begin
 							state_count <= state_count + 1; --! only incremented at end of process
 						end if;
 					else 
-						data_out_32_rdy <= '0';
+						data_out_32.ready <= '0';
 					end if;
 					
 				
@@ -553,15 +560,15 @@ begin
 --					end case;
 				-- receive next multiboot address
 				when receiving_next_config =>
-					if data_in_rdy = '1' then
+					if data_in_8.ready = '1' then
 						--! receive a byte of config
 						case state_count is
 							when 0 =>
-								multiboot(7 downto 0) <= data_in;
+								multiboot(7 downto 0) <= data_in_8.data;
 							when 1 =>
-								multiboot(15 downto 8) <= data_in;
+								multiboot(15 downto 8) <= data_in_8.data;
 							when 2 =>
-								multiboot(23 downto 16) <= data_in;
+								multiboot(23 downto 16) <= data_in_8.data;
 								current_receive_state <= send_icap_multiboot;
 							when others =>
 						end case;
@@ -577,8 +584,8 @@ begin
 			end case;
 		end if;
 		receive_state_out <= std_logic_vector(to_unsigned(receive_state'pos(current_receive_state), 4));
-		-- send_state_out <= std_logic_vector(to_unsigned(sending_state'pos(current_sending_state), 4));
-		send_state_out <= data_in_32(3 downto 0);
+		send_state_out <= std_logic_vector(to_unsigned(sending_state'pos(current_sending_state), 4));
+		-- send_state_out <= std_logic_vector(data_in_32.data(3 downto 0));
 
 	end process;
 
