@@ -24,6 +24,9 @@ use IEEE.STD_LOGIC_1164.ALL;
 -- arithmetic functions with Signed or Unsigned values
 use IEEE.NUMERIC_STD.ALL;
 
+library fpgamiddlewarelibs;
+use fpgamiddlewarelibs.userlogicinterface.all;
+
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
 --library UNISIM;
@@ -33,19 +36,19 @@ entity VectorDotproductSkeleton is
 port (
 		-- control interface
 		clock				: in std_logic;
-		reset				: in std_logic; -- controls functionality (sleep)
+		enable				: in std_logic; -- controls functionality (sleep)
 		-- run				: in std_logic; -- indicates the beginning and end
 		ready 			: out std_logic; -- new transmission may begin
 		done 				: out std_logic; -- done with entire calculation
 		
-		-- data control interface
-		data_out_rdy	: out std_logic;
-		data_out_done	: in std_logic;
-		data_in_rdy		: in std_logic;
+--		-- data control interface
+--		data_out_rdy	: out std_logic;
+--		data_in_rdy		: in std_logic;
 		
 		-- data interface
-		data_in			: in std_logic_vector(31 downto 0);
-		data_out			: out std_logic_vector(31 downto 0)
+		data_in			: in uint32_t_interface; -- std_logic_vector(31 downto 0);
+		data_out			: out uint32_t_interface; -- std_logic_vector(31 downto 0)
+		data_out_done	: in std_logic
 		);
 end VectorDotproductSkeleton;
 
@@ -59,22 +62,22 @@ architecture Behavioral of VectorDotproductSkeleton is
 	constant OUTPUT_SIZE : unsigned := to_unsigned(4, 32);
 	
 	-- interfacing variables
-	signal enable : std_logic := '0';
+	signal enable_hwf : std_logic := '0';
 	signal vectorA, vectorB, result : unsigned(31 downto 0);
 	
 begin
 
 -- userlogic instantiate
 vdp: entity work.VectorDotproduct(Behavioral)
-	port map (data_clock, enable, reset, ready, done, vectorA, vectorB, result);
+	port map (data_clock, enable_hwf, enable, vectorA, vectorB, result);
 
 	-- process data receive 
-	process (clock, enable, data_in_rdy, current_receive_state)
+	process (clock, enable, data_in.ready, current_receive_state)
 		variable inputA, inputB : unsigned(15 downto 0);
 		variable vector_width, current_dimension : unsigned(31 downto 0);
 		variable intermediate_result : unsigned(31 downto 0);
 	begin
-		if reset = '0' then
+		if enable = '1' then
 			-- beginning/end
 			-- if run = '1' then
 				if rising_edge(clock) then
@@ -82,8 +85,8 @@ vdp: entity work.VectorDotproduct(Behavioral)
 						-- initiate all required variables
 						current_receive_state <= receiveN; -- begin operation
 						current_dimension := (others => '0');
-						data_out_rdy <= '0';
-						data_out <= (others => '0');
+						data_out.ready <= '0';
+						data_out.data <= (others => '0');
 						intermediate_result := (others => '0');
 						ready <= '1';
 						-- done <= '0';
@@ -94,34 +97,34 @@ vdp: entity work.VectorDotproduct(Behavioral)
 					elsif current_receive_state = receiveDone then
 						if data_out_done = '1' then
 							current_receive_state <= sendingResult;
-							data_out <= std_logic_vector(intermediate_result);
+							data_out.data <= result;
 						end if;
 					elsif current_receive_state = sendingResult then
-						data_out_rdy <= '0';
+						data_out.ready <= '0';
 						if data_out_done = '1' then
 							current_receive_state <= idle;
 						end if;
 										
 					-- respond to incoming data
-					elsif data_in_rdy = '1' then
+					elsif data_in.ready = '1' then
 						done <= '0';
 						ready <= '0';
 						case current_receive_state is
 							when receiveN => 
-								enable <= '1';
-								vector_width := unsigned(data_in);
+								enable_hwf <= '1';
+								vector_width := unsigned(data_in.data);
 								-- reset important counters
 								current_receive_state <= receiveA;
 								intermediate_result := (others => '0');
 							when receiveA =>
-								vectorA <= unsigned(data_in);
+								vectorA <= unsigned(data_in.data);
 								-- inputA := unsigned(data_in(15 downto 0));
 								current_receive_state <= receiveB;
 								current_dimension := current_dimension + 1;
 								
 								data_clock <= '0';
 							when receiveB =>
-								vectorB <= unsigned(data_in);
+								vectorB <= unsigned(data_in.data);
 								-- inputB := unsigned(data_in(15 downto 0));
 								-- intermediate_result := intermediate_result + inputA * inputB;
 								
@@ -131,8 +134,8 @@ vdp: entity work.VectorDotproduct(Behavioral)
 								if current_dimension = vector_width then
 									current_receive_state <= receiveDone; -- display output
 									done <= '1';
-									data_out_rdy <= '1';
-									data_out <= std_logic_vector(OUTPUT_SIZE);
+									data_out.ready <= '1';
+									data_out.data <= OUTPUT_SIZE;
 								else
 									current_receive_state <= receiveA; -- receive another 
 								end if;
@@ -145,11 +148,12 @@ vdp: entity work.VectorDotproduct(Behavioral)
 				-- end if;
 			end if;
 		else
-			data_out_rdy <= '0';
-			data_out <= (others => '0');
+			data_out.ready <= '0';
+			data_out.data <= (others => '0');
 			done <= '0';
 			ready <= '0';
 			current_receive_state <= idle;
+			enable_hwf <= '0';
 		end if;
 		-- intermediate_result_out <= intermediate_result;
 	end process;

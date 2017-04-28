@@ -32,22 +32,14 @@
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       <wvobject fp_name="/testcommunicationstatemachine/data_in" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">data_in[7:0]</obj_property>
-         <obj_property name="ObjectShortName">data_in[7:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/data_in_rdy" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">data_in_rdy</obj_property>
-         <obj_property name="ObjectShortName">data_in_rdy</obj_property>
+         <obj_property name="ElementShortName">data_in</obj_property>
+         <obj_property name="ObjectShortName">data_in</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/testcommunicationstatemachine/data_out" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">data_out[7:0]</obj_property>
-         <obj_property name="ObjectShortName">data_out[7:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/data_out_rdy" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">data_out_rdy</obj_property>
-         <obj_property name="ObjectShortName">data_out_rdy</obj_property>
+         <obj_property name="ElementShortName">data_out</obj_property>
+         <obj_property name="ObjectShortName">data_out</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/testcommunicationstatemachine/data_out_done" type="logic" db_ref_id="1">
          <obj_property name="ElementShortName">data_out_done</obj_property>
@@ -58,26 +50,36 @@
          <obj_property name="ObjectShortName">next_byte</obj_property>
       </wvobject>
       <wvobject fp_name="/testcommunicationstatemachine/data_out_32" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">data_out_32[31:0]</obj_property>
-         <obj_property name="ObjectShortName">data_out_32[31:0]</obj_property>
+         <obj_property name="ElementShortName">data_out_32</obj_property>
+         <obj_property name="ObjectShortName">data_out_32</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <wvobject fp_name="/testcommunicationstatemachine/data_out_32.data" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">.data</obj_property>
+            <obj_property name="ObjectShortName">data_out_32.data</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/testcommunicationstatemachine/data_out_32.ready" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">.ready</obj_property>
+            <obj_property name="ObjectShortName">data_out_32.ready</obj_property>
+         </wvobject>
       </wvobject>
       <wvobject fp_name="/testcommunicationstatemachine/data_in_32" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">data_in_32[31:0]</obj_property>
-         <obj_property name="ObjectShortName">data_in_32[31:0]</obj_property>
+         <obj_property name="ElementShortName">data_in_32</obj_property>
+         <obj_property name="ObjectShortName">data_in_32</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/data_in_32_rdy" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">data_in_32_rdy</obj_property>
-         <obj_property name="ObjectShortName">data_in_32_rdy</obj_property>
+         <wvobject fp_name="/testcommunicationstatemachine/data_in_32.data" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">.data</obj_property>
+            <obj_property name="ObjectShortName">data_in_32.data</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/testcommunicationstatemachine/data_in_32.ready" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">.ready</obj_property>
+            <obj_property name="ObjectShortName">data_in_32.ready</obj_property>
+         </wvobject>
       </wvobject>
       <wvobject fp_name="/testcommunicationstatemachine/data_in_32_done" type="logic" db_ref_id="1">
          <obj_property name="ElementShortName">data_in_32_done</obj_property>
          <obj_property name="ObjectShortName">data_in_32_done</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/data_out_32_rdy" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">data_out_32_rdy</obj_property>
-         <obj_property name="ObjectShortName">data_out_32_rdy</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group36" type="group">
@@ -154,62 +156,87 @@
       <obj_property name="label">Userlogic</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      <wvobject fp_name="/testcommunicationstatemachine/userlogic_data_out_rdy" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">userlogic_data_out_rdy</obj_property>
-         <obj_property name="ObjectShortName">userlogic_data_out_rdy</obj_property>
+      <wvobject fp_name="/testcommunicationstatemachine/ul/enable" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">enable</obj_property>
+         <obj_property name="ObjectShortName">enable</obj_property>
       </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/userlogic_data_out_done" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">userlogic_data_out_done</obj_property>
-         <obj_property name="ObjectShortName">userlogic_data_out_done</obj_property>
+      <wvobject fp_name="/testcommunicationstatemachine/ul/ready" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">ready</obj_property>
+         <obj_property name="ObjectShortName">ready</obj_property>
       </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/userlogic_data_in_rdy" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">userlogic_data_in_rdy</obj_property>
-         <obj_property name="ObjectShortName">userlogic_data_in_rdy</obj_property>
+      <wvobject fp_name="/testcommunicationstatemachine/ul/done" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">done</obj_property>
+         <obj_property name="ObjectShortName">done</obj_property>
       </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/userlogic_done" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">userlogic_done</obj_property>
-         <obj_property name="ObjectShortName">userlogic_done</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/userlogic_rdy" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">userlogic_rdy</obj_property>
-         <obj_property name="ObjectShortName">userlogic_rdy</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/userlogic_data_in" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">userlogic_data_in[31:0]</obj_property>
-         <obj_property name="ObjectShortName">userlogic_data_in[31:0]</obj_property>
+      <wvobject fp_name="/testcommunicationstatemachine/ul/data_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_in</obj_property>
+         <obj_property name="ObjectShortName">data_in</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         <obj_property name="Reversed">false</obj_property>
       </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/userlogic_data_out" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">userlogic_data_out[31:0]</obj_property>
-         <obj_property name="ObjectShortName">userlogic_data_out[31:0]</obj_property>
+      <wvobject fp_name="/testcommunicationstatemachine/ul/data_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_out</obj_property>
+         <obj_property name="ObjectShortName">data_out</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testcommunicationstatemachine/ul/data_out_done" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">data_out_done</obj_property>
+         <obj_property name="ObjectShortName">data_out_done</obj_property>
       </wvobject>
       <wvobject fp_name="/testcommunicationstatemachine/ul/current_receive_state" type="other" db_ref_id="1">
          <obj_property name="ElementShortName">current_receive_state</obj_property>
          <obj_property name="ObjectShortName">current_receive_state</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testcommunicationstatemachine/ul/data_clock" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">data_clock</obj_property>
+         <obj_property name="ObjectShortName">data_clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testcommunicationstatemachine/ul/enable_hwf" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">enable_hwf</obj_property>
+         <obj_property name="ObjectShortName">enable_hwf</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testcommunicationstatemachine/ul/vectora" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">vectora[31:0]</obj_property>
+         <obj_property name="ObjectShortName">vectora[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testcommunicationstatemachine/ul/vectorb" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">vectorb[31:0]</obj_property>
+         <obj_property name="ObjectShortName">vectorb[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testcommunicationstatemachine/ul/result" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">result[31:0]</obj_property>
+         <obj_property name="ObjectShortName">result[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testcommunicationstatemachine/ul/output_size" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">output_size[31:0]</obj_property>
+         <obj_property name="ObjectShortName">output_size[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group39" type="group">
       <obj_property name="label">UART</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      <wvobject fp_name="/testcommunicationstatemachine/uart_data_out_rdy" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">uart_data_out_rdy</obj_property>
-         <obj_property name="ObjectShortName">uart_data_out_rdy</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/uart_data_out_done" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">uart_data_out_done</obj_property>
-         <obj_property name="ObjectShortName">uart_data_out_done</obj_property>
+      <wvobject fp_name="/testcommunicationstatemachine/uart/tx_data" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">tx_data</obj_property>
+         <obj_property name="ObjectShortName">tx_data</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+         <wvobject fp_name="/testcommunicationstatemachine/uart/tx_data.data" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">.data</obj_property>
+            <obj_property name="ObjectShortName">tx_data.data</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/testcommunicationstatemachine/uart/tx_data.ready" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">.ready</obj_property>
+            <obj_property name="ObjectShortName">tx_data.ready</obj_property>
+         </wvobject>
       </wvobject>
       <wvobject fp_name="/testcommunicationstatemachine/uart_tx" type="logic" db_ref_id="1">
          <obj_property name="ElementShortName">uart_tx</obj_property>
          <obj_property name="ObjectShortName">uart_tx</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testcommunicationstatemachine/uart_data_out" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">uart_data_out[7:0]</obj_property>
-         <obj_property name="ObjectShortName">uart_data_out[7:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group51" type="group">

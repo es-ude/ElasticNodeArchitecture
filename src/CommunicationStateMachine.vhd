@@ -43,7 +43,7 @@ entity CommunicationStateMachine is
 		-- data_out			: out std_logic_vector(7 downto 0);	-- data to be sent 
 		data_out_8			: out uint8_t_interface;	-- data to be sent 
 		-- data_out_rdy	: out std_logic := '0';					-- new data avail to send
-		data_out_done		: in std_logic;							-- data send complete
+		data_out_8_done	: in std_logic;							-- data send complete
 		data_in_32			: in uint32_t_interface;
 		-- data_in_32			: in std_logic_vector(31 downto 0);	-- data to be written to the uart by the middleware
 		-- data_in_32_rdy 	: in std_logic;							-- data from ram is ready
@@ -146,7 +146,7 @@ begin
 	
 	-- time 32 bit data to 8 bit by toggling a done signal
 	-- assuming data_out_done is only high one clock cycle...
-	convert8bit32bitProcess: process  (reset, clk, current_sending_state, data_out_done)
+	convert8bit32bitProcess: process  (reset, clk, current_sending_state, data_out_8_done)
 		variable was_low : boolean := true;
 	begin
 		if reset = '1' then
@@ -155,7 +155,7 @@ begin
 		elsif falling_edge(clk) then
 			-- if not currently sending, reset values
 			if (current_sending_state = sending_data) then -- (current_sending_state = sending_header) or 
-				if data_out_done = '1' and was_low then
+				if data_out_8_done = '1' and was_low then
 					was_low := false;
 					data_out_done_toggle <= not data_out_done_toggle;
 					next_byte <= '1';
@@ -181,7 +181,7 @@ begin
 		end if;
 	end process;		
 	
-	sendingProcess: process (reset, clk, data_in_32.ready, data_out_done, userlogic_done, userlogic_rdy)
+	sendingProcess: process (reset, clk, data_in_32.ready, data_out_8_done, userlogic_done, userlogic_rdy)
 		-- variable bytecount : integer range 0 to 4 := 4;
 		-- variable data_available: boolean := false;
 		variable userlogic_return : boolean := false;
@@ -335,6 +335,7 @@ begin
 				when booting =>
 					-- delay starting userlogic one cycle
 					fpga_sleep <= '0';
+					userlogic_en <= '0';
 					current_receive_state <= idle;
 				when idle =>
 				
@@ -353,8 +354,10 @@ begin
 								current_receive_state <= receiving_next_config;
 							when SLEEP_FPGA =>
 								fpga_sleep <= '1';
+								userlogic_en <= '0';
 							when WAKE_FPGA => 
 								fpga_sleep <= '0';
+								userlogic_en <= '1';
 							when others => 
 						end case;
 						state_count <= 0;
@@ -423,7 +426,7 @@ begin
 							when 3 =>
 								data_out_32.data(31 downto 24) <= data_in_8.data;
 								
-								userlogic_en <= '1';
+								-- userlogic_en <= '1';
 								if data_count = ram_size then
 									current_receive_state <= idle;
 								-- else -- TODO WHY WAS ENABLE WHEN NOT IDLE?

@@ -38,10 +38,10 @@ entity VectorDotproduct is
 	port (
 		-- control interface
 		clock				: in std_logic;
-		enable			: in std_logic; -- controls functionality (sleep)
-		reset 			: in std_logic;
-		ready 			: out std_logic; -- new transmission may begin
-		done 				: out std_logic; -- done with entire calculation
+		run				: in std_logic; -- controls functionality (sleep)
+		enable 			: in std_logic;
+		--ready 			: out std_logic; -- new transmission may begin
+		--done 				: out std_logic; -- done with entire calculation
 		
 		-- data in
 		vectorA			: in unsigned(31 downto 0);
@@ -64,11 +64,11 @@ begin
 	process (clock, enable, current_state)
 		-- variable intermediate_result : unsigned(31 downto 0);
 	begin
-		if reset = '1' then
+		if enable = '0' then
 			current_state <= idle;
 			intermediate_result <= to_unsigned(0, 32);
 		elsif rising_edge(clock) then
-			if enable = '1' then
+			if run = '1' then
 				current_state <= receive;
 				intermediate_result <= intermediate_result + vectorA(15 downto 0) * vectorB(15 downto 0);
 			else

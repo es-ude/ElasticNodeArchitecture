@@ -76,7 +76,7 @@ uut: entity work.MatrixMultiplication(Behavioral)
 	port map (clock, mm_enable, mm_done, inputA_s, inputB_s, output_s);
 
 	-- process data receive 
-	process (clock, enable, data_in_rdy, current_receive_state)
+	process (clock, enable, data_in.ready, current_receive_state)
 		variable column2 	: integer range 0 to numcols2 - 1 := 0;
 		variable row2		: integer range 0 to numrows2 - 1 := 0;
 		variable column1 	: integer range 0 to numcols1 - 1 := 0;
@@ -97,8 +97,8 @@ uut: entity work.MatrixMultiplication(Behavioral)
 						-- initiate all required variables
 						current_receive_state <= receiveA; -- begin operation
 						ready <= '1';
-						data_out_rdy <= '0';
-						data_out <= (others => '0');
+						data_out.ready <= '0';
+						data_out.data <= (others => '0');
 						-- intermediate_result := (others => (others => (others => '0')));
 						done <= '0';
 						column2 := 0;
@@ -108,7 +108,7 @@ uut: entity work.MatrixMultiplication(Behavioral)
 						row1 := 0;
 						
 					elsif current_receive_state = receiveDone then
-						data_out_rdy <= '0';
+						data_out.ready <= '0';
 						if data_out_done = '1' then
 							current_receive_state <= idle;
 						end if;
@@ -125,13 +125,13 @@ uut: entity work.MatrixMultiplication(Behavioral)
 							column2 := 0;
 						end if;
 					-- respond to incoming data
-					elsif data_in_rdy = '1' then
+					elsif data_in.ready = '1' then
 						case current_receive_state is
 							when receiveA =>
 								ready <= '0';
 								done <= '0';
 							
-								inputA(row1)(column1) := unsigned(data_in(15 downto 0));
+								inputA(row1)(column1) := data_in.data(15 downto 0);
 								
 								-- check if next row
 								if column1 < numcols1 - 1 then
@@ -148,7 +148,7 @@ uut: entity work.MatrixMultiplication(Behavioral)
 									end if;
 								end if;								
 							when receiveB =>
-								inputB(row2)(column2) := unsigned(data_in(15 downto 0));
+								inputB(row2)(column2) := data_in.data(15 downto 0);
 								
 								if column2 < numcols2 - 1 then
 									column2 := column2 + 1;
@@ -170,15 +170,15 @@ uut: entity work.MatrixMultiplication(Behavioral)
 					elsif current_receive_state = sendResult then
 						if sendSize then
 							sendSize := false;
-							data_out <= std_logic_vector(OUTPUT_SIZE);
-							data_out_rdy <= '1';
+							data_out.data <= OUTPUT_SIZE;
+							data_out.ready <= '1';
 							-- first := true; -- ensure first datapoint is sent
 							
 						elsif data_out_done = '1' or first then
 							first := false;
 							
-							data_out <= std_logic_vector(intermediate_result_s(row1)(column2));
-							data_out_rdy <= '1';
+							data_out.data <= intermediate_result_s(row1)(column2);
+							data_out.ready <= '1';
 							
 							-- find next datapoint
 							if column2 < numcols2 - 1 then
@@ -189,7 +189,7 @@ uut: entity work.MatrixMultiplication(Behavioral)
 										row1 := row1 + 1;
 									else
 										current_receive_state <= idle;
-										data_out_rdy <= '0';
+										data_out.ready <= '0';
 										row1 := 0;
 										column2 := 0;
 									end if;
@@ -201,8 +201,8 @@ uut: entity work.MatrixMultiplication(Behavioral)
 				-- end if;
 			end if;
 		else
-			data_out_rdy <= '0';
-			data_out <= (others => '0');
+			data_out.ready <= '0';
+			data_out.data <= (others => '0');
 			done <= '0';
 			ready <= '0';
 			current_receive_state <= idle;

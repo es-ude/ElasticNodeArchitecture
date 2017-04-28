@@ -22,8 +22,8 @@ entity middleware is
 		task_complete	: out std_logic := '0';		--! Feedback from configuration about task completion
 		
 		userlogic_en	: out std_logic;
-		userlogic_rdy	: out std_logic;
-		userlogic_done	: out std_logic;
+		userlogic_rdy	: in std_logic;
+		userlogic_done	: in std_logic;
 		userlogic_sleep: out std_logic;
 		
 		data_out_32		: out uint32_t_interface;
@@ -65,7 +65,7 @@ architecture Behavioral of middleware is
 
 signal clk_icap 				: std_logic := '0';
 signal icap_en					: std_logic := '0';
-signal multiboot_address	: std_logic_vector(23 downto 0);
+signal multiboot_address	: uint24_t;
 
 -- 8 bit interface
 --signal incoming_data	 			: std_logic_vector(7 downto 0);
@@ -109,22 +109,13 @@ signal uart_tx_active			: std_logic;
 --signal spi_mosi				: std_logic;
 --signal spi_miso				: std_logic; 
 
--- userlogic variables
--- signal userlogic_en				: std_logic;
--- signal userlogic_sleep			: std_logic;
-signal userlogic_done_s			: std_logic;
-signal userlogic_rdy_s			: std_logic;
-signal userlogic_data_in_rdy	: std_logic;
-signal userlogic_data_out_rdy	: std_logic;
-signal userlogic_data_out_done: std_logic;
-signal userlogic_calculating	: std_logic;
 
 signal reset 						: std_logic := '1';
 
 begin
 	--! Communication interface initialisation
 	uart : entity fpgamiddlewarelibs.uartInterface(arch)
-		generic map ( 32 )
+		generic map ( 64 )
 		port map (
 			rx_data => uart_data_out, --! 8-bit data received
 			-- rx_rdy => uart_data_out_rdy,	--! received data ready
@@ -136,10 +127,10 @@ begin
 			o_uart_tx => tx,
 			clk => clk
 		);
-	uart_data_in_rdy <= outgoing_data_rdy and uart_en;
-	uart_data_in <= outgoing_data;
+	uart_data_in.ready <= data_out_8.ready and uart_en;
+	uart_data_in.data <= data_out_8.data;
 	-- uart_en <= uart_en_s;
-
+	
 	-- outgoing_data <= multiboot_address(23 downto 16);
 	
 	--! ICAP interface initialisation
@@ -179,8 +170,8 @@ begin
 			multiboot => multiboot_address,
 			fpga_sleep => userlogic_sleep,
 			userlogic_en => userlogic_en,
-			userlogic_rdy => userlogic_rdy_s,
-			userlogic_done => userlogic_done_s,
+			userlogic_rdy => userlogic_rdy,
+			userlogic_done => userlogic_done,
 			
 			--debug
 			ready => open,
@@ -188,7 +179,7 @@ begin
 			send_state_out	=> send_state_leds
 		);
 	data_in_8 <= uart_data_out;
-	data_out_done <= uart_data_in_done;	
+	data_out_8_done <= uart_data_in_done;	
 	-- 8 bit interface
 	-- incoming_data <= uart_data_out;
 	-- incoming_data_rdy <= uart_data_out_rdy;
@@ -204,30 +195,16 @@ begin
 
 	ic : entity fpgamiddlewarelibs.icapInterface(Behavioral)
 		generic map (goldenboot_address => (others => '0')) 
-		port map (clk => clk_icap, enable => icap_en, status_running => open, multiboot_address => multiboot_address);
+		port map (clk => clk_icap, enable => icap_en, status_running => open, multiboot_address => std_logic_vector(multiboot_address));
 
 	-- data interface  
 	-- incoming_data_32 <= data_in.data;
 	-- incoming_data_32_rdy
 	-- incoming_data_32 <= data_in;
 	-- incoming_data_32_rdy <= data_in_rdy;
-	data_in_done <= incoming_data_32_done;
-	data_out <= outgoing_data_32;
-	data_out_rdy <= outgoing_data_32_rdy;
-
---	-- initialise user logic
---	-- ul: entity work.Dummy(Behavioral) port map
---	-- ul: entity work.VectorDotproduct(Behavioral) port map
---	ul: entity work.MatrixMultiplicationSkeleton(Behavioral) port map
---		(
---			clk, not userlogic_sleep, userlogic_rdy_s, userlogic_done_s, userlogic_data_out_rdy, userlogic_data_out_done, userlogic_data_in_rdy, outgoing_data_32, incoming_data_32
---		);
---	userlogic_data_in_rdy <= outgoing_data_32_rdy and userlogic_en;
---	-- incoming_data_32 <= userlogic_data_out;
---	userlogic_data_out_done <= incoming_data_32_done;
---	userlogic_rdy <= userlogic_rdy_s;
---	userlogic_done <= userlogic_done_s;
---	config_sleep <= userlogic_sleep;
+	-- data_in_32_done <= incoming_data_32_done;
+	-- data_out_32 <= outgoing_data_32;
+	-- data_out_rdy <= outgoing_data_32_rdy;
 
 --	--! SPI communication interface
 --	spi: entity fpgamiddlewarelibs.spiInterface(arch)

@@ -8,6 +8,7 @@ library work;
 use work.all;
 
 library fpgamiddlewarelibs;
+use fpgamiddlewarelibs.userlogicinterface.all;
 
 --!
 --! @brief      Main class for connecting all the components involved in the
@@ -62,11 +63,11 @@ architecture Behavioral of genericProject is
 --signal outgoing_data_rdy		: std_logic := '0';
 --signal outgoing_data_done 		: std_logic := '0';
 -- 32 bit data interface
-signal incoming_data_32			: std_logic_vector(31 downto 0);
-signal incoming_data_32_rdy	: std_logic;
+signal incoming_data_32			: uint32_t_interface; -- std_logic_vector(31 downto 0);
+-- signal incoming_data_32_rdy	: std_logic;
 signal incoming_data_32_done	: std_logic;
-signal outgoing_data_32			: std_logic_vector(31 downto 0);
-signal outgoing_data_32_rdy	: std_logic := '0';
+signal outgoing_data_32			: uint32_t_interface;
+-- signal outgoing_data_32_rdy	: std_logic := '0';
 signal outgoing_data_32_done	: std_logic := '0';
 
 ---- uart variables
@@ -96,10 +97,10 @@ signal userlogic_en				: std_logic;
 signal userlogic_sleep			: std_logic;
 signal userlogic_done_s			: std_logic;
 signal userlogic_rdy_s			: std_logic;
-signal userlogic_data_in_rdy	: std_logic;
-signal userlogic_data_out_rdy	: std_logic;
-signal userlogic_data_out_done: std_logic;
-signal userlogic_calculating	: std_logic;
+--signal userlogic_data_in_rdy	: std_logic;
+--signal userlogic_data_out_rdy	: std_logic;
+--signal userlogic_data_out_done: std_logic;
+--signal userlogic_calculating	: std_logic;
 
 signal reset 						: std_logic := '1';
 
@@ -116,15 +117,15 @@ mw: entity work.middleware(Behavioral)
 		task_complete,
 		
 		userlogic_en,
-		userlogic_rdy,
-		userlogic_done,
+		userlogic_rdy_s,
+		userlogic_done_s,
 		userlogic_sleep,
 		
-		outgoing_data_32_rdy,
+		-- outgoing_data_32_rdy,
 		outgoing_data_32,
-		incoming_data_32_rdy,
-		incoming_data_32_done,
+		-- incoming_data_32_rdy,
 		incoming_data_32,
+		incoming_data_32_done,
 		
 --		spi_switch => user_reset,
 --		flash_cs => spi_cs, 
@@ -149,14 +150,14 @@ mw: entity work.middleware(Behavioral)
 
 	-- initialise user logic
 	-- ul: entity work.Dummy(Behavioral) port map
-	-- ul: entity work.VectorDotproduct(Behavioral) port map
-	ul: entity work.MatrixMultiplicationSkeleton(Behavioral) port map
+	ul: entity work.VectorDotproductSkeleton(Behavioral) port map
+	-- ul: entity work.MatrixMultiplicationSkeleton(Behavioral) port map
 		(
-			clk, not userlogic_sleep, userlogic_rdy_s, userlogic_done_s, incoming_data_32_rdy, incoming_data_32_done, outgoing_data_32_rdy, outgoing_data_32, incoming_data_32
+			clk, userlogic_en, userlogic_rdy_s, userlogic_done_s, outgoing_data_32, incoming_data_32, incoming_data_32_done
 		);
-	userlogic_data_in_rdy <= outgoing_data_32_rdy and userlogic_en;
+	-- userlogic_data_in_rdy <= outgoing_data_32_rdy and userlogic_en;
 	-- incoming_data_32 <= userlogic_data_out;
-	userlogic_data_out_done <= incoming_data_32_done;
+	-- userlogic_data_out_done <= incoming_data_32_done;
 	userlogic_rdy <= userlogic_rdy_s;
 	userlogic_done <= userlogic_done_s;
 	-- config_sleep <= userlogic_sleep;
