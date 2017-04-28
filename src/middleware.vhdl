@@ -8,6 +8,7 @@ library work;
 use work.all;
 
 library fpgamiddlewarelibs;
+use fpgamiddlewarelibs.UserLogicInterface.all;
 
 --!
 --! @brief      Main class for connecting all the components involved in the
@@ -25,11 +26,13 @@ entity middleware is
 		userlogic_done	: out std_logic;
 		userlogic_sleep: out std_logic;
 		
-		data_out_rdy	: out std_logic;
-		data_out			: out std_logic_vector(31 downto 0);
-		data_in_rdy		: in std_logic;
-		data_in_done	: out std_logic;
-		data_in			: in std_logic_vector(31 downto 0);
+		data_out_32		: out uint32_t_interface;
+		data_in_32		: in uint32_t_interface;
+		data_in_32_done: out std_logic;
+--		data_out_rdy	: out std_logic;
+--		data_out			: out std_logic_vector(31 downto 0);
+		-- data_in_rdy		: in std_logic;
+		-- data_in			: in std_logic_vector(31 downto 0);
 		
 		
 --		spi_switch	: in std_logic;
@@ -65,25 +68,31 @@ signal icap_en					: std_logic := '0';
 signal multiboot_address	: std_logic_vector(23 downto 0);
 
 -- 8 bit interface
-signal incoming_data	 			: std_logic_vector(7 downto 0);
-signal outgoing_data				: std_logic_vector(7 downto 0);
-signal incoming_data_rdy		: std_logic;
-signal outgoing_data_rdy		: std_logic := '0';
-signal outgoing_data_done 		: std_logic := '0';
+--signal incoming_data	 			: std_logic_vector(7 downto 0);
+--signal outgoing_data				: std_logic_vector(7 downto 0);
+--signal incoming_data_rdy		: std_logic;
+--signal outgoing_data_rdy		: std_logic := '0';
+--signal outgoing_data_done 		: std_logic := '0';
+signal data_in_8, data_out_8	: uint8_t_interface;
+signal data_out_8_done			: std_logic := '0';
+
 -- 32 bit data interface
-signal incoming_data_32			: std_logic_vector(31 downto 0);
-signal incoming_data_32_rdy	: std_logic;
-signal incoming_data_32_done	: std_logic;
-signal outgoing_data_32			: std_logic_vector(31 downto 0);
-signal outgoing_data_32_rdy	: std_logic := '0';
-signal outgoing_data_32_done	: std_logic := '0';
+-- signal data_in_32					: uint32_t_interface;
+-- signal data_in_32_done			: std_logic;
+-- signal data_out_32				: uint32_t_interface;
+--signal incoming_data_32			: std_logic_vector(31 downto 0);
+--signal incoming_data_32_rdy	: std_logic;
+--signal incoming_data_32_done	: std_logic;
+--signal outgoing_data_32			: std_logic_vector(31 downto 0);
+--signal outgoing_data_32_rdy	: std_logic := '0';
+-- signal outgoing_data_32_done	: std_logic := '0';
 
 -- uart variables
 signal uart_en						: std_logic := '0';
-signal uart_data_in				: std_logic_vector(7 downto 0);
-signal uart_data_in_rdy			: std_logic := '0';
-signal uart_data_out				: std_logic_vector(7 downto 0);
-signal uart_data_out_rdy		: std_logic := '0';
+signal uart_data_in				: uint8_t_interface; -- std_logic_vector(7 downto 0);
+-- signal uart_data_in_rdy			: std_logic := '0';
+signal uart_data_out				: uint8_t_interface; -- std_logic_vector(7 downto 0);
+-- signal uart_data_out_rdy		: std_logic := '0';
 signal uart_data_in_done		: std_logic;
 signal uart_tx_active			: std_logic;
 
@@ -118,9 +127,9 @@ begin
 		generic map ( 32 )
 		port map (
 			rx_data => uart_data_out, --! 8-bit data received
-			rx_rdy => uart_data_out_rdy,	--! received data ready
+			-- rx_rdy => uart_data_out_rdy,	--! received data ready
 			tx_data => uart_data_in,	--! 8-bit data to be sent	
-			tx_rdy => uart_data_in_rdy,
+			-- tx_rdy => uart_data_in_rdy,
 			tx_done => uart_data_in_done,
 			--! physical interfaces
 			i_uart_rx => rx,
@@ -148,16 +157,21 @@ begin
 			clk => clk,
 			reset => reset,
 			
-			data_in => incoming_data,
-			data_in_rdy => incoming_data_rdy,
-			data_out => outgoing_data,
-			data_out_rdy => outgoing_data_rdy,
-			data_out_done => outgoing_data_done,
-			data_in_32 => incoming_data_32,
-			data_in_32_rdy => incoming_data_32_rdy,
-			data_in_32_done => incoming_data_32_done,
-			data_out_32 => outgoing_data_32,
-			data_out_32_rdy => outgoing_data_32_rdy,
+			data_in_8 => data_in_8,
+			data_out_8 => data_out_8,
+			data_out_8_done => data_out_8_done,
+			data_in_32 => data_in_32,
+			data_in_32_done => data_in_32_done,
+			data_out_32 => data_out_32,
+			-- data_in_rdy => incoming_data_rdy,
+			-- data_out => outgoing_data,
+			-- data_out_rdy => outgoing_data_rdy,
+--			data_out_8_done => outgoing_data_done,
+--			data_in_32 => incoming_data_32,
+--			data_in_32_rdy => incoming_data_32_rdy,
+--			data_in_32_done => incoming_data_32_done,
+--			data_out_32 => outgoing_data_32,
+--			data_out_32_rdy => outgoing_data_32_rdy,
 			
 			-- spi_en => spi_en_s,
 			uart_en => uart_en,
@@ -173,10 +187,13 @@ begin
 			receive_state_out	=> rec_state_leds,
 			send_state_out	=> send_state_leds
 		);
+	data_in_8 <= uart_data_out;
+	data_out_done <= uart_data_in_done;	
 	-- 8 bit interface
-	incoming_data <= uart_data_out;
-	incoming_data_rdy <= uart_data_out_rdy;
-	outgoing_data_done <= uart_data_in_done;
+	-- incoming_data <= uart_data_out;
+	-- incoming_data_rdy <= uart_data_out_rdy;
+	-- outgoing_data_done <= uart_data_in_done;
+	
 	-- 32 bit interface
 	-- incoming_data_32_rdy <= userlogic_data_out_rdy;
 	
@@ -190,8 +207,10 @@ begin
 		port map (clk => clk_icap, enable => icap_en, status_running => open, multiboot_address => multiboot_address);
 
 	-- data interface  
-	incoming_data_32 <= data_in;
-	incoming_data_32_rdy <= data_in_rdy;
+	-- incoming_data_32 <= data_in.data;
+	-- incoming_data_32_rdy
+	-- incoming_data_32 <= data_in;
+	-- incoming_data_32_rdy <= data_in_rdy;
 	data_in_done <= incoming_data_32_done;
 	data_out <= outgoing_data_32;
 	data_out_rdy <= outgoing_data_32_rdy;
