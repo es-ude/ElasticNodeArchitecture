@@ -2,7 +2,7 @@
 
 make_host=ubuntu_vm
 make_dir=git/fpgamiddlewareproject/
-bit_file=papilioDuoMiddleware.bit
+bit_file=genericProject.bit
 tmp_bit_file=bit_file.bit
 program_host=arch_pi
 
