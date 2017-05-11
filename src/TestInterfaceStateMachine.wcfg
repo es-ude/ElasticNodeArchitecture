@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/ES/burger/git/fpgamiddlewareproject/TestInterfaceStateMachine_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="numeric_std" />
+            <top_module name="std_logic_1164" />
+            <top_module name="testinterfacestatemachine" />
+            <top_module name="userlogicinterface" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="13" />
+   <wvobject fp_name="/testinterfacestatemachine/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testinterfacestatemachine/reset" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testinterfacestatemachine/uart_en" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">uart_en</obj_property>
+      <obj_property name="ObjectShortName">uart_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testinterfacestatemachine/icap_en" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">icap_en</obj_property>
+      <obj_property name="ObjectShortName">icap_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testinterfacestatemachine/multiboot" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">multiboot[23:0]</obj_property>
+      <obj_property name="ObjectShortName">multiboot[23:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testinterfacestatemachine/fpga_sleep" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">fpga_sleep</obj_property>
+      <obj_property name="ObjectShortName">fpga_sleep</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testinterfacestatemachine/ready" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ready</obj_property>
+      <obj_property name="ObjectShortName">ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testinterfacestatemachine/receive_state_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">receive_state_out[3:0]</obj_property>
+      <obj_property name="ObjectShortName">receive_state_out[3:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testinterfacestatemachine/send_state_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">send_state_out[3:0]</obj_property>
+      <obj_property name="ObjectShortName">send_state_out[3:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testinterfacestatemachine/busy" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">busy</obj_property>
+      <obj_property name="ObjectShortName">busy</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="group20" type="group">
+      <obj_property name="label">data</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/testinterfacestatemachine/data_in_8" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_in_8</obj_property>
+         <obj_property name="ObjectShortName">data_in_8</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/data_out_8" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_out_8</obj_property>
+         <obj_property name="ObjectShortName">data_out_8</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/data_out_8_done" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">data_out_8_done</obj_property>
+         <obj_property name="ObjectShortName">data_out_8_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/data_in_32" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_in_32</obj_property>
+         <obj_property name="ObjectShortName">data_in_32</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/data_in_32_done" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">data_in_32_done</obj_property>
+         <obj_property name="ObjectShortName">data_in_32_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/data_out_32" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_out_32</obj_property>
+         <obj_property name="ObjectShortName">data_out_32</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group26" type="group">
+      <obj_property name="label">userlogic</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/testinterfacestatemachine/userlogic_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">userlogic_en</obj_property>
+         <obj_property name="ObjectShortName">userlogic_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/userlogic_rdy" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">userlogic_rdy</obj_property>
+         <obj_property name="ObjectShortName">userlogic_rdy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/userlogic_done" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">userlogic_done</obj_property>
+         <obj_property name="ObjectShortName">userlogic_done</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group31" type="group">
+      <obj_property name="label">sram</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/testinterfacestatemachine/sram/mcu_ad" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">mcu_ad[7:0]</obj_property>
+         <obj_property name="ObjectShortName">mcu_ad[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/sram/mcu_ale" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">mcu_ale</obj_property>
+         <obj_property name="ObjectShortName">mcu_ale</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/sram/mcu_a" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">mcu_a[15:8]</obj_property>
+         <obj_property name="ObjectShortName">mcu_a[15:8]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/sram/mcu_rd" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">mcu_rd</obj_property>
+         <obj_property name="ObjectShortName">mcu_rd</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/sram/mcu_wr" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">mcu_wr</obj_property>
+         <obj_property name="ObjectShortName">mcu_wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="divider55" type="divider">
+         <obj_property name="label">output</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="BkColor">128 128 255</obj_property>
+         <obj_property name="TextColor">230 230 230</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/sram/address" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">address[15:0]</obj_property>
+         <obj_property name="ObjectShortName">address[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/sram/data_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_out[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/sram/data_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_in[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_in[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/sram/rd" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rd</obj_property>
+         <obj_property name="ObjectShortName">rd</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/sram/wr" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">wr</obj_property>
+         <obj_property name="ObjectShortName">wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/sram/leds" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">leds[3:0]</obj_property>
+         <obj_property name="ObjectShortName">leds[3:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/sram/q" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">q[7:0]</obj_property>
+         <obj_property name="ObjectShortName">q[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/sram/ad" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">ad[7:0]</obj_property>
+         <obj_property name="ObjectShortName">ad[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/sram/address_s" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">address_s[15:0]</obj_property>
+         <obj_property name="ObjectShortName">address_s[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/sram/data" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testinterfacestatemachine/sram/offset" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">offset[31:0]</obj_property>
+         <obj_property name="ObjectShortName">offset[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

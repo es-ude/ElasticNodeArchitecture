@@ -29,11 +29,6 @@ entity middleware is
 		data_out_32		: out uint32_t_interface;
 		data_in_32		: in uint32_t_interface;
 		data_in_32_done: out std_logic;
---		data_out_rdy	: out std_logic;
---		data_out			: out std_logic_vector(31 downto 0);
-		-- data_in_rdy		: in std_logic;
-		-- data_in			: in std_logic_vector(31 downto 0);
-		
 		
 --		spi_switch	: in std_logic;
 --		flash_cs		: out std_logic;
@@ -68,24 +63,8 @@ signal icap_en					: std_logic := '0';
 signal multiboot_address	: uint24_t;
 
 -- 8 bit interface
---signal incoming_data	 			: std_logic_vector(7 downto 0);
---signal outgoing_data				: std_logic_vector(7 downto 0);
---signal incoming_data_rdy		: std_logic;
---signal outgoing_data_rdy		: std_logic := '0';
---signal outgoing_data_done 		: std_logic := '0';
 signal data_in_8, data_out_8	: uint8_t_interface;
 signal data_out_8_done			: std_logic := '0';
-
--- 32 bit data interface
--- signal data_in_32					: uint32_t_interface;
--- signal data_in_32_done			: std_logic;
--- signal data_out_32				: uint32_t_interface;
---signal incoming_data_32			: std_logic_vector(31 downto 0);
---signal incoming_data_32_rdy	: std_logic;
---signal incoming_data_32_done	: std_logic;
---signal outgoing_data_32			: std_logic_vector(31 downto 0);
---signal outgoing_data_32_rdy	: std_logic := '0';
--- signal outgoing_data_32_done	: std_logic := '0';
 
 -- uart variables
 signal uart_en						: std_logic := '0';
@@ -113,6 +92,12 @@ signal uart_tx_active			: std_logic;
 signal reset 						: std_logic := '1';
 
 begin
+
+	-- User interface
+	process (
+
+
+
 	--! Communication interface initialisation
 	uart : entity fpgamiddlewarelibs.uartInterface(arch)
 		generic map ( 64 )
@@ -129,7 +114,6 @@ begin
 		);
 	uart_data_in.ready <= data_out_8.ready and uart_en;
 	uart_data_in.data <= data_out_8.data;
-	-- uart_en <= uart_en_s;
 	
 	-- outgoing_data <= multiboot_address(23 downto 16);
 	
@@ -142,44 +126,7 @@ begin
 	end process;
 	
 	status_out <= '1';
-
-	fsm : entity work.CommunicationStateMachine(Behavioral)
-		port map (
-			clk => clk,
-			reset => reset,
-			
-			data_in_8 => data_in_8,
-			data_out_8 => data_out_8,
-			data_out_8_done => data_out_8_done,
-			data_in_32 => data_in_32,
-			data_in_32_done => data_in_32_done,
-			data_out_32 => data_out_32,
-			-- data_in_rdy => incoming_data_rdy,
-			-- data_out => outgoing_data,
-			-- data_out_rdy => outgoing_data_rdy,
---			data_out_8_done => outgoing_data_done,
---			data_in_32 => incoming_data_32,
---			data_in_32_rdy => incoming_data_32_rdy,
---			data_in_32_done => incoming_data_32_done,
---			data_out_32 => outgoing_data_32,
---			data_out_32_rdy => outgoing_data_32_rdy,
-			
-			-- spi_en => spi_en_s,
-			uart_en => uart_en,
-			icap_en => icap_en,
-			multiboot => multiboot_address,
-			fpga_sleep => userlogic_sleep,
-			userlogic_en => userlogic_en,
-			userlogic_rdy => userlogic_rdy,
-			userlogic_done => userlogic_done,
-			
-			--debug
-			ready => open,
-			receive_state_out	=> rec_state_leds,
-			send_state_out	=> send_state_leds
-		);
-	data_in_8 <= uart_data_out;
-	data_out_8_done <= uart_data_in_done;	
+	
 	-- 8 bit interface
 	-- incoming_data <= uart_data_out;
 	-- incoming_data_rdy <= uart_data_out_rdy;
@@ -197,14 +144,24 @@ begin
 		generic map (goldenboot_address => (others => '0')) 
 		port map (clk => clk_icap, enable => icap_en, status_running => open, multiboot_address => std_logic_vector(multiboot_address));
 
-	-- data interface  
-	-- incoming_data_32 <= data_in.data;
-	-- incoming_data_32_rdy
-	-- incoming_data_32 <= data_in;
-	-- incoming_data_32_rdy <= data_in_rdy;
-	-- data_in_32_done <= incoming_data_32_done;
-	-- data_out_32 <= outgoing_data_32;
-	-- data_out_rdy <= outgoing_data_32_rdy;
+
+	
+	-- process to delay reset for fsm
+	process (clk)
+		variable count : integer range 0 to 10 := 0;
+	begin
+		if rising_edge(clk) then
+			if count < 10 then
+				count := count + 1;
+				reset <= '1';
+			else
+				reset <= '0';
+			end if;
+		end if;
+	end process;
+	
+end Behavioral;
+
 
 --	--! SPI communication interface
 --	spi: entity fpgamiddlewarelibs.spiInterface(arch)
@@ -240,19 +197,33 @@ begin
 --	ext_cs <= spi_cs 				when spi_switch = '1' else '1'; -- active low
 --	flash_cs <= spi_cs 			when spi_switch = '0' else '1';
 --	spi_miso <= ext_miso 		when spi_switch = '1' else flash_miso;
-	
-	-- process to delay reset for fsm
-	process (clk)
-		variable count : integer range 0 to 10 := 0;
-	begin
-		if rising_edge(clk) then
-			if count < 10 then
-				count := count + 1;
-				reset <= '1';
-			else
-				reset <= '0';
-			end if;
-		end if;
-	end process;
-	
-end Behavioral;
+
+
+--	fsm : entity work.CommunicationStateMachine(Behavioral)
+--		port map (
+--			clk => clk,
+--			reset => reset,
+--			
+--			data_in_8 => data_in_8,
+--			data_out_8 => data_out_8,
+--			data_out_8_done => data_out_8_done,
+--			data_in_32 => data_in_32,
+--			data_in_32_done => data_in_32_done,
+--			data_out_32 => data_out_32,
+--			
+--			-- spi_en => spi_en_s,
+--			uart_en => uart_en,
+--			icap_en => icap_en,
+--			multiboot => multiboot_address,
+--			fpga_sleep => userlogic_sleep,
+--			userlogic_en => userlogic_en,
+--			userlogic_rdy => userlogic_rdy,
+--			userlogic_done => userlogic_done,
+--			
+--			--debug
+--			ready => open,
+--			receive_state_out	=> rec_state_leds,
+--			send_state_out	=> send_state_leds
+--		);
+--	data_in_8 <= uart_data_out;
+--	data_out_8_done <= uart_data_in_done;

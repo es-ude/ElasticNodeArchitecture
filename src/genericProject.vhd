@@ -106,6 +106,7 @@ signal reset 						: std_logic := '1';
 
 begin
 
+-- todo add to mw the async -> sync comm part, and decode incoming data not meant for ul
 mw: entity work.middleware(Behavioral)
 	port map(
 		status_out,
@@ -150,8 +151,8 @@ mw: entity work.middleware(Behavioral)
 
 	-- initialise user logic
 	-- ul: entity work.Dummy(Behavioral) port map
-	ul: entity work.VectorDotproductSkeleton(Behavioral) port map
-	-- ul: entity work.MatrixMultiplicationSkeleton(Behavioral) port map
+	-- ul: entity work.VectorDotproductSkeleton(Behavioral) port map
+	ul: entity work.MatrixMultiplicationSkeleton(Behavioral) port map
 		(
 			clk, userlogic_en, userlogic_rdy_s, userlogic_done_s, outgoing_data_32, incoming_data_32, incoming_data_32_done
 		);

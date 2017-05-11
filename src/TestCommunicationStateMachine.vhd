@@ -145,9 +145,11 @@ ARCHITECTURE behavior OF TestCommunicationStateMachine IS
 
 		-- stimulus for vectordotproduct
 		-- uart_op_32(x"10203040", data_in, data_in_rdy); 								-- address
-		uart_op_32(x"0000000C", data_in); 								-- size
+		uart_op_32(x"00000014", data_in); 								-- size
 		
-		uart_op_32(x"00000001", data_in); 								-- data a
+		uart_op_32(x"00000002", data_in); 								-- data a
+		uart_op_32(std_logic_vector(to_unsigned(100, 32)), data_in); 	-- data b
+		uart_op_32(std_logic_vector(to_unsigned(75, 32)), data_in); 	-- data c
 		uart_op_32(std_logic_vector(to_unsigned(100, 32)), data_in); 	-- data b
 		uart_op_32(std_logic_vector(to_unsigned(75, 32)), data_in); 	-- data c
 	end procedure;
@@ -367,6 +369,15 @@ BEGIN
 		wake_fpga(data_in);
 		--wait for uart_byte_time * 8;
 		
+		vector_dotproduct(data_in);
+		-- matrix_multiplication(data_in, data_in_rdy);
+		-- dummy(data_in, data_in_rdy);
+		
+		wait until userlogic_rdy = '1';
+		wait for uart_byte_time * 32;
+		wait for uart_byte_time * 4;
+		-- matrix_multiplication(data_in, data_in_rdy);
+
 		vector_dotproduct(data_in);
 		-- matrix_multiplication(data_in, data_in_rdy);
 		-- dummy(data_in, data_in_rdy);
