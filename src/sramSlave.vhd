@@ -41,11 +41,6 @@ entity sramSlave is
 	(
 		clk				: in std_logic;
 		
-		-- sram_addr		: out std_logic_vector(20 downto 0);
-		-- sram_data		: inout std_logic_vector(7 downto 0);
-		-- sram_ce, sram_we, sram_oe : out std_logic;
-		ARD_RESET		: out std_logic;
-		
 		mcu_ad			: inout std_logic_vector(7 downto 0) := (others => 'Z');
 		mcu_ale			: in std_logic;
 		mcu_a				: in std_logic_vector(15 downto 8);
@@ -57,9 +52,7 @@ entity sramSlave is
 		data_out			: out std_logic_vector(7 downto 0); -- for reading from ext ram
 		data_in 			: in std_logic_vector(7 downto 0); 	-- for writing to ext ram
 		rd					: out std_logic;
-		wr					: out std_logic;
-		
-		leds				: out std_logic_vector(3 downto 0)
+		wr					: out std_logic
 	);
 	attribute IOB : string;
 end sramSlave;
@@ -72,18 +65,7 @@ attribute IOB of ad : signal is "TRUE";
 signal address_s : std_logic_vector(15 downto 0);
 signal data : std_logic_vector(7 downto 0);
 
----- uart variables
---signal uart_en						: std_logic := '0';
---signal uart_data_in				: uint8_t_interface;
---signal uart_data_out				: uint8_t_interface;
---signal uart_data_in_done		: std_logic;
---signal uart_tx_active			: std_logic;
-
--- signal counter 					: unsigned(7 downto 0) := (others => '0');
-
 begin
-	-- disable onboard avr
-	ARD_RESET <= '0';
 	
 	-- extra address lines
 	--sram_addr(20 downto 16) <= (others => '0');
@@ -96,10 +78,6 @@ begin
 	
 	-- mcu external connections
 	mcu_ad <= ad when mcu_rd = '0' else (others => 'Z');
-	-- higher external connections
-	rd <= mcu_rd;
-	wr <= mcu_wr;
-
 
 	-- sram_data <= ad when mcu_rd /= '0' else (others => 'Z');
 	-- sram_data <= mcu_ad when mcu_rd = '0' else (others => 'Z');
@@ -124,12 +102,20 @@ begin
 		if rising_edge(clk) then
 			if mcu_rd = '0' then
 				ad <= data_in;
+				rd <= '1';
+				wr <= '0';
 			elsif mcu_wr = '0' then
 				data_out <= mcu_ad;
+				wr <= '1';
+				rd <= '0';
+			else
+				wr <= '0'; 
+				rd <= '0';
 			end if;
 		end if;
 				
 	end process;
+
 	
 end Behavioral;
 

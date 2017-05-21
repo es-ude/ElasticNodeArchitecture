@@ -148,7 +148,21 @@ mw: entity work.middleware(Behavioral)
 		tx, 
 		button
 	);
-
+-- process to delay reset for fsm
+	process (clk, reset)
+		variable count : integer range 0 to 10 := 0;
+	begin
+		if reset = '1' then	
+			
+			if rising_edge(clk) then
+			if count < 10 then
+				count := count + 1;
+				reset <= '1';
+			else
+				reset <= '0';
+			end if;
+		end if;
+	end process;
 	-- initialise user logic
 	-- ul: entity work.Dummy(Behavioral) port map
 	-- ul: entity work.VectorDotproductSkeleton(Behavioral) port map

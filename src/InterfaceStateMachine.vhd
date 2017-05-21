@@ -7,33 +7,101 @@ library fpgamiddlewarelibs;
 use fpgamiddlewarelibs.userlogicinterface.all;
 
 entity InterfaceStateMachine is
+	generic
+	(
+		control_region		: unsigned(15 downto 0) := x"00ff"
+		-- MULTIBOOT			: unsigned(23 downto 0) := x"000000"
+	);
 	port(
 		clk					: in std_logic;							-- clock
 		reset					: in std_logic;							-- reset everything
 		
-		data_in_8			: in uint8_t_interface;
-		data_out_8			: out uint8_t_interface;	-- data to be sent 
-		data_out_8_done	: in std_logic;							-- data send complete
-		data_in_32			: in uint32_t_interface;
-		data_in_32_done	: out std_logic := '0';					-- data is done being written to ram
-		data_out_32			: out uint32_t_interface;
+		-- icap interface
+		icap_address		: out uint24_t_interface;
 		
-		uart_en				: out std_logic := '0';					-- activate sending to uart
-		icap_en				: out std_logic := '0';
-		multiboot			: out uint24_t; -- std_logic_vector(23 downto 0);-- for outputting new address to icap
-		fpga_sleep			: out std_logic := '1';					-- put configuration to sleep
-		userlogic_en		: out std_logic := '0'; 				-- communicate directly with userlogic
-		userlogic_rdy		: in std_logic;							-- userlogic boot done
-		userlogic_done		: in std_logic;							-- userlogic operations done
+		-- uart interface
+		uart_tx				: out uint8_t_interface;
+		uart_tx_done		: in std_logic;
+		uart_rx				: in uint8_t_interface;
 		
-		--debug
-		ready					: out std_logic;
-		receive_state_out	: out std_logic_vector(3 downto 0);
-		send_state_out		: out std_logic_vector(3 downto 0)
+		-- sram interface
+		sram_address		: in uint16_t;
+		sram_data_out		: out uint8_t;
+		sram_data_in		: in uint8_t;
+		sram_rd				: in std_logic;
+		sram_wr				: in std_logic;
+		
+		-- userlogic interface
+		userlogic_sleep	: out std_logic;
+		userlogic_done 	: in std_logic;
+		userlogic_data_in	: out uint8_t;
+		userlogic_address	: out uint16_t;
+		userlogic_data_out: in uint8_t;
+		
+		leds 					: out std_logic_vector(3 downto 0)
 	);
 end InterfaceStateMachine;
 
 architecture Behavior of InterfaceStateMachine is 
+	constant MULTIBOOT : uint16_t := x"0000";
+	constant LED : uint16_t := x"0003";
+	constant USERLOGIC_CONTROL : uint16_t := x"0004";
 begin
-	
+	-- main data receiving process
+	process (reset, clk, sram_rd, sram_wr) 
+		variable data_var : std_logic_vector(7 downto 0);
+	begin
+		if reset = '1' then
+			icap_address.ready <= '0';
+			leds <= (others => '0');
+			sram_data_out <= (others => '0');
+			userlogic_sleep <= '1';
+		else
+			if rising_edge(clk) then
+				if sram_rd = '1' or sram_wr = '1' then
+					-- writing to an address
+					if sram_wr = '1' then
+						-- control region
+						if sram_address <= control_region then
+							-- icap
+							case sram_address is
+							when MULTIBOOT =>
+								icap_address.data(7 downto 0) <= sram_data_in;
+							when MULTIBOOT + 1 =>
+								icap_address.data(15 downto 8) <= sram_data_in;
+							when MULTIBOOT + 2 =>
+								icap_address.data(23 downto 16) <= sram_data_in;
+								icap_address.ready <= '1'; -- will go low automatically when done with multiboot
+							when LED =>
+								data_var := std_logic_vector(sram_data_in);
+								leds <= data_var(3 downto 0);
+							when USERLOGIC_CONTROL =>
+								data_var := std_logic_vector(sram_data_in);
+								userlogic_sleep <= data_var(0);
+							when others =>
+							end case;
+						-- data region
+						else
+							userlogic_address <= sram_address - control_region - 1;
+							userlogic_data_in <= sram_data_in;
+						end if;
+					-- otherwise reading
+					else
+						-- control region
+						if sram_address <= control_region then
+							sram_data_out <= sram_address(7 downto 0);
+						-- data region
+						else
+							userlogic_address <= sram_address - control_region - 1;
+							sram_data_out <= userlogic_data_out;
+						end if;
+					end if;
+				end if;
+			end if;
+		end if;
+	end process;
 end Behavior;
+
+
+
+
