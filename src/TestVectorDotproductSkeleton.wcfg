@@ -12,82 +12,69 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="13" />
+   <WVObjectSize size="14" />
    <wvobject fp_name="/testvectordotproductskeleton/uut/clock" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clock</obj_property>
       <obj_property name="ObjectShortName">clock</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testvectordotproductskeleton/uut/ready" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">ready</obj_property>
-      <obj_property name="ObjectShortName">ready</obj_property>
    </wvobject>
    <wvobject fp_name="/testvectordotproductskeleton/uut/done" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">done</obj_property>
       <obj_property name="ObjectShortName">done</obj_property>
    </wvobject>
-   <wvobject fp_name="/testvectordotproductskeleton/uut/data_out_done" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">data_out_done</obj_property>
-      <obj_property name="ObjectShortName">data_out_done</obj_property>
+   <wvobject fp_name="/testvectordotproductskeleton/reset" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testvectordotproductskeleton/rd" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rd</obj_property>
+      <obj_property name="ObjectShortName">rd</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testvectordotproductskeleton/wr" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">wr</obj_property>
+      <obj_property name="ObjectShortName">wr</obj_property>
    </wvobject>
    <wvobject fp_name="/testvectordotproductskeleton/uut/data_in" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">data_in</obj_property>
-      <obj_property name="ObjectShortName">data_in</obj_property>
+      <obj_property name="ElementShortName">data_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data_in[7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
-      <wvobject fp_name="/testvectordotproductskeleton/uut/data_in.data" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">.data</obj_property>
-         <obj_property name="ObjectShortName">data_in.data</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testvectordotproductskeleton/uut/data_in.ready" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">.ready</obj_property>
-         <obj_property name="ObjectShortName">data_in.ready</obj_property>
-      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/testvectordotproductskeleton/address_in" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">address_in[15:0]</obj_property>
+      <obj_property name="ObjectShortName">address_in[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/testvectordotproductskeleton/uut/data_out" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">data_out</obj_property>
-      <obj_property name="ObjectShortName">data_out</obj_property>
+      <obj_property name="ElementShortName">data_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data_out[7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
-      <wvobject fp_name="/testvectordotproductskeleton/uut/data_out.data" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">.data</obj_property>
-         <obj_property name="ObjectShortName">data_out.data</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testvectordotproductskeleton/uut/data_out.ready" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">.ready</obj_property>
-         <obj_property name="ObjectShortName">data_out.ready</obj_property>
-      </wvobject>
-   </wvobject>
-   <wvobject fp_name="/testvectordotproductskeleton/uut/current_receive_state" type="other" db_ref_id="1">
-      <obj_property name="ElementShortName">current_receive_state</obj_property>
-      <obj_property name="ObjectShortName">current_receive_state</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testvectordotproductskeleton/uut/data_clock" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">data_clock</obj_property>
-      <obj_property name="ObjectShortName">data_clock</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testvectordotproductskeleton/uut/enable" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">enable</obj_property>
-      <obj_property name="ObjectShortName">enable</obj_property>
    </wvobject>
    <wvobject fp_name="/testvectordotproductskeleton/uut/vectora" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">vectora[31:0]</obj_property>
       <obj_property name="ObjectShortName">vectora[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/testvectordotproductskeleton/uut/vectorb" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">vectorb[31:0]</obj_property>
       <obj_property name="ObjectShortName">vectorb[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/testvectordotproductskeleton/uut/result" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">result[31:0]</obj_property>
       <obj_property name="ObjectShortName">result[31:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/testvectordotproductskeleton/uut/output_size" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">output_size[31:0]</obj_property>
-      <obj_property name="ObjectShortName">output_size[31:0]</obj_property>
+   <wvobject fp_name="/testvectordotproductskeleton/uut/calculate" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">calculate</obj_property>
+      <obj_property name="ObjectShortName">calculate</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testvectordotproductskeleton/uut/width" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">width[31:0]</obj_property>
+      <obj_property name="ObjectShortName">width[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testvectordotproductskeleton/uut/current_dimension_s" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">current_dimension_s[31:0]</obj_property>
+      <obj_property name="ObjectShortName">current_dimension_s[31:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
 </wave_config>

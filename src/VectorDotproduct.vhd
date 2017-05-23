@@ -38,10 +38,8 @@ entity VectorDotproduct is
 	port (
 		-- control interface
 		clock				: in std_logic;
-		run				: in std_logic; -- controls functionality (sleep)
-		enable 			: in std_logic;
-		--ready 			: out std_logic; -- new transmission may begin
-		--done 				: out std_logic; -- done with entire calculation
+		reset 			: in std_logic;
+		calculate		: in std_logic; -- perform a single calculation on the current data
 		
 		-- data in
 		vectorA			: in unsigned(31 downto 0);
@@ -54,25 +52,22 @@ end VectorDotproduct;
 
 architecture Behavioral of VectorDotproduct is
 	-- signal inputA, inputB : unsigned(31 downto 0);
-	type state is (idle, receive);
-	signal current_state : state := idle;
 	signal intermediate_result : unsigned(31 downto 0);
 	
 begin
 
 	-- process data receive 
-	process (clock, enable, current_state)
+	process (clock, reset)
 		-- variable intermediate_result : unsigned(31 downto 0);
 	begin
-		if enable = '0' then
-			current_state <= idle;
+		if reset = '1' then
 			intermediate_result <= to_unsigned(0, 32);
 		elsif rising_edge(clock) then
-			if run = '1' then
-				current_state <= receive;
+		-- perform one dimension's calculations per cycle
+			if calculate = '1' then
 				intermediate_result <= intermediate_result + vectorA(15 downto 0) * vectorB(15 downto 0);
-			else
-				current_state <= idle;
+			else 
+				intermediate_result <= intermediate_result;
 			end if;
 		end if;
 	end process;

@@ -2,15 +2,15 @@
 -- Company: 
 -- Engineer:
 --
--- Create Date:   14:43:09 05/15/2017
+-- Create Date:   10:28:39 05/15/2017
 -- Design Name:   
--- Module Name:   /home/ES/burger/git/fpgamiddlewareproject/src/TestMiddleware.vhd
+-- Module Name:   /home/ES/burger/git/fpgamiddlewareproject/src/TestInterfaceStateMachine.vhd
 -- Project Name:  fpgamiddlewareproject
 -- Target Device:  
 -- Tool versions:  
 -- Description:   
 -- 
--- VHDL Test Bench Created by ISE for module: middleware
+-- VHDL Test Bench Created by ISE for module: InterfaceStateMachine
 -- 
 -- Dependencies:
 -- 
@@ -27,79 +27,79 @@
 --------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
+ 
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
 USE ieee.numeric_std.ALL;
 
 library fpgamiddlewarelibs;
 use fpgamiddlewarelibs.userlogicinterface.all;
-
-ENTITY TestMiddleware IS
-END TestMiddleware;
  
-ARCHITECTURE behavior OF TestMiddleware IS 
+ENTITY TestInterfaceStateMachine IS
+END TestInterfaceStateMachine;
+
+ 
+ARCHITECTURE behavior OF TestInterfaceStateMachine IS 
  
     -- Component Declaration for the Unit Under Test (UUT)
  
-    COMPONENT middleware
+    COMPONENT InterfaceStateMachine
     PORT(
-			reset : in std_logic;
-         status_out : OUT  std_logic;
-         config_sleep : OUT  std_logic;
-         task_complete : OUT  std_logic;
-         userlogic_reset : OUT  std_logic;
-         userlogic_done : IN  std_logic;
-         userlogic_sleep : OUT  std_logic;
-         data_out_32 : OUT  uint32_t_interface;
-         data_in_32 : IN  uint32_t_interface;
-         data_in_32_done : OUT  std_logic;
-         interface_leds : OUT  std_logic_vector(3 downto 0);
          clk : IN  std_logic;
-         rx : IN  std_logic;
-         tx : OUT  std_logic;
-         sram_address : IN uint16_t;
+         reset : IN  std_logic;
+         icap_address : OUT  uint24_t_interface;
+         uart_tx : OUT  uint8_t_interface;
+         uart_tx_done : IN  std_logic;
+         uart_rx : IN  uint8_t_interface;
+         sram_address : IN  uint16_t;
          sram_data_out : OUT  uint8_t;
          sram_data_in : IN  uint8_t;
          sram_rd : IN  std_logic;
-         sram_wr : IN  std_logic
+         sram_wr : IN  std_logic;
+			userlogic_sleep : out std_logic;
+         userlogic_done : IN  std_logic;
+         userlogic_data_in : OUT  uint8_t;
+         userlogic_address : OUT  uint16_t;
+         userlogic_data_out : IN  uint8_t;
+			leds : out std_logic_vector (3 downto 0)
         );
     END COMPONENT;
     
 
    --Inputs
-	signal reset : std_logic;
-   signal userlogic_done : std_logic := '0';
-   signal data_in_32 : uint32_t_interface;
    signal clk : std_logic := '0';
-   signal rx : std_logic := '0';
+   signal reset : std_logic := '0';
+   signal uart_tx_done : std_logic := '0';
+   signal uart_rx : uint8_t_interface;
    signal sram_address : uint16_t := (others => '0');
    signal sram_data_in : uint8_t := (others => '0');
    signal sram_rd : std_logic := '0';
    signal sram_wr : std_logic := '0';
+   signal userlogic_done : std_logic := '0';
+   signal userlogic_data_out : uint8_t := (others => '0');
 
  	--Outputs
-   signal status_out : std_logic;
-   signal config_sleep : std_logic;
-   signal task_complete : std_logic;
-   signal userlogic_reset : std_logic;
-   signal userlogic_sleep : std_logic;
-   signal data_out_32 : uint32_t_interface;
-   signal data_in_32_done : std_logic;
-   signal interface_leds : std_logic_vector(3 downto 0);
-   signal tx : std_logic;
+   signal icap_address : uint24_t_interface;
+   signal uart_tx : uint8_t_interface;
    signal sram_data_out : uint8_t;
-
+   signal userlogic_sleep : std_logic := '0';
+   signal userlogic_data_in : uint8_t;
+   signal userlogic_address : uint16_t;
+	signal leds : std_logic_vector(3 downto 0);
+	
    -- Clock period definitions
-   constant clk_period : time := 10 ns;
+   constant clock_period : time := 10 ns;
+	signal busy : boolean := true;
 	
-	
--- procedures
+	-- procedures
 	procedure write_uint8_t(constant data : in uint8_t; constant address : in uint16_t; signal address_out : out uint16_t; signal data_out : out uint8_t; signal wr : out std_logic) is
 	begin
 		address_out <= address;
 		data_out <= data;
 		wr <= '1';
-		wait for clk_period;
+		wait for clock_period;
 		wr <= '0';
-		wait for clk_period;
+		wait for clock_period;
 	end procedure;
 
 	procedure write_uint24_t(constant data : in uint24_t; constant address : in uint16_t; signal address_out : out uint16_t; signal data_out : out uint8_t; signal wr : out std_logic) is
@@ -114,33 +114,29 @@ ARCHITECTURE behavior OF TestMiddleware IS
 		write_uint8_t(data(7 downto 0), address, address_out, data_out, wr);
 		write_uint24_t(data(31 downto 8), address + 1, address_out, data_out, wr);
 	end procedure;
-	
-	
-	signal busy : boolean := true;
- 
+
+
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: middleware PORT MAP (
-			 reset => reset,
-          status_out => status_out,
-          config_sleep => config_sleep,
-          task_complete => task_complete,
-          userlogic_reset => userlogic_reset,
-          userlogic_done => userlogic_done,
-          userlogic_sleep => userlogic_sleep,
-          data_out_32 => data_out_32,
-          data_in_32 => data_in_32,
-          data_in_32_done => data_in_32_done,
-          interface_leds => interface_leds,
+   uut: InterfaceStateMachine PORT MAP (
           clk => clk,
-          rx => rx,
-          tx => tx,
+          reset => reset,
+          icap_address => icap_address,
+          uart_tx => uart_tx,
+          uart_tx_done => uart_tx_done,
+          uart_rx => uart_rx,
           sram_address => sram_address,
           sram_data_out => sram_data_out,
           sram_data_in => sram_data_in,
           sram_rd => sram_rd,
-          sram_wr => sram_wr
+          sram_wr => sram_wr,
+			 userlogic_sleep => userlogic_sleep,
+          userlogic_done => userlogic_done,
+          userlogic_data_in => userlogic_data_in,
+          userlogic_address => userlogic_address,
+          userlogic_data_out => userlogic_data_out,
+			 leds => leds
         );
 
    -- Clock process definitions
@@ -148,9 +144,9 @@ BEGIN
    begin
 		if busy then
 			clk <= '0';
-			wait for clk_period/2;
+			wait for clock_period/2;
 			clk <= '1';
-			wait for clk_period/2;
+			wait for clock_period/2;
 		else 
 			wait;
 		end if;
@@ -160,14 +156,34 @@ BEGIN
    -- Stimulus process
    stim_proc: process
    begin		
+      -- hold reset state for 100 ns.
 		reset <= '1';
-		wait for clk_period*10;
+      wait for clock_period * 4;
 		reset <= '0';
 		
-      -- insert stimulus here \
-		write_uint24_t(x"000000", x"0000", sram_address, sram_data_out, sram_wr);
+		--icap
+		write_uint24_t(x"060000", x"0000", sram_address, sram_data_in, sram_wr);
+		wait for clock_period * 4;
 
-		wait for clk_period * 12;
+		--leds
+		write_uint8_t(x"06", x"0003", sram_address, sram_data_in, sram_wr);
+		wait for clock_period * 4;
+
+		--sleep
+		write_uint8_t(x"01", x"0004", sram_address, sram_data_in, sram_wr);
+		wait for clock_period * 4;
+		--wake
+		write_uint8_t(x"00", x"0004", sram_address, sram_data_in, sram_wr);
+		wait for clock_period * 4;
+
+		write_uint8_t(x"07", x"0001", sram_address, sram_data_in, sram_wr);
+		wait for clock_period * 4;
+
+		--ul
+		write_uint32_t(x"12345678", x"0100", sram_address, sram_data_in, sram_wr);
+		
+      -- insert stimulus here 
+		wait for clock_period * 10;
 		busy <= false;
       wait;
    end process;

@@ -36,124 +36,172 @@ entity VectorDotproductSkeleton is
 port (
 		-- control interface
 		clock				: in std_logic;
-		enable				: in std_logic; -- controls functionality (sleep)
+		reset				: in std_logic; -- controls functionality (sleep)
+		
 		-- run				: in std_logic; -- indicates the beginning and end
-		ready 			: out std_logic; -- new transmission may begin
 		done 				: out std_logic; -- done with entire calculation
 		
---		-- data control interface
---		data_out_rdy	: out std_logic;
---		data_in_rdy		: in std_logic;
+		-- indicate new data or request
+		rd					: in std_logic;	-- request a variable
+		wr 				: in std_logic; 	-- request changing a variable
 		
 		-- data interface
-		data_in			: in uint32_t_interface; -- std_logic_vector(31 downto 0);
-		data_out			: out uint32_t_interface; -- std_logic_vector(31 downto 0)
-		data_out_done	: in std_logic
+		data_in			: in uint8_t; -- std_logic_vector(31 downto 0);
+		address_in		: in uint16_t;
+		data_out			: out uint8_t -- std_logic_vector(31 downto 0)
 		);
 end VectorDotproductSkeleton;
 
 architecture Behavioral of VectorDotproductSkeleton is
-	-- generic
-	type receive_state is (idle, receiveN, receiveA, receiveB, receiveDone, sendingResult);
-	signal current_receive_state : receive_state := idle;
-	signal data_clock : std_logic := '0';
-	
 	-- internal variables
-	constant OUTPUT_SIZE : unsigned := to_unsigned(4, 32);
+	-- constant OUTPUT_SIZE : unsigned := to_unsigned(4, 32);
 	
 	-- interfacing variables
-	signal enable_hwf : std_logic := '0';
-	signal vectorA, vectorB, result : unsigned(31 downto 0);
+	signal vectorA, vectorB, result : uint32_t;
+	signal width : uint32_t;
+	signal calculate : std_logic;
 	
+	-- debug
+	signal current_dimension_s : uint32_t;
 begin
 
 -- userlogic instantiate
 vdp: entity work.VectorDotproduct(Behavioral)
-	port map (data_clock, enable_hwf, enable, vectorA, vectorB, result);
+	port map (clock, reset, calculate, vectorA, vectorB, result);
 
 	-- process data receive 
-	process (clock, enable, data_in.ready, current_receive_state)
-		variable inputA, inputB : unsigned(15 downto 0);
-		variable vector_width, current_dimension : unsigned(31 downto 0);
-		variable intermediate_result : unsigned(31 downto 0);
+	process (clock, rd, wr, reset)
+		variable inputA, inputB : uint16_t;
+		variable vector_width, current_dimension : uint32_t := (others => '0');
 	begin
-		if enable = '1' then
-			-- beginning/end
-			-- if run = '1' then
-				if rising_edge(clock) then
-					if current_receive_state = idle then
-						-- initiate all required variables
-						current_receive_state <= receiveN; -- begin operation
-						current_dimension := (others => '0');
-						data_out.ready <= '0';
-						data_out.data <= (others => '0');
-						intermediate_result := (others => '0');
-						ready <= '1';
-						-- done <= '0';
---					elsif current_receive_state = receiveDone then
---						if data_out_done = '1' then
---							current_receive_state <= headerDone;
---						end if;
-					elsif current_receive_state = receiveDone then
-						if data_out_done = '1' then
-							current_receive_state <= sendingResult;
-							data_out.data <= result;
-						end if;
-					elsif current_receive_state = sendingResult then
-						data_out.ready <= '0';
-						if data_out_done = '1' then
-							current_receive_state <= idle;
-						end if;
-										
-					-- respond to incoming data
-					elsif data_in.ready = '1' then
-						done <= '0';
-						ready <= '0';
-						case current_receive_state is
-							when receiveN => 
-								enable_hwf <= '1';
-								vector_width := unsigned(data_in.data);
-								-- reset important counters
-								current_receive_state <= receiveA;
-								intermediate_result := (others => '0');
-							when receiveA =>
-								vectorA <= unsigned(data_in.data);
-								-- inputA := unsigned(data_in(15 downto 0));
-								current_receive_state <= receiveB;
-								current_dimension := current_dimension + 1;
-								
-								data_clock <= '0';
-							when receiveB =>
-								vectorB <= unsigned(data_in.data);
-								-- inputB := unsigned(data_in(15 downto 0));
-								-- intermediate_result := intermediate_result + inputA * inputB;
-								
-								data_clock <= '1';
-								
-								-- receive another dimension or return
-								if current_dimension = vector_width then
-									current_receive_state <= receiveDone; -- display output
-									done <= '1';
-									data_out.ready <= '1';
-									data_out.data <= OUTPUT_SIZE;
-								else
-									current_receive_state <= receiveA; -- receive another 
-								end if;
-							when others => 
-								current_receive_state <= receiveN;
-								current_dimension := (others => '0');
-						end case;
-								
-					end if;
-				-- end if;
-			end if;
-		else
-			data_out.ready <= '0';
-			data_out.data <= (others => '0');
+		current_dimension_s <= current_dimension;
+	
+		if reset = '1' then
+			data_out <= (others => '0');
+			calculate <= '0';
 			done <= '0';
-			ready <= '0';
-			current_receive_state <= idle;
-			enable_hwf <= '0';
+		else
+		-- beginning/end
+			if rising_edge(clock) then
+				-- variable being set
+				-- reverse from big to little endian
+				if wr = '1' then
+					-- do not calculate, unless accessing vectorB
+					calculate <= '0';
+					done <= '0';
+					
+					-- process address of written value
+					case to_integer(address_in) is
+					-- vector_width
+					when 0 =>
+						width(31 downto 24) <= data_in;
+						done <= '0'; -- recognise this as a new sum
+					when 1 =>
+						width(23 downto 16) <= data_in;
+					when 2 =>
+						width(15 downto 8) <= data_in;
+					when 3 =>
+						width(7 downto 0) <= data_in;
+					-- inputA
+					when 4 =>
+						vectorA(31 downto 24) <= data_in;
+					when 5 =>
+						vectorA(23 downto 16) <= data_in;
+					when 6 =>
+						vectorA(15 downto 8) <= data_in;
+					when 7 =>
+						vectorA(7 downto 0) <= data_in;
+					-- inputB
+					when 8 =>
+						vectorB(31 downto 24) <= data_in;
+					when 9 =>
+						vectorB(23 downto 16) <= data_in;
+					when 10 =>
+						vectorB(15 downto 8) <= data_in;
+					when 11 =>
+						vectorB(7 downto 0) <= data_in;
+						calculate  <= '1'; -- trigger calculate high for one clock cycle
+						current_dimension := current_dimension + 1;
+						if current_dimension = width then
+							done <= '1';
+							current_dimension := (others => '0');
+						end if;
+					when others =>
+					end case;
+						
+				elsif rd = '1' then
+					calculate <= '0';
+				else
+					calculate <= '0';
+				end if;
+				
+--				if current_receive_state = idle then
+--					-- initiate all required variables
+--					current_receive_state <= receiveN; -- begin operation
+--					current_dimension := (others => '0');
+--					data_out.ready <= '0';
+--					data_out.data <= (others => '0');
+--					ready <= '1';
+--					enable_hwf <= '0';
+--					-- done <= '0';
+----					elsif current_receive_state = receiveDone then
+----						if data_out_done = '1' then
+----							current_receive_state <= headerDone;
+----						end if;
+--				elsif current_receive_state = receiveDone then
+--					if data_out_done = '1' then
+--						current_receive_state <= sendingResult;
+--						data_out.data <= result;
+--					end if;
+--				elsif current_receive_state = sendingResult then
+--					data_out.ready <= '0';
+--					if data_out_done = '1' then
+--						current_receive_state <= idle;
+--					end if;
+--									
+--				-- respond to incoming data
+--				elsif data_in.ready = '1' then
+--					done <= '0';
+--					ready <= '0';
+--					case current_receive_state is
+--						when receiveN => 
+--							enable_hwf <= '0';
+--							vector_width := unsigned(data_in.data);
+--							-- reset important counters
+--							current_receive_state <= receiveA;
+--						when receiveA =>
+--							enable_hwf <= '1';
+--							
+--							vectorA <= unsigned(data_in.data);
+--							-- inputA := unsigned(data_in(15 downto 0));
+--							current_receive_state <= receiveB;
+--							current_dimension := current_dimension + 1;
+--							
+--							data_clock <= '0';
+--						when receiveB =>
+--							vectorB <= unsigned(data_in.data);
+--							-- inputB := unsigned(data_in(15 downto 0));
+--							-- intermediate_result := intermediate_result + inputA * inputB;
+--							
+--							data_clock <= '1';
+--							
+--							-- receive another dimension or return
+--							if current_dimension = vector_width then
+--								current_receive_state <= receiveDone; -- display output
+--								done <= '1';
+--								data_out.ready <= '1';
+--								data_out.data <= OUTPUT_SIZE;
+--							else
+--								current_receive_state <= receiveA; -- receive another 
+--							end if;
+--						when others => 
+--							current_receive_state <= receiveN;
+--							enable_hwf <= '0';
+--							current_dimension := (others => '0');
+--					end case;
+							
+--				end if;
+			end if;
 		end if;
 		-- intermediate_result_out <= intermediate_result;
 	end process;

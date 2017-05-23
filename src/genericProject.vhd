@@ -106,6 +106,7 @@ signal reset 						: std_logic := '1';
 
 begin
 
+-- todo add to mw the async -> sync comm part, and decode incoming data not meant for ul
 mw: entity work.middleware(Behavioral)
 	port map(
 		status_out,
@@ -147,11 +148,25 @@ mw: entity work.middleware(Behavioral)
 		tx, 
 		button
 	);
-
+-- process to delay reset for fsm
+	process (clk, reset)
+		variable count : integer range 0 to 10 := 0;
+	begin
+		if reset = '1' then	
+			
+			if rising_edge(clk) then
+			if count < 10 then
+				count := count + 1;
+				reset <= '1';
+			else
+				reset <= '0';
+			end if;
+		end if;
+	end process;
 	-- initialise user logic
 	-- ul: entity work.Dummy(Behavioral) port map
-	ul: entity work.VectorDotproductSkeleton(Behavioral) port map
-	-- ul: entity work.MatrixMultiplicationSkeleton(Behavioral) port map
+	-- ul: entity work.VectorDotproductSkeleton(Behavioral) port map
+	ul: entity work.MatrixMultiplicationSkeleton(Behavioral) port map
 		(
 			clk, userlogic_en, userlogic_rdy_s, userlogic_done_s, outgoing_data_32, incoming_data_32, incoming_data_32_done
 		);

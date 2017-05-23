@@ -1,0 +1,103 @@
+Creating log file
+/home/ES/burger/git/fpgamiddlewareproject/genericProject_xpa.log.
+Loading device for application Rf_Device from file '6slx9.nph' in environment
+/opt/Xilinx/14.7/ISE_DS/ISE/.
+   "genericProject" is an NCD, version 3.2, device xc6slx9, package tqg144,
+speed -2
+
+INFO:Power:1693 - 
+   --------------------------------------------------------------
+                         The power estimate will be calculated using PRODUCTION
+   data.
+   --------------------------------------------------------------
+
+Design load 20% completeDesign load 25% completeDesign load 30% completeDesign load 60% completeDesign load 95% completeDesign load 100% completeRunning Vector-less Activity Propagation
+......
+Finished Running Vector-less Activity Propagation
+Finished Running Vector-less Activity Propagation 0 secs 
+WARNING:Power:1337 - Clock frequency for clock net "clk_BUFGP" is zero.
+WARNING:Power:1337 - Clock frequency for clock net "clk_BUFGP/IBUFG" is zero.
+WARNING:Power:1337 - Clock frequency for clock net "mw/clk_icap" is zero.
+WARNING:Power:1369 - Clock frequency for one or more clocks was not found through
+   timing constraints (PCF file) or simulation data.  Without knowing the
+   clock frequency of all clocks, dynamic power information for those clock
+   domains will default to zero which may under-estimate the power for this
+   design.  To avoid this warning, provide at least one of the following:
+     1. The proper timing constraints (PERIOD) for clocks (re-implement design
+        and load the newly generated PCF file into XPower Analyzer)
+     2. A post PAR simulation-generated VCD or SAIF file indicating clock
+        frequencies
+     3. The clock frequency for clocks in the "By Type -> Clocks" view in the
+        XPower Analyzer GUI and then applying "Update Power Analysis"
+
+Design 'genericProject.ncd' and constraints 'genericProject.pcf' opened successfully
+
+
+Updating power analysis...
+WARNING:Power:91 - Can't change frequency of net mw/fsm/_n0349_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net mw/fsm/_n0387_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net mw/fsm/_n0446_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net mw/fsm/_n0461_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net mw/fsm/_n0542_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net mw/fsm/_n0568_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net mw/fsm/_n0612_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net mw/fsm/_n0631_inv/mw/fsm/userlogic_en_rstpot to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net mw/fsm/_n0675_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net mw/fsm/_n0712_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net mw/fsm/_n0731_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net mw/fsm/current_sending_state_FSM_FFd3-In2 to 1.00Mhz.
+WARNING:Power:90 - Can't change activity rate of net mw/fsm/userlogic_en to 1.0% of clk_BUFGP.
+WARNING:Power:91 - Can't change frequency of net mw/ic/_n0038_inv to 1.00Mhz.
+WARNING:Power:90 - Can't change activity rate of net mw/reset to 1.0% of clk_BUFGP.
+WARNING:Power:91 - Can't change frequency of net mw/uart/rx/_n0095_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net mw/uart/rx/_n0112_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net mw/uart/rx/_n0125_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net mw/uart/tx/_n0090_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net mw/uart/tx/_n0103_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net mw/uart/tx/r_SM_Main<2>_inv to 1.00Mhz.
+WARNING:Power:90 - Can't change activity rate of net mw/uart/tx/r_SM_Main_FSM_FFd1 to 1.0% of clk_BUFGP.
+WARNING:Power:91 - Can't change frequency of net mw/uart/tx/r_SM_Main_FSM_FFd3/mw/uart/tx/Mmux_r_SM_Main[2]_X_11_o_Mux_22_o11 to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/_n1318_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/_n1546_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/_n1612_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/_n1663_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/_n1865_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/_n1881_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/_n2321_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/_n2388_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/_n2455_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/_n2522_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/_n2589_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/_n2656_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/_n2723_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/_n2790_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/_n2857_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/_n2924_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/_n2991_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/_n3058_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/enable_inv to 1.00Mhz.
+WARNING:Power:90 - Can't change activity rate of net ul/mm_enable to 1.0% of clk_BUFGP.
+WARNING:Power:91 - Can't change frequency of net ul/uut/Reset_OR_DriverANDClockEnable to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/uut/_n0750 to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/uut/_n0869_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/uut/_n1045_inv to 1.00Mhz.
+WARNING:Power:91 - Can't change frequency of net ul/uut/enable_inv to 1.00Mhz.
+Running Vector-less Activity Propagation
+......
+Finished Running Vector-less Activity Propagation
+Finished Running Vector-less Activity Propagation 0 secs 
+WARNING:Power:1337 - Clock frequency for clock net "clk_BUFGP" is zero.
+WARNING:Power:1337 - Clock frequency for clock net "clk_BUFGP/IBUFG" is zero.
+WARNING:Power:1337 - Clock frequency for clock net "mw/clk_icap" is zero.
+WARNING:Power:1369 - Clock frequency for one or more clocks was not found through
+   timing constraints (PCF file) or simulation data.  Without knowing the
+   clock frequency of all clocks, dynamic power information for those clock
+   domains will default to zero which may under-estimate the power for this
+   design.  To avoid this warning, provide at least one of the following:
+     1. The proper timing constraints (PERIOD) for clocks (re-implement design
+        and load the newly generated PCF file into XPower Analyzer)
+     2. A post PAR simulation-generated VCD or SAIF file indicating clock
+        frequencies
+     3. The clock frequency for clocks in the "By Type -> Clocks" view in the
+        XPower Analyzer GUI and then applying "Update Power Analysis"
+Update Power Analysis is complete.

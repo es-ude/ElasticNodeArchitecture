@@ -17,8 +17,7 @@
 		-- control interface
 		signal clock			: std_logic := '0';
 		signal reset 			: std_logic := '1';
-		signal enable			: std_logic := '0'; -- controls functionality (sleep)
-		signal run				: std_logic; -- indicates the beginning and end
+		signal calculate		: std_logic; -- indicates the beginning and end
 		signal ready 			: std_logic; -- indicates the device is ready to begin
 		signal done				: std_logic; 
 
@@ -36,7 +35,7 @@
 
 		-- Component Instantiation
 		uut: entity work.VectorDotproduct(Behavioral)
-			port map (clock, enable, reset, ready, done, vectorA, vectorB, result);
+			port map (clock, reset, calculate, vectorA, vectorB, result);
 		-- vdp: entity work.VectorDotproduct(Behavioral)
 		--	port map (clock, enable, ready, done, data_out_rdy, data_out_done, data_in_rdy, data_in, data_out);
       
@@ -53,23 +52,27 @@
 		--  Test Bench Statements
 		tb : PROCESS
 		BEGIN
+			reset <= '1';
 			wait for 200 ns; -- wait until global set/reset completes
 			
-			enable <= '1';
 			reset <= '0';
 			
 			-- first num
 			vectorA <= to_unsigned(10, 32);
 			vectorB <= to_unsigned(5, 32);
-			wait for clock_period * 2;
+			wait for clock_period;
+			calculate <= '1';
+			wait for clock_period;
+			calculate <= '0';
 			
 			-- second num
 			vectorA <= to_unsigned(6, 32);
 			vectorB <= to_unsigned(10, 32);
-			wait for clock_period * 2;
+			wait for clock_period;
+			calculate <= '1';
+			wait for clock_period;
+			calculate <= '0';
 			
-			enable <= '0';
-
 			-- result
 			wait for clock_period * 4;
 
