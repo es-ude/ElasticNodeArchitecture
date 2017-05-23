@@ -37,6 +37,8 @@ entity InterfaceStateMachine is
 		userlogic_data_in	: out uint8_t;
 		userlogic_address	: out uint16_t;
 		userlogic_data_out: in uint8_t;
+		userlogic_rd		: out std_logic;
+		userlogic_wr		: out std_logic;
 		
 		leds 					: out std_logic_vector(3 downto 0)
 	);
@@ -56,6 +58,8 @@ begin
 			leds <= (others => '0');
 			sram_data_out <= (others => '0');
 			userlogic_sleep <= '1';
+			userlogic_rd <= '0';
+			userlogic_wr <= '0';
 		else
 			if rising_edge(clk) then
 				if sram_rd = '1' or sram_wr = '1' then
@@ -81,7 +85,9 @@ begin
 							when others =>
 							end case;
 						-- data region
+							userlogic_wr <= '0';
 						else
+							userlogic_wr <= '1';
 							userlogic_address <= sram_address - control_region - 1;
 							userlogic_data_in <= sram_data_in;
 						end if;
@@ -91,11 +97,16 @@ begin
 						if sram_address <= control_region then
 							sram_data_out <= sram_address(7 downto 0);
 						-- data region
+							userlogic_rd <= '0';
 						else
 							userlogic_address <= sram_address - control_region - 1;
 							sram_data_out <= userlogic_data_out;
+							userlogic_rd <= '1'; -- need rd to be low for at least 2 clk
 						end if;
 					end if;
+				else
+					userlogic_rd <= '0';
+					userlogic_wr <= '0';
 				end if;
 			end if;
 		end if;
