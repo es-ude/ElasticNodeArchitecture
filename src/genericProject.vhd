@@ -1,6 +1,6 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.std_logic_arith.all;
+-- use IEEE.std_logic_arith.all;
 use ieee.numeric_std.all;
 
 
@@ -18,6 +18,7 @@ entity genericProject is
 	port (
 		userlogic_done	: out std_logic;
 
+		ARD_RESET 	: out std_logic;
 --		spi_switch	: in std_logic;
 --		flash_cs		: out std_logic;
 --		flash_sck	: out std_logic;
@@ -42,6 +43,7 @@ entity genericProject is
 		mcu_rd		: in std_logic;
 		mcu_wr		: in std_logic
 	);
+	attribute IOB 	: String;
 end genericProject;
 
 
@@ -62,20 +64,28 @@ architecture Behavioral of genericProject is
 
 -- userlogic variables
 signal userlogic_reset			: std_logic;
-signal userlogic_done			: std_logic;
+signal userlogic_done_s			: std_logic;
 signal userlogic_data_in, userlogic_data_out : uint8_t;
 signal userlogic_address		: uint16_t;
 signal userlogic_rd, userlogic_wr: std_logic;
 signal reset 						: std_logic := '1';
 
 -- higher level ports
-signal sram_address			: std_logic_vector(15 downto 0);
-signal data_out				: std_logic_vector(7 downto 0); -- for reading from ext ram
-signal data_in 				: std_logic_vector(7 downto 0); 	-- for writing to ext ram
-signal rd						: std_logic;
-signal wr						: std_logic
+signal sram_address				: uint16_t;
+signal sram_data_out				: uint8_t;
+signal sram_data_in 				: uint8_t;
+
+-- attribute IOB of ad : signal is "TRUE";
+signal address_s 					: std_logic_vector(15 downto 0);
+
+constant OFFSET					: unsigned(15 downto 0) := x"2200";
+
+attribute IOB of sram_data_in : signal is "TRUE";
+
 
 begin
+
+ARD_RESET <= '0';
 
 -- todo add to mw the async -> sync comm part, and decode incoming data not meant for ul
 mw: entity work.middleware(Behavioral)
@@ -85,7 +95,7 @@ mw: entity work.middleware(Behavioral)
 
 		-- userlogic
 		userlogic_reset,
-		userlogic_done,
+		userlogic_done_s,
 		userlogic_data_in,
 		userlogic_data_out,
 		userlogic_address,
@@ -93,7 +103,7 @@ mw: entity work.middleware(Behavioral)
 		userlogic_wr,
 		
 		-- debug
-		interface_leds,
+		leds,
 		
 		-- uart
 		rx,
@@ -103,36 +113,71 @@ mw: entity work.middleware(Behavioral)
 		sram_address,
 		sram_data_out,
 		sram_data_in,
-		sram_rd,
-		sram_wr
+		mcu_rd,
+		mcu_wr
 	);
 	
----- process to delay reset for fsm
---	process (clk, reset)
---		variable count : integer range 0 to 10 := 0;
---	begin
---		if reset = '1' then	
---			
---			if rising_edge(clk) then
---				if count < 10 then
---					count := count + 1;
---					reset <= '1';
---				else
---					reset <= '0';
---				end if;
---			end if;
---		end if;
---	end process;
+-- process to delay reset for fsm
+	process (clk, reset)
+		variable count : integer range 0 to 10 := 0;
+	begin
+		if reset = '1' then	
+			
+			if rising_edge(clk) then
+				if count < 10 then
+					count := count + 1;
+					reset <= '1';
+				else
+					reset <= '0';
+				end if;
+			end if;
+		end if;
+	end process;
 	
 	-- initialise user logic
 	-- ul: entity work.Dummy(Behavioral) port map
 	ul: entity work.VectorDotproductSkeleton(Behavioral) port map
 	-- ul: entity work.MatrixMultiplicationSkeleton(Behavioral) port map
 		(
-			clk, reset, userlogic_done, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out
+			clk, reset, userlogic_done_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out
 		);
-		
-		--sram sync interface
-		
-		
+	userlogic_done <= userlogic_done_s;
+	
+	-- inout of mcu_ad
+	mcu_ad <= std_logic_vector(sram_data_out) when mcu_rd = '0' else (others => 'Z');
+	sram_data_in <= unsigned(mcu_ad);
+	
+	--sram interface
+	-- lower address latch
+	process (mcu_ale) is 
+	begin
+		if falling_edge(mcu_ale) then
+			address_s <= std_logic_vector(unsigned(mcu_a & mcu_ad) - OFFSET);
+		end if;
+	end process;
+	sram_address <= unsigned(address_s);
+	
+	--sram sync interface
+--sram: entity work.sramSlave(Behavioral) generic map
+--	(
+--		x"2200"
+--	)
+--	port map
+--	(
+--		clk,
+--		
+--		mcu_ad_s,
+--		mcu_ale,
+--		mcu_a,
+--		mcu_rd,
+--		mcu_wr,
+--		
+--		-- higher level ports
+--		sram_address,
+--		sram_data_out,
+--		sram_data_in,
+--		sram_rd,
+--		sram_wr
+--	);
+--		
 end Behavioral;
