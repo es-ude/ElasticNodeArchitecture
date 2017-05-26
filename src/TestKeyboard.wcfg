@@ -3,344 +3,91 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="C:/Users/alwynster/git/fpgamiddlewareproject/TestKeyboard_isim_beh.wdb" id="1" type="auto">
+      <db_ref path="C:/Users/alwynster/git/fpgamiddlewareproject/TestKeyboardSkeleton_isim_beh.wdb" id="1" type="auto">
          <top_modules>
             <top_module name="numeric_std" />
+            <top_module name="procedures" />
             <top_module name="std_logic_1164" />
-            <top_module name="testkeyboard" />
+            <top_module name="testkeyboardskeleton" />
             <top_module name="userlogicinterface" />
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="6" />
-   <wvobject fp_name="/testkeyboard/clk" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
+   <WVObjectSize size="17" />
+   <wvobject fp_name="/testkeyboardskeleton/clock" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clock</obj_property>
+      <obj_property name="ObjectShortName">clock</obj_property>
    </wvobject>
-   <wvobject fp_name="/testkeyboard/reset" type="logic" db_ref_id="1">
+   <wvobject fp_name="/testkeyboardskeleton/uut/kb/prescale_clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">prescale_clk</obj_property>
+      <obj_property name="ObjectShortName">prescale_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testkeyboardskeleton/reset" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">reset</obj_property>
       <obj_property name="ObjectShortName">reset</obj_property>
    </wvobject>
-   <wvobject fp_name="/testkeyboard/values" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">values[0:60]</obj_property>
-      <obj_property name="ObjectShortName">values[0:60]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      <wvobject fp_name="/testkeyboard/values[0]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[0]</obj_property>
-         <obj_property name="ObjectShortName">values[0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[1]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[1]</obj_property>
-         <obj_property name="ObjectShortName">values[1]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[2]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[2]</obj_property>
-         <obj_property name="ObjectShortName">values[2]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[3]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[3]</obj_property>
-         <obj_property name="ObjectShortName">values[3]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[4]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[4]</obj_property>
-         <obj_property name="ObjectShortName">values[4]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[5]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[5]</obj_property>
-         <obj_property name="ObjectShortName">values[5]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[6]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[6]</obj_property>
-         <obj_property name="ObjectShortName">values[6]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[7]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[7]</obj_property>
-         <obj_property name="ObjectShortName">values[7]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[8]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[8]</obj_property>
-         <obj_property name="ObjectShortName">values[8]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[9]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[9]</obj_property>
-         <obj_property name="ObjectShortName">values[9]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[10]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[10]</obj_property>
-         <obj_property name="ObjectShortName">values[10]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[11]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[11]</obj_property>
-         <obj_property name="ObjectShortName">values[11]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[12]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[12]</obj_property>
-         <obj_property name="ObjectShortName">values[12]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[13]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[13]</obj_property>
-         <obj_property name="ObjectShortName">values[13]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[14]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[14]</obj_property>
-         <obj_property name="ObjectShortName">values[14]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[15]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[15]</obj_property>
-         <obj_property name="ObjectShortName">values[15]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[16]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[16]</obj_property>
-         <obj_property name="ObjectShortName">values[16]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[17]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[17]</obj_property>
-         <obj_property name="ObjectShortName">values[17]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[18]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[18]</obj_property>
-         <obj_property name="ObjectShortName">values[18]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[19]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[19]</obj_property>
-         <obj_property name="ObjectShortName">values[19]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[20]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[20]</obj_property>
-         <obj_property name="ObjectShortName">values[20]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[21]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[21]</obj_property>
-         <obj_property name="ObjectShortName">values[21]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[22]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[22]</obj_property>
-         <obj_property name="ObjectShortName">values[22]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[23]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[23]</obj_property>
-         <obj_property name="ObjectShortName">values[23]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[24]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[24]</obj_property>
-         <obj_property name="ObjectShortName">values[24]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[25]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[25]</obj_property>
-         <obj_property name="ObjectShortName">values[25]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[26]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[26]</obj_property>
-         <obj_property name="ObjectShortName">values[26]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[27]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[27]</obj_property>
-         <obj_property name="ObjectShortName">values[27]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[28]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[28]</obj_property>
-         <obj_property name="ObjectShortName">values[28]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[29]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[29]</obj_property>
-         <obj_property name="ObjectShortName">values[29]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[30]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[30]</obj_property>
-         <obj_property name="ObjectShortName">values[30]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[31]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[31]</obj_property>
-         <obj_property name="ObjectShortName">values[31]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[32]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[32]</obj_property>
-         <obj_property name="ObjectShortName">values[32]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[33]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[33]</obj_property>
-         <obj_property name="ObjectShortName">values[33]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[34]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[34]</obj_property>
-         <obj_property name="ObjectShortName">values[34]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[35]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[35]</obj_property>
-         <obj_property name="ObjectShortName">values[35]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[36]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[36]</obj_property>
-         <obj_property name="ObjectShortName">values[36]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[37]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[37]</obj_property>
-         <obj_property name="ObjectShortName">values[37]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[38]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[38]</obj_property>
-         <obj_property name="ObjectShortName">values[38]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[39]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[39]</obj_property>
-         <obj_property name="ObjectShortName">values[39]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[40]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[40]</obj_property>
-         <obj_property name="ObjectShortName">values[40]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[41]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[41]</obj_property>
-         <obj_property name="ObjectShortName">values[41]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[42]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[42]</obj_property>
-         <obj_property name="ObjectShortName">values[42]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[43]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[43]</obj_property>
-         <obj_property name="ObjectShortName">values[43]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[44]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[44]</obj_property>
-         <obj_property name="ObjectShortName">values[44]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[45]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[45]</obj_property>
-         <obj_property name="ObjectShortName">values[45]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[46]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[46]</obj_property>
-         <obj_property name="ObjectShortName">values[46]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[47]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[47]</obj_property>
-         <obj_property name="ObjectShortName">values[47]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[48]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[48]</obj_property>
-         <obj_property name="ObjectShortName">values[48]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[49]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[49]</obj_property>
-         <obj_property name="ObjectShortName">values[49]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[50]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[50]</obj_property>
-         <obj_property name="ObjectShortName">values[50]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[51]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[51]</obj_property>
-         <obj_property name="ObjectShortName">values[51]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[52]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[52]</obj_property>
-         <obj_property name="ObjectShortName">values[52]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[53]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[53]</obj_property>
-         <obj_property name="ObjectShortName">values[53]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[54]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[54]</obj_property>
-         <obj_property name="ObjectShortName">values[54]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[55]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[55]</obj_property>
-         <obj_property name="ObjectShortName">values[55]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[56]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[56]</obj_property>
-         <obj_property name="ObjectShortName">values[56]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[57]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[57]</obj_property>
-         <obj_property name="ObjectShortName">values[57]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[58]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[58]</obj_property>
-         <obj_property name="ObjectShortName">values[58]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[59]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[59]</obj_property>
-         <obj_property name="ObjectShortName">values[59]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testkeyboard/values[60]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[60]</obj_property>
-         <obj_property name="ObjectShortName">values[60]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
+   <wvobject fp_name="/testkeyboardskeleton/rd" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rd</obj_property>
+      <obj_property name="ObjectShortName">rd</obj_property>
    </wvobject>
-   <wvobject fp_name="/testkeyboard/leds" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">leds[0:60]</obj_property>
-      <obj_property name="ObjectShortName">leds[0:60]</obj_property>
+   <wvobject fp_name="/testkeyboardskeleton/wr" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">wr</obj_property>
+      <obj_property name="ObjectShortName">wr</obj_property>
    </wvobject>
-   <wvobject fp_name="/testkeyboard/busy" type="other" db_ref_id="1">
+   <wvobject fp_name="/testkeyboardskeleton/data_in" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data_in[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testkeyboardskeleton/address_in" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">address_in[15:0]</obj_property>
+      <obj_property name="ObjectShortName">address_in[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testkeyboardskeleton/done" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">done</obj_property>
+      <obj_property name="ObjectShortName">done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testkeyboardskeleton/data_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data_out[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testkeyboardskeleton/leds" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">leds[5:0]</obj_property>
+      <obj_property name="ObjectShortName">leds[5:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testkeyboardskeleton/busy" type="other" db_ref_id="1">
       <obj_property name="ElementShortName">busy</obj_property>
       <obj_property name="ObjectShortName">busy</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/testkeyboard/clk_period" type="other" db_ref_id="1">
-      <obj_property name="ElementShortName">clk_period</obj_property>
-      <obj_property name="ObjectShortName">clk_period</obj_property>
+   <wvobject fp_name="/testkeyboardskeleton/clock_period" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">clock_period</obj_property>
+      <obj_property name="ObjectShortName">clock_period</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testkeyboardskeleton/uut/rgb_values" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">rgb_values[0:1]</obj_property>
+      <obj_property name="ObjectShortName">rgb_values[0:1]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testkeyboardskeleton/uut/leds_internal" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">leds_internal[0:1]</obj_property>
+      <obj_property name="ObjectShortName">leds_internal[0:1]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testkeyboardskeleton/uut/kb/\key_loop(0)\/key_loopx/reset" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testkeyboardskeleton/uut/kb/\key_loop(0)\/key_loopx/value" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">value[0:2]</obj_property>
+      <obj_property name="ObjectShortName">value[0:2]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testkeyboardskeleton/uut/kb/\key_loop(0)\/key_loopx/leds" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">leds[0:2]</obj_property>
+      <obj_property name="ObjectShortName">leds[0:2]</obj_property>
    </wvobject>
 </wave_config>

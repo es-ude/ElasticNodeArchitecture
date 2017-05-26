@@ -61,6 +61,8 @@ ARCHITECTURE behavior OF TestInterfaceStateMachine IS
          userlogic_data_in : OUT  uint8_t;
          userlogic_address : OUT  uint16_t;
          userlogic_data_out : IN  uint8_t;
+			userlogic_rd		: out std_logic;
+			userlogic_wr		: out std_logic;
 			leds : out std_logic_vector (3 downto 0)
         );
     END COMPONENT;
@@ -85,6 +87,7 @@ ARCHITECTURE behavior OF TestInterfaceStateMachine IS
    signal userlogic_sleep : std_logic := '0';
    signal userlogic_data_in : uint8_t;
    signal userlogic_address : uint16_t;
+	signal userlogic_rd, userlogic_wr : std_logic;
 	signal leds : std_logic_vector(3 downto 0);
 	
    -- Clock period definitions
@@ -136,6 +139,8 @@ BEGIN
           userlogic_data_in => userlogic_data_in,
           userlogic_address => userlogic_address,
           userlogic_data_out => userlogic_data_out,
+			 userlogic_rd => userlogic_rd,
+			 userlogic_wr => userlogic_wr,
 			 leds => leds
         );
 

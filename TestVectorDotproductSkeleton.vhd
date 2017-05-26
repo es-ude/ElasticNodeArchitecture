@@ -30,23 +30,39 @@
 		constant clock_period : time := 100 ns;
 		signal sim_busy 		: boolean := true;
 		
-		procedure write_uint8_t(constant data : in uint8_t; constant address : in uint16_t; signal address_out : out uint16_t; signal data_out : out uint8_t; signal wr : out std_logic) is
+		procedure write_uint32_t(constant data : in uint32_t; constant address : in uint16_t; signal address_out : out uint16_t; signal data_out : out uint8_t; signal wr : out std_logic) is
 		begin
 			wait for clock_period;
-			address_out <= address + x"0001";
+			address_out <= address;
 			data_out <= data(7 downto 0);
 			wr <= '1';
 			wait for clock_period * 2;
 			wr <= '0';
 			wait for clock_period;
-		end write_uint32_t;
-		
-		procedure write_uint32_t(constant data : in uint32_t; constant address : in uint16_t; signal address_out : out uint16_t; signal data_out : out uint8_t; signal wr : out std_logic) is
-		begin
-			write_uint8_t(data(7 downto 0), address, address_out, data_out, wr);
-			write_uint8_t(data(15 downto 8), address, address_out, data_out, wr);
-			write_uint8_t(data(23 downto 16), address, address_out, data_out, wr);
-			write_uint8_t(data(31 downto 24), address, address_out, data_out, wr);
+			
+			wait for clock_period;
+			address_out <= address + x"0001";
+			data_out <= data(15 downto 8);
+			wr <= '1';
+			wait for clock_period * 2;
+			wr <= '0';
+			wait for clock_period;
+			
+			wait for clock_period;
+			address_out <= address + x"0002";
+			data_out <= data(23 downto 16);
+			wr <= '1';
+			wait for clock_period * 2;
+			wr <= '0';
+			wait for clock_period;
+			
+			wait for clock_period;
+			address_out <= address + x"0003";
+			data_out <= data(31 downto 24);
+			wr <= '1';
+			wait for clock_period * 2;
+			wr <= '0';
+			wait for clock_period;
 		end write_uint32_t;
 	BEGIN
 

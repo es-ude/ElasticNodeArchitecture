@@ -37,6 +37,8 @@ entity InterfaceStateMachine is
 		userlogic_data_in	: out uint8_t;
 		userlogic_address	: out uint16_t;
 		userlogic_data_out: in uint8_t;
+		userlogic_rd		: out std_logic;
+		userlogic_wr		: out std_logic;
 		
 		leds 					: out std_logic_vector(3 downto 0)
 	);
@@ -50,17 +52,25 @@ begin
 	-- main data receiving process
 	process (reset, clk, sram_rd, sram_wr) 
 		variable data_var : std_logic_vector(7 downto 0);
+		variable wr_was_low : boolean := false;
 	begin
 		if reset = '1' then
 			icap_address.ready <= '0';
 			leds <= (others => '0');
 			sram_data_out <= (others => '0');
 			userlogic_sleep <= '1';
+			userlogic_rd <= '1';
+			userlogic_wr <= '1';
 		else
 			if rising_edge(clk) then
-				if sram_rd = '1' or sram_wr = '1' then
+				if sram_rd = '0' or sram_wr = '0' or wr_was_low then
 					-- writing to an address
-					if sram_wr = '1' then
+					-- only respond when sram_wr goes high again
+					if sram_wr = '0' then
+						wr_was_low := true;
+					elsif wr_was_low then
+						wr_was_low := false; -- respond only once
+						
 						-- control region
 						if sram_address <= control_region then
 							-- icap
@@ -81,7 +91,9 @@ begin
 							when others =>
 							end case;
 						-- data region
+							userlogic_wr <= '1';
 						else
+							userlogic_wr <= '0';
 							userlogic_address <= sram_address - control_region - 1;
 							userlogic_data_in <= sram_data_in;
 						end if;
@@ -91,11 +103,16 @@ begin
 						if sram_address <= control_region then
 							sram_data_out <= sram_address(7 downto 0);
 						-- data region
+							userlogic_rd <= '1';
 						else
 							userlogic_address <= sram_address - control_region - 1;
 							sram_data_out <= userlogic_data_out;
+							userlogic_rd <= '0'; -- need rd to be low for at least 2 clk
 						end if;
 					end if;
+				else
+					userlogic_rd <= '1';
+					userlogic_wr <= '1';
 				end if;
 			end if;
 		end if;

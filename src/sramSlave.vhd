@@ -41,16 +41,16 @@ entity sramSlave is
 	(
 		clk				: in std_logic;
 		
-		mcu_ad			: inout std_logic_vector(7 downto 0) := (others => 'Z');
+		mcu_ad			: in std_logic_vector(7 downto 0);
 		mcu_ale			: in std_logic;
 		mcu_a				: in std_logic_vector(15 downto 8);
 		mcu_rd			: in std_logic;
 		mcu_wr			: in std_logic;
 		
 		-- higher level ports
-		address			: out std_logic_vector(15 downto 0);
-		data_out			: out std_logic_vector(7 downto 0); -- for reading from ext ram
-		data_in 			: in std_logic_vector(7 downto 0); 	-- for writing to ext ram
+		address			: out uint16_t;
+		data_out			: out uint8_t;
+		data_in 			: in uint8_t;
 		rd					: out std_logic;
 		wr					: out std_logic
 	);
@@ -60,10 +60,9 @@ end sramSlave;
 architecture Behavioral of sramSlave is
 
 signal q : std_logic_vector(7 downto 0) := (others => '0');
-signal ad : std_logic_vector(7 downto 0) := x"ff";
-attribute IOB of ad : signal is "TRUE";
 signal address_s : std_logic_vector(15 downto 0);
 signal data : std_logic_vector(7 downto 0);
+-- attribute IOB of ad : signal is "TRUE";
 
 begin
 	
@@ -76,9 +75,6 @@ begin
 	--sram_oe <= mcu_rd;
 	--sram_addr(7 downto 0) <= q;
 	
-	-- mcu external connections
-	mcu_ad <= ad when mcu_rd = '0' else (others => 'Z');
-
 	-- sram_data <= ad when mcu_rd /= '0' else (others => 'Z');
 	-- sram_data <= mcu_ad when mcu_rd = '0' else (others => 'Z');
 	-- mcu_ad <= sram_data when mcu_rd /= '0' else (others => 'Z');
@@ -91,7 +87,7 @@ begin
 			address_s <= std_logic_vector(unsigned(mcu_a & mcu_ad) - OFFSET);
 		end if;
 	end process;
-	address <= address_s;
+	address <= unsigned(address_s);
 	
 	-- main process
 	process (clk) is 
@@ -101,11 +97,11 @@ begin
 	begin
 		if rising_edge(clk) then
 			if mcu_rd = '0' then
-				ad <= data_in;
+				-- ad <= data_in;
 				rd <= '1';
 				wr <= '0';
 			elsif mcu_wr = '0' then
-				data_out <= mcu_ad;
+				data_out <= unsigned(mcu_ad);
 				wr <= '1';
 				rd <= '0';
 			else

@@ -85,7 +85,7 @@ vdp: entity work.VectorDotproduct(Behavioral)
 			if rising_edge(clock) then
 				-- variable being set
 				-- reverse from big to little endian
-				if wr = '1' then
+				if wr = '0' then
 					-- do not calculate, unless accessing vectorB
 					calculate <= '0';
 					done <= '0';
@@ -129,8 +129,49 @@ vdp: entity work.VectorDotproduct(Behavioral)
 					when others =>
 					end case;
 						
-				elsif rd = '1' then
+				elsif rd = '0' then
 					calculate <= '0';
+					
+					-- process address of written value
+					case to_integer(address_in) is
+					-- vector_width
+					when 0 =>
+						data_out <= width(31 downto 24);
+					when 1 =>
+						data_out <= width(23 downto 16);
+					when 2 =>
+						data_out <= width(15 downto 8);
+					when 3 =>
+						data_out <= width(7 downto 0);
+					-- inputA
+					when 4 =>
+						data_out <= vectorA(31 downto 24);
+					when 5 =>
+						data_out <= vectorA(23 downto 16);
+					when 6 =>
+						data_out <= vectorA(15 downto 8);
+					when 7 =>
+						data_out <= vectorA(7 downto 0);
+					-- inputB
+					when 8 =>
+						data_out <= vectorB(31 downto 24);
+					when 9 =>
+						data_out <= vectorB(23 downto 16);
+					when 10 =>
+						data_out <= vectorB(15 downto 8);
+					when 11 =>
+						data_out <= vectorB(7 downto 0);	
+					-- inputB
+					when 12 =>
+						data_out <= result(31 downto 24);
+					when 13 =>
+						data_out <= result(23 downto 16);
+					when 14 =>
+						data_out <= result(15 downto 8);
+					when 15 =>
+						data_out <= result(7 downto 0);
+					when others =>
+					end case;
 				else
 					calculate <= '0';
 				end if;

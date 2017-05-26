@@ -63,10 +63,25 @@ BEGIN
    uut: entity work.keyboard (Behavioral) PORT MAP (
           clk,
           reset,
-          values,
           leds
         );
 
+	--process (clk, reset) is
+	--	variable counter : uint8_t := (others => '0');
+	--begin
+	--	if reset = '1' then
+	--	else
+	--		if rising_edge(clk) then
+	--			for j in 0 to num_keys-1 loop
+	--				rgb_values(j)(0) <= counter;
+	--				rgb_values(j)(1) <= counter;
+	--				rgb_values(j)(2) <= counter;
+	--			end loop;
+	--			counter := counter + 1;
+	--		end if;
+	--	end if;
+	--end process;
+	--	
 
 
    -- Clock process definitions

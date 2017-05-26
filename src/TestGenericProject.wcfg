@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/alwynster/git/fpgamiddlewareproject/TestGenericProject_isim_beh1.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="numeric_std" />
+            <top_module name="procedures" />
+            <top_module name="std_logic_1164" />
+            <top_module name="std_logic_arith" />
+            <top_module name="testgenericproject" />
+            <top_module name="userlogicinterface" />
+            <top_module name="vcomponents" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="2" />
+   <wvobject fp_name="group15" type="group">
+      <obj_property name="label">base</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/testgenericproject/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/rx" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rx</obj_property>
+         <obj_property name="ObjectShortName">rx</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/mcu_ale" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">mcu_ale</obj_property>
+         <obj_property name="ObjectShortName">mcu_ale</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/mcu_a" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">mcu_a[15:8]</obj_property>
+         <obj_property name="ObjectShortName">mcu_a[15:8]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/mcu_rd" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">mcu_rd</obj_property>
+         <obj_property name="ObjectShortName">mcu_rd</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/mcu_wr" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">mcu_wr</obj_property>
+         <obj_property name="ObjectShortName">mcu_wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/mcu_ad" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">mcu_ad[7:0]</obj_property>
+         <obj_property name="ObjectShortName">mcu_ad[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/mcu_ad_s" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">mcu_ad_s[7:0]</obj_property>
+         <obj_property name="ObjectShortName">mcu_ad_s[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/userlogic_done" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">userlogic_done</obj_property>
+         <obj_property name="ObjectShortName">userlogic_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/leds" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">leds[3:0]</obj_property>
+         <obj_property name="ObjectShortName">leds[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/tx" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">tx</obj_property>
+         <obj_property name="ObjectShortName">tx</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/busy" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">busy</obj_property>
+         <obj_property name="ObjectShortName">busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/clk_period" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">clk_period</obj_property>
+         <obj_property name="ObjectShortName">clk_period</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/mcu_clk" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">mcu_clk</obj_property>
+         <obj_property name="ObjectShortName">mcu_clk</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group29" type="group">
+      <obj_property name="label">ul</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/testgenericproject/uut/ul/clock" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/reset" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/done" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">done</obj_property>
+         <obj_property name="ObjectShortName">done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/rd" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rd</obj_property>
+         <obj_property name="ObjectShortName">rd</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/wr" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">wr</obj_property>
+         <obj_property name="ObjectShortName">wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/data_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_in[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_in[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/address_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">address_in[15:0]</obj_property>
+         <obj_property name="ObjectShortName">address_in[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/data_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_out[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/leds" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">leds[5:0]</obj_property>
+         <obj_property name="ObjectShortName">leds[5:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/rgb_values" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">rgb_values[0:1]</obj_property>
+         <obj_property name="ObjectShortName">rgb_values[0:1]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/leds_internal" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">leds_internal[0:1]</obj_property>
+         <obj_property name="ObjectShortName">leds_internal[0:1]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/calculate" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">calculate</obj_property>
+         <obj_property name="ObjectShortName">calculate</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/prescaler" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">prescaler</obj_property>
+         <obj_property name="ObjectShortName">prescaler</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

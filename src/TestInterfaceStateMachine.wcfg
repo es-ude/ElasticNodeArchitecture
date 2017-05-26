@@ -12,7 +12,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="18" />
+   <WVObjectSize size="20" />
    <wvobject fp_name="/testinterfacestatemachine/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -85,6 +85,14 @@
       <obj_property name="ElementShortName">userlogic_address[15:0]</obj_property>
       <obj_property name="ObjectShortName">userlogic_address[15:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testinterfacestatemachine/uut/userlogic_rd" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">userlogic_rd</obj_property>
+      <obj_property name="ObjectShortName">userlogic_rd</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testinterfacestatemachine/uut/userlogic_wr" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">userlogic_wr</obj_property>
+      <obj_property name="ObjectShortName">userlogic_wr</obj_property>
    </wvobject>
    <wvobject fp_name="/testinterfacestatemachine/busy" type="other" db_ref_id="1">
       <obj_property name="ElementShortName">busy</obj_property>

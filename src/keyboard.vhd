@@ -30,43 +30,48 @@ library fpgamiddlewarelibs;
 use fpgamiddlewarelibs.userlogicinterface.all;
 
 entity keyboard is
-
+generic
+(
+	PRESCALER	: integer
+);
 port
 (
 	clk			: in std_logic;
 	reset 		: in std_logic;
-	
+
+	rgb_values	: in kb_rgb_value;
 	leds			: out kb_rgb_led
 );
 end keyboard;
 
 architecture Behavioral of keyboard is
-
-	signal rgb_values	: kb_rgb_value;
-	
+	signal prescale_clk : std_logic := '0';
 begin
 
-process (clk, reset) is
-	variable counter : uint8_t := (others => '0');
-begin
-	if reset = '1' then
-	else
+-- prescaler for pwm
+pre:
+	process (clk) is
+		variable counter : integer range 0 to PRESCALER := 0;
+	begin
 		if rising_edge(clk) then
-			for j in 0 to num_keys-1 loop
-				rgb_values(j)(0) <= counter;
-				rgb_values(j)(1) <= counter;
-				rgb_values(j)(2) <= counter;
-			end loop;
 			counter := counter + 1;
+			if counter >= PRESCALER then
+				prescale_clk <= not prescale_clk;
+			end if;
+		elsif falling_edge(clk) then
+			counter := counter + 1;
+			if counter >= PRESCALER then
+				prescale_clk <= not prescale_clk;
+			end if;
 		end if;
-	end if;
-end process;
-	
+	end process;
+
+-- generate all the keys
 key_loop:	
 	for i in 0 to num_keys-1 generate
 		key_loopx: entity work.key (Behavioral) port map
 		(
-			clk, reset, rgb_values(i), leds(i)
+			prescale_clk, reset, rgb_values(i), leds(i)
 		);
 	end generate;
 
