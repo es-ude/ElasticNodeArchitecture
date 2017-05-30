@@ -8,7 +8,7 @@ use fpgamiddlewarelibs.userlogicinterface.all;
 entity KeyboardSkeleton is
 generic
 (
-	PRESCALER	: integer := 1
+	PRESCALER	: integer := 1024
 );
 port (
 		-- control interface
@@ -28,7 +28,7 @@ port (
 		data_out			: out uint8_t;
 		
 		-- direct external connections
-		leds				: out std_logic_vector(3 * fpgamiddlewarelibs.userlogicinterface.num_keys -1 downto 0)
+		leds				: out kb_led_vector
 		);
 end KeyboardSkeleton;
 
@@ -63,17 +63,20 @@ kb: entity work.Keyboard(Behavioral)
 					-- led key 1
 					when 0 =>
 						rgb_values(0)(0) <= data_in;
+						done <= '0';
 					when 1 =>
 						rgb_values(0)(1) <= data_in;
+						done <= '0';
 					when 2 =>
 						rgb_values(0)(2) <= data_in;
-					-- led key 2
-					when 3 =>
-						rgb_values(1)(0) <= data_in;
-					when 4 =>
-						rgb_values(1)(1) <= data_in;
-					when 5 =>
-						rgb_values(1)(2) <= data_in;
+						done <= '1';
+--					-- led key 2
+--					when 3 =>
+--						rgb_values(1)(0) <= data_in;
+--					when 4 =>
+--						rgb_values(1)(1) <= data_in;
+--					when 5 =>
+--						rgb_values(1)(2) <= data_in;
 --					-- led key 3
 --					when 6 =>
 --						rgb_values(2)(0) <= data_in;
@@ -97,12 +100,12 @@ kb: entity work.Keyboard(Behavioral)
 					when 2 =>
 						data_out <= rgb_values(0)(2);
 					-- led key 2
-					when 3 =>
-						data_out <= rgb_values(1)(0);
-					when 4 =>
-						data_out <= rgb_values(1)(1);
-					when 5 =>
-						data_out <= rgb_values(1)(2);
+--					when 3 =>
+--						data_out <= rgb_values(1)(0);
+--					when 4 =>
+--						data_out <= rgb_values(1)(1);
+--					when 5 =>
+--						data_out <= rgb_values(1)(2);
 --					-- led key 3
 --					when 6 =>
 --						rgb_values(2)(0) <= data_in;

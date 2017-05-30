@@ -96,20 +96,52 @@ BEGIN
 
       -- insert stimulus here 
 		write_uint8_t_ext(x"02", x"2203", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); --leds
+		write_uint8_t_ext(x"00", x"2204", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- sleep
 		
 		wait for clk_period * 2;
---		-- vdp ul
---		write_uint32_t(x"01000000", x"2300", mcu_ad_s, mcu_a, mcu_ale, mcu_wr);
---		write_uint32_t(x"02000000", x"2304", mcu_ad_s, mcu_a, mcu_ale, mcu_wr);
---		write_uint32_t(x"02000000", x"2308", mcu_ad_s, mcu_a, mcu_ale, mcu_wr);
+		-- vdp ul
+		write_uint32_t_ext(to_unsigned(1, 32), x"2300", mcu_ad_s, mcu_a, mcu_ale, mcu_wr);
+		write_uint32_t_ext(to_unsigned(2, 32), x"2304", mcu_ad_s, mcu_a, mcu_ale, mcu_wr);
+		write_uint32_t_ext(to_unsigned(3, 32), x"2308", mcu_ad_s, mcu_a, mcu_ale, mcu_wr);
 
-		-- kb ul
-		write_uint24_t_ext(x"25fe01", x"2300", mcu_ad_s, mcu_a, mcu_ale, mcu_wr);
-		write_uint24_t_ext(x"26ff02", x"2303", mcu_ad_s, mcu_a, mcu_ale, mcu_wr);
-		wait for clk_period * 256;
+		wait for clk_period * 2;
 		
-		wait for clk_period * 4;
+		read_uint32_t_ext(x"2300", mcu_ad_s, mcu_a, mcu_ale, mcu_rd);
+		read_uint32_t_ext(x"2304", mcu_ad_s, mcu_a, mcu_ale, mcu_rd);
+		read_uint32_t_ext(x"2308", mcu_ad_s, mcu_a, mcu_ale, mcu_rd);
 		read_uint32_t_ext(x"230C", mcu_ad_s, mcu_a, mcu_ale, mcu_rd);
+		
+		
+		write_uint8_t_ext(x"03", x"2203", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); --leds
+		write_uint8_t_ext(x"01", x"2204", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- sleep
+		write_uint8_t_ext(x"00", x"2204", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- sleep
+		
+		wait for clk_period * 2;
+		-- vdp ul
+		write_uint32_t_ext(to_unsigned(1, 32), x"2300", mcu_ad_s, mcu_a, mcu_ale, mcu_wr);
+		write_uint32_t_ext(to_unsigned(2, 32), x"2304", mcu_ad_s, mcu_a, mcu_ale, mcu_wr);
+		write_uint32_t_ext(to_unsigned(3, 32), x"2308", mcu_ad_s, mcu_a, mcu_ale, mcu_wr);
+
+		write_uint32_t_ext(to_unsigned(2, 32), x"2304", mcu_ad_s, mcu_a, mcu_ale, mcu_wr);
+		write_uint32_t_ext(to_unsigned(3, 32), x"2308", mcu_ad_s, mcu_a, mcu_ale, mcu_wr);
+
+		wait for clk_period * 2;
+		
+		read_uint32_t_ext(x"2300", mcu_ad_s, mcu_a, mcu_ale, mcu_rd);
+		read_uint32_t_ext(x"2304", mcu_ad_s, mcu_a, mcu_ale, mcu_rd);
+		read_uint32_t_ext(x"2308", mcu_ad_s, mcu_a, mcu_ale, mcu_rd);
+		read_uint32_t_ext(x"230C", mcu_ad_s, mcu_a, mcu_ale, mcu_rd);
+		
+		
+		write_uint8_t_ext(x"02", x"2203", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); --leds
+
+--		-- kb ul
+--		write_uint24_t_ext(x"25fe01", x"2300", mcu_ad_s, mcu_a, mcu_ale, mcu_wr);
+--		write_uint24_t_ext(x"26ff02", x"2303", mcu_ad_s, mcu_a, mcu_ale, mcu_wr);
+--		wait for clk_period * 256;
+--		
+--		wait for clk_period * 4;
+--		read_uint32_t_ext(x"230C", mcu_ad_s, mcu_a, mcu_ale, mcu_rd);
 		
 		wait for clk_period * 4;
 		

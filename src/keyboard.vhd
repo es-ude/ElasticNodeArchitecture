@@ -58,11 +58,11 @@ pre:
 			if counter >= PRESCALER then
 				prescale_clk <= not prescale_clk;
 			end if;
-		elsif falling_edge(clk) then
-			counter := counter + 1;
-			if counter >= PRESCALER then
-				prescale_clk <= not prescale_clk;
-			end if;
+--		elsif falling_edge(clk) then
+--			counter := counter + 1;
+--			if counter >= PRESCALER then
+--				prescale_clk <= not prescale_clk;
+--			end if;
 		end if;
 	end process;
 

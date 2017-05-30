@@ -17,6 +17,7 @@ use fpgamiddlewarelibs.userlogicinterface.all;
 entity genericProject is
 	port (
 		userlogic_done	: out std_logic;
+		userlogic_sleep: out std_logic;
 
 		ARD_RESET 	: out std_logic;
 --		spi_switch	: in std_logic;
@@ -41,7 +42,9 @@ entity genericProject is
 		mcu_ale		: in std_logic;
 		mcu_a			: in std_logic_vector(15 downto 8);
 		mcu_rd		: in std_logic;
-		mcu_wr		: in std_logic
+		mcu_wr		: in std_logic--;
+		
+		-- kb_leds		: out kb_led_vector
 	);
 	attribute IOB 	: String;
 end genericProject;
@@ -78,11 +81,11 @@ signal sram_data_in 				: uint8_t;
 -- attribute IOB of ad : signal is "TRUE";
 signal address_s 					: std_logic_vector(15 downto 0);
 
-signal kb_leds						: std_logic_vector(3*fpgamiddlewarelibs.userlogicinterface.num_keys-1 downto 0);
-
 constant OFFSET					: unsigned(15 downto 0) := x"2200";
-
-attribute IOB of sram_data_in : signal is "TRUE";
+constant USERLOGIC_OFFSET 		: unsigned(15 downto 0) := x"2300";
+		-- MULTIBOOT			: unsigned(23 downto 0) := x"000000"
+	
+-- attribute IOB of sram_data_in : signal is "TRUE";
 
 
 begin
@@ -100,7 +103,7 @@ mw: entity work.middleware(Behavioral)
 		userlogic_done_s,
 		userlogic_data_in,
 		userlogic_data_out,
-		userlogic_address,
+		-- userlogic_address,
 		userlogic_rd,
 		userlogic_wr,
 		
@@ -138,13 +141,14 @@ mw: entity work.middleware(Behavioral)
 	
 	-- initialise user logic
 	-- ul: entity work.Dummy(Behavioral) port map
-	-- ul: entity work.VectorDotproductSkeleton(Behavioral) port map
+	ul: entity work.VectorDotproductSkeleton(Behavioral) port map
 	-- ul: entity work.MatrixMultiplicationSkeleton(Behavioral) port map
-	ul: entity work.KeyboardSkeleton(Behavioral) port map
+	-- ul: entity work.KeyboardSkeleton(Behavioral) port map
 		(
-			clk, reset, userlogic_done_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out, kb_leds
+			not clk, userlogic_reset, userlogic_done_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out --, kb_leds
 		);
-	userlogic_done <= userlogic_done_s;
+	-- userlogic_done <= userlogic_done_s;
+	userlogic_sleep <= userlogic_reset;
 	
 	-- inout of mcu_ad
 	mcu_ad <= std_logic_vector(sram_data_out) when mcu_rd = '0' else (others => 'Z');
@@ -153,12 +157,18 @@ mw: entity work.middleware(Behavioral)
 	--sram interface
 	-- lower address latch
 	process (mcu_ale) is 
+		variable address_var : uint16_t;
+		variable userlogic_address_var : uint16_t;
 	begin
 		if falling_edge(mcu_ale) then
-			address_s <= std_logic_vector(unsigned(mcu_a & mcu_ad) - OFFSET);
+			address_var := unsigned(mcu_a & mcu_ad) - OFFSET;
+			userlogic_address_var := unsigned(mcu_a & mcu_ad) - USERLOGIC_OFFSET;
+			address_s <= std_logic_vector(address_var);
+			userlogic_address <= userlogic_address_var;
 		end if;
 	end process;
 	sram_address <= unsigned(address_s);
+	userlogic_done <= '1' when (mcu_wr = '0' and sram_address = x"0004") or mcu_wr = '1' else '0';
 	
 	--sram sync interface
 --sram: entity work.sramSlave(Behavioral) generic map

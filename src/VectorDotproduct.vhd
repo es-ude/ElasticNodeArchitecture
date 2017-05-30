@@ -47,7 +47,7 @@ entity VectorDotproduct is
 		
 		-- data out 
 		result			: out unsigned(31 downto 0)
-		);
+	);
 end VectorDotproduct;
 
 architecture Behavioral of VectorDotproduct is
@@ -58,16 +58,19 @@ begin
 
 	-- process data receive 
 	process (clock, reset)
+		variable calculate_was_high : boolean := false;
 		-- variable intermediate_result : unsigned(31 downto 0);
 	begin
 		if reset = '1' then
-			intermediate_result <= to_unsigned(0, 32);
+			intermediate_result <= (others => '0');
+			calculate_was_high := false;
 		elsif rising_edge(clock) then
 		-- perform one dimension's calculations per cycle
-			if calculate = '1' then
+			if calculate = '0' and calculate_was_high then
+				calculate_was_high := false;
 				intermediate_result <= intermediate_result + vectorA(15 downto 0) * vectorB(15 downto 0);
-			else 
-				intermediate_result <= intermediate_result;
+			elsif calculate = '1' then
+				calculate_was_high := true;
 			end if;
 		end if;
 	end process;
