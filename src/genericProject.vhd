@@ -10,6 +10,10 @@ use work.all;
 library fpgamiddlewarelibs;
 use fpgamiddlewarelibs.userlogicinterface.all;
 
+library matrixmultiplication;
+library vectordotproduct;
+library neuralnetwork;
+
 --!
 --! @brief      Main class for connecting all the components involved in the
 --!             middleware
@@ -141,13 +145,14 @@ mw: entity work.middleware(Behavioral)
 	
 	-- initialise user logic
 	-- ul: entity work.Dummy(Behavioral) port map
-	ul: entity work.VectorDotproductSkeleton(Behavioral) port map
-	-- ul: entity work.MatrixMultiplicationSkeleton(Behavioral) port map
+	-- ul: entity vectordotproduct.VectorDotproductSkeleton(Behavioral) port map
+	-- ul: entity matrixmultiplication.MatrixMultiplicationSkeleton(Behavioral) port map
+	ul: entity neuralnetwork.NeuralNetworkSkeleton(Behavioral) port map
 	-- ul: entity work.KeyboardSkeleton(Behavioral) port map
 		(
 			not clk, userlogic_reset, userlogic_done_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out --, kb_leds
 		);
-	-- userlogic_done <= userlogic_done_s;
+	userlogic_done <= userlogic_done_s;
 	userlogic_sleep <= userlogic_reset;
 	
 	-- inout of mcu_ad
@@ -168,7 +173,7 @@ mw: entity work.middleware(Behavioral)
 		end if;
 	end process;
 	sram_address <= unsigned(address_s);
-	userlogic_done <= '1' when (mcu_wr = '0' and sram_address = x"0004") or mcu_wr = '1' else '0';
+	-- userlogic_done <= '1' when (mcu_wr = '0' and sram_address = x"0004") or mcu_wr = '1' else '0';
 	
 	--sram sync interface
 --sram: entity work.sramSlave(Behavioral) generic map

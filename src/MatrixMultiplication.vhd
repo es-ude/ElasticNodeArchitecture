@@ -55,15 +55,15 @@ end MatrixMultiplication;
 
 architecture Behavioral of MatrixMultiplication is
 	-- signal inputA, inputB : unsigned(31 downto 0);
-	type receive_state is (idle, calculating, sendResult);
-	signal current_receive_state : receive_state := idle;
+	type state is (idle, calculating, finished);
+	signal current_state : state := idle;
 	signal intermediate_result_s : MatrixMultiplicationPackage.outputMatrix;
 	
 	-- constant OUTPUT_SIZE : unsigned := to_unsigned((MatrixMultiplicationPackage.numrows1 * MatrixMultiplicationPackage.numcols2) * 4, 32);
 begin
 
 	-- process data receive 
-	process (clock, current_receive_state)
+	process (clock, current_state)
 		variable column2 	: integer range 0 to MatrixMultiplicationPackage.numcols2 - 1 := 0;
 		variable row2		: integer range 0 to MatrixMultiplicationPackage.numrows2 - 1 := 0;
 		variable column1 	: integer range 0 to MatrixMultiplicationPackage.numcols1 - 1 := 0;
@@ -71,47 +71,60 @@ begin
 	
 		variable intermediate_result : MatrixMultiplicationPackage.outputMatrix := (others => (others => (others => '0')));
 	begin
-		if calculate = '1' then
-			-- beginning/end
-			-- if run = '1' then
-				if rising_edge(clock) then
-					if current_receive_state = idle then
-						-- initiate all required variables
-						current_receive_state <= calculating; -- begin operation
-						intermediate_result := (others => (others => (others => '0')));
-						done <= '0';
-						column2 := 0;
-						row2 := 0;
-						
-						column1 := 0;
-						row1 := 0;
-
-					elsif current_receive_state = calculating then
-						
-						--for row1 in 0 to MatrixMultiplicationPackage.numrows1-1 loop
-							for column2 in 0 to MatrixMultiplicationPackage.numcols2-1 loop
-								for column1 in 0 to MatrixMultiplicationPackage.numcols1-1 loop
-									intermediate_result(row1)(column2) := intermediate_result(row1)(column2) + (matrixA(row1)(column1) * matrixB(column1)(column2));
-								end loop;
-							end loop;
-						-- end loop;
-						
-						
-						if row1 < (MatrixMultiplicationPackage.numrows1 - 1) then 
-							row1 := row1 + 1;
-						else
-							current_receive_state <= sendResult;
-							row1 := 0;
-							column2 := 0;
-						end if;
-					elsif current_receive_state = sendResult then
-						matrixC <= intermediate_result;
-						done <= '1';
-					end if;
-			end if;
-		else
+		if reset = '1' then
+			current_state <= idle;
+			intermediate_result := (others => (others => (others => '0')));
 			done <= '0';
-			current_receive_state <= idle;
+			column2 := 0;
+			row2 := 0;
+			
+			column1 := 0;
+			row1 := 0;
+		else
+			if rising_edge(clock) then
+				if current_state = idle then
+					-- initiate all required variables
+					if calculate = '1' then
+						current_state <= calculating; -- begin operation
+					end if;
+					
+					intermediate_result := (others => (others => (others => '0')));
+					done <= '0';
+					column2 := 0;
+					row2 := 0;
+					
+					column1 := 0;
+					row1 := 0;
+			
+				elsif current_state = calculating then
+					
+					-- for row1 in 0 to MatrixMultiplicationPackage.numrows1-1 loop
+						for column2 in 0 to MatrixMultiplicationPackage.numcols2-1 loop
+							for column1 in 0 to MatrixMultiplicationPackage.numcols1-1 loop
+								intermediate_result(row1)(column2) := intermediate_result(row1)(column2) + (matrixA(row1)(column1) * matrixB(column1)(column2));
+							end loop;
+						end loop;
+					-- end loop;
+					
+					
+					if row1 < (MatrixMultiplicationPackage.numrows1 - 1) then 
+						row1 := row1 + 1;
+					else
+						current_state <= finished;
+						row1 := 0;
+						column2 := 0;
+					end if;
+				elsif current_state = finished then
+					matrixC <= intermediate_result;
+					done <= '1';
+					
+					-- perform next calculation
+					if calculate = '1' then
+						current_state <= calculating;
+						intermediate_result := (others => (others => (others => '0')));
+					end if;
+				end if;
+			end if;
 		end if;
 		intermediate_result_s <= intermediate_result;
 	end process;

@@ -32,9 +32,12 @@ USE ieee.numeric_std.ALL;
 library fpgamiddlewarelibs;
 use fpgamiddlewarelibs.userlogicinterface.all;
 
+library vectordotproduct;
+library matrixmultiplication;
+
 ENTITY TestMiddleware IS
 END TestMiddleware;
- 
+
 ARCHITECTURE behavior OF TestMiddleware IS 
  
     -- Component Declaration for the Unit Under Test (UUT)
@@ -181,7 +184,7 @@ BEGIN
 		sram_wr => sram_wr
         );
 
-	ul: entity work.VectorDotproductSkeleton(Behavioral)
+	ul: entity vectordotproduct.VectorDotproductSkeleton(Behavioral)
 		port map (clk, reset, userlogic_done, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out);
       
 

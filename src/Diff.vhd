@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date:    18:19:48 05/21/2017 
+-- Create Date:    12:58:39 07/27/2015 
 -- Design Name: 
--- Module Name:    key - Behavioral 
+-- Module Name:    diff - Behavioral 
 -- Project Name: 
 -- Target Devices: 
 -- Tool versions: 
@@ -19,41 +19,32 @@
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
 
-library fpgamiddlewarelibs;
-use fpgamiddlewarelibs.userlogicinterface.all;
 
 library work;
-use work.all;
+use work.Common.all;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity key is
-port
-(
-	clk			: in std_logic;
-	reset 		: in std_logic;
-	
-	value			: in rgb_value;
-	
-	leds			: out rgb_led
-);
-end key;
+entity Diff is
+	port 
+	(
+		current		:	in weights_vector;
+		wanted		:	in weights_vector;
+		difference 	:	out weights_vector
+	);
+end Diff;
 
-architecture Behavioral of key is
+architecture Behavioral of Diff is
 
 begin
-
--- init pwms
-gen_loop:
-	for i in 0 to 2 generate
-		pwmx:
-			entity pwm(Behavioral) port map ( clk, reset, value(i), leds(i) );
-	end generate; 
-	
+	--difference <= wanted - current;
 end Behavioral;
 

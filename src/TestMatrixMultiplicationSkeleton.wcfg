@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/ES/burger/git/fpgamiddlewareproject/TestMatrixMultiplicationSkeleton_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="matrixmultiplicationpackage" />
+            <top_module name="numeric_std" />
+            <top_module name="procedures" />
+            <top_module name="std_logic_1164" />
+            <top_module name="testmatrixmultiplicationskeleton" />
+            <top_module name="userlogicinterface" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="3" />
+   <wvobject fp_name="group13" type="group">
+      <obj_property name="label">test</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/clock" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/reset" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/run" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">run</obj_property>
+         <obj_property name="ObjectShortName">run</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/ready" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">ready</obj_property>
+         <obj_property name="ObjectShortName">ready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/done" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">done</obj_property>
+         <obj_property name="ObjectShortName">done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/rd" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rd</obj_property>
+         <obj_property name="ObjectShortName">rd</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/wr" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">wr</obj_property>
+         <obj_property name="ObjectShortName">wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/address_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">address_in[15:0]</obj_property>
+         <obj_property name="ObjectShortName">address_in[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/data_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_in[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_in[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/data_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_out[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/sim_busy" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">sim_busy</obj_property>
+         <obj_property name="ObjectShortName">sim_busy</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/clock_period" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">clock_period</obj_property>
+         <obj_property name="ObjectShortName">clock_period</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group30" type="group">
+      <obj_property name="label">uut</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/clock" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/reset" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/done" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">done</obj_property>
+         <obj_property name="ObjectShortName">done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/rd" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rd</obj_property>
+         <obj_property name="ObjectShortName">rd</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/wr" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">wr</obj_property>
+         <obj_property name="ObjectShortName">wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/data_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_in[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_in[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/address_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">address_in[15:0]</obj_property>
+         <obj_property name="ObjectShortName">address_in[15:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/data_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_out[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/inputa" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">inputa[0:3]</obj_property>
+         <obj_property name="ObjectShortName">inputa[0:3]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/inputb" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">inputb[0:2]</obj_property>
+         <obj_property name="ObjectShortName">inputb[0:2]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/result" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">result[0:3]</obj_property>
+         <obj_property name="ObjectShortName">result[0:3]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/calculate" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">calculate</obj_property>
+         <obj_property name="ObjectShortName">calculate</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/row1_s" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">row1_s</obj_property>
+         <obj_property name="ObjectShortName">row1_s</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/row2_s" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">row2_s</obj_property>
+         <obj_property name="ObjectShortName">row2_s</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/column1_s" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">column1_s</obj_property>
+         <obj_property name="ObjectShortName">column1_s</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/column2_s" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">column2_s</obj_property>
+         <obj_property name="ObjectShortName">column2_s</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group50" type="group">
+      <obj_property name="label">mm</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/mm/clock" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/mm/reset" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/mm/done" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">done</obj_property>
+         <obj_property name="ObjectShortName">done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/mm/calculate" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">calculate</obj_property>
+         <obj_property name="ObjectShortName">calculate</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/mm/matrixa" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">matrixa[0:3]</obj_property>
+         <obj_property name="ObjectShortName">matrixa[0:3]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/mm/matrixb" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">matrixb[0:2]</obj_property>
+         <obj_property name="ObjectShortName">matrixb[0:2]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/mm/matrixc" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">matrixc[0:3]</obj_property>
+         <obj_property name="ObjectShortName">matrixc[0:3]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testmatrixmultiplicationskeleton/uut/mm/intermediate_result_s" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">intermediate_result_s[0:3]</obj_property>
+         <obj_property name="ObjectShortName">intermediate_result_s[0:3]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

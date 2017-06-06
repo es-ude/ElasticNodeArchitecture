@@ -173,7 +173,7 @@ vdp: entity work.VectorDotproduct(Behavioral)
 					when 15 =>
 						data_out <= result(31 downto 24);
 					when others =>
-						data_out <= to_unsigned(255, 8) - address_in(7 downto 0) + address_in(15 downto 8);
+						data_out <= address_in(7 downto 0) + address_in(15 downto 8);
 					end case;
 				else
 					calculate <= '0';

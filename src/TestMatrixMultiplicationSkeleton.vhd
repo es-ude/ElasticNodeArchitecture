@@ -12,6 +12,7 @@
 
 	library fpgamiddlewarelibs;
 	use fpgamiddlewarelibs.userlogicinterface.all;
+	use fpgamiddlewarelibs.procedures.all;
 
 	ARCHITECTURE behavior OF TestMatrixMultiplicationSkeleton IS 
 
@@ -23,15 +24,15 @@
 		signal done				: std_logic; 
 		
 		-- data control interface
-		signal rd				: std_logic;
-		signal wr				: std_logic;
+		signal rd				: std_logic := '0';
+		signal wr				: std_logic := '0';
 		
 		-- data interface
 		signal address_in		: uint16_t;
 		signal data_in			: uint8_t;
 		signal data_out		: uint8_t;
 		
-		constant clock_period : time := 100 ns;
+		constant clock_period : time := 20 ns;
 		signal sim_busy 		: boolean := true;
 	BEGIN
 
@@ -51,90 +52,124 @@
 
 		--  Test Bench Statements
 		tb : PROCESS
+			variable address : uint16_t := (others => '0');
 		BEGIN
 			reset <= '1';
 
-			wait for 200 ns; -- wait until global set/reset completes
+			wait for clock_period * 2; -- wait until global set/reset completes
 			
 			reset <= '0';
 			
+			-- inputA
+			write_uint32_t(1, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(2, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(3, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
 			
---			-- N
---			wait until ready = '1';
---			wait for clock_period;
---			--data_in <= std_logic_vector(to_unsigned(2, 32));
---			data_in_rdy <= '1';
---			-- wait for clock_period * 2;
---
---			-- input A
---			-- row 1
---			data_in <= std_logic_vector(to_unsigned(0, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(1, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(4, 32));
---			wait for clock_period * 2;
---			-- row 2
---			data_in <= std_logic_vector(to_unsigned(2, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(0, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(1, 32));
---			wait for clock_period * 2;
---			-- row 3
---			data_in <= std_logic_vector(to_unsigned(1, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(5, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(0, 32));
---			wait for clock_period * 2;
---			-- row 4
---			data_in <= std_logic_vector(to_unsigned(1, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(1, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(0, 32));
---			wait for clock_period * 2;
---			
---			-- input B
---			-- row 1
---			data_in <= std_logic_vector(to_unsigned(0, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(1, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(4, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(2, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(7, 32));
---			wait for clock_period * 2;
---			-- row 2
---			data_in <= std_logic_vector(to_unsigned(0, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(1, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(3, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(2, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(4, 32));
---			wait for clock_period * 2;
---			-- row 3
---			data_in <= std_logic_vector(to_unsigned(0, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(2, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(3, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(4, 32));
---			wait for clock_period * 2;
---			data_in <= std_logic_vector(to_unsigned(5, 32));
---			wait for clock_period * 2;
---			data_in_rdy <= '0';
+			write_uint32_t(4, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(5, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(6, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			
+			write_uint32_t(7, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(8, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(9, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			
+			write_uint32_t(10, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(11, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(12, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			
+			-- inputB
+			write_uint32_t(1, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(2, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(3, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(4, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(5, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			
+			write_uint32_t(6, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(7, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(8, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(9, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(10, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			
+			write_uint32_t(11, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(12, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(13, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(14, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
+			write_uint32_t(15, address, address_in, data_in, wr);
+			address := address + to_unsigned(4, 16);
 			
 			-- result
-			-- wait until ready = '1';
-
+			wait until done = '1';
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			read_uint32_t(address, address_in, rd);
+			address := address + to_unsigned(4, 16);
+			
+			wait for clock_period * 4;
 			sim_busy <= false;
 
 			wait; -- will wait forever

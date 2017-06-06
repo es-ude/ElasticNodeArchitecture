@@ -20,6 +20,7 @@ fuse*
 # intermediate build files
 *.bgn
 *.bit
+*.bin
 *.bld
 *.cmd_log
 *.drc

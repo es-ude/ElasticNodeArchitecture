@@ -45,7 +45,7 @@ entity InterfaceStateMachine is
 end InterfaceStateMachine;
 
 architecture Behavior of InterfaceStateMachine is 
-	constant MULTIBOOT : uint16_t := x"0000";
+	constant MULTIBOOT : uint16_t := x"0005";
 	constant LED : uint16_t := x"0003";
 	constant USERLOGIC_CONTROL : uint16_t := x"0004";
 begin

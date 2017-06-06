@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/ES/burger/git/fpgamiddlewareproject/TestNeuralNetworkSkeleton_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="common" />
+            <top_module name="fixed_float_types" />
+            <top_module name="fixed_pkg" />
+            <top_module name="math_real" />
+            <top_module name="numeric_std" />
+            <top_module name="procedures" />
+            <top_module name="sigmoid" />
+            <top_module name="std_logic_1164" />
+            <top_module name="testneuralnetworkskeleton" />
+            <top_module name="textio" />
+            <top_module name="userlogicinterface" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="5" />
+   <wvobject fp_name="group13" type="group">
+      <obj_property name="label">test</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/testneuralnetworkskeleton/clock" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/reset" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/run" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">run</obj_property>
+         <obj_property name="ObjectShortName">run</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/ready" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">ready</obj_property>
+         <obj_property name="ObjectShortName">ready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/done" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">done</obj_property>
+         <obj_property name="ObjectShortName">done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/rd" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rd</obj_property>
+         <obj_property name="ObjectShortName">rd</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/wr" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">wr</obj_property>
+         <obj_property name="ObjectShortName">wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/address_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">address_in[15:0]</obj_property>
+         <obj_property name="ObjectShortName">address_in[15:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/data_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_in[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_in[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/data_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_out[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/sim_busy" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">sim_busy</obj_property>
+         <obj_property name="ObjectShortName">sim_busy</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/clock_period" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">clock_period</obj_property>
+         <obj_property name="ObjectShortName">clock_period</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group28" type="group">
+      <obj_property name="label">uut</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/clock" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/reset" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/done" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">done</obj_property>
+         <obj_property name="ObjectShortName">done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/rd" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rd</obj_property>
+         <obj_property name="ObjectShortName">rd</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/wr" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">wr</obj_property>
+         <obj_property name="ObjectShortName">wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/data_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_in[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_in[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/address_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">address_in[15:0]</obj_property>
+         <obj_property name="ObjectShortName">address_in[15:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/data_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_out[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/learn" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">learn</obj_property>
+         <obj_property name="ObjectShortName">learn</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/data_rdy" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">data_rdy</obj_property>
+         <obj_property name="ObjectShortName">data_rdy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/calculate" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">calculate</obj_property>
+         <obj_property name="ObjectShortName">calculate</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/connections_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_in[2:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in[2:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/wanted" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">wanted[2:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted[2:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/connections_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_out[2:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out[2:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group41" type="group">
+      <obj_property name="label">nn</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/reset" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/learn" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">learn</obj_property>
+         <obj_property name="ObjectShortName">learn</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/data_rdy" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">data_rdy</obj_property>
+         <obj_property name="ObjectShortName">data_rdy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/calculate" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">calculate</obj_property>
+         <obj_property name="ObjectShortName">calculate</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/connections_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_in[2:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in[2:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/wanted" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">wanted[2:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted[2:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/connections_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_out[2:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out[2:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/mode_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">mode_out[2:0]</obj_property>
+         <obj_property name="ObjectShortName">mode_out[2:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/connections_in_fp" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_in_fp[2:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in_fp[2:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/wanted_fp" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">wanted_fp[2:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted_fp[2:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/connections_out_fp" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_out_fp[2:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out_fp[2:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group56" type="group">
+      <obj_property name="label">net</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/reset" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/learn" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">learn</obj_property>
+         <obj_property name="ObjectShortName">learn</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/data_rdy" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">data_rdy</obj_property>
+         <obj_property name="ObjectShortName">data_rdy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/calculate" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">calculate</obj_property>
+         <obj_property name="ObjectShortName">calculate</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/connections_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_in[2:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/connections_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_out[2:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/wanted" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">wanted[2:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/mode_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">mode_out[2:0]</obj_property>
+         <obj_property name="ObjectShortName">mode_out[2:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/conn_matrix" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">conn_matrix[2:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_matrix[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/err_matrix" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">err_matrix[2:0]</obj_property>
+         <obj_property name="ObjectShortName">err_matrix[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/err_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">err_out[2:0]</obj_property>
+         <obj_property name="ObjectShortName">err_out[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/data_rdy_s" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">data_rdy_s</obj_property>
+         <obj_property name="ObjectShortName">data_rdy_s</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/n_feedback_bus" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">n_feedback_bus[3:0]</obj_property>
+         <obj_property name="ObjectShortName">n_feedback_bus[3:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group76" type="group">
+      <obj_property name="label">dist</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/distr/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/distr/reset" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/distr/learn" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">learn</obj_property>
+         <obj_property name="ObjectShortName">learn</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/distr/calculate" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">calculate</obj_property>
+         <obj_property name="ObjectShortName">calculate</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/distr/n_feedback_bus" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">n_feedback_bus[3:0]</obj_property>
+         <obj_property name="ObjectShortName">n_feedback_bus[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/distr/data_rdy" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">data_rdy</obj_property>
+         <obj_property name="ObjectShortName">data_rdy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/distr/mode_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">mode_out[2:0]</obj_property>
+         <obj_property name="ObjectShortName">mode_out[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testneuralnetworkskeleton/uut/nn/net/distr/mode" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">mode</obj_property>
+         <obj_property name="ObjectShortName">mode</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

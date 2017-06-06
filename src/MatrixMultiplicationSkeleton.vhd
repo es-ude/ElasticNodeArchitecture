@@ -40,7 +40,7 @@ entity MatrixMultiplicationSkeleton is
 	port (
 		-- control interface
 		clock				: in std_logic;
-		reset			: in std_logic; -- controls functionality (sleep)
+		reset				: in std_logic; -- controls functionality (sleep)
 		done 				: out std_logic; -- done with entire calculation
 				
 		-- indicate new data or request
@@ -60,21 +60,21 @@ architecture Behavioral of MatrixMultiplicationSkeleton is
 --	signal intermediate_result_s : outputMatrix;
 	signal inputA : inputMatrix1;
 	signal inputB : inputMatrix2;
-	signal output : outputMatrix;
-	
+	signal result : outputMatrix;
+--	
 	signal calculate: std_logic;
-	
-	constant OUTPUT_SIZE : unsigned := to_unsigned((numrows1 * numcols2) * 4, 32);
-	
+--	
+--	constant OUTPUT_SIZE : unsigned := to_unsigned((numrows1 * numcols2) * 4, 32);
+--	
 	-- debug
 	signal row1_s, row2_s, column1_s, column2_s : integer;
 	-- signal reset, mm_done : std_logic := '0';
 begin
 
---uut: entity work.MatrixMultiplication(Behavioral)
---	port map (clock, reset, calculate, done, inputA, inputB, output);
+mm: entity work.MatrixMultiplication(Behavioral)
+	port map (clock, reset, calculate, done, inputA, inputB, result);
 
--- process data receive 
+	-- process data receive 
 	process (clock, rd, wr, reset)
 --		variable inputA, inputB : uint16_t;
 --		variable vector_width, current_dimension : uint32_t := (others => '0');
@@ -123,69 +123,431 @@ begin
 					if wr = '0' then
 						case to_integer(address_in) is
 						-- inputA
+						-- row 1
 						when 0 =>
 							inputA(0)(0)(7 downto 0) <= data_in;
 							-- done <= '0'; -- recognise this as a new sum
 						when 1 =>
 							inputA(0)(0)(15 downto 8) <= data_in;
-						when 2 =>
-							inputA(0)(0)(23 downto 16) <= data_in;
-						when 3 =>
-							inputA(0)(0)(31 downto 24) <= data_in;
+						-- ignore (31 downto 16)
+--						when 2 =>
+--							inputA(0)(0)(23 downto 16) <= data_in;
+--						when 3 =>
+--							inputA(0)(0)(31 downto 24) <= data_in;
+						when 4 =>
+							inputA(0)(1)(7 downto 0) <= data_in;
+						when 5 =>
+							inputA(0)(1)(15 downto 8) <= data_in;
+						when 8 =>
+							inputA(0)(2)(7 downto 0) <= data_in;
+						when 9 =>
+							inputA(0)(2)(15 downto 8) <= data_in;
+						-- row 2
+						when 12 =>
+							inputA(1)(0)(7 downto 0) <= data_in;
+						when 13 =>
+							inputA(1)(0)(15 downto 8) <= data_in;
+						when 16 =>
+							inputA(1)(1)(7 downto 0) <= data_in;
+						when 17 =>
+							inputA(1)(1)(15 downto 8) <= data_in;
+						when 20 =>
+							inputA(1)(2)(7 downto 0) <= data_in;
+						when 21 =>
+							inputA(1)(2)(15 downto 8) <= data_in;
+						-- row 3
+						when 24 =>
+							inputA(2)(0)(7 downto 0) <= data_in;
+						when 25 =>
+							inputA(2)(0)(15 downto 8) <= data_in;
+						when 28 =>
+							inputA(2)(1)(7 downto 0) <= data_in;
+						when 29 =>
+							inputA(2)(1)(15 downto 8) <= data_in;
+						when 32 =>
+							inputA(2)(2)(7 downto 0) <= data_in;
+						when 33 =>
+							inputA(2)(2)(15 downto 8) <= data_in;
+						-- row 4
+						when 36 =>
+							inputA(3)(0)(7 downto 0) <= data_in;
+						when 37 =>
+							inputA(3)(0)(15 downto 8) <= data_in;
+						when 40 =>
+							inputA(3)(1)(7 downto 0) <= data_in;
+						when 41 =>
+							inputA(3)(1)(15 downto 8) <= data_in;
+						when 44 =>
+							inputA(3)(2)(7 downto 0) <= data_in;
+						when 45 =>
+							inputA(3)(2)(15 downto 8) <= data_in;
 						
-
---							-- do not calculate, unless accessing vectorB
---							calculate  <= '1'; -- trigger calculate high for one clock cycle
---							current_dimension := current_dimension + 1;
---							if current_dimension >= width then
---								-- done <= '1';
---								current_dimension := (others => '0');
---							end if;
+						-- inputB
+						-- row 1
+						when 48 =>
+							inputB(0)(0)(7 downto 0) <= data_in;
+						when 49 =>
+							inputB(0)(0)(15 downto 8) <= data_in;
+						when 52 =>
+							inputB(0)(1)(7 downto 0) <= data_in;
+						when 53 =>
+							inputB(0)(1)(15 downto 8) <= data_in;
+						when 56 =>
+							inputB(0)(2)(7 downto 0) <= data_in;
+						when 57 =>
+							inputB(0)(2)(15 downto 8) <= data_in;							
+						when 60 =>
+							inputB(0)(3)(7 downto 0) <= data_in;
+						when 61 =>
+							inputB(0)(3)(15 downto 8) <= data_in;
+						when 64 =>
+							inputB(0)(4)(7 downto 0) <= data_in;
+						when 65 =>
+							inputB(0)(4)(15 downto 8) <= data_in;	
+						-- row 2
+						when 68 =>
+							inputB(1)(0)(7 downto 0) <= data_in;
+						when 69 =>
+							inputB(1)(0)(15 downto 8) <= data_in;
+						when 72 =>
+							inputB(1)(1)(7 downto 0) <= data_in;
+						when 73 =>
+							inputB(1)(1)(15 downto 8) <= data_in;
+						when 76 =>
+							inputB(1)(2)(7 downto 0) <= data_in;
+						when 77 =>
+							inputB(1)(2)(15 downto 8) <= data_in;							
+						when 80 =>
+							inputB(1)(3)(7 downto 0) <= data_in;
+						when 81 =>
+							inputB(1)(3)(15 downto 8) <= data_in;
+						when 84 =>
+							inputB(1)(4)(7 downto 0) <= data_in;
+						when 85 =>
+							inputB(1)(4)(15 downto 8) <= data_in;	
+						-- row 3
+						when 88 =>
+							inputB(2)(0)(7 downto 0) <= data_in;
+						when 89 =>
+							inputB(2)(0)(15 downto 8) <= data_in;
+						when 92 =>
+							inputB(2)(1)(7 downto 0) <= data_in;
+						when 93 =>
+							inputB(2)(1)(15 downto 8) <= data_in;
+						when 96 =>
+							inputB(2)(2)(7 downto 0) <= data_in;
+						when 97 =>
+							inputB(2)(2)(15 downto 8) <= data_in;							
+						when 100 =>
+							inputB(2)(3)(7 downto 0) <= data_in;
+						when 101 =>
+							inputB(2)(3)(15 downto 8) <= data_in;
+						when 104 =>
+							inputB(2)(4)(7 downto 0) <= data_in;
+						when 105 =>
+							inputB(2)(4)(15 downto 8) <= data_in;	
+						
+						when 107 =>
+							-- do not calculate, unless accessing vectorB
+							calculate  <= '1'; -- trigger calculate high for one clock cycle
 						when others =>
 						end case;
-	--				elsif rd = '0' then
-	--					calculate <= '0';
-	--					case to_integer(address_in) is
-	--					-- vector_width
-	--					when 0 =>
-	--						data_out <= width(7 downto 0);
-	--					when 1 =>
-	--						data_out <= width(15 downto 8);
-	--					when 2 =>
-	--						data_out <= width(23 downto 16);
-	--					when 3 =>
-	--						data_out <= width(31 downto 24);
-	--					-- inputA
-	--					when 4 =>
-	--						data_out <= vectorA(7 downto 0);
-	--					when 5 =>
-	--						data_out <= vectorA(15 downto 8);
-	--					when 6 =>
-	--						data_out <= vectorA(23 downto 16);
-	--					when 7 =>
-	--						data_out <= vectorA(31 downto 24);
-	--					-- inputB
-	--					when 8 =>
-	--						data_out <= vectorB(7 downto 0);
-	--					when 9 =>
-	--						data_out <= vectorB(15 downto 8);
-	--					when 10 =>
-	--						data_out <= vectorB(23 downto 16);
-	--					when 11 =>
-	--						data_out <= vectorB(31 downto 24);
-	--						
-	--					-- result
-	--					when 12 =>
-	--						data_out <= result(7 downto 0);
-	--					when 13 =>
-	--						data_out <= result(15 downto 8);
-	--					when 14 =>
-	--						data_out <= result(23 downto 16);
-	--					when 15 =>
-	--						data_out <= result(31 downto 24);
-	--					when others =>
-	--						data_out <= to_unsigned(255, 8) - address_in(7 downto 0) + address_in(15 downto 8);
-	--					end case;
+					elsif rd = '0' then
+						calculate <= '0';
+						case to_integer(address_in) is
+						-- inputA
+						-- row 1
+						when 0 =>
+							data_out <= inputA(0)(0)(7 downto 0);
+							-- done <= '0'; -- recognise this as a new sum
+						when 1 =>
+							data_out <= inputA(0)(0)(15 downto 8);
+						-- ignore (31 downto 16)
+--						when 2 =>
+--							data_out <= inputA(0)(0)(23 downto 16);
+--						when 3 =>
+--							data_out <= inputA(0)(0)(31 downto 24);
+						when 4 =>
+							data_out <= inputA(0)(1)(7 downto 0);
+						when 5 =>
+							data_out <= inputA(0)(1)(15 downto 8);
+						when 8 =>
+							data_out <= inputA(0)(2)(7 downto 0);
+						when 9 =>
+							data_out <= inputA(0)(2)(15 downto 8);
+						-- row 2
+						when 12 =>
+							data_out <= inputA(1)(0)(7 downto 0);
+						when 13 =>
+							data_out <= inputA(1)(0)(15 downto 8);
+						when 16 =>
+							data_out <= inputA(1)(1)(7 downto 0);
+						when 17 =>
+							data_out <= inputA(1)(1)(15 downto 8);
+						when 20 =>
+							data_out <= inputA(1)(2)(7 downto 0);
+						when 21 =>
+							data_out <= inputA(1)(2)(15 downto 8);
+						-- row 3
+						when 24 =>
+							data_out <= inputA(2)(0)(7 downto 0);
+						when 25 =>
+							data_out <= inputA(2)(0)(15 downto 8);
+						when 28 =>
+							data_out <= inputA(2)(1)(7 downto 0);
+						when 29 =>
+							data_out <= inputA(2)(1)(15 downto 8);
+						when 32 =>
+							data_out <= inputA(2)(2)(7 downto 0);
+						when 33 =>
+							data_out <= inputA(2)(2)(15 downto 8);
+						-- row 4
+						when 36 =>
+							data_out <= inputA(3)(0)(7 downto 0);
+						when 37 =>
+							data_out <= inputA(3)(0)(15 downto 8);
+						when 40 =>
+							data_out <= inputA(3)(1)(7 downto 0);
+						when 41 =>
+							data_out <= inputA(3)(1)(15 downto 8);
+						when 44 =>
+							data_out <= inputA(3)(2)(7 downto 0);
+						when 45 =>
+							data_out <= inputA(3)(2)(15 downto 8);
+						
+						-- inputB
+						-- row 1
+						when 48 =>
+							data_out <= inputB(0)(0)(7 downto 0);
+						when 49 =>
+							data_out <= inputB(0)(0)(15 downto 8);
+						when 52 =>
+							data_out <= inputB(0)(1)(7 downto 0);
+						when 53 =>
+							data_out <= inputB(0)(1)(15 downto 8);
+						when 56 =>
+							data_out <= inputB(0)(2)(7 downto 0);
+						when 57 =>
+							data_out <= inputB(0)(2)(15 downto 8);							
+						when 60 =>
+							data_out <= inputB(0)(3)(7 downto 0);
+						when 61 =>
+							data_out <= inputB(0)(3)(15 downto 8);
+						when 64 =>
+							data_out <= inputB(0)(4)(7 downto 0);
+						when 65 =>
+							data_out <= inputB(0)(4)(15 downto 8);	
+						-- row 2
+						when 68 =>
+							data_out <= inputB(1)(0)(7 downto 0);
+						when 69 =>
+							data_out <= inputB(1)(0)(15 downto 8);
+						when 72 =>
+							data_out <= inputB(1)(1)(7 downto 0);
+						when 73 =>
+							data_out <= inputB(1)(1)(15 downto 8);
+						when 76 =>
+							data_out <= inputB(1)(2)(7 downto 0);
+						when 77 =>
+							data_out <= inputB(1)(2)(15 downto 8);							
+						when 80 =>
+							data_out <= inputB(1)(3)(7 downto 0);
+						when 81 =>
+							data_out <= inputB(1)(3)(15 downto 8);
+						when 84 =>
+							data_out <= inputB(1)(4)(7 downto 0);
+						when 85 =>
+							data_out <= inputB(1)(4)(15 downto 8);	
+						-- row 3
+						when 88 =>
+							data_out <= inputB(2)(0)(7 downto 0);
+						when 89 =>
+							data_out <= inputB(2)(0)(15 downto 8);
+						when 92 =>
+							data_out <= inputB(2)(1)(7 downto 0);
+						when 93 =>
+							data_out <= inputB(2)(1)(15 downto 8);
+						when 96 =>
+							data_out <= inputB(2)(2)(7 downto 0);
+						when 97 =>
+							data_out <= inputB(2)(2)(15 downto 8);							
+						when 100 =>
+							data_out <= inputB(2)(3)(7 downto 0);
+						when 101 =>
+							data_out <= inputB(2)(3)(15 downto 8);
+						when 104 =>
+							data_out <= inputB(2)(4)(7 downto 0);
+						when 105 =>
+							data_out <= inputB(2)(4)(15 downto 8);
+
+						-- result
+						-- row 1
+						when 108 =>
+							data_out <= result(0)(0)(7 downto 0);
+						when 109 =>
+							data_out <= result(0)(0)(15 downto 8);
+						when 110 =>
+							data_out <= result(0)(0)(23 downto 16);
+						when 111 =>
+							data_out <= result(0)(0)(31 downto 24);
+						when 112 =>
+							data_out <= result(0)(1)(7 downto 0);
+						when 113 =>
+							data_out <= result(0)(1)(15 downto 8);
+						when 114 =>
+							data_out <= result(0)(1)(23 downto 16);
+						when 115 =>
+							data_out <= result(0)(1)(31 downto 24);
+						when 116 =>
+							data_out <= result(0)(2)(7 downto 0);
+						when 117 =>
+							data_out <= result(0)(2)(15 downto 8);
+						when 118 =>
+							data_out <= result(0)(2)(23 downto 16);
+						when 119 =>
+							data_out <= result(0)(2)(31 downto 24);
+						when 120 =>
+							data_out <= result(0)(3)(7 downto 0);
+						when 121 =>
+							data_out <= result(0)(3)(15 downto 8);
+						when 122 =>
+							data_out <= result(0)(3)(23 downto 16);
+						when 123 =>
+							data_out <= result(0)(3)(31 downto 24);
+						when 124 =>
+							data_out <= result(0)(4)(7 downto 0);
+						when 125 =>
+							data_out <= result(0)(4)(15 downto 8);
+						when 126 =>
+							data_out <= result(0)(4)(23 downto 16);
+						when 127 =>
+							data_out <= result(0)(4)(31 downto 24);
+						-- row 2
+						when 128 =>
+							data_out <= result(1)(0)(7 downto 0);
+						when 129 =>
+							data_out <= result(1)(0)(15 downto 8);
+						when 130 =>
+							data_out <= result(1)(0)(23 downto 16);
+						when 131 =>
+							data_out <= result(1)(0)(31 downto 24);
+						when 132 =>
+							data_out <= result(1)(1)(7 downto 0);
+						when 133 =>
+							data_out <= result(1)(1)(15 downto 8);
+						when 134 =>
+							data_out <= result(1)(1)(23 downto 16);
+						when 135 =>
+							data_out <= result(1)(1)(31 downto 24);
+						when 136 =>
+							data_out <= result(1)(2)(7 downto 0);
+						when 137 =>
+							data_out <= result(1)(2)(15 downto 8);
+						when 138 =>
+							data_out <= result(1)(2)(23 downto 16);
+						when 139 =>
+							data_out <= result(1)(2)(31 downto 24);
+						when 140 =>
+							data_out <= result(1)(3)(7 downto 0);
+						when 141 =>
+							data_out <= result(1)(3)(15 downto 8);
+						when 142 =>
+							data_out <= result(1)(3)(23 downto 16);
+						when 143 =>
+							data_out <= result(1)(3)(31 downto 24);
+						when 144 =>
+							data_out <= result(1)(4)(7 downto 0);
+						when 145 =>
+							data_out <= result(1)(4)(15 downto 8);
+						when 146 =>
+							data_out <= result(1)(4)(23 downto 16);
+						when 147 =>
+							data_out <= result(1)(4)(31 downto 24);
+						-- row 3
+						when 148 =>
+							data_out <= result(2)(0)(7 downto 0);
+						when 149 =>
+							data_out <= result(2)(0)(15 downto 8);
+						when 150 =>
+							data_out <= result(2)(0)(23 downto 16);
+						when 151 =>
+							data_out <= result(2)(0)(31 downto 24);
+						when 152 =>
+							data_out <= result(2)(1)(7 downto 0);
+						when 153 =>
+							data_out <= result(2)(1)(15 downto 8);
+						when 154 =>
+							data_out <= result(2)(1)(23 downto 16);
+						when 155 =>
+							data_out <= result(2)(1)(31 downto 24);
+						when 156 =>
+							data_out <= result(2)(2)(7 downto 0);
+						when 157 =>
+							data_out <= result(2)(2)(15 downto 8);
+						when 158 =>
+							data_out <= result(2)(2)(23 downto 16);
+						when 159 =>
+							data_out <= result(2)(2)(31 downto 24);
+						when 160 =>
+							data_out <= result(2)(3)(7 downto 0);
+						when 161 =>
+							data_out <= result(2)(3)(15 downto 8);
+						when 162 =>
+							data_out <= result(2)(3)(23 downto 16);
+						when 163 =>
+							data_out <= result(2)(3)(31 downto 24);
+						when 164 =>
+							data_out <= result(2)(4)(7 downto 0);
+						when 165 =>
+							data_out <= result(2)(4)(15 downto 8);
+						when 166 =>
+							data_out <= result(2)(4)(23 downto 16);
+						when 167 =>
+							data_out <= result(2)(4)(31 downto 24);
+						-- row 4
+						when 168 =>
+							data_out <= result(3)(0)(7 downto 0);
+						when 169 =>
+							data_out <= result(3)(0)(15 downto 8);
+						when 170 =>
+							data_out <= result(3)(0)(23 downto 16);
+						when 171 =>
+							data_out <= result(3)(0)(31 downto 24);
+						when 172 =>
+							data_out <= result(3)(1)(7 downto 0);
+						when 173 =>
+							data_out <= result(3)(1)(15 downto 8);
+						when 174 =>
+							data_out <= result(3)(1)(23 downto 16);
+						when 175 =>
+							data_out <= result(3)(1)(31 downto 24);
+						when 176 =>
+							data_out <= result(3)(2)(7 downto 0);
+						when 177 =>
+							data_out <= result(3)(2)(15 downto 8);
+						when 178 =>
+							data_out <= result(3)(2)(23 downto 16);
+						when 179 =>
+							data_out <= result(3)(2)(31 downto 24);
+						when 180 =>
+							data_out <= result(3)(3)(7 downto 0);
+						when 181 =>
+							data_out <= result(3)(3)(15 downto 8);
+						when 182 =>
+							data_out <= result(3)(3)(23 downto 16);
+						when 183 =>
+							data_out <= result(3)(3)(31 downto 24);
+						when 184 =>
+							data_out <= result(3)(4)(7 downto 0);
+						when 185 =>
+							data_out <= result(3)(4)(15 downto 8);
+						when 186 =>
+							data_out <= result(3)(4)(23 downto 16);
+						when 187 =>
+							data_out <= result(3)(4)(31 downto 24);
+						when others =>
+							data_out <= to_unsigned(255, 8) - address_in(7 downto 0) + address_in(15 downto 8);
+						end case;
 					else
 						calculate <= '0';
 					end if;
