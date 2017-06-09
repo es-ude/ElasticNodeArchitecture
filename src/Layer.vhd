@@ -33,20 +33,25 @@ use neuralnetwork.Common.all;
 
 entity Layer is
 	port (
-			clk				:	in std_logic;
+			clk					:	in std_logic;
 
-			n_feedback		:	in std_logic;
+			n_feedback			:	in std_logic;
 
-			connections_in	:	in fixed_point_vector;
+			connections_in		:	in fixed_point_vector;
 			connections_out	:	out fixed_point_vector;
 
-			errors_in		:	in fixed_point_vector;
-			errors_out		:	out fixed_point_vector
+			errors_in			:	in fixed_point_vector;
+			errors_out			:	out fixed_point_vector;
+			
+			weights_in			: 	in fixed_point_matrix; -- one fpv per neuron
+			weights_out			: 	out fixed_point_matrix
 		);
 end Layer;
 
 architecture Behavioral of Layer is
 	signal errors_matrix : fixed_point_matrix;
+	
+	-- signal errors_out, errors_in : fixed_point
 	component sumMux
 		port (
 			--clk			:	in std_logic;
@@ -56,39 +61,48 @@ architecture Behavioral of Layer is
 	end component;
 
 	component Neuron
+		generic ( index		:	integer range 0 to w-1 );
 		port (
 			clk					:	in std_logic;
 
 			n_feedback			:	in std_logic;
 
-			input_connections 	: 	in fixed_point_vector;
+			input_connections : 	in fixed_point_vector;
 			input_errors		:	in fixed_point_vector;
 
 			output_connection	:	out fixed_point;
-			output_errors		: 	out fixed_point_vector
+			output_errors		: 	out fixed_point_vector;
+			
+			weights_in			: 	in fixed_point_vector;
+			weights_out			: 	out fixed_point_vector
 			);
 	end component;
-
 
 begin
 
 	mux : sumMux port map
-		(
-			--clk => clk,
-			errors => errors_matrix,
-			errors_out => errors_out
-		);
+	(
+		--clk => clk,
+		errors => errors_matrix,
+		errors_out => errors_out
+	);
 
-	gen_neutrons:
-	for i in 0 to w-1 generate neuron_x : Neuron port map 
-		(
-			clk => clk, 
-			n_feedback => n_feedback,
-			input_connections => connections_in, 
-			input_errors => errors_in,
-			output_connection => connections_out(i),
-			output_errors => errors_matrix(i)
-		);
+gen_neutrons:
+	for i in 0 to w-1 generate neuron_x : Neuron generic map
+	(
+		index => i
+	)
+	port map 
+	(
+		clk => clk, 
+		n_feedback => n_feedback,
+		input_connections => connections_in, 
+		input_errors => errors_in,
+		output_connection => connections_out(i),
+		output_errors => errors_matrix(i),
+		weights_in => weights_in(i),
+		weights_out => weights_out(i)
+	);
 	end generate;
 end Behavioral;
 

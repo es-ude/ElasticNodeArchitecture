@@ -122,7 +122,7 @@ vdp: entity work.VectorDotproduct(Behavioral)
 						vectorB(23 downto 16) <= data_in;
 					when 11 =>
 						vectorB(31 downto 24) <= data_in;
-
+				
 						-- do not calculate, unless accessing vectorB
 						calculate  <= '1'; -- trigger calculate high for one clock cycle
 						current_dimension := current_dimension + 1;
@@ -130,6 +130,8 @@ vdp: entity work.VectorDotproduct(Behavioral)
 							-- done <= '1';
 							current_dimension := (others => '0');
 						end if;
+					--when 16 => 
+					--	calculate <= '0';
 					when others =>
 					end case;
 				elsif rd = '0' then

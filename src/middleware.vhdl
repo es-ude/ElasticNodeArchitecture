@@ -111,7 +111,7 @@ begin
 		end if;
 	end process;
 	
-	-- ic : entity fpgamiddlewarelibs.icapInterface(Behavioral) generic map (goldenboot_address => (others => '0')) port map (clk => clk_icap, reset => reset, enable => icap_address.ready, status_running => open, multiboot_address => std_logic_vector(icap_address.data));
+	ic : entity fpgamiddlewarelibs.icapInterface(Behavioral) generic map (goldenboot_address => (others => '0')) port map (clk => clk_icap, reset => reset, enable => icap_address.ready, status_running => open, multiboot_address => std_logic_vector(icap_address.data));
 
 	
 	

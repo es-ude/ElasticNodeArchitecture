@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/ES/burger/git/fpgamiddlewareproject/SimulateLayer_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="common" />
+            <top_module name="fixed_float_types" />
+            <top_module name="fixed_pkg" />
+            <top_module name="math_real" />
+            <top_module name="numeric_std" />
+            <top_module name="sigmoid" />
+            <top_module name="simulatelayer" />
+            <top_module name="std_logic_1164" />
+            <top_module name="textio" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="4" />
+   <wvobject fp_name="group12" type="group">
+      <obj_property name="label">test</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/simulatelayer/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/conn_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">conn_in[2:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_in[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/conn_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">conn_out[2:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_out[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/err_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">err_in[2:0]</obj_property>
+         <obj_property name="ObjectShortName">err_in[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/err_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">err_out[2:0]</obj_property>
+         <obj_property name="ObjectShortName">err_out[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/n_feedback" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/errors_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">errors_in[2:0]</obj_property>
+         <obj_property name="ObjectShortName">errors_in[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/connections_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_out[2:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/busy" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">busy</obj_property>
+         <obj_property name="ObjectShortName">busy</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/weights" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">weights[2:0]</obj_property>
+         <obj_property name="ObjectShortName">weights[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/period" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">period</obj_property>
+         <obj_property name="ObjectShortName">period</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group22" type="group">
+      <obj_property name="label">uut</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/simulatelayer/uut/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/n_feedback" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/connections_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_in[2:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/connections_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_out[2:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/errors_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">errors_in[2:0]</obj_property>
+         <obj_property name="ObjectShortName">errors_in[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/errors_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">errors_out[2:0]</obj_property>
+         <obj_property name="ObjectShortName">errors_out[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/weights_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">weights_in[2:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_in[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/weights_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">weights_out[2:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_out[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/errors_matrix" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">errors_matrix[2:0]</obj_property>
+         <obj_property name="ObjectShortName">errors_matrix[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group44" type="group">
+      <obj_property name="label">neu</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(0)\/neuron_x/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(0)\/neuron_x/n_feedback" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(0)\/neuron_x/input_connections" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">input_connections[2:0]</obj_property>
+         <obj_property name="ObjectShortName">input_connections[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(0)\/neuron_x/input_errors" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">input_errors[2:0]</obj_property>
+         <obj_property name="ObjectShortName">input_errors[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(0)\/neuron_x/output_connection" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">output_connection[7:0]</obj_property>
+         <obj_property name="ObjectShortName">output_connection[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(0)\/neuron_x/output_errors" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">output_errors[2:0]</obj_property>
+         <obj_property name="ObjectShortName">output_errors[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(0)\/neuron_x/weights_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">weights_in[2:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_in[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(0)\/neuron_x/weights_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">weights_out[2:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_out[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(0)\/neuron_x/weights" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">weights[2:0]</obj_property>
+         <obj_property name="ObjectShortName">weights[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(0)\/neuron_x/delta_signal" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">delta_signal[7:0]</obj_property>
+         <obj_property name="ObjectShortName">delta_signal[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(0)\/neuron_x/error_factor" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">error_factor[7:0]</obj_property>
+         <obj_property name="ObjectShortName">error_factor[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(0)\/neuron_x/output_connection_signal" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">output_connection_signal[7:0]</obj_property>
+         <obj_property name="ObjectShortName">output_connection_signal[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group68" type="group">
+      <obj_property name="label">neu2</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(1)\/neuron_x/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(1)\/neuron_x/n_feedback" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(1)\/neuron_x/input_connections" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">input_connections[2:0]</obj_property>
+         <obj_property name="ObjectShortName">input_connections[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(1)\/neuron_x/input_errors" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">input_errors[2:0]</obj_property>
+         <obj_property name="ObjectShortName">input_errors[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(1)\/neuron_x/input_errors[2]" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">[2]</obj_property>
+            <obj_property name="ObjectShortName">input_errors[2]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(1)\/neuron_x/input_errors[1]" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">[1]</obj_property>
+            <obj_property name="ObjectShortName">input_errors[1]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(1)\/neuron_x/input_errors[0]" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">[0]</obj_property>
+            <obj_property name="ObjectShortName">input_errors[0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(1)\/neuron_x/output_connection" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">output_connection[7:0]</obj_property>
+         <obj_property name="ObjectShortName">output_connection[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(1)\/neuron_x/output_errors" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">output_errors[2:0]</obj_property>
+         <obj_property name="ObjectShortName">output_errors[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(1)\/neuron_x/weights_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">weights_in[2:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_in[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(1)\/neuron_x/weights_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">weights_out[2:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_out[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(1)\/neuron_x/weights" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">weights[2:0]</obj_property>
+         <obj_property name="ObjectShortName">weights[2:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(1)\/neuron_x/delta_signal" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">delta_signal[7:0]</obj_property>
+         <obj_property name="ObjectShortName">delta_signal[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(1)\/neuron_x/error_factor" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">error_factor[7:0]</obj_property>
+         <obj_property name="ObjectShortName">error_factor[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatelayer/uut/\gen_neutrons(1)\/neuron_x/output_connection_signal" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">output_connection_signal[7:0]</obj_property>
+         <obj_property name="ObjectShortName">output_connection_signal[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

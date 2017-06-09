@@ -25,11 +25,14 @@ architecture sim of SimulateNeuron is
       clk               : in std_logic;
 
       n_feedback        : in std_logic;
-      input_connections :   in fixed_point_vector;
+      input_connections : in fixed_point_vector;
       input_errors      : in fixed_point_vector;
 
       output_connection : out fixed_point;
-      output_errors     :   out fixed_point_vector
+      output_errors     : out fixed_point_vector;
+		
+		weights_in			: 	in fixed_point_vector;
+		weights_out			: 	out fixed_point_vector
       );
   end component;
 
@@ -39,8 +42,9 @@ architecture sim of SimulateNeuron is
   signal o_errors   : fixed_point_vector;
   signal i_errors   : fixed_point_vector := (others => real_to_fixed_point(0.0));
   signal n_feedback : std_logic := 'Z';
+  signal i_weights  : fixed_point_vector;
   
-  signal busy 			: boolean := true;
+  signal busy 		  : boolean := true;
 begin
 	
 	process
@@ -69,7 +73,9 @@ begin
       input_connections => i_conn,
       input_errors => i_errors,
       output_connection => o_conn,
-      output_errors => o_errors
+      output_errors => o_errors,
+		weights_in => i_weights,
+		weights_out => open
     );
 
   process
@@ -82,7 +88,10 @@ begin
     i_conn(0) <= real_to_fixed_point(0.0);
     i_conn(1) <= real_to_fixed_point(1.0);
     n_feedback <= '1';
-
+	 i_weights(0) <= real_to_fixed_point(0.5);
+	 i_weights(1) <= real_to_fixed_point(0.5);
+	 i_weights(2) <= real_to_fixed_point(0.5);
+	
     wait until rising_edge(clk);
     wait for period/2;
     n_feedback <= '0';

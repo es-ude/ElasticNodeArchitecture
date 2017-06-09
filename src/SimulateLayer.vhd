@@ -46,7 +46,10 @@ architecture Behavioral of SimulateLayer is
 			connections_out	:	out fixed_point_vector;
 
 			errors_in		:	in fixed_point_vector;
-			errors_out		:	out fixed_point_vector
+			errors_out		:	out fixed_point_vector;
+			
+			weights_in			: 	in fixed_point_matrix; -- one fpv per neuron
+			weights_out			: 	out fixed_point_matrix
 		);
 	end component;
 
@@ -60,6 +63,9 @@ architecture Behavioral of SimulateLayer is
 	signal errors_in		:	fixed_point_vector;
 	signal connections_out	: 	fixed_point_vector;
 	signal busy 	: boolean := true;
+	signal weights : fixed_point_matrix := (others => (others => real_to_fixed_point(0.5)));
+	-- signal weights : fixed_point_vector := (others => real_to_fixed_point(0.5));
+	
 begin
 	
 	process
@@ -72,7 +78,7 @@ begin
 		end if;
 	end process;
 
-	uut : Layer port map (clk, n_feedback, conn_in, conn_out, err_in, err_out);
+	uut : Layer port map (clk, n_feedback, conn_in, conn_out, err_in, err_out, weights, weights);
 	process begin
 		n_feedback <= 'Z';
 		
@@ -84,11 +90,12 @@ begin
 		wait for period;
 		
 		err_in(0) <= real_to_fixed_point(1.0);
-		err_in(1) <= real_to_fixed_point(1.0);
+		err_in(2) <= real_to_fixed_point(1.0);
 
 		n_feedback <= '0';
-		wait for period;
+		wait for period*4;
 		n_feedback <= 'Z';
+		wait for period*4;
 		busy <= false;
 		wait;
 	end process;

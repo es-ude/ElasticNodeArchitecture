@@ -18,15 +18,18 @@ use IEEE.NUMERIC_STD.all;
 
 package Common is
 
-constant b                  :   natural := 8;
+constant b                  :   integer := 8;
 
 subtype fixed_point is signed(b-1 downto 0);
+subtype double_fixed_point is signed(b+b-1 downto 0);
 
 constant w 					: 	natural := 3;
-constant l 					:	natural := 3;
+constant l 					:	natural := 4;
 constant eps				:	natural := 10;
-constant factor				:	fixed_point := to_signed(128, b);
-constant factor_2   		:	fixed_point := to_signed(64, b);
+constant factor			:	fixed_point := to_signed(64, b);
+constant factor_shift	:	natural := 6;
+constant factor_2   		:	fixed_point := to_signed(32, b);
+constant zero				:	fixed_point := (others => '0');
 --constant input_number		:	natural := 0;
 --constant output_number		:	natural := 0;
 
@@ -37,6 +40,7 @@ subtype uintw_t is unsigned (w-1 downto 0);
 type fixed_point_vector is array (w-1 downto 0) of fixed_point;
 type fixed_point_matrix is array (w-1 downto 0) of fixed_point_vector;
 type fixed_point_array is array (l-1 downto 0) of fixed_point_vector;
+type fixed_point_matrix_array is array (l-1 downto 0) of fixed_point_matrix;
 
 --function maximum_probability (signal probs_in : in fixed_point_vector) return fixed_point;
 function weighted_sum (signal weights : fixed_point_vector; signal connections : fixed_point_vector) return fixed_point;
@@ -45,7 +49,7 @@ function sum (signal connections : fixed_point_vector) return fixed_point;
 --function scale (signal weights : fixed_point_vector; const : real) return fixed_point_vector;
 function "+" (A: in fixed_point_vector; B: in fixed_point_vector) return fixed_point_vector;
 --function "+" (A: in fixed_point; B: in fixed_point) return fixed_point;
---function "*" (A: in fixed_point; B: in fixed_point) return fixed_point;
+function "*" (A: in integer; B: in fixed_point) return fixed_point;
 --function "-" (A: in fixed_point; B: in fixed_point) return fixed_point;
 function "-" (A: in fixed_point_vector; B: in fixed_point_vector) return fixed_point_vector;
 function "=" (A: in fixed_point_vector; B: in fixed_point_vector) return boolean;
@@ -58,6 +62,8 @@ function ">" (A: in fixed_point; B: in integer) return boolean;
 function "and" (A: fixed_point_vector; B: std_logic) return fixed_point_vector;
 --function "*" (A: in fixed_point; B: in fixed_point) return fixed_point;
 function real_to_fixed_point (A: in real) return fixed_point;
+function to_fixed_point (A: in real) return fixed_point;
+function to_fixed_point (A: in integer) return fixed_point;
 function logic_to_fixed_point (A: in std_logic) return fixed_point;
 function resize_fixed_point (A : in fixed_point) return fixed_point;
 function multiply(A : in fixed_point; B : in fixed_point) return fixed_point;
@@ -141,11 +147,11 @@ package body Common is
 --		return A + B;
 --	end "+";
 
---	function "*" (A: in fixed_point; B: in fixed_point) return fixed_point is
---	   variable TEMP : signed (fixed_point'length + fixed_point'high downto 0) := A * B;
---	begin 
---		return TEMP(25 downto 10);
---	end "*";
+	function "*" (A: in integer; B: in fixed_point) return fixed_point is
+	   variable TEMP : signed (fixed_point'length + fixed_point'high downto 0) := to_fixed_point(A) * B;
+	begin 
+		return TEMP(25 downto 10);
+	end "*";
 
 	--function "-" (A: in fixed_point; B: in fixed_point) return fixed_point is
 	--variable add : fixed_point := 0;
@@ -257,6 +263,17 @@ package body Common is
 			return factor_2;
 		end if;
 	end real_to_fixed_point;
+	
+	function to_fixed_point (A: in real) return fixed_point is
+		variable prob : fixed_point;
+	begin
+		return real_to_fixed_point(A);
+	end to_fixed_point;
+	
+	function to_fixed_point (A: in integer) return fixed_point is
+	begin
+		return to_signed(A, fixed_point'length);
+	end to_fixed_point;
 
 	function logic_to_fixed_point (A: in std_logic) return fixed_point is
 		variable prob : fixed_point;
@@ -274,11 +291,11 @@ package body Common is
     end resize_fixed_point;
 
 	function multiply(A : in fixed_point; B : in fixed_point) return fixed_point is
-	   variable TEMP : signed (15 downto 0);
-	   variable TEMP2 : signed (7 downto 0);
+	   variable TEMP : double_fixed_point;
+	   variable TEMP2 : fixed_point;
 	begin
 	   TEMP := A * B;
-	   TEMP2 := TEMP(14 downto 7);
+	   TEMP2 := TEMP(factor_shift+fixed_point'length-1 downto factor_shift);
 	   return TEMP2;
 --		return TEMP(25 downto 10); -- take result and divide by factor ( >> 10 ) and cut off top
 	end multiply;

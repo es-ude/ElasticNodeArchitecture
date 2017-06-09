@@ -111,7 +111,7 @@ nn: entity neuralnetwork.NeuralNetwork(Behavioral)
 							data_out(w-1 downto 0) <= connections_in(w-1 downto 0);
 						when 1 =>
 							data_out(w-1 downto 0) <= wanted(w-1 downto 0);
-						when 2 =>
+						when 3 =>
 							data_out(w-1 downto 0) <= connections_out(w-1 downto 0);
 	
 						when others =>

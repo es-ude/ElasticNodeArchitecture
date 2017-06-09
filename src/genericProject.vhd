@@ -145,9 +145,9 @@ mw: entity work.middleware(Behavioral)
 	
 	-- initialise user logic
 	-- ul: entity work.Dummy(Behavioral) port map
-	-- ul: entity vectordotproduct.VectorDotproductSkeleton(Behavioral) port map
+	ul: entity vectordotproduct.VectorDotproductSkeleton(Behavioral) port map
 	-- ul: entity matrixmultiplication.MatrixMultiplicationSkeleton(Behavioral) port map
-	ul: entity neuralnetwork.NeuralNetworkSkeleton(Behavioral) port map
+	-- ul: entity neuralnetwork.NeuralNetworkSkeleton(Behavioral) port map
 	-- ul: entity work.KeyboardSkeleton(Behavioral) port map
 		(
 			not clk, userlogic_reset, userlogic_done_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out --, kb_leds

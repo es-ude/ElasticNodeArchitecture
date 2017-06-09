@@ -61,16 +61,18 @@ NET "leds(2)"	LOC="P102" | IOSTANDARD=LVTTL;                                # B5
 NET "leds(1)"	LOC="P101" | IOSTANDARD=LVTTL;                                # B6
 NET "leds(0)"	LOC="P100" | IOSTANDARD=LVTTL;                                # B7   21                     
 #
-NET "mcu_ad<0>"          LOC="P99"  | IOSTANDARD=LVTTL | SLEW=FAST;                                # C0 22
-NET "mcu_ad<2>"          LOC="P97"  | IOSTANDARD=LVTTL | SLEW=FAST;                                # C1
-NET "mcu_ad<4>"          LOC="P93"  | IOSTANDARD=LVTTL | SLEW=FAST;                                # C2
-NET "mcu_ad<6>"          LOC="P88"  | IOSTANDARD=LVTTL | SLEW=FAST;                                # C3
-NET "mcu_a<15>"          LOC="P85"  | IOSTANDARD=LVTTL;                                # C4
-NET "mcu_a<13>"          LOC="P83"  | IOSTANDARD=LVTTL;                                # C5
-NET "mcu_a<11>"          LOC="P81"  | IOSTANDARD=LVTTL;                                # C6
-NET "mcu_a<9>"          LOC="P79"  | IOSTANDARD=LVTTL;                                # C7
-#NET Arduino_38          LOC="P75"  | IOSTANDARD=LVTTL;                                # C8
-NET mcu_rd          		LOC="P67"  | IOSTANDARD=LVTTL | SLEW=FAST;                                # C9
+
+#mirror:
+NET "mcu_ad<1>"          LOC="P99"  | IOSTANDARD=LVTTL | SLEW=FAST;                                # C0 22
+NET "mcu_ad<3>"          LOC="P97"  | IOSTANDARD=LVTTL | SLEW=FAST;                                # C1
+NET "mcu_ad<5>"          LOC="P93"  | IOSTANDARD=LVTTL | SLEW=FAST;                                # C2
+NET "mcu_ad<7>"          LOC="P88"  | IOSTANDARD=LVTTL | SLEW=FAST;                                # C3
+NET "mcu_a<14>"          LOC="P85"  | IOSTANDARD=LVTTL;                                # C4
+NET "mcu_a<12>"          LOC="P83"  | IOSTANDARD=LVTTL;                                # C5
+NET "mcu_a<10>"          LOC="P81"  | IOSTANDARD=LVTTL;                                # C6
+NET "mcu_a<8>"          LOC="P79"  | IOSTANDARD=LVTTL;                                # C7
+NET mcu_ale          LOC="P75"  | IOSTANDARD=LVTTL | SLEW=FAST | CLOCK_DEDICATED_ROUTE = FALSE;                                # C8
+NET mcu_wr          		LOC="P67"  | IOSTANDARD=LVTTL | SLEW=FAST;                                # C9
 #NET Arduino_42         LOC="P62"  | IOSTANDARD=LVTTL;                                # C10
 #NET Arduino_44         LOC="P59"  | IOSTANDARD=LVTTL;                                # C11
 #NET kb_leds(0)         LOC="P57"  | IOSTANDARD=LVTTL;                                # C12
@@ -78,22 +80,58 @@ NET mcu_rd          		LOC="P67"  | IOSTANDARD=LVTTL | SLEW=FAST;                
 #NET kb_leds(2)         LOC="P50"  | IOSTANDARD=LVTTL;                                # C14
 #NET Arduino_52         LOC="P47"  | IOSTANDARD=LVTTL;                                # C15
 #
-NET "mcu_ad<1>"     LOC="P98"  | IOSTANDARD=LVTTL | SLEW=FAST ;                                
-NET "mcu_ad<3>"     LOC="P95"  | IOSTANDARD=LVTTL | SLEW=FAST ;                                	
-NET "mcu_ad<5>"     LOC="P92"  | IOSTANDARD=LVTTL | SLEW=FAST ;                                
-NET "mcu_ad<7>"     LOC="P87"  | IOSTANDARD=LVTTL | SLEW=FAST ;                                
-NET "mcu_a<14>"     LOC="P84"  | IOSTANDARD=LVTTL ;                               
-NET "mcu_a<12>"     LOC="P82"  | IOSTANDARD=LVTTL ;                              
-NET "mcu_a<10>"     LOC="P80"  | IOSTANDARD=LVTTL ;                              
-NET "mcu_a<8>"      LOC="P78"  | IOSTANDARD=LVTTL ;                            
-NET mcu_ale    	  LOC="P74"  | IOSTANDARD=LVTTL | SLEW=FAST | CLOCK_DEDICATED_ROUTE = FALSE;                             
-NET mcu_wr    		  LOC="P66"  | IOSTANDARD=LVTTL | SLEW=FAST ;                             
+NET "mcu_ad<0>"     LOC="P98"  | IOSTANDARD=LVTTL | SLEW=FAST ;                                
+NET "mcu_ad<2>"     LOC="P95"  | IOSTANDARD=LVTTL | SLEW=FAST ;                                	
+NET "mcu_ad<4>"     LOC="P92"  | IOSTANDARD=LVTTL | SLEW=FAST ;                                
+NET "mcu_ad<6>"     LOC="P87"  | IOSTANDARD=LVTTL | SLEW=FAST ;                                
+NET "mcu_a<15>"     LOC="P84"  | IOSTANDARD=LVTTL ;                               
+NET "mcu_a<13>"     LOC="P82"  | IOSTANDARD=LVTTL ;                              
+NET "mcu_a<11>"     LOC="P80"  | IOSTANDARD=LVTTL ;                              
+NET "mcu_a<9>"      LOC="P78"  | IOSTANDARD=LVTTL ;                            
+#NET mcu_ale    	  LOC="P74"  | IOSTANDARD=LVTTL | SLEW=FAST | CLOCK_DEDICATED_ROUTE = FALSE;                             
+NET mcu_rd    		  LOC="P66"  | IOSTANDARD=LVTTL | SLEW=FAST ;                             
 #NET Arduino_43     LOC="P61"  | IOSTANDARD=LVTTL ;                             
 #NET Arduino_45     LOC="P58"  | IOSTANDARD=LVTTL ;                               
 #NET button     LOC="P56"  | IOSTANDARD=LVTTL ;                              
 #NET Arduino_49     LOC="P51"  | IOSTANDARD=LVTTL ;                             
 #NET Arduino_51     LOC="P48"  | IOSTANDARD=LVTTL ;                           
-#NET Arduino_53     LOC="P39"  | IOSTANDARD=LVTTL ;    
+#NET Arduino_53     LOC="P39"  | IOSTANDARD=LVTTL ;  
+
+# original:
+#NET "mcu_ad<0>"          LOC="P99"  | IOSTANDARD=LVTTL | SLEW=FAST;                                # C0 22
+#NET "mcu_ad<2>"          LOC="P97"  | IOSTANDARD=LVTTL | SLEW=FAST;                                # C1
+#NET "mcu_ad<4>"          LOC="P93"  | IOSTANDARD=LVTTL | SLEW=FAST;                                # C2
+#NET "mcu_ad<6>"          LOC="P88"  | IOSTANDARD=LVTTL | SLEW=FAST;                                # C3
+#NET "mcu_a<15>"          LOC="P85"  | IOSTANDARD=LVTTL;                                # C4
+#NET "mcu_a<13>"          LOC="P83"  | IOSTANDARD=LVTTL;                                # C5
+#NET "mcu_a<11>"          LOC="P81"  | IOSTANDARD=LVTTL;                                # C6
+#NET "mcu_a<9>"          LOC="P79"  | IOSTANDARD=LVTTL;                                # C7
+##NET Arduino_38          LOC="P75"  | IOSTANDARD=LVTTL;                                # C8
+#NET mcu_rd          		LOC="P67"  | IOSTANDARD=LVTTL | SLEW=FAST;                                # C9
+##NET Arduino_42         LOC="P62"  | IOSTANDARD=LVTTL;                                # C10
+##NET Arduino_44         LOC="P59"  | IOSTANDARD=LVTTL;                                # C11
+##NET kb_leds(0)         LOC="P57"  | IOSTANDARD=LVTTL;                                # C12
+##NET kb_leds(1)         LOC="P55"  | IOSTANDARD=LVTTL;                                # C13
+##NET kb_leds(2)         LOC="P50"  | IOSTANDARD=LVTTL;                                # C14
+##NET Arduino_52         LOC="P47"  | IOSTANDARD=LVTTL;                                # C15
+##
+#NET "mcu_ad<1>"     LOC="P98"  | IOSTANDARD=LVTTL | SLEW=FAST ;                                
+#NET "mcu_ad<3>"     LOC="P95"  | IOSTANDARD=LVTTL | SLEW=FAST ;                                	
+#NET "mcu_ad<5>"     LOC="P92"  | IOSTANDARD=LVTTL | SLEW=FAST ;                                
+#NET "mcu_ad<7>"     LOC="P87"  | IOSTANDARD=LVTTL | SLEW=FAST ;                                
+#NET "mcu_a<14>"     LOC="P84"  | IOSTANDARD=LVTTL ;                               
+#NET "mcu_a<12>"     LOC="P82"  | IOSTANDARD=LVTTL ;                              
+#NET "mcu_a<10>"     LOC="P80"  | IOSTANDARD=LVTTL ;                              
+#NET "mcu_a<8>"      LOC="P78"  | IOSTANDARD=LVTTL ;                            
+#NET mcu_ale    	  LOC="P74"  | IOSTANDARD=LVTTL | SLEW=FAST | CLOCK_DEDICATED_ROUTE = FALSE;                             
+#NET mcu_wr    		  LOC="P66"  | IOSTANDARD=LVTTL | SLEW=FAST ;                             
+##NET Arduino_43     LOC="P61"  | IOSTANDARD=LVTTL ;                             
+##NET Arduino_45     LOC="P58"  | IOSTANDARD=LVTTL ;                               
+##NET button     LOC="P56"  | IOSTANDARD=LVTTL ;                              
+##NET Arduino_49     LOC="P51"  | IOSTANDARD=LVTTL ;                             
+##NET Arduino_51     LOC="P48"  | IOSTANDARD=LVTTL ;                           
+##NET Arduino_53     LOC="P39"  | IOSTANDARD=LVTTL ;  
+  
 #
 ## SRAM
 #

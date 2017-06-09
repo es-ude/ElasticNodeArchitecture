@@ -62,10 +62,15 @@
 			write_uint32_t((50), to_unsigned(4, 16), address_in, data_in, wr);
 			-- first num
 			write_uint32_t((60), to_unsigned(8, 16), address_in, data_in, wr);
+			
+			write_uint8_t(x"00", to_unsigned(16, 16), address_in, data_in, wr);
+
 			-- third num
 			write_uint32_t((20), to_unsigned(4, 16), address_in, data_in, wr);
 			-- fourth num
 			write_uint32_t((30), to_unsigned(8, 16), address_in, data_in, wr);
+
+			write_uint8_t(x"00", to_unsigned(16, 16), address_in, data_in, wr);
 
 
 --			-- first num
