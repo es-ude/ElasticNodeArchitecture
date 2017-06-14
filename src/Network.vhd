@@ -42,18 +42,18 @@ use fpgamiddlewarelibs.userlogicinterface.all;
 entity Network is
 	port (
 			clk				: 	in std_logic;
-			reset				 :	 in std_logic;
+			reset				:	 in std_logic;
 			
 			learn				:	in std_logic;
 			data_rdy			:	out std_logic := '0';
-         calculate          :   in std_logic;
+         calculate      :   in std_logic;
             
 			connections_in	:	in uintw_t;
 			connections_out	:	out fixed_point_vector;
 
 			--errors_in		:	in fixed_point_vector;
 			wanted			:	in fixed_point_vector;
-         mode_out        :   out std_logic_vector(2 downto 0)
+         mode_out       :   out std_logic_vector(2 downto 0)
 		);
 end Network;
 
@@ -72,12 +72,13 @@ architecture Behavioral of Network is
 		);
 	end component;
 
-
-	component Layer is
+	
+	component HiddenLayers is
 	port (
 			clk				:	in std_logic;
 
 			n_feedback		:	in std_logic;
+			current_layer	: 	in uint8_t;
 
 			connections_in	:	in fixed_point_vector;
 			connections_out	:	out fixed_point_vector;
@@ -119,6 +120,11 @@ architecture Behavioral of Network is
 		learn			:	in std_logic;
         calculate          :   in std_logic;
 		n_feedback_bus	:	out std_logic_vector(l downto 0) := (others => 'Z'); -- l layers + summation (at l)
+		
+				
+		n_feedback		: 	out std_logic;
+		current_layer	:	out uint8_t;
+		
         data_rdy        :   out std_logic;
         mode_out        :   out std_logic_vector(2 downto 0)
 	);
@@ -135,6 +141,9 @@ architecture Behavioral of Network is
 
 	--signal learn		: std_logic := '0';
 	signal n_feedback_bus : std_logic_vector(l downto 0) := (others => 'Z');
+	signal n_feedback		 : std_logic;
+	signal current_layer  : uint8_t;
+	
 begin
 	data_rdy <= data_rdy_s;
 	connections_out <= conn_matrix(l-1);
@@ -190,17 +199,18 @@ begin
 	--end process;
 
 	input_layer : InputLayer port map (clk, n_feedback_bus(0), connections_in, conn_matrix(0), err_matrix(0), err_out);
-	gen_layers:
-	for i in 1 to l-2 generate layer_x : Layer port map -- l-2 hidden layers
-		(
-			clk => clk,
-			n_feedback => n_feedback_bus(i),
-			connections_in => conn_matrix(i-1),
-			connections_out => conn_matrix(i),
-			errors_in => err_matrix(i),
-			errors_out => err_matrix(i-1)
-		);
-	end generate;
+	hidden_layers: HiddenLayers port map (clk, n_feedback, current_layer, conn_matrix(0), conn_matrix(l-2), err_matrix(l-2), err_matrix(0));
+--	gen_layers:
+--	for i in 1 to l-2 generate layer_x : Layer port map -- l-2 hidden layers
+--		(
+--			clk => clk,
+--			n_feedback => n_feedback_bus(i),
+--			connections_in => conn_matrix(i-1),
+--			connections_out => conn_matrix(i),
+--			errors_in => err_matrix(i),
+--			errors_out => err_matrix(i-1)
+--		);
+--	end generate;
 	output_layer : OutputLayer port map (clk, n_feedback_bus(l-1), conn_matrix(l-2), conn_matrix(l-1), err_matrix(l-1), err_matrix(l-2));
 
 	process (wanted, conn_matrix(l-1)) 
@@ -214,7 +224,7 @@ begin
 
 	distr: Distributor port map
 	(
-		clk, reset, learn, calculate, n_feedback_bus, data_rdy_s, mode_out
+		clk, reset, learn, calculate, n_feedback_bus, n_feedback, current_layer, data_rdy_s, mode_out
 	);
 
 --	process (clk, learn)

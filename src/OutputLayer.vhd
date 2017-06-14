@@ -74,7 +74,13 @@ begin
 --            output_connection => connection_out,
 --            output_errors => errors_out -- not sure if this is correct
 --        );
-       
+	mux : entity neuralnetwork.sumMux(Behavioral) port map
+		(
+			--clk => clk,
+			errors => errors_matrix,
+			errors_out => errors_out
+		);
+		
 	gen_neutrons:
 	for i in 0 to w-1 generate neuron_x : OutputNeuron port map 
 		(

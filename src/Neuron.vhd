@@ -112,7 +112,7 @@ begin
 				weights_out <= weights_in;
 			end if;
 		else
-			weights_out <= weights_in;
+			-- weights_out <= weights_in;
 		end if;
 	end process;
 end Behavioral_Neuron;

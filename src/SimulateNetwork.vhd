@@ -80,26 +80,33 @@ begin
 		reset <= '0';
 		--n_feedback <= 'Z';
 
-		learn <= '0';
-		conn_in <= ('1', '0', '1');
 		wanted <= (real_to_fixed_point(1.0), real_to_fixed_point(1.0), real_to_fixed_point(0.0));
-		
-				calculate <= '0';
-		wait for period;
-		calculate <= '1';
-		wait for period;
-		calculate <= '0';
-		
-		wait for period;
+
+--		learn <= '0';
+--		conn_in <= ('1', '0', '0');
+--		
+--		calculate <= '0';
+--		wait for period;
+--		calculate <= '1';
+--		wait for period;
+--		calculate <= '0';
+--		
+--		wait until data_rdy = '1';
 		learn <= '1';
 		--n_feedback <= '1';
-		wait for period * 2 * (l * 2 + 1);
-		calculate <= '0';
-		wait for period;
-		calculate <= '1';
-		wait for period;
-		calculate <= '0';
-		wait for period * 2 * (l * 2 + 1);
+		-- wait for period * 2 * (l * 2 + 1);
+		-- weait until data_rdy = '1';
+		
+		for i in 0 to 100 loop
+			calculate <= '0';
+			wait for period;
+			calculate <= '1';
+			wait for period;
+			calculate <= '0';
+			-- wait for period * 2 * (l * 2 + 1);
+			wait until data_rdy = '1';
+			wait for period;
+		end loop;
 		busy <= false;
 		wait;
 	end process;
