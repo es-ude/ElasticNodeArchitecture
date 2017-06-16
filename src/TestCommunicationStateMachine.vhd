@@ -256,8 +256,8 @@ BEGIN
 
 	-- initialise user logic
 	-- ul: entity work.Dummy(Behavioral) port map
-	ul: entity work.VectorDotproductSkeleton(Behavioral) port map
-	-- ul: entity work.MatrixMultiplication(Behavioral) port map
+	ul: entity vectordotproduct.VectorDotproductSkeleton(Behavioral) port map
+	-- ul: entity matrixmultiplication.MatrixMultiplication(Behavioral) port map
 		(
 			clk, userlogic_en, userlogic_rdy, userlogic_done, userlogic_data_in, userlogic_data_out, userlogic_data_out_done
 		);

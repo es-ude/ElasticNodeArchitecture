@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/ES/burger/git/fpgamiddlewareproject/SimulateNeuron_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="common" />
+            <top_module name="fixed_float_types" />
+            <top_module name="fixed_pkg" />
+            <top_module name="math_real" />
+            <top_module name="numeric_std" />
+            <top_module name="sigmoid" />
+            <top_module name="simulateneuron" />
+            <top_module name="std_logic_1164" />
+            <top_module name="std_logic_arith" />
+            <top_module name="std_logic_unsigned" />
+            <top_module name="textio" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="16" />
+   <wvobject fp_name="/simulateneuron/uut/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulateneuron/rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulateneuron/uut/n_feedback" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">n_feedback</obj_property>
+      <obj_property name="ObjectShortName">n_feedback</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulateneuron/uut/input_errors" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">input_errors[1:0]</obj_property>
+      <obj_property name="ObjectShortName">input_errors[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulateneuron/uut/output_errors" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">output_errors[1:0]</obj_property>
+      <obj_property name="ObjectShortName">output_errors[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider39" type="divider">
+      <obj_property name="label">output</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulateneuron/uut/input_connections" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">input_connections[1:0]</obj_property>
+      <obj_property name="ObjectShortName">input_connections[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulateneuron/uut/weights" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">weights[1:0]</obj_property>
+      <obj_property name="ObjectShortName">weights[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulateneuron/uut/tf_s" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">tf_s[15:0]</obj_property>
+      <obj_property name="ObjectShortName">tf_s[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulateneuron/uut/output_connection_signal" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">output_connection_signal[15:0]</obj_property>
+      <obj_property name="ObjectShortName">output_connection_signal[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulateneuron/uut/output_connection" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">output_connection[15:0]</obj_property>
+      <obj_property name="ObjectShortName">output_connection[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider14" type="divider">
+      <obj_property name="label">feedback</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulateneuron/uut/error_factor" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">error_factor[15:0]</obj_property>
+      <obj_property name="ObjectShortName">error_factor[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulateneuron/uut/delta_signal" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">delta_signal[15:0]</obj_property>
+      <obj_property name="ObjectShortName">delta_signal[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulateneuron/uut/delta_s" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">delta_s[15:0]</obj_property>
+      <obj_property name="ObjectShortName">delta_s[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulateneuron/uut/bias_s" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">bias_s[15:0]</obj_property>
+      <obj_property name="ObjectShortName">bias_s[15:0]</obj_property>
+   </wvobject>
+</wave_config>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/alwynster/git/fpgamiddlewareproject/TestKey_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="numeric_std" />
+            <top_module name="std_logic_1164" />
+            <top_module name="testkey" />
+            <top_module name="userlogicinterface" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="8" />
+   <wvobject fp_name="/testkey/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testkey/reset" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testkey/red" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">red[7:0]</obj_property>
+      <obj_property name="ObjectShortName">red[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testkey/green" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">green[7:0]</obj_property>
+      <obj_property name="ObjectShortName">green[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testkey/blue" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">blue[7:0]</obj_property>
+      <obj_property name="ObjectShortName">blue[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testkey/red_led" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">red_led</obj_property>
+      <obj_property name="ObjectShortName">red_led</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testkey/green_led" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">green_led</obj_property>
+      <obj_property name="ObjectShortName">green_led</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testkey/blue_led" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">blue_led</obj_property>
+      <obj_property name="ObjectShortName">blue_led</obj_property>
+   </wvobject>
+</wave_config>

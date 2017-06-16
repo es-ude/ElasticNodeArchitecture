@@ -17,23 +17,21 @@ use fpgamiddlewarelibs.UserLogicInterface.all;
 entity middleware is
 	port (
 		reset  			: in std_logic;
-		status_out		: out std_ulogic; 	--! Output to indicate activity
+		clk 				: in std_ulogic;	--! Clock 32 MHz
 
-		config_sleep	: out std_logic := '0'; 	--! Configuration control to cause sleep for energy saving
-		task_complete	: out std_logic := '0';		--! Feedback from configuration about task completion
-		
+		-- userlogic
 		userlogic_reset: out std_logic;
 		userlogic_done	: in std_logic;
-		userlogic_sleep: out std_logic;
+		userlogic_data_in: out uint8_t;
+		userlogic_data_out: in uint8_t;
+		-- userlogic_address	: out uint16_t;
+		userlogic_rd	: out std_logic;
+		userlogic_wr	: out std_logic;
 		
-		data_out_32		: out uint32_t_interface;
-		data_in_32		: in uint32_t_interface;
-		data_in_32_done: out std_logic;
-		
+		-- debug
 		interface_leds	: out std_logic_vector(3 downto 0);
 		
-		clk 				: in std_ulogic;	--! Clock 32 MHz
-		-- icap_clk		: in std_ulogic;  --! Clock 20 MHz
+		-- uart
 		rx					: in std_logic;
 		tx 				: out std_logic;
 		
@@ -51,10 +49,6 @@ architecture Behavioral of middleware is
 
 signal clk_icap 				: std_logic := '0';
 signal icap_address			: uint24_t_interface;
-
--- data interface
-signal userlogic_data_in, userlogic_data_out : uint8_t;
-signal userlogic_address		: uint16_t;
 
 -- uart variables
 signal uart_en						: std_logic := '0';
@@ -79,11 +73,13 @@ begin
 		 sram_data_in => sram_data_in,
 		 sram_rd => sram_rd,
 		 sram_wr => sram_wr,
-		 userlogic_sleep => userlogic_sleep,
+		 userlogic_reset => userlogic_reset,
 		 userlogic_done => userlogic_done,
 		 userlogic_data_in => userlogic_data_in,
-		 userlogic_address => userlogic_address,
+		 -- userlogic_address => userlogic_address,
 		 userlogic_data_out => userlogic_data_out,
+		 userlogic_rd => userlogic_rd,
+		 userlogic_wr => userlogic_wr,
 		 leds => interface_leds
 	  );
 
