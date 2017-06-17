@@ -5,14 +5,19 @@ import matplotlib as mpl
 import numpy as np
 import math
 
-factor = 64
-max = 128
+factor = 128.
+limit = 10.
+eps = 10
 
 def float_sigmoid(x):
 	return 1. / (1. + np.exp(-x))
 
 def int_sigmoid(x):
-	return factor / (1. + math.exp(-x/factor))
+        result = round((factor - 2*eps) * 1. / (1. + math.exp(-x)) + eps)
+        # limit from edge
+        result = max(eps, min(result, factor-limit))
+        print x, result
+        return int(result)
 
 if __name__ == '__main__':
 	output = list()
@@ -35,23 +40,24 @@ if __name__ == '__main__':
 	output.append("		variable ret : fixed_point;")
 	output.append('	begin')
 
-	output.append('		if arg < -10*factor then')
-	output.append('			ret := zero;')
-	output.append('		elsif arg > 10 * factor then')
-	output.append('			ret := factor;')
+	output.append('		if arg < -%d then' % int(limit*factor))
+	output.append('			ret := to_signed(%d, fixed_point\'length);' % eps)
+	output.append('		elsif arg > %d then' % int(limit*factor))
+	output.append('			ret := to_signed(%d, fixed_point\'length);' % (factor - eps))
 
 
-	x = np.linspace(-max/factor, max/factor, 100)
-	# y = float_sigmoid(x)
+	x = np.linspace(-limit, limit, 100)
+	y = float_sigmoid(x)* factor
 	y2 = np.zeros_like(x)
 	for i in range(len(y2) - 1):
-		y2[i] = int_sigmoid(int(x[i] * factor))
-		output.append('		elsif arg >= to_signed(%d, fixed_point\'length) and arg < to_signed(%d, fixed_point\'length) then' % (factor * x[i], factor * x[i+1]))
+		y2[i] = int_sigmoid(x[i])
+		output.append('		elsif arg >= to_signed(%d, fixed_point\'length) and arg < to_signed(%d, fixed_point\'length) then' % (int(factor * x[i]), int(factor * x[i+1])))
 		# output.append('			ret := to_signed(%d, fixed_point\'length);' % i)
 		output.append('			ret := to_signed(%d, fixed_point\'length);' % y2[i])
-	# pp.plot(x, np.array([y2]).T)
-	# pp.grid()
-	# pp.show()
+	pp.plot(x, np.array([y2,y]).T)
+	pp.grid()
+	pp.show()
+	
 	output.append('		else')
 	output.append('			return factor;')
 	output.append('		end if;')
@@ -62,3 +68,5 @@ if __name__ == '__main__':
 	fopen = open('Sigmoid.vhd', 'w')
 	for line in output:
 		print>>fopen, line
+	fopen.flush()
+	# fopen.close()

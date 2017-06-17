@@ -36,24 +36,24 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity HiddenLayers is
 	port (
-			clk				:	in std_logic;
+			clk						:	in std_logic;
 
-			n_feedback		:	in std_logic;
-			current_layer	:	in uint8_t;
+			n_feedback				:	in std_logic;
+			current_layer			:	in uint8_t;
 
-			connections_in	:	in fixed_point_vector;
-			connections_out:	out fixed_point_vector;
+			connections_in			:	in fixed_point_vector;
+			connections_out		:	out fixed_point_vector;
 
-			errors_in		:	in fixed_point_vector;
-			errors_out		:	out fixed_point_vector
+			errors_in				:	in fixed_point_vector;
+			errors_out				:	out fixed_point_vector
 		);
 end HiddenLayers;
 
 architecture Behavioral of HiddenLayers is
 
-signal weights : fixed_point_matrix_array := (others => (others => (others => factor_2))); -- weights for all the hidden layers
+signal weights : fixed_point_matrix_array := (others => (others => (others => init_weight))); -- weights for all the hidden layers
 signal weights_in, weights_out : fixed_point_matrix;
-signal conn_in, conn_out, err_in, err_out : fixed_point_vector;
+signal conn_in, conn_out, conn_out_prev, err_in, err_out : fixed_point_vector;
 signal connections : fixed_point_array;
 signal n_feedback_s : std_logic;
 
@@ -62,7 +62,7 @@ begin
 lay: 
 	entity neuralNetwork.Layer(Behavioral) port map
 	(
-		clk, n_feedback_s, conn_in, conn_out, err_in, err_out, weights_in, weights_out
+		clk, n_feedback_s, conn_in, conn_out, conn_out_prev, err_in, err_out, weights_in, weights_out
 	);
 	
 	n_feedback_s <= n_feedback when (current_layer > 0 and current_layer < l-1) else 'Z';
@@ -78,7 +78,8 @@ lay:
 				-- save results for future learning
 				if n_feedback = '0' then 
 					if current_layer_sample > 0 and current_layer_sample < l then -- hidden layer active
-						conn_in <= connections(current_layer_sample - 1); -- use old output of layer for learning (current_layer -1 will be active next clock)
+						conn_out_prev <= connections(current_layer_sample - 1); -- use old output of layer for learning (current_layer -1 will be active next clock)
+						
 						if current_layer_sample < l-1 then
 							err_in <= err_out; -- forward results of previous layer to next layer
 							weights(current_layer_sample) <= weights_out; -- save updated weights
@@ -97,6 +98,7 @@ lay:
 						conn_in <= conn_out; -- forward results of previous layer to next layer
 					else
 						conn_in <= connections_in;
+						connections(0) <= connections_in;
 					end if;
 --				else
 --					conn_in <= (others => (others => '0'));

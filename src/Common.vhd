@@ -18,20 +18,24 @@ use IEEE.NUMERIC_STD.all;
 
 package Common is
 
-constant b                  :   integer := 8;
+constant b					:   integer := 16;
 
 subtype fixed_point is signed(b-1 downto 0);
 subtype double_fixed_point is signed(b+b-1 downto 0);
 
-constant w 					: 	natural := 3;
-constant l 					:	natural := 10;
+constant w 					: 	natural := 7;
+constant l 					:	natural := 12;
 constant eps				:	natural := 10;
-constant factor			:	fixed_point := to_signed(64, b);
-constant factor_shift	:	natural := 6;
-constant factor_2   		:	fixed_point := to_signed(32, b);
+constant factor			  :	fixed_point := to_signed(128, b);
+constant factor_shift	  :	natural := 7;
+constant factor_2   		:	fixed_point := to_signed(64, b);
 constant zero				:	fixed_point := (others => '0');
+constant init_weight		:	fixed_point := factor_2;
 --constant input_number		:	natural := 0;
 --constant output_number		:	natural := 0;
+
+constant maximum			:	fixed_point := x"0FFF";
+constant minimum			:	fixed_point := x"F000";
 
 subtype uintw_t is unsigned (w-1 downto 0);
 
@@ -70,6 +74,7 @@ function multiply(A : in fixed_point; B : in fixed_point) return fixed_point;
 function round (A : in fixed_point) return std_logic;
 --function exp(A: in fixed_point) return fixed_point;
 --function sigmoid(arg : in fixed_point) return fixed_point;
+function limit(A : in fixed_point) return fixed_point;
 
 
 end Common;
@@ -141,11 +146,6 @@ package body Common is
 		end loop;
 		return add;
 	end "+";
-
---	function "+" (A: in fixed_point; B: in fixed_point) return fixed_point is
---	begin
---		return A + B;
---	end "+";
 
 	function "*" (A: in integer; B: in fixed_point) return fixed_point is
 	   variable TEMP : signed (fixed_point'length + fixed_point'high downto 0) := to_fixed_point(A) * B;
@@ -256,7 +256,7 @@ package body Common is
 		variable prob : fixed_point;
 	begin
 		if A = 0.0 then
-			return (others => '0');
+			return zero;
 		elsif A = 1.0 then
 			return factor;
 		else 
@@ -311,6 +311,17 @@ package body Common is
             
         return output;
     end round;
+
+	function limit(A : in fixed_point) return fixed_point is
+		variable limited : fixed_point := A;
+	begin
+		if limited > maximum then
+			limited := maximum;
+		elsif limited < minimum then
+			limited := minimum;
+		end if;
+		return limited;
+	end limit;
         
 	--function exp(A: in fixed_point) return fixed_point is
 	--begin
