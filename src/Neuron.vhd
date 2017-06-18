@@ -98,6 +98,8 @@ begin
 			elsif n_feedback = '0' then
 				-- delta := resize_fixed_point(resize_fixed_point(output_connection_signal * (factor - (output_connection_signal))) * error_factor);
 				-- delta := multiply(multiply(output_connection_signal, factor - output_connection_signal), error_factor);
+				
+				-- TODO output_previous being set up with output, need to add earlier
 				delta := multiply(multiply(output_previous, factor - output_previous), error_factor); -- input connection is output of previous cycle
 				delta_signal <= delta;
 				bias := bias + delta;
@@ -106,11 +108,13 @@ begin
 				-- correct weight
 				for i in 0 to weights_in'length - 1 loop 
 					-- weights(i) <= resize_fixed_point(delta * input_connections(i)) + weights(i);
+					output_errors(i) <= multiply(weights_in(i), delta);
+					
 					weights :=  weights_in(i) + multiply(delta, input_connections(i));
 					
 					weights := limit(weights);
 					
-					output_errors(i) <= multiply(weights, delta);
+
 					weights_out(i) <= weights;
 				end loop;
 			else

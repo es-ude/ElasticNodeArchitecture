@@ -18,24 +18,24 @@ use IEEE.NUMERIC_STD.all;
 
 package Common is
 
-constant b					:   integer := 16;
+constant b					:   integer := 8;
 
 subtype fixed_point is signed(b-1 downto 0);
 subtype double_fixed_point is signed(b+b-1 downto 0);
 
-constant w 					: 	natural := 7;
-constant l 					:	natural := 12;
+constant w 					: 	natural := 3;
+constant l 					:	natural := 3;
 constant eps				:	natural := 10;
-constant factor			  :	fixed_point := to_signed(128, b);
-constant factor_shift	  :	natural := 7;
+constant factor			:	fixed_point := to_signed(128, b);
+constant factor_shift	:	natural := 7;
 constant factor_2   		:	fixed_point := to_signed(64, b);
 constant zero				:	fixed_point := (others => '0');
 constant init_weight		:	fixed_point := factor_2;
 --constant input_number		:	natural := 0;
 --constant output_number		:	natural := 0;
 
-constant maximum			:	fixed_point := x"0FFF";
-constant minimum			:	fixed_point := x"F000";
+constant maximum			:	fixed_point := x"7F";
+constant minimum			:	fixed_point := x"FE";
 
 subtype uintw_t is unsigned (w-1 downto 0);
 
@@ -276,7 +276,6 @@ package body Common is
 	end to_fixed_point;
 
 	function logic_to_fixed_point (A: in std_logic) return fixed_point is
-		variable prob : fixed_point;
 	begin
 		if A = '0' then
 			return (others => '0');

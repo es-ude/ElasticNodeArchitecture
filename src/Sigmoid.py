@@ -7,7 +7,7 @@ import math
 
 factor = 128.
 limit = 10.
-eps = 10
+eps = 5.
 
 def float_sigmoid(x):
 	return 1. / (1. + np.exp(-x))
@@ -15,7 +15,7 @@ def float_sigmoid(x):
 def int_sigmoid(x):
         result = round((factor - 2*eps) * 1. / (1. + math.exp(-x)) + eps)
         # limit from edge
-        result = max(eps, min(result, factor-limit))
+        result = max(eps, min(result, factor-eps))
         print x, result
         return int(result)
 

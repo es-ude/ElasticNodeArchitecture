@@ -39,35 +39,34 @@ use neuralnetwork.Common.all;
 
 entity NeuralNetwork is
     Port (
-            clk             :  in std_logic;
-				reset				 :	 in std_logic;
-				
-            learn           :  in std_logic;
-            data_rdy        :  out std_logic;
-            calculate       :  in std_logic;
-				
-            connections_in  :  in uintw_t;
-            wanted          :  in uintw_t;
-            connections_out :  out uintw_t
-        );
+		clk             :  in std_logic;
+		reset				:  in std_logic;
+		
+		learn           :  in std_logic;
+		data_rdy        :  out std_logic;
+		calculate       :  in std_logic;
+		
+		connections_in  :  in uintw_t;
+		wanted          :  in uintw_t;
+		connections_out :  out uintw_t
+	);
 end NeuralNetwork;
 
 architecture Behavioral of NeuralNetwork is
 component Network is
 	port (
-			clk				: 	in std_logic;
-			reset				 :	 in std_logic;
-
-			learn			:	in std_logic;
-			data_rdy		:	out std_logic;
-			calculate          :   in std_logic;
-
-			connections_in	:	in uintw_t;
-			connections_out	:	out fixed_point_vector;
-
-			--errors_in		:	in fixed_point_vector;
-			wanted			:	in fixed_point_vector;
-    		mode_out        :   out std_logic_vector(2 downto 0)
+		clk					: 	in std_logic;
+		reset					:	in std_logic;
+		
+		learn					:	in std_logic;
+		data_rdy				:	out std_logic := '0';
+		calculate			:   in std_logic;
+	
+		connections_in		:	in uintw_t;
+		connections_out	:	out fixed_point_vector;
+		
+		-- wanted			:	in fixed_point_vector
+		wanted				:	in fixed_point_vector
 		);
 end component;
 
@@ -133,7 +132,7 @@ begin
 
 net: Network port map
 (
-    clk, reset, learn, data_rdy, calculate, connections_in, connections_out_fp, wanted_fp, mode_out
+    clk, reset, learn, data_rdy, calculate, connections_in, connections_out_fp, wanted_fp
 );
 
 fpl: FixedPoint_Logic port map
