@@ -6,8 +6,9 @@ import numpy as np
 import math
 
 factor = 64.
-max = 1280.
-eps = 5.729
+# max = 128.
+eps = 5.
+limit = 10.
 
 def float_sigmoid(x):
 	return 1. / (1. + np.exp(-x))
@@ -40,7 +41,7 @@ if __name__ == '__main__':
 	output.append("		variable ret : fixed_point;")
 	output.append('	begin')
 
-	output.append('		if arg < -%d then' % int(limit*factor))
+	output.append('		if arg < %d then' % int(-limit*factor))
 	output.append('			ret := to_signed(%d, fixed_point\'length);' % eps)
 	output.append('		elsif arg > %d then' % int(limit*factor))
 	output.append('			ret := to_signed(%d, fixed_point\'length);' % (factor - eps))
@@ -49,14 +50,29 @@ if __name__ == '__main__':
 	x = np.linspace(-limit, limit, 100)
 	y = float_sigmoid(x)* factor
 	y2 = np.zeros_like(x)
+	r = np.zeros((2,))
+	y3 = list()
+	oldy = eps
 	for i in range(len(y2) - 1):
 		y2[i] = int_sigmoid(x[i])
-		output.append('		elsif arg >= to_signed(%d, fixed_point\'length) and arg < to_signed(%d, fixed_point\'length) then' % (int(factor * x[i]), int(factor * x[i+1])))
+		if y2[i] != oldy:
+			oldy = y2[i]
+			r[1] = i
+			y3.append(np.array([r[0], r[1], oldy]))
+			r[0] = i+1
+		#output.append('		elsif arg >= to_signed(%d, fixed_point\'length) and arg < to_signed(%d, fixed_point\'length) then' % (int(factor * x[i]), int(factor * x[i+1])))
 		# output.append('			ret := to_signed(%d, fixed_point\'length);' % i)
-		output.append('			ret := to_signed(%d, fixed_point\'length);' % y2[i])
-	pp.plot(x, np.array([y2,y]).T)
-	pp.grid()
-	pp.show()
+		#output.append('			ret := to_signed(%d, fixed_point\'length);' % y2[i])
+
+
+	for i in range(len(y3)):
+		output.append('		elsif arg >= to_signed(%d, fixed_point\'length) and arg < to_signed(%d, fixed_point\'length) then' % (int(factor * x[y3[i][0]]), int(factor * y3[i][1])))
+		output.append('			ret := to_signed(%d, fixed_point\'length);' % y3[i][2])
+	#print y3
+	
+	#pp.plot(x, np.array([y2,y]).T)
+	#pp.grid()
+	# pp.show()
 	
 	output.append('		else')
 	output.append('			return factor;')
