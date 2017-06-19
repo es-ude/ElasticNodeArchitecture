@@ -148,9 +148,9 @@ package body Common is
 	end "+";
 
 	function "*" (A: in integer; B: in fixed_point) return fixed_point is
-	   variable TEMP : signed (fixed_point'length + fixed_point'high downto 0) := to_fixed_point(A) * B;
+	   variable TEMP : double_fixed_point := to_fixed_point(A) * B;
 	begin 
-		return TEMP(25 downto 10);
+		return TEMP(factor_shift+fixed_point'length-1 downto factor_shift);
 	end "*";
 
 	--function "-" (A: in fixed_point; B: in fixed_point) return fixed_point is

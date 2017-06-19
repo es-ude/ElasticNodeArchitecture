@@ -31,9 +31,9 @@ library neuralnetwork;
 use neuralnetwork.Common.ALL;
 use neuralnetwork.Sigmoid.all;
 
-library ieee_proposed;
-use ieee_proposed.fixed_float_types.all;
-use ieee_proposed.fixed_pkg.all;
+--library ieee_proposed;
+--use ieee_proposed.fixed_float_types.all;
+--use ieee_proposed.fixed_pkg.all;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
@@ -56,7 +56,7 @@ entity Neuron is
 		input_connections : 	in fixed_point_vector;
 		input_errors		:	in fixed_point_vector;
 
-		output_connection	:	out fixed_point := real_to_fixed_point(0.0);
+		output_connection	:	out fixed_point := zero;
 		output_previous	:	in fixed_point;
 		output_errors		: 	out fixed_point_vector := (others => zero);
 		

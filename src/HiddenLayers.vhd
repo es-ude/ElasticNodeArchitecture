@@ -68,6 +68,8 @@ lay:
 	n_feedback_s <= n_feedback when (current_layer > 0 and current_layer < l-1) else 'Z';
 	connections_out <= conn_out when current_layer >= l-2 else (others => zero);
 	
+	weights_in <= weights(to_integer(current_layer));
+	
 	process(clk, current_layer, connections_in) is
 		variable current_layer_sample : integer range 0 to l;
 	begin
@@ -79,7 +81,7 @@ lay:
 			if n_feedback = '0' then 
 				if current_layer_sample > 0 and current_layer_sample < l then -- hidden layer active
 					conn_out_prev <= connections(current_layer_sample - 1); -- use old output of layer for learning (current_layer -1 will be active next clock)
-					weights_in <= weights(current_layer_sample);
+					-- weights_in <= weights(current_layer_sample);
 
 					if current_layer_sample < l-1 then
 						err_in <= err_out; -- forward results of previous layer to next layer

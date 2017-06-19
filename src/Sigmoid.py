@@ -41,9 +41,9 @@ if __name__ == '__main__':
 	output.append("		variable ret : fixed_point;")
 	output.append('	begin')
 
-	output.append('		if arg < %d then' % int(-limit*factor))
+	output.append('		if arg < to_signed(%d, fixed_point\'length) then' % int(-limit*factor))
 	output.append('			ret := to_signed(%d, fixed_point\'length);' % eps)
-	output.append('		elsif arg > %d then' % int(limit*factor))
+	output.append('		elsif arg > to_signed(%d, fixed_point\'length) then' % int(limit*factor))
 	output.append('			ret := to_signed(%d, fixed_point\'length);' % (factor - eps))
 
 
@@ -66,25 +66,25 @@ if __name__ == '__main__':
 	# last entry:
 	y3.append(np.array([r[0], len(y2) - 1, y2[-1]]).astype('int'))
 
-	pp.figure()
-	pp.hold(True)
+	#pp.figure()
+	#pp.hold(True)
 
 	for i in range(len(y3)):
 		current = y3[i]
-		print current,
+		#print current,
 		current[0] = (int(factor * x[current[0]]))
 		current[1] = (int(factor * x[current[1]]))
 
-		print current
-		pp.plot([current[0], current[1]], [current[2], current[2]], 'b')
+		#print current
+		#pp.plot([current[0], current[1]], [current[2], current[2]], 'b')
 		output.append('		elsif arg >= to_signed(%d, fixed_point\'length) and arg < to_signed(%d, fixed_point\'length) then' % (current[0], current[1]))
 		output.append('			ret := to_signed(%d, fixed_point\'length);' % current[2])
 	#print y3
 	
-	pp.plot(factor * x, np.array([y2]).T, 'r')
-	pp.plot(factor * x, np.array([y]).T, 'g')
-	pp.grid()
-	pp.show()
+	#pp.plot(factor * x, np.array([y2]).T, 'r')
+	#pp.plot(factor * x, np.array([y]).T, 'g')
+	#pp.grid()
+	#pp.show()
 	
 	output.append('		else')
 	output.append('			return factor;')
