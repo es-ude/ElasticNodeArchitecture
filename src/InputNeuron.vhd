@@ -59,10 +59,11 @@ entity InputNeuron is
 end InputNeuron;
 
 architecture Behavioral_Neuron of InputNeuron is
-	signal weights			: 	fixed_point_vector := (others => real_to_fixed_point(0.5));
+	signal weights			: 	fixed_point_vector := (others => init_weight);
 	signal delta_signal	:	fixed_point := real_to_fixed_point(0.0);
 	signal error_factor 	: 	fixed_point := real_to_fixed_point(0.0);
 	signal output_connection_signal	:	fixed_point;
+	signal tf_signal 		: 	fixed_point;
 begin
 	process (input_errors)
 	begin
@@ -79,6 +80,7 @@ begin
 			if n_feedback = '1' then
 				--calculate output values
 				tf := weighted_sum(weights, input_connections) + bias;
+				tf_signal <= tf;
 				--output_connection_signal <= resize_fixed_point(real_to_fixed_point(1.0) / resize_fixed_point(1.0 + exp(resize_fixed_point(-tf))));
 				output_connection_signal <= sigmoid(tf);
 			elsif n_feedback = '0' then

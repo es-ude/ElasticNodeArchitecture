@@ -56,6 +56,7 @@ end genericProject;
 
 architecture Behavioral of genericProject is
 
+signal invert_clk				: std_logic;
 ---- spi variables
 --signal spi_en_s		 		: std_logic := '0'; -- general enable to allow sending data
 --signal spi_data_in_rdy	: std_logic := '0'; -- stretched strobe to send a byte 
@@ -95,6 +96,8 @@ constant USERLOGIC_OFFSET 		: unsigned(15 downto 0) := x"2300";
 begin
 
 ARD_RESET <= '0';
+
+invert_clk <= not clk;
 
 -- todo add to mw the async -> sync comm part, and decode incoming data not meant for ul
 mw: entity work.middleware(Behavioral)
@@ -145,12 +148,12 @@ mw: entity work.middleware(Behavioral)
 	
 	-- initialise user logic
 	-- ul: entity work.Dummy(Behavioral) port map
-	ul: entity vectordotproduct.VectorDotproductSkeleton(Behavioral) port map
+	-- ul: entity vectordotproduct.VectorDotproductSkeleton(Behavioral) port map
 	-- ul: entity matrixmultiplication.MatrixMultiplicationSkeleton(Behavioral) port map
-	-- ul: entity neuralnetwork.NeuralNetworkSkeleton(Behavioral) port map
+	ul: entity neuralnetwork.NeuralNetworkSkeleton(Behavioral) port map
 	-- ul: entity work.KeyboardSkeleton(Behavioral) port map
 		(
-			not clk, userlogic_reset, userlogic_done_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out --, kb_leds
+			invert_clk, userlogic_reset, userlogic_done_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out --, kb_leds
 		);
 	userlogic_done <= userlogic_done_s;
 	userlogic_sleep <= userlogic_reset;

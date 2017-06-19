@@ -33,18 +33,19 @@ use neuralnetwork.Common.all;
 
 entity Layer is
 	port (
-			clk					:	in std_logic;
+			clk						:	in std_logic;
 
-			n_feedback			:	in std_logic;
+			n_feedback				:	in std_logic;
 
-			connections_in		:	in fixed_point_vector;
-			connections_out	:	out fixed_point_vector;
+			connections_in			:	in fixed_point_vector;
+			connections_out		:	out fixed_point_vector;
+			connections_out_prev	:	in fixed_point_vector;
 
-			errors_in			:	in fixed_point_vector;
-			errors_out			:	out fixed_point_vector;
+			errors_in				:	in fixed_point_vector;
+			errors_out				:	out fixed_point_vector;
 			
-			weights_in			: 	in fixed_point_matrix; -- one fpv per neuron
-			weights_out			: 	out fixed_point_matrix
+			weights_in				: 	in fixed_point_matrix; -- one fpv per neuron
+			weights_out				: 	out fixed_point_matrix
 		);
 end Layer;
 
@@ -71,6 +72,7 @@ architecture Behavioral of Layer is
 			input_errors		:	in fixed_point_vector;
 
 			output_connection	:	out fixed_point;
+			output_previous	:	in fixed_point;
 			output_errors		: 	out fixed_point_vector;
 			
 			weights_in			: 	in fixed_point_vector;
@@ -99,6 +101,7 @@ gen_neutrons:
 		input_connections => connections_in, 
 		input_errors => errors_in,
 		output_connection => connections_out(i),
+		output_previous => connections_out_prev(i),
 		output_errors => errors_matrix(i),
 		weights_in => weights_in(i),
 		weights_out => weights_out(i)

@@ -19,6 +19,7 @@
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.all;
 library neuralnetwork;
 use neuralnetwork.Common.all;
 -- Uncomment the following library declaration if using
@@ -37,15 +38,16 @@ architecture Behavioral of SimulateNetwork is
 	component Network is
 	port (
 			clk				: 	in std_logic;
-			reset				: in std_logic;
+			reset			:	in std_logic;
 			
 			learn			:	in std_logic;
 			data_rdy		:	out std_logic := '0';
-			calculate          :   in std_logic;
+			calculate       :   in std_logic;
 
 			connections_in	:	in uintw_t;
 			connections_out	:	out fixed_point_vector;
 			
+			-- wanted			:	in fixed_point_vector
 			wanted			:	in fixed_point_vector
 		);
 	end component;
@@ -55,12 +57,21 @@ architecture Behavioral of SimulateNetwork is
 	constant period : time := 100 ns;
 	constant repeat : integer := 10;
 
+<<<<<<< HEAD
 	signal wanted			: 	fixed_point_vector := (others => (others => '0'));
 	signal calculate, reset          :   std_logic;
+=======
+	signal wanted			: uintw_t := (others => '0'); -- fixed_point_vector := (others => zero);
+	signal calculate, reset	:   std_logic;
+>>>>>>> b800ab2ec9d19e3b83fdf960fef3c1699e4b3729
 	signal conn_in			:	uintw_t := (others => '0');
 	signal conn_out 		: fixed_point_vector := (others => real_to_fixed_point(0.0));
 	
 	signal busy : boolean := true;
+<<<<<<< HEAD
+=======
+	
+>>>>>>> b800ab2ec9d19e3b83fdf960fef3c1699e4b3729
 	signal iteration : integer;
 begin
 	
@@ -82,9 +93,16 @@ begin
 		--n_feedback <= 'Z';
 
 		-- wanted <= (real_to_fixed_point(1.0), real_to_fixed_point(1.0), real_to_fixed_point(0.0));
+<<<<<<< HEAD
+=======
+		wanted <= to_unsigned(5, w);
+		-- wanted(0) <= (factor);
+		-- wanted <= (real_to_fixed_point(0.0), real_to_fixed_point(0.0), real_to_fixed_point(0.0));
+>>>>>>> b800ab2ec9d19e3b83fdf960fef3c1699e4b3729
 
 --		learn <= '0';
---		conn_in <= ('1', '0', '0');
+		-- conn_in <= ('1', '0', '0');
+		conn_in <= to_unsigned(1, w);
 --		
 --		calculate <= '0';
 --		wait for period;
@@ -98,7 +116,11 @@ begin
 		-- wait for period * 2 * (l * 2 + 1);
 		-- weait until data_rdy = '1';
 		
+<<<<<<< HEAD
 		for i in 0 to 100 loop
+=======
+		for i in 0 to 2000 loop
+>>>>>>> b800ab2ec9d19e3b83fdf960fef3c1699e4b3729
 			iteration <= i;
 			
 			calculate <= '0';

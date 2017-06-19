@@ -46,14 +46,14 @@ entity Network is
 			
 			learn				:	in std_logic;
 			data_rdy			:	out std_logic := '0';
-         calculate      :   in std_logic;
+        	calculate      :   in std_logic;
             
 			connections_in	:	in uintw_t;
 			connections_out	:	out fixed_point_vector;
 
 			--errors_in		:	in fixed_point_vector;
 			wanted			:	in fixed_point_vector;
-         mode_out       :   out std_logic_vector(2 downto 0)
+         	mode_out       :   out std_logic_vector(2 downto 0)
 		);
 end Network;
 
@@ -129,13 +129,20 @@ architecture Behavioral of Network is
         mode_out        :   out std_logic_vector(2 downto 0)
 	);
 	end component;
-
+	
+	component Logic_FixedPoint is
+		Port (
+			fixed_point		:	out fixed_point_vector;
+			std_logic_vec	: 	in uintw_t;
+			clk				:	in std_logic
+		);
+	end component;
 
 	signal conn_matrix 	: fixed_point_array;
 	signal err_matrix 	: fixed_point_array;
 	signal err_out 		: fixed_point_vector;
 	signal data_rdy_s	: std_logic := '0';
-	--signal wanted	: fixed_point_vector;
+	-- signal wanted_fp	: fixed_point_vector;
 	--signal conn_in_real	: fixed_point_vector;
 	--signal conn_out_real: fixed_point_vector;
 
@@ -198,9 +205,7 @@ begin
 	--	end loop;
 	--end process;
 
-	input_layer : InputLayer port map (clk, n_feedback_bus(0), connections_in, conn_matrix(0), err_matrix(0), err_out);
-	hidden_layers: HiddenLayers port map (clk, n_feedback, current_layer, conn_matrix(0), conn_matrix(l-2), err_matrix(l-2), err_matrix(0));
---	gen_layers:
+	--	gen_layers:
 --	for i in 1 to l-2 generate layer_x : Layer port map -- l-2 hidden layers
 --		(
 --			clk => clk,
@@ -211,8 +216,14 @@ begin
 --			errors_out => err_matrix(i-1)
 --		);
 --	end generate;
+
+
+	input_layer : InputLayer port map (clk, n_feedback_bus(0), connections_in, conn_matrix(0), err_matrix(0), err_out);
+	hidden_layers: HiddenLayers port map (clk, n_feedback, current_layer, conn_matrix(0), conn_matrix(l-2), err_matrix(l-2), err_matrix(0));
 	output_layer : OutputLayer port map (clk, n_feedback_bus(l-1), conn_matrix(l-2), conn_matrix(l-1), err_matrix(l-1), err_matrix(l-2));
 
+	-- lfp: Logic_FixedPoint port map (wanted_fp, wanted, clk);
+	
 	process (wanted, conn_matrix(l-1)) 
 	begin
 		err_matrix(l-1) <= wanted - conn_matrix(l-1);

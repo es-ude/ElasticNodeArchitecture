@@ -57,6 +57,7 @@ entity Neuron is
 		input_errors		:	in fixed_point_vector;
 
 		output_connection	:	out fixed_point := real_to_fixed_point(0.0);
+		output_previous	:	in fixed_point;
 		output_errors		: 	out fixed_point_vector := (others => zero);
 		
 		weights_in			: 	in fixed_point_vector;
@@ -65,7 +66,7 @@ entity Neuron is
 end Neuron;
 
 architecture Behavioral_Neuron of Neuron is
-	signal weights			: 	fixed_point_vector := (others => real_to_fixed_point(0.5));
+	signal weights				: 	fixed_point_vector := (others => real_to_fixed_point(0.5));
 	signal delta_signal		:	fixed_point := real_to_fixed_point(0.0);
 	signal error_factor		:	fixed_point;
 	signal tf_signal 			:	fixed_point;
@@ -97,15 +98,23 @@ begin
 			elsif n_feedback = '0' then
 				-- delta := resize_fixed_point(resize_fixed_point(output_connection_signal * (factor - (output_connection_signal))) * error_factor);
 				-- delta := multiply(multiply(output_connection_signal, factor - output_connection_signal), error_factor);
-				delta := multiply(multiply(input_connections(index), factor - input_connections(index)), error_factor); -- input connection is output of previous cycle
-				--delta_signal <= delta;
+				
+				-- TODO output_previous being set up with output, need to add earlier
+				delta := multiply(multiply(output_previous, factor - output_previous), error_factor); -- input connection is output of previous cycle
+				delta_signal <= delta;
 				bias := bias + delta;
+				bias := limit(bias);
 
 				-- correct weight
 				for i in 0 to weights_in'length - 1 loop 
 					-- weights(i) <= resize_fixed_point(delta * input_connections(i)) + weights(i);
-					weights := multiply(delta, input_connections(i)) + weights_in(i);
-					output_errors(i) <= multiply(weights, delta);
+					output_errors(i) <= multiply(weights_in(i), delta);
+					
+					weights :=  weights_in(i) + multiply(delta, input_connections(i));
+					
+					weights := limit(weights);
+					
+
 					weights_out(i) <= weights;
 				end loop;
 			else
