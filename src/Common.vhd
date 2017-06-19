@@ -18,12 +18,12 @@ use IEEE.NUMERIC_STD.all;
 
 package Common is
 
-constant b					:   integer := 8;
+constant b					:   integer := 16;
 
 subtype fixed_point is signed(b-1 downto 0);
 subtype double_fixed_point is signed(b+b-1 downto 0);
 
-constant w 					: 	natural := 3;
+constant w 					: 	natural := 8;
 constant l 					:	natural := 3;
 constant eps				:	natural := 10;
 constant factor			:	fixed_point := to_signed(128, b);
@@ -34,8 +34,8 @@ constant init_weight		:	fixed_point := factor_2;
 --constant input_number		:	natural := 0;
 --constant output_number		:	natural := 0;
 
-constant maximum			:	fixed_point := x"7F";
-constant minimum			:	fixed_point := x"FE";
+constant maximum			:	fixed_point := x"7FFF";
+constant minimum			:	fixed_point := x"FFFE";
 
 subtype uintw_t is unsigned (w-1 downto 0);
 
@@ -44,7 +44,9 @@ subtype uintw_t is unsigned (w-1 downto 0);
 type fixed_point_vector is array (w-1 downto 0) of fixed_point;
 type fixed_point_matrix is array (w-1 downto 0) of fixed_point_vector;
 type fixed_point_array is array (l-1 downto 0) of fixed_point_vector;
-type fixed_point_matrix_array is array (l-1 downto 0) of fixed_point_matrix;
+-- cannot synthesize array of fpm, so make it wider instead
+type fixed_point_matrix_array is array ((w*l)-1 downto 0) of fixed_point_vector; -- in total l x w of vectors (each vector is weights in one neuron)
+-- type fixed_point_matrix_array is array (l-1 downto 0) of fixed_point_matrix;
 
 --function maximum_probability (signal probs_in : in fixed_point_vector) return fixed_point;
 function weighted_sum (signal weights : fixed_point_vector; signal connections : fixed_point_vector) return fixed_point;

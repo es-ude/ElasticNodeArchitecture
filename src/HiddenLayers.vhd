@@ -51,7 +51,8 @@ end HiddenLayers;
 
 architecture Behavioral of HiddenLayers is
 
-signal weights : fixed_point_matrix_array := (others => (others => (others => init_weight))); -- weights for all the hidden layers
+signal weights : fixed_point_matrix_array := (others => (others => init_weight)); -- weights for all the hidden layers
+-- signal weights : fixed_point_matrix := (others => (others => init_weight));
 signal weights_in, weights_out : fixed_point_matrix;
 signal conn_in, conn_out, conn_out_prev, err_in, err_out : fixed_point_vector;
 signal connections : fixed_point_array;
@@ -68,7 +69,7 @@ lay:
 	n_feedback_s <= n_feedback when (current_layer > 0 and current_layer < l-1) else 'Z';
 	connections_out <= conn_out when current_layer >= l-2 else (others => zero);
 	
-	weights_in <= weights(to_integer(current_layer));
+	-- weights_in <= weights; -- (to_integer(current_layer));-- ***
 	
 	process(clk, current_layer, connections_in) is
 		variable current_layer_sample : integer range 0 to l;
@@ -81,11 +82,22 @@ lay:
 			if n_feedback = '0' then 
 				if current_layer_sample > 0 and current_layer_sample < l then -- hidden layer active
 					conn_out_prev <= connections(current_layer_sample - 1); -- use old output of layer for learning (current_layer -1 will be active next clock)
-					-- weights_in <= weights(current_layer_sample);
+					-- weights_in(w-1 downto 0) <= weights((current_layer_sample+1)*w-1 downto current_layer_sample*w);
+					-- type incompatibility: writing part of a fp_matrix_array to a fp_matrix
+					for i in 0 to w-1 loop
+						weights_in(i) <= weights(current_layer_sample*w + i);
+					end loop;
 
 					if current_layer_sample < l-1 then
 						err_in <= err_out; -- forward results of previous layer to next layer
-						weights(current_layer_sample) <= weights_out; -- save updated weights
+						-- ***
+						-- currently addressing w of w*l 
+						-- type incompatibility: writing part of a fp_matrix_array to a fp_matrix
+						for i in 0 to w-1 loop
+							weights(current_layer_sample*w + i) <= weights_out(i);
+						end loop;
+						-- weights((current_layer_sample+1)*w-1 downto current_layer_sample*w) <= weights_out(w-1 downto 0); -- save updated weights
+						-- weights <= weights_out;
 					else 
 						errors_out <= err_out;
 						err_in <= errors_in;
