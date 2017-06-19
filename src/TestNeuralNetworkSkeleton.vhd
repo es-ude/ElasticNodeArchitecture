@@ -58,21 +58,24 @@
 			wait for clock_period * 2; -- wait until global set/reset completes
 			
 			reset <= '0';
-			wait for clock_period * 2; -- wait until global set/reset completes
 			
-			-- inputs
-			write_uint8_t(3, x"0000", address_in, data_in, wr); -- connections in
-			write_uint8_t(4, x"0001", address_in, data_in, wr); -- wanted
-			write_uint8_t(1, x"0002", address_in, data_in, wr); -- wanted
-			
-			wait until done = '1';
-			wait for clock_period * 2;
-			write_uint8_t(0, x"0002", address_in, data_in, wr); -- wanted
-			
-			-- wait until done = '1';
-			
-			-- outputs
-			read_uint8_t(x"0002", address_in, rd);
+			for i in 0 to 100 loop
+				wait for clock_period * 2; -- wait until global set/reset completes
+				
+				-- inputs
+				write_uint8_t(3, x"0000", address_in, data_in, wr); -- connections in
+				write_uint8_t(4, x"0001", address_in, data_in, wr); -- wanted
+				write_uint8_t(1, x"0002", address_in, data_in, wr); -- wanted
+				
+				wait until done = '1';
+				wait for clock_period * 2;
+				write_uint8_t(0, x"0002", address_in, data_in, wr); -- wanted
+				
+				-- wait until done = '1';
+				
+				-- outputs
+				read_uint8_t(x"0002", address_in, rd);
+			end loop;
 			
 			wait for clock_period * 4;
 			sim_busy <= false;

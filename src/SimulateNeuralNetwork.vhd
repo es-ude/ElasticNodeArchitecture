@@ -36,27 +36,29 @@ end SimulateNeuralNetwork;
 architecture Behavioral of SimulateNeuralNetwork is
 	component NeuralNetwork is
     Port (
-            clk             :  in std_logic;
+            clk             :	in std_logic;
+            reset			:	in std_logic;
 					
-            learn           :  in std_logic;
-            data_rdy        :  out std_logic;
-            enable          :  in std_logic;
+            learn           :	in std_logic;
+            data_rdy        :	out std_logic;
+            calculate       :	in std_logic;
 				
 --            data_in         :  in std_logic_vector(3*w+2 downto 0);
 --            data_out         :  out std_logic_vector(3*w+2 downto 0)
-            connections_in  :  in uintw_t;
-            wanted          :  in uintw_t;
-            connections_out :  out uintw_t
+            connections_in  :	in uintw_t;
+            wanted          :	in uintw_t;
+            connections_out :	out uintw_t
         );
 	end component;
 
 	signal clk_s : std_logic := '0';	
-	signal learn, data_rdy, enable : std_logic := 'Z';
+	signal learn, data_rdy, calculate : std_logic := 'Z';
+	signal reset : std_logic := '1';
 	constant period : time := 40 ns;
 	constant repeat : integer := 10;
 
-	signal wanted			: 	uintw_t := (others => '0');
-	signal conn_in, conn_out : uintw_t := (others => '0');
+	signal wanted				: 	uintw_t := (others => '0');
+	signal conn_in, conn_out 	: uintw_t := (others => '0');
 	
 	signal busy 	: boolean := true;
 
@@ -79,23 +81,24 @@ begin
 		end if;
 	end process;
 
-	uut: NeuralNetwork port map (clk_s, learn, data_rdy, enable, conn_in, wanted, conn_out);
+	uut: NeuralNetwork port map (clk_s, reset, learn, data_rdy, calculate, conn_in, wanted, conn_out);
 	process begin
-	
+		wait for period;
+		reset <= '0';
 
 		--n_feedback <= 'Z';
 		learn <= '0';
 		conn_in <= ('1', '0', '1'); -- (real_to_fixed_point(1.0), real_to_fixed_point(0.0), real_to_fixed_point(1.0));
 		wanted <= ('1', '1', '0'); -- (real_to_fixed_point(1.0), real_to_fixed_point(1.0), real_to_fixed_point(0.0));
-		enable <= '1';
-		wait until data_rdy = '1';
+		calculate <= '1';
 		
 		wait for period;
-		enable <= '0';
+		calculate <= '0';
+		wait until data_rdy = '1';
 		wait for period; 
 		
 		learn <= '1';
-		enable <= '1';
+		calculate <= '1';
 		
 		--learn <= '1';
 		----n_feedback <= '1';
