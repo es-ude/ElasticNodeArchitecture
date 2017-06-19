@@ -55,12 +55,13 @@ architecture Behavioral of SimulateNetwork is
 	constant period : time := 100 ns;
 	constant repeat : integer := 10;
 
-	signal wanted			: 	fixed_point_vector;
+	signal wanted			: 	fixed_point_vector := (others => (others => '0'));
 	signal calculate, reset          :   std_logic;
 	signal conn_in			:	uintw_t := (others => '0');
 	signal conn_out 		: fixed_point_vector := (others => real_to_fixed_point(0.0));
 	
 	signal busy : boolean := true;
+	signal iteration : integer;
 begin
 	
 	process
@@ -80,7 +81,7 @@ begin
 		reset <= '0';
 		--n_feedback <= 'Z';
 
-		wanted <= (real_to_fixed_point(1.0), real_to_fixed_point(1.0), real_to_fixed_point(0.0));
+		-- wanted <= (real_to_fixed_point(1.0), real_to_fixed_point(1.0), real_to_fixed_point(0.0));
 
 --		learn <= '0';
 --		conn_in <= ('1', '0', '0');
@@ -98,6 +99,8 @@ begin
 		-- weait until data_rdy = '1';
 		
 		for i in 0 to 100 loop
+			iteration <= i;
+			
 			calculate <= '0';
 			wait for period;
 			calculate <= '1';

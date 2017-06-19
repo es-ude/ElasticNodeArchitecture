@@ -5,7 +5,7 @@ import matplotlib as mpl
 import numpy as np
 import math
 
-factor = 64
+factor = 64.
 max = 128
 
 def float_sigmoid(x):
