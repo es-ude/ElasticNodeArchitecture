@@ -5,7 +5,7 @@ import matplotlib as mpl
 import numpy as np
 import math
 
-factor = 1024.
+factor = 64.
 # max = 128.
 eps = 5.
 limit = 4.
@@ -47,7 +47,7 @@ if __name__ == '__main__':
 	output.append('			ret := to_signed(%d, fixed_point\'length);' % (factor - eps))
 
 
-	x = np.linspace(-limit, limit, 100)
+	x = np.linspace(-limit, limit, 10)
 	y = float_sigmoid(x)
 	y2 = np.zeros_like(x)
 	r = np.zeros((2,))

@@ -29,7 +29,7 @@ use IEEE.NUMERIC_STD.ALL;
 library neuralnetwork;
 -- use DesignLab.ALL;
 use neuralnetwork.Common.ALL;
-use neuralnetwork.Sigmoid.all;
+-- use neuralnetwork.Sigmoid.all;
 
 --library ieee_proposed;
 --use ieee_proposed.fixed_float_types.all;
@@ -80,6 +80,9 @@ begin
 		-- end if;
 	end process;
 	output_connection <= output_connection_signal;
+	
+sig: 
+	entity neuralnetwork.sigmoid(Behavioral) port map (tf_signal, output_connection_signal);
 
 	process (clk, n_feedback)
 		variable bias			:	fixed_point := zero;
@@ -93,7 +96,7 @@ begin
 				tf := weighted_sum(weights_in, input_connections) + bias;
 				tf_signal <= tf;
 				--output_connection_signal <= resize_fixed_point(real_to_fixed_point(1.0) / resize_fixed_point(1.0 + exp(resize_fixed_point(-tf))));
-				output_connection_signal <= sigmoid(tf);
+				-- output_connection_signal <= sigmoid(tf);
 				
 				weights_out <= weights_in;
 			elsif n_feedback = '0' then
@@ -108,7 +111,7 @@ begin
 				end if;
 				delta_signal <= delta;
 				bias := bias + delta;
-				bias := limit(bias);
+				-- bias := limit(bias);
 
 				-- correct weight
 				for i in 0 to weights_in'length - 1 loop 
@@ -117,13 +120,13 @@ begin
 					
 					weights :=  weights_in(i) + multiply(delta, input_connections(i));
 					
-					weights := limit(weights);
+					-- weights := limit(weights);
 					
 
 					weights_out(i) <= weights;
 				end loop;
-			else
-				weights_out <= weights_in;
+			-- else
+			--	weights_out <= weights_in;
 			end if;
 		else
 			-- weights_out <= weights_in;
