@@ -36,6 +36,7 @@ entity Layer is
 			clk						:	in std_logic;
 
 			n_feedback				:	in std_logic;
+			output_layer			:	in std_logic; -- tell each to only consider own error
 
 			connections_in			:	in fixed_point_vector;
 			connections_out		:	out fixed_point_vector;
@@ -67,6 +68,7 @@ architecture Behavioral of Layer is
 			clk					:	in std_logic;
 
 			n_feedback			:	in std_logic;
+			output_neuron		:	in std_logic; -- tell neuron to only consider own error
 
 			input_connections : 	in fixed_point_vector;
 			input_errors		:	in fixed_point_vector;
@@ -98,6 +100,7 @@ gen_neutrons:
 	(
 		clk => clk, 
 		n_feedback => n_feedback,
+		output_neuron => output_layer,
 		input_connections => connections_in, 
 		input_errors => errors_in,
 		output_connection => connections_out(i),

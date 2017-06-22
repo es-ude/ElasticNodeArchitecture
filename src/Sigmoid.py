@@ -5,10 +5,10 @@ import matplotlib as mpl
 import numpy as np
 import math
 
-factor = 64.
+factor = 1024.
 # max = 128.
 eps = 5.
-limit = 10.
+limit = 4.
 
 def float_sigmoid(x):
 	return eps + (factor - eps*2) * (1. / (1. + np.exp(-x)))

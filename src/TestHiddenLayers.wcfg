@@ -6,14 +6,13 @@
       <db_ref path="/home/ES/burger/git/fpgamiddlewareproject/TestHiddenLayers_isim_beh.wdb" id="1" type="auto">
          <top_modules>
             <top_module name="common" />
-            <top_module name="fixed_float_types" />
-            <top_module name="fixed_pkg" />
             <top_module name="math_real" />
             <top_module name="numeric_std" />
             <top_module name="sigmoid" />
             <top_module name="std_logic_1164" />
+            <top_module name="std_logic_arith" />
+            <top_module name="std_logic_unsigned" />
             <top_module name="testhiddenlayers" />
-            <top_module name="textio" />
             <top_module name="userlogicinterface" />
          </top_modules>
       </db_ref>
@@ -163,26 +162,6 @@
             <obj_property name="ElementShortName">connections[3:0]</obj_property>
             <obj_property name="ObjectShortName">connections[3:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            <wvobject fp_name="/testhiddenlayers/uut/connections[3]" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">[3]</obj_property>
-               <obj_property name="ObjectShortName">connections[3]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/testhiddenlayers/uut/connections[2]" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">[2]</obj_property>
-               <obj_property name="ObjectShortName">connections[2]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/testhiddenlayers/uut/connections[1]" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">[1]</obj_property>
-               <obj_property name="ObjectShortName">connections[1]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/testhiddenlayers/uut/connections[0]" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">[0]</obj_property>
-               <obj_property name="ObjectShortName">connections[0]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
          </wvobject>
          <wvobject fp_name="/testhiddenlayers/uut/conn_in" type="array" db_ref_id="1">
             <obj_property name="ElementShortName">conn_in[2:0]</obj_property>
@@ -234,40 +213,102 @@
          <obj_property name="label">weights</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         <wvobject fp_name="/testhiddenlayers/uut/weights" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">weights[3:0]</obj_property>
-            <obj_property name="ObjectShortName">weights[3:0]</obj_property>
+         <wvobject fp_name="group108" type="group">
+            <obj_property name="label">bram</obj_property>
+            <obj_property name="DisplayName">label</obj_property>
             <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            <wvobject fp_name="/testhiddenlayers/uut/weights[3]" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">[3]</obj_property>
-               <obj_property name="ObjectShortName">weights[3]</obj_property>
+            <wvobject fp_name="/testhiddenlayers/uut/weights/a_clk" type="logic" db_ref_id="1">
+               <obj_property name="ElementShortName">a_clk</obj_property>
+               <obj_property name="ObjectShortName">a_clk</obj_property>
+            </wvobject>
+            <wvobject fp_name="/testhiddenlayers/uut/weights/a_wr" type="logic" db_ref_id="1">
+               <obj_property name="ElementShortName">a_wr</obj_property>
+               <obj_property name="ObjectShortName">a_wr</obj_property>
+            </wvobject>
+            <wvobject fp_name="/testhiddenlayers/uut/weights/a_addr" type="array" db_ref_id="1">
+               <obj_property name="ElementShortName">a_addr[9:0]</obj_property>
+               <obj_property name="ObjectShortName">a_addr[9:0]</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/testhiddenlayers/uut/weights[2]" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">[2]</obj_property>
-               <obj_property name="ObjectShortName">weights[2]</obj_property>
+            <wvobject fp_name="/testhiddenlayers/uut/weights/a_dout" type="array" db_ref_id="1">
+               <obj_property name="ElementShortName">a_dout[71:0]</obj_property>
+               <obj_property name="ObjectShortName">a_dout[71:0]</obj_property>
+               <obj_property name="Radix">HEXRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/testhiddenlayers/uut/weights/b_din" type="array" db_ref_id="1">
+               <obj_property name="ElementShortName">b_din[71:0]</obj_property>
+               <obj_property name="ObjectShortName">b_din[71:0]</obj_property>
+               <obj_property name="Radix">HEXRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/testhiddenlayers/uut/weights/data" type="other" db_ref_id="1">
+               <obj_property name="ElementShortName">data</obj_property>
+               <obj_property name="ObjectShortName">data</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/testhiddenlayers/uut/weights[1]" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">[1]</obj_property>
-               <obj_property name="ObjectShortName">weights[1]</obj_property>
+            <wvobject fp_name="/testhiddenlayers/uut/weights/addr" type="other" db_ref_id="1">
+               <obj_property name="ElementShortName">addr</obj_property>
+               <obj_property name="ObjectShortName">addr</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/testhiddenlayers/uut/weights[0]" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">[0]</obj_property>
-               <obj_property name="ObjectShortName">weights[0]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
+         </wvobject>
+         <wvobject fp_name="/testhiddenlayers/uut/weights_dout" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">weights_dout[71:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_dout[71:0]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/testhiddenlayers/uut/weights_in" type="array" db_ref_id="1">
             <obj_property name="ElementShortName">weights_in[2:0]</obj_property>
             <obj_property name="ObjectShortName">weights_in[2:0]</obj_property>
             <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            <wvobject fp_name="/testhiddenlayers/uut/weights_in[2]" type="array" db_ref_id="1">
+               <obj_property name="ElementShortName">[2]</obj_property>
+               <obj_property name="ObjectShortName">weights_in[2]</obj_property>
+               <obj_property name="Radix">HEXRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/testhiddenlayers/uut/weights_in[1]" type="array" db_ref_id="1">
+               <obj_property name="ElementShortName">[1]</obj_property>
+               <obj_property name="ObjectShortName">weights_in[1]</obj_property>
+               <obj_property name="Radix">HEXRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/testhiddenlayers/uut/weights_in[0]" type="array" db_ref_id="1">
+               <obj_property name="ElementShortName">[0]</obj_property>
+               <obj_property name="ObjectShortName">weights_in[0]</obj_property>
+               <obj_property name="Radix">HEXRADIX</obj_property>
+            </wvobject>
+         </wvobject>
+         <wvobject fp_name="/testhiddenlayers/uut/weights_din" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">weights_din[71:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_din[71:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/testhiddenlayers/uut/weights_out" type="array" db_ref_id="1">
             <obj_property name="ElementShortName">weights_out[2:0]</obj_property>
             <obj_property name="ObjectShortName">weights_out[2:0]</obj_property>
             <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            <wvobject fp_name="/testhiddenlayers/uut/weights_out[2]" type="array" db_ref_id="1">
+               <obj_property name="ElementShortName">[2]</obj_property>
+               <obj_property name="ObjectShortName">weights_out[2]</obj_property>
+               <obj_property name="Radix">HEXRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/testhiddenlayers/uut/weights_out[1]" type="array" db_ref_id="1">
+               <obj_property name="ElementShortName">[1]</obj_property>
+               <obj_property name="ObjectShortName">weights_out[1]</obj_property>
+               <obj_property name="Radix">HEXRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/testhiddenlayers/uut/weights_out[0]" type="array" db_ref_id="1">
+               <obj_property name="ElementShortName">[0]</obj_property>
+               <obj_property name="ObjectShortName">weights_out[0]</obj_property>
+               <obj_property name="Radix">HEXRADIX</obj_property>
+            </wvobject>
+         </wvobject>
+         <wvobject fp_name="/testhiddenlayers/uut/weights_address" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">weights_address[9:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_address[9:0]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/testhiddenlayers/uut/weights_wr" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">weights_wr</obj_property>
+            <obj_property name="ObjectShortName">weights_wr</obj_property>
          </wvobject>
       </wvobject>
    </wvobject>
@@ -317,21 +358,6 @@
          <obj_property name="ElementShortName">errors_matrix[2:0]</obj_property>
          <obj_property name="ObjectShortName">errors_matrix[2:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         <wvobject fp_name="/testhiddenlayers/uut/lay/errors_matrix[2]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[2]</obj_property>
-            <obj_property name="ObjectShortName">errors_matrix[2]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/testhiddenlayers/uut/lay/errors_matrix[1]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[1]</obj_property>
-            <obj_property name="ObjectShortName">errors_matrix[1]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/testhiddenlayers/uut/lay/errors_matrix[0]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[0]</obj_property>
-            <obj_property name="ObjectShortName">errors_matrix[0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group82" type="group">
@@ -359,6 +385,11 @@
       <wvobject fp_name="/testhiddenlayers/uut/lay/\gen_neutrons(0)\/neuron_x/output_connection" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">output_connection[7:0]</obj_property>
          <obj_property name="ObjectShortName">output_connection[7:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testhiddenlayers/uut/lay/\gen_neutrons(0)\/neuron_x/output_previous" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">output_previous[7:0]</obj_property>
+         <obj_property name="ObjectShortName">output_previous[7:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/testhiddenlayers/uut/lay/\gen_neutrons(0)\/neuron_x/output_errors" type="array" db_ref_id="1">

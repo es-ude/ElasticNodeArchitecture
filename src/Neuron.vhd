@@ -52,6 +52,7 @@ entity Neuron is
 		clk					:	in std_logic;
 
 		n_feedback			:	in std_logic;
+		output_neuron		:	in std_logic; -- tell neuron to only consider own error
 
 		input_connections : 	in fixed_point_vector;
 		input_errors		:	in fixed_point_vector;
@@ -72,11 +73,11 @@ architecture Behavioral_Neuron of Neuron is
 	signal tf_signal 			:	fixed_point;
 	signal output_connection_signal	:	fixed_point;
 begin
-	process (clk, input_errors)
+	process (input_errors)
 	begin
-		if falling_edge(clk) then 
-			error_factor <= sum(input_errors);
-		end if;
+		-- if falling_edge(clk) then 
+		error_factor <= sum(input_errors);
+		-- end if;
 	end process;
 	output_connection <= output_connection_signal;
 
@@ -100,7 +101,11 @@ begin
 				-- delta := multiply(multiply(output_connection_signal, factor - output_connection_signal), error_factor);
 				
 				-- TODO output_previous being set up with output, need to add earlier
-				delta := multiply(multiply(output_previous, factor - output_previous), error_factor); -- input connection is output of previous cycle
+				if output_neuron = '1' then
+					delta := multiply(multiply(output_previous, factor - output_previous), input_errors(index)); -- input connection is output of previous cycle
+				else
+					delta := multiply(multiply(output_previous, factor - output_previous), error_factor); -- input connection is output of previous cycle
+				end if;
 				delta_signal <= delta;
 				bias := bias + delta;
 				bias := limit(bias);

@@ -23,12 +23,12 @@ constant b					:   integer := 16;
 subtype fixed_point is signed(b-1 downto 0);
 subtype double_fixed_point is signed(b+b-1 downto 0);
 
-constant w 					: 	natural := 8;
+constant w 					: 	natural := 3;
 constant l 					:	natural := 3;
 constant eps				:	natural := 10;
-constant factor			:	fixed_point := to_signed(128, b);
-constant factor_shift	:	natural := 7;
-constant factor_2   		:	fixed_point := to_signed(64, b);
+constant factor			:	fixed_point := to_signed(1024, b);
+constant factor_shift	:	natural := 10;
+constant factor_2   		:	fixed_point := to_signed(512, b);
 constant zero				:	fixed_point := (others => '0');
 constant init_weight		:	fixed_point := factor_2;
 --constant input_number		:	natural := 0;
@@ -38,16 +38,17 @@ constant maximum			:	fixed_point := x"7FFF";
 constant minimum			:	fixed_point := x"FFFE";
 
 subtype uintw_t is unsigned (w-1 downto 0);
-
+subtype weights_vector is std_logic_vector(b*w*w-1 downto 0);
 
 -- subtype fixed_point is integer range -10000 to 10000;
 type fixed_point_vector is array (w-1 downto 0) of fixed_point;
 type fixed_point_matrix is array (w-1 downto 0) of fixed_point_vector;
 type fixed_point_array is array (l-1 downto 0) of fixed_point_vector;
 -- cannot synthesize array of fpm, so make it wider instead
-type fixed_point_matrix_array is array ((w*l)-1 downto 0) of fixed_point_vector; -- in total l x w of vectors (each vector is weights in one neuron)
+type fixed_point_matrix_array is array (l-1 downto 0, w-1 downto 0) of fixed_point_vector; -- in total l x w of vectors (each vector is weights in one neuron)
 -- type fixed_point_matrix_array is array (l-1 downto 0) of fixed_point_matrix;
 
+function log2( i : natural) return integer;
 --function maximum_probability (signal probs_in : in fixed_point_vector) return fixed_point;
 function weighted_sum (signal weights : fixed_point_vector; signal connections : fixed_point_vector) return fixed_point;
 function weighted_sum (signal weights : fixed_point_vector; signal connections : uintw_t) return fixed_point;
@@ -95,6 +96,16 @@ package body Common is
 --		end loop;
 --		return max_i;
 --	end maximum_probability;
+	function log2( i : natural) return integer is
+		variable temp    : integer := i;
+		variable ret_val : integer := 0; 
+	begin					
+		while temp > 1 loop
+		ret_val := ret_val + 1;
+		temp    := temp / 2;     
+		end loop;
+		return ret_val;
+	end function;
 
 	function weighted_sum (signal weights : fixed_point_vector; signal connections : fixed_point_vector) return fixed_point is
 	variable sum : fixed_point := (others => '0');
@@ -122,6 +133,8 @@ package body Common is
         return sum;
 	end weighted_sum;
 
+	
+	
 	function sum (signal connections : fixed_point_vector) return fixed_point is
 	variable sum_var : fixed_point := (others => '0');
 	begin
