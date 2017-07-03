@@ -62,7 +62,7 @@ component Network is
 		data_rdy				:	out std_logic := '0';
 		calculate			:   in std_logic;
 	
-		connections_in		:	in uintw_t;
+		connections_in		:	in fixed_point_vector;
 		connections_out	:	out fixed_point_vector;
 		
 		-- wanted			:	in fixed_point_vector
@@ -132,7 +132,7 @@ begin
 
 net: Network port map
 (
-    clk, reset, learn, data_rdy, calculate, connections_in, connections_out_fp, wanted_fp
+    clk, reset, learn, data_rdy, calculate, connections_in_fp, connections_out_fp, wanted_fp
 );
 
 fpl: FixedPoint_Logic port map
@@ -140,10 +140,10 @@ fpl: FixedPoint_Logic port map
     connections_out_fp, connections_out, clk
 );
 
---lfp: Logic_FixedPoint port map
---(
---    connections_in_fp, connections_in, clk
---);
+lfp: Logic_FixedPoint port map
+(
+    connections_in_fp, connections_in, clk
+);
 
 lfpw: Logic_FixedPoint port map
 (

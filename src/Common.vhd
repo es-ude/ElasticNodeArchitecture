@@ -26,26 +26,30 @@ subtype double_fixed_point is signed(b+b-1 downto 0);
 constant w 					: 	natural := 3;
 constant l 					:	natural := 3;
 constant eps				:	natural := 10;
-constant factor			:	fixed_point := to_signed(128, b);
+constant factor			:	fixed_point := to_signed(64, b);
 constant factor_shift	:	natural := 7;
-constant factor_2   		:	fixed_point := to_signed(64, b);
+constant factor_2   		:	fixed_point := to_signed(32, b);
 constant zero				:	fixed_point := (others => '0');
 constant init_weight		:	fixed_point := factor_2;
 --constant input_number		:	natural := 0;
 --constant output_number		:	natural := 0;
 
-constant maximum			:	fixed_point := x"7F";
-constant minimum			:	fixed_point := x"FE";
+--constant maximum			:	fixed_point := '0' & (others => '1');
+--constant minimum			:	fixed_point := x"FE";
 
 subtype uintw_t is unsigned (w-1 downto 0);
-
+subtype weights_vector is std_logic_vector(b*w*w-1 downto 0);-- used for reading/writing ram
+subtype conn_vector is std_logic_vector(b*w-1 downto 0);-- used for reading/writing ram
 
 -- subtype fixed_point is integer range -10000 to 10000;
 type fixed_point_vector is array (w-1 downto 0) of fixed_point;
 type fixed_point_matrix is array (w-1 downto 0) of fixed_point_vector;
 type fixed_point_array is array (l-1 downto 0) of fixed_point_vector;
-type fixed_point_matrix_array is array (l-1 downto 0) of fixed_point_matrix;
+-- cannot synthesize array of fpm, so make it wider instead
+type fixed_point_matrix_array is array (l-1 downto 0, w-1 downto 0) of fixed_point_vector; -- in total l x w of vectors (each vector is weights in one neuron)
+-- type fixed_point_matrix_array is array (l-1 downto 0) of fixed_point_matrix;
 
+function log2( i : natural) return integer;
 --function maximum_probability (signal probs_in : in fixed_point_vector) return fixed_point;
 function weighted_sum (signal weights : fixed_point_vector; signal connections : fixed_point_vector) return fixed_point;
 function weighted_sum (signal weights : fixed_point_vector; signal connections : uintw_t) return fixed_point;
@@ -74,7 +78,7 @@ function multiply(A : in fixed_point; B : in fixed_point) return fixed_point;
 function round (A : in fixed_point) return std_logic;
 --function exp(A: in fixed_point) return fixed_point;
 --function sigmoid(arg : in fixed_point) return fixed_point;
-function limit(A : in fixed_point) return fixed_point;
+-- function limit(A : in fixed_point) return fixed_point;
 
 
 end Common;
@@ -93,6 +97,16 @@ package body Common is
 --		end loop;
 --		return max_i;
 --	end maximum_probability;
+	function log2( i : natural) return integer is
+		variable temp    : integer := i;
+		variable ret_val : integer := 0; 
+	begin					
+		while temp > 1 loop
+		ret_val := ret_val + 1;
+		temp    := temp / 2;     
+		end loop;
+		return ret_val;
+	end function;
 
 	function weighted_sum (signal weights : fixed_point_vector; signal connections : fixed_point_vector) return fixed_point is
 	variable sum : fixed_point := (others => '0');
@@ -120,6 +134,8 @@ package body Common is
         return sum;
 	end weighted_sum;
 
+	
+	
 	function sum (signal connections : fixed_point_vector) return fixed_point is
 	variable sum_var : fixed_point := (others => '0');
 	begin
@@ -148,9 +164,9 @@ package body Common is
 	end "+";
 
 	function "*" (A: in integer; B: in fixed_point) return fixed_point is
-	   variable TEMP : signed (fixed_point'length + fixed_point'high downto 0) := to_fixed_point(A) * B;
+	   variable TEMP : double_fixed_point := to_fixed_point(A) * B;
 	begin 
-		return TEMP(25 downto 10);
+		return TEMP(factor_shift+fixed_point'length-1 downto factor_shift);
 	end "*";
 
 	--function "-" (A: in fixed_point; B: in fixed_point) return fixed_point is
@@ -311,16 +327,16 @@ package body Common is
         return output;
     end round;
 
-	function limit(A : in fixed_point) return fixed_point is
-		variable limited : fixed_point := A;
-	begin
-		if limited > maximum then
-			limited := maximum;
-		elsif limited < minimum then
-			limited := minimum;
-		end if;
-		return limited;
-	end limit;
+--	function limit(A : in fixed_point) return fixed_point is
+--		variable limited : fixed_point := A;
+--	begin
+--		if limited > maximum then
+--			limited := maximum;
+--		elsif limited < minimum then
+--			limited := minimum;
+--		end if;
+--		return limited;
+--	end limit;
         
 	--function exp(A: in fixed_point) return fixed_point is
 	--begin

@@ -53,11 +53,11 @@ end Distributor;
 
 architecture Behavioral of Distributor is
 
-signal mode : integer range 0 to 5 := 0; -- 0 idle 1 feedforward 2 feedback 3 feedback->feedforward
+signal mode : integer range 0 to 6 := 0; -- 0 idle 1 feedforward 2 feedback 3 feedback->feedforward
 begin
 	process (reset, clk, calculate, learn)
 	variable n_feedback_var : std_logic := 'Z';
-	variable counter : integer range 0 to l + 1 := 0;
+	variable counter : integer range 0 to l := 0;
 	begin
 	    -- keep distributor 
 		if reset = '1' then
@@ -86,11 +86,15 @@ begin
 		--					data_rdy <= '0';
 						when 1 => -- feedforward
 							counter := counter + 1;
-							if counter = l then -- through all layers
+							if counter = l-1 then -- through all layers
+								-- avoid extra cycle on l=1
+								-- if counter > l-1 then counter := l-1; end if;
+								
 								if learn = '1' then
 									-- if counter = l * 10 then -- through all layers
-									n_feedback_var := '0';
-									mode <= 2;
+									-- n_feedback_var := '1';
+									-- counter := counter + 1; -- will be reduced again before active
+									mode <= 6;
 								else
 									-- if not learning, just return to first layer for feed forward
 									-- if counter = l * 10 + 1 then -- through all layers
@@ -124,10 +128,17 @@ begin
 						when 5 => -- input layer high 
 								  n_feedback_var := 'Z';
 								  mode <= 4;
+						when 6 => -- output layer low
+							n_feedback_var := '0';
+							mode <= 2;
 						when others =>
 					end case;
 					
-					current_layer <= to_unsigned(counter, current_layer'length);
+					if (n_feedback_var = '0' or n_feedback_var = '1') then
+						current_layer <= to_unsigned(counter, current_layer'length);
+					else
+						current_layer <= (others => 'U');
+					end if;
 				
 			--else
 			--	counter := 0;

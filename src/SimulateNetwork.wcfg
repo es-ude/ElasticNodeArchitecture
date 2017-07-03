@@ -6,19 +6,18 @@
       <db_ref path="/home/ES/burger/git/fpgamiddlewareproject/SimulateNetwork_isim_beh.wdb" id="1" type="auto">
          <top_modules>
             <top_module name="common" />
-            <top_module name="fixed_float_types" />
-            <top_module name="fixed_pkg" />
             <top_module name="math_real" />
             <top_module name="numeric_std" />
             <top_module name="sigmoid" />
             <top_module name="simulatenetwork" />
             <top_module name="std_logic_1164" />
-            <top_module name="textio" />
+            <top_module name="std_logic_arith" />
+            <top_module name="std_logic_unsigned" />
             <top_module name="userlogicinterface" />
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="6" />
+   <WVObjectSize size="7" />
    <wvobject fp_name="group11" type="group">
       <obj_property name="label">sim</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -89,7 +88,7 @@
       <wvobject fp_name="/simulatenetwork/uut/connections_in" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">connections_in[2:0]</obj_property>
          <obj_property name="ObjectShortName">connections_in[2:0]</obj_property>
-         <obj_property name="Radix">BINARYRADIX</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/simulatenetwork/uut/connections_out" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">connections_out[2:0]</obj_property>
@@ -107,13 +106,13 @@
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/simulatenetwork/uut/conn_matrix" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">conn_matrix[9:0]</obj_property>
-         <obj_property name="ObjectShortName">conn_matrix[9:0]</obj_property>
+         <obj_property name="ElementShortName">conn_matrix[2:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_matrix[2:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/simulatenetwork/uut/err_matrix" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">err_matrix[9:0]</obj_property>
-         <obj_property name="ObjectShortName">err_matrix[9:0]</obj_property>
+         <obj_property name="ElementShortName">err_matrix[2:0]</obj_property>
+         <obj_property name="ObjectShortName">err_matrix[2:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/simulatenetwork/uut/err_out" type="array" db_ref_id="1">
@@ -122,8 +121,8 @@
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/simulatenetwork/uut/n_feedback_bus" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">n_feedback_bus[10:0]</obj_property>
-         <obj_property name="ObjectShortName">n_feedback_bus[10:0]</obj_property>
+         <obj_property name="ElementShortName">n_feedback_bus[3:0]</obj_property>
+         <obj_property name="ObjectShortName">n_feedback_bus[3:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
    </wvobject>
@@ -136,9 +135,13 @@
          <obj_property name="ObjectShortName">clk</obj_property>
       </wvobject>
       <wvobject fp_name="/simulatenetwork/uut/distr/n_feedback_bus" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">n_feedback_bus[10:0]</obj_property>
-         <obj_property name="ObjectShortName">n_feedback_bus[10:0]</obj_property>
+         <obj_property name="ElementShortName">n_feedback_bus[3:0]</obj_property>
+         <obj_property name="ObjectShortName">n_feedback_bus[3:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatenetwork/uut/distr/n_feedback" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
       </wvobject>
       <wvobject fp_name="/simulatenetwork/uut/distr/current_layer" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
@@ -164,43 +167,108 @@
       <obj_property name="label">in</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      <wvobject fp_name="/simulatenetwork/uut/input_layer/clk" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">clk</obj_property>
-         <obj_property name="ObjectShortName">clk</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/input_layer/n_feedback" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">n_feedback</obj_property>
-         <obj_property name="ObjectShortName">n_feedback</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/input_layer/connections_in" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">connections_in[2:0]</obj_property>
-         <obj_property name="ObjectShortName">connections_in[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/input_layer/connections_out" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">connections_out[2:0]</obj_property>
-         <obj_property name="ObjectShortName">connections_out[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/input_layer/errors_in" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">errors_in[2:0]</obj_property>
-         <obj_property name="ObjectShortName">errors_in[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/input_layer/errors_out" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">errors_out[2:0]</obj_property>
-         <obj_property name="ObjectShortName">errors_out[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/input_layer/errors_matrix" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">errors_matrix[2:0]</obj_property>
-         <obj_property name="ObjectShortName">errors_matrix[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
    </wvobject>
    <wvobject fp_name="group63" type="group">
       <obj_property name="label">hidden</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="group132" type="group">
+         <obj_property name="label">weights</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights/a_clk" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">a_clk</obj_property>
+            <obj_property name="ObjectShortName">a_clk</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights/a_addr" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">a_addr[0:0]</obj_property>
+            <obj_property name="ObjectShortName">a_addr[0:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights/a_dout" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">a_dout[71:0]</obj_property>
+            <obj_property name="ObjectShortName">a_dout[71:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights/b_clk" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">b_clk</obj_property>
+            <obj_property name="ObjectShortName">b_clk</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights/b_wr" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">b_wr</obj_property>
+            <obj_property name="ObjectShortName">b_wr</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights/b_addr" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">b_addr[0:0]</obj_property>
+            <obj_property name="ObjectShortName">b_addr[0:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights/b_din" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">b_din[71:0]</obj_property>
+            <obj_property name="ObjectShortName">b_din[71:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group112" type="group">
+         <obj_property name="label">conn</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/connections/a_clk" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">a_clk</obj_property>
+            <obj_property name="ObjectShortName">a_clk</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/connections/a_wr" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">a_wr</obj_property>
+            <obj_property name="ObjectShortName">a_wr</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/connections/a_addr" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">a_addr[1:0]</obj_property>
+            <obj_property name="ObjectShortName">a_addr[1:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/connections/a_din" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">a_din[23:0]</obj_property>
+            <obj_property name="ObjectShortName">a_din[23:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/connections/a_dout" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">a_dout[23:0]</obj_property>
+            <obj_property name="ObjectShortName">a_dout[23:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/connections/b_clk" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">b_clk</obj_property>
+            <obj_property name="ObjectShortName">b_clk</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/connections/b_wr" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">b_wr</obj_property>
+            <obj_property name="ObjectShortName">b_wr</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/connections/b_addr" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">b_addr[1:0]</obj_property>
+            <obj_property name="ObjectShortName">b_addr[1:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/connections/b_dout" type="array" db_ref_id="1">
+            <obj_property name="DisplayName">label</obj_property>
+            <obj_property name="ElementShortName">b_dout[23:0]</obj_property>
+            <obj_property name="ObjectShortName">b_dout[23:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+            <obj_property name="label">b_dout[23:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/connections/data" type="other" db_ref_id="1">
+            <obj_property name="ElementShortName">data</obj_property>
+            <obj_property name="ObjectShortName">data</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/connections/addr" type="other" db_ref_id="1">
+            <obj_property name="ElementShortName">addr</obj_property>
+            <obj_property name="ObjectShortName">addr</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/conn_write" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">conn_write[2:0]</obj_property>
+            <obj_property name="ObjectShortName">conn_write[2:0]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         </wvobject>
+      </wvobject>
       <wvobject fp_name="/simulatenetwork/uut/hidden_layers/clk" type="logic" db_ref_id="1">
          <obj_property name="ElementShortName">clk</obj_property>
          <obj_property name="ObjectShortName">clk</obj_property>
@@ -218,6 +286,10 @@
          <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
+      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/output_layer" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">output_layer</obj_property>
+         <obj_property name="ObjectShortName">output_layer</obj_property>
+      </wvobject>
       <wvobject fp_name="/simulatenetwork/uut/hidden_layers/connections_in" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">connections_in[2:0]</obj_property>
          <obj_property name="ObjectShortName">connections_in[2:0]</obj_property>
@@ -228,84 +300,27 @@
          <obj_property name="ObjectShortName">connections_out[2:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/errors_in" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">errors_in[2:0]</obj_property>
-         <obj_property name="ObjectShortName">errors_in[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/errors_out" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">errors_out[2:0]</obj_property>
-         <obj_property name="ObjectShortName">errors_out[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">weights[9:0]</obj_property>
-         <obj_property name="ObjectShortName">weights[9:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights[9]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[9]</obj_property>
-            <obj_property name="ObjectShortName">weights[9]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights[8]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[8]</obj_property>
-            <obj_property name="ObjectShortName">weights[8]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights[7]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[7]</obj_property>
-            <obj_property name="ObjectShortName">weights[7]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights[6]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[6]</obj_property>
-            <obj_property name="ObjectShortName">weights[6]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights[5]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[5]</obj_property>
-            <obj_property name="ObjectShortName">weights[5]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights[4]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[4]</obj_property>
-            <obj_property name="ObjectShortName">weights[4]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights[3]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[3]</obj_property>
-            <obj_property name="ObjectShortName">weights[3]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights[2]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[2]</obj_property>
-            <obj_property name="ObjectShortName">weights[2]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights[1]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[1]</obj_property>
-            <obj_property name="ObjectShortName">weights[1]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights[0]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[0]</obj_property>
-            <obj_property name="ObjectShortName">weights[0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-      </wvobject>
       <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights_in" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">weights_in[2:0]</obj_property>
          <obj_property name="ObjectShortName">weights_in[2:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights_in[2]" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">[2]</obj_property>
+            <obj_property name="ObjectShortName">weights_in[2]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights_in[1]" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">[1]</obj_property>
+            <obj_property name="ObjectShortName">weights_in[1]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights_in[0]" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">[0]</obj_property>
+            <obj_property name="ObjectShortName">weights_in[0]</obj_property>
+         </wvobject>
       </wvobject>
       <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights_out" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">weights_out[2:0]</obj_property>
          <obj_property name="ObjectShortName">weights_out[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/connections" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">connections[9:0]</obj_property>
-         <obj_property name="ObjectShortName">connections[9:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/simulatenetwork/uut/hidden_layers/conn_in" type="array" db_ref_id="1">
@@ -328,153 +343,137 @@
          <obj_property name="ObjectShortName">err_out[2:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
-      <wvobject fp_name="group73" type="group">
-         <obj_property name="label">layer</obj_property>
+      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/current_layer_sample_signal" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">current_layer_sample_signal[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer_sample_signal[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group73" type="group">
+      <obj_property name="label">layer</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/n_feedback" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/connections_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_in[2:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in[2:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/connections_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_out[2:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out[2:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/connections_out_prev" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_out_prev[2:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out_prev[2:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/errors_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">errors_in[2:0]</obj_property>
+         <obj_property name="ObjectShortName">errors_in[2:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/errors_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">errors_out[2:0]</obj_property>
+         <obj_property name="ObjectShortName">errors_out[2:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/weights_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">weights_in[2:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_in[2:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/weights_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">weights_out[2:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_out[2:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/errors_matrix" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">errors_matrix[2:0]</obj_property>
+         <obj_property name="ObjectShortName">errors_matrix[2:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="group119" type="group">
+         <obj_property name="label">neuron_2</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/clk" type="logic" db_ref_id="1">
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(2)\/neuron_x/clk" type="logic" db_ref_id="1">
             <obj_property name="ElementShortName">clk</obj_property>
             <obj_property name="ObjectShortName">clk</obj_property>
          </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/n_feedback" type="logic" db_ref_id="1">
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(2)\/neuron_x/n_feedback" type="logic" db_ref_id="1">
             <obj_property name="ElementShortName">n_feedback</obj_property>
             <obj_property name="ObjectShortName">n_feedback</obj_property>
          </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/connections_in" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">connections_in[2:0]</obj_property>
-            <obj_property name="ObjectShortName">connections_in[2:0]</obj_property>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(2)\/neuron_x/input_connections" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">input_connections[2:0]</obj_property>
+            <obj_property name="ObjectShortName">input_connections[2:0]</obj_property>
             <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/connections_out" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">connections_out[2:0]</obj_property>
-            <obj_property name="ObjectShortName">connections_out[2:0]</obj_property>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(2)\/neuron_x/input_errors" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">input_errors[2:0]</obj_property>
+            <obj_property name="ObjectShortName">input_errors[2:0]</obj_property>
             <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/errors_in" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">errors_in[2:0]</obj_property>
-            <obj_property name="ObjectShortName">errors_in[2:0]</obj_property>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(2)\/neuron_x/output_connection" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">output_connection[7:0]</obj_property>
+            <obj_property name="ObjectShortName">output_connection[7:0]</obj_property>
             <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/errors_out" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">errors_out[2:0]</obj_property>
-            <obj_property name="ObjectShortName">errors_out[2:0]</obj_property>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(2)\/neuron_x/output_previous" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">output_previous[7:0]</obj_property>
+            <obj_property name="ObjectShortName">output_previous[7:0]</obj_property>
             <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/weights_in" type="array" db_ref_id="1">
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(2)\/neuron_x/output_errors" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">output_errors[2:0]</obj_property>
+            <obj_property name="ObjectShortName">output_errors[2:0]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(2)\/neuron_x/weights_in" type="array" db_ref_id="1">
             <obj_property name="ElementShortName">weights_in[2:0]</obj_property>
             <obj_property name="ObjectShortName">weights_in[2:0]</obj_property>
             <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/weights_out" type="array" db_ref_id="1">
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(2)\/neuron_x/weights_out" type="array" db_ref_id="1">
             <obj_property name="ElementShortName">weights_out[2:0]</obj_property>
             <obj_property name="ObjectShortName">weights_out[2:0]</obj_property>
             <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/errors_matrix" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">errors_matrix[2:0]</obj_property>
-            <obj_property name="ObjectShortName">errors_matrix[2:0]</obj_property>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(2)\/neuron_x/weights" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">weights[2:0]</obj_property>
+            <obj_property name="ObjectShortName">weights[2:0]</obj_property>
             <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/errors_matrix[2]" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">[2]</obj_property>
-               <obj_property name="ObjectShortName">errors_matrix[2]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/errors_matrix[1]" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">[1]</obj_property>
-               <obj_property name="ObjectShortName">errors_matrix[1]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/errors_matrix[0]" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">[0]</obj_property>
-               <obj_property name="ObjectShortName">errors_matrix[0]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
          </wvobject>
-         <wvobject fp_name="group88" type="group">
-            <obj_property name="label">neuron_1</obj_property>
-            <obj_property name="DisplayName">label</obj_property>
-            <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(0)\/neuron_x/clk" type="logic" db_ref_id="1">
-               <obj_property name="ElementShortName">clk</obj_property>
-               <obj_property name="ObjectShortName">clk</obj_property>
-            </wvobject>
-            <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(0)\/neuron_x/n_feedback" type="logic" db_ref_id="1">
-               <obj_property name="ElementShortName">n_feedback</obj_property>
-               <obj_property name="ObjectShortName">n_feedback</obj_property>
-            </wvobject>
-            <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(0)\/neuron_x/input_connections" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">input_connections[2:0]</obj_property>
-               <obj_property name="ObjectShortName">input_connections[2:0]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(0)\/neuron_x/input_errors" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">input_errors[2:0]</obj_property>
-               <obj_property name="ObjectShortName">input_errors[2:0]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(0)\/neuron_x/output_connection" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">output_connection[7:0]</obj_property>
-               <obj_property name="ObjectShortName">output_connection[7:0]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(0)\/neuron_x/output_errors" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">output_errors[2:0]</obj_property>
-               <obj_property name="ObjectShortName">output_errors[2:0]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(0)\/neuron_x/weights_in" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">weights_in[2:0]</obj_property>
-               <obj_property name="ObjectShortName">weights_in[2:0]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(0)\/neuron_x/weights_out" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">weights_out[2:0]</obj_property>
-               <obj_property name="ObjectShortName">weights_out[2:0]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(0)\/neuron_x/weights" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">weights[2:0]</obj_property>
-               <obj_property name="ObjectShortName">weights[2:0]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-               <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(0)\/neuron_x/weights[2]" type="array" db_ref_id="1">
-                  <obj_property name="ElementShortName">[2]</obj_property>
-                  <obj_property name="ObjectShortName">weights[2]</obj_property>
-                  <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-               </wvobject>
-               <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(0)\/neuron_x/weights[1]" type="array" db_ref_id="1">
-                  <obj_property name="ElementShortName">[1]</obj_property>
-                  <obj_property name="ObjectShortName">weights[1]</obj_property>
-                  <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-               </wvobject>
-               <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(0)\/neuron_x/weights[0]" type="array" db_ref_id="1">
-                  <obj_property name="ElementShortName">[0]</obj_property>
-                  <obj_property name="ObjectShortName">weights[0]</obj_property>
-                  <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-               </wvobject>
-            </wvobject>
-            <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(0)\/neuron_x/delta_signal" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">delta_signal[7:0]</obj_property>
-               <obj_property name="ObjectShortName">delta_signal[7:0]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(0)\/neuron_x/error_factor" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">error_factor[7:0]</obj_property>
-               <obj_property name="ObjectShortName">error_factor[7:0]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(0)\/neuron_x/tf_signal" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">tf_signal[7:0]</obj_property>
-               <obj_property name="ObjectShortName">tf_signal[7:0]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(0)\/neuron_x/output_connection_signal" type="array" db_ref_id="1">
-               <obj_property name="ElementShortName">output_connection_signal[7:0]</obj_property>
-               <obj_property name="ObjectShortName">output_connection_signal[7:0]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(0)\/neuron_x/index" type="other" db_ref_id="1">
-               <obj_property name="ElementShortName">index</obj_property>
-               <obj_property name="ObjectShortName">index</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(2)\/neuron_x/delta_signal" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">delta_signal[7:0]</obj_property>
+            <obj_property name="ObjectShortName">delta_signal[7:0]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(2)\/neuron_x/error_factor" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">error_factor[7:0]</obj_property>
+            <obj_property name="ObjectShortName">error_factor[7:0]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(2)\/neuron_x/tf_signal" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">tf_signal[7:0]</obj_property>
+            <obj_property name="ObjectShortName">tf_signal[7:0]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(2)\/neuron_x/output_connection_signal" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">output_connection_signal[7:0]</obj_property>
+            <obj_property name="ObjectShortName">output_connection_signal[7:0]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/lay/\gen_neutrons(2)\/neuron_x/index" type="other" db_ref_id="1">
+            <obj_property name="ElementShortName">index</obj_property>
+            <obj_property name="ObjectShortName">index</obj_property>
          </wvobject>
       </wvobject>
    </wvobject>
@@ -482,53 +481,5 @@
       <obj_property name="label">out</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      <wvobject fp_name="/simulatenetwork/uut/output_layer/clk" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">clk</obj_property>
-         <obj_property name="ObjectShortName">clk</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/output_layer/n_feedback" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">n_feedback</obj_property>
-         <obj_property name="ObjectShortName">n_feedback</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/output_layer/connections_in" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">connections_in[2:0]</obj_property>
-         <obj_property name="ObjectShortName">connections_in[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/output_layer/connections_out" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">connections_out[2:0]</obj_property>
-         <obj_property name="ObjectShortName">connections_out[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/output_layer/errors_in" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">errors_in[2:0]</obj_property>
-         <obj_property name="ObjectShortName">errors_in[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/output_layer/errors_out" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">errors_out[2:0]</obj_property>
-         <obj_property name="ObjectShortName">errors_out[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/output_layer/errors_matrix" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">errors_matrix[2:0]</obj_property>
-         <obj_property name="ObjectShortName">errors_matrix[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         <wvobject fp_name="/simulatenetwork/uut/output_layer/errors_matrix[2]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[2]</obj_property>
-            <obj_property name="ObjectShortName">errors_matrix[2]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/output_layer/errors_matrix[1]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[1]</obj_property>
-            <obj_property name="ObjectShortName">errors_matrix[1]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/simulatenetwork/uut/output_layer/errors_matrix[0]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[0]</obj_property>
-            <obj_property name="ObjectShortName">errors_matrix[0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-      </wvobject>
    </wvobject>
 </wave_config>

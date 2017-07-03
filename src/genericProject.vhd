@@ -10,8 +10,8 @@ use work.all;
 library fpgamiddlewarelibs;
 use fpgamiddlewarelibs.userlogicinterface.all;
 
-library matrixmultiplication;
-library vectordotproduct;
+--library matrixMultiplication;
+--library vectordotproduct;
 library neuralnetwork;
 
 --!

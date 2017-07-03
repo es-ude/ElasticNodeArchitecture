@@ -51,12 +51,13 @@ if __name__ == '__main__':
 	output.append('	process (arg) is')
 	output.append('	begin')
 	output.append('		if arg < %d then' % int(-limit*factor))
-	output.append('			ret <= to_signed(%d, fixed_point\'length);' % eps)
+	output.append('			ret <= to_fixed_point(%d);' % eps)
 	output.append('		elsif arg > %d then' % int(limit*factor))
-	output.append('			ret <= to_signed(%d, fixed_point\'length);' % (factor - eps))
+	output.append('			ret <= to_fixed_point(%d);' % (factor - eps))
 
 
-	x = np.linspace(-limit, limit, 100)
+
+	x = np.linspace(-limit, limit, 10)
 	y = float_sigmoid(x)
 	y2 = np.zeros_like(x)
 	r = np.zeros((2,))
@@ -75,12 +76,12 @@ if __name__ == '__main__':
 	# last entry:
 	y3.append(np.array([r[0], len(y2) - 1, y2[-1]]).astype('int'))
 
-	pp.figure()
-	pp.hold(True)
+	#pp.figure()
+	#pp.hold(True)
 
 	for i in range(len(y3)):
 		current = y3[i]
-		print current,
+		#print current,
 		current[0] = (int(factor * x[current[0]]))
 		current[1] = (int(factor * x[current[1]]))
 
@@ -88,12 +89,13 @@ if __name__ == '__main__':
 		pp.plot([current[0], current[1]], [current[2], current[2]], 'b')
 		output.append('		elsif arg >= to_fixed_point(%d) and arg < to_fixed_point(%d) then' % (current[0], current[1]))
 		output.append('			ret <= to_fixed_point(%d);' % current[2])
+
 	#print y3
 	
-	pp.plot(factor * x, np.array([y2]).T, 'r')
-	pp.plot(factor * x, np.array([y]).T, 'g')
-	pp.grid()
-	pp.show()
+	#pp.plot(factor * x, np.array([y2]).T, 'r')
+	#pp.plot(factor * x, np.array([y]).T, 'g')
+	#pp.grid()
+	#pp.show()
 	
 	output.append('		else')
 	output.append('			ret <= factor;')

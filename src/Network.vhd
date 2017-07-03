@@ -48,7 +48,7 @@ entity Network is
 			data_rdy			:	out std_logic := '0';
         	calculate      :   in std_logic;
             
-			connections_in	:	in uintw_t;
+			connections_in	:	in fixed_point_vector;
 			connections_out	:	out fixed_point_vector;
 
 			--errors_in		:	in fixed_point_vector;
@@ -58,19 +58,19 @@ entity Network is
 end Network;
 
 architecture Behavioral of Network is
-	component InputLayer is
-	port (
-			clk				:	in std_logic;
-
-			n_feedback		:	in std_logic;
-
-			connections_in	:	in uintw_t;
-			connections_out	:	out fixed_point_vector;
-
-			errors_in		:	in fixed_point_vector;
-			errors_out		:	out fixed_point_vector
-		);
-	end component;
+--	component InputLayer is
+--	port (
+--			clk				:	in std_logic;
+--
+--			n_feedback		:	in std_logic;
+--
+--			connections_in	:	in uintw_t;
+--			connections_out	:	out fixed_point_vector;
+--
+--			errors_in		:	in fixed_point_vector;
+--			errors_out		:	out fixed_point_vector
+--		);
+--	end component;
 
 	
 	component HiddenLayers is
@@ -83,24 +83,24 @@ architecture Behavioral of Network is
 			connections_in	:	in fixed_point_vector;
 			connections_out	:	out fixed_point_vector;
 
-			errors_in		:	in fixed_point_vector;
-			errors_out		:	out fixed_point_vector
+			wanted			:	in fixed_point_vector
+			-- errors_out		:	out fixed_point_vector
 		);
 	end component;
 
-	component OutputLayer is
-	port (
-			clk				:	in std_logic;
-
-			n_feedback		:	in std_logic;
-
-			connections_in	:	in fixed_point_vector;
-			connections_out	:	out fixed_point_vector;
-
-			errors_in		:	in fixed_point_vector;
-			errors_out		:	out fixed_point_vector
-		);
-	end component;
+--	component OutputLayer is
+--	port (
+--			clk				:	in std_logic;
+--
+--			n_feedback		:	in std_logic;
+--
+--			connections_in	:	in fixed_point_vector;
+--			connections_out	:	out fixed_point_vector;
+--
+--			errors_in		:	in fixed_point_vector;
+--			errors_out		:	out fixed_point_vector
+--		);
+--	end component;
 
 
 	component Diff is
@@ -117,8 +117,8 @@ architecture Behavioral of Network is
 	(
 		clk				:	in std_logic;
 		reset				: in std_logic;
-		learn			:	in std_logic;
-        calculate          :   in std_logic;
+		learn				:	in std_logic;
+        calculate    :   in std_logic;
 		n_feedback_bus	:	out std_logic_vector(l downto 0) := (others => 'Z'); -- l layers + summation (at l)
 		
 				
@@ -218,16 +218,16 @@ begin
 --	end generate;
 
 
-	input_layer : InputLayer port map (clk, n_feedback_bus(0), connections_in, conn_matrix(0), err_matrix(0), err_out);
-	hidden_layers: HiddenLayers port map (clk, n_feedback, current_layer, conn_matrix(0), conn_matrix(l-2), err_matrix(l-2), err_matrix(0));
-	output_layer : OutputLayer port map (clk, n_feedback_bus(l-1), conn_matrix(l-2), conn_matrix(l-1), err_matrix(l-1), err_matrix(l-2));
+	-- input_layer : InputLayer port map (clk, n_feedback_bus(0), connections_in, conn_matrix(0), err_matrix(0), err_out);
+	hidden_layers: HiddenLayers port map (clk, n_feedback, current_layer, connections_in, conn_matrix(l-1), wanted); --  err_matrix(l-1), err_out);
+	-- output_layer : OutputLayer port map (clk, n_feedback_bus(l-1), conn_matrix(l-2), conn_matrix(l-1), err_matrix(l-1), err_matrix(l-2));
 
 	-- lfp: Logic_FixedPoint port map (wanted_fp, wanted, clk);
 	
-	process (wanted, conn_matrix(l-1)) 
-	begin
-		err_matrix(l-1) <= wanted - conn_matrix(l-1);
-	end process;
+--	process (wanted, conn_matrix(l-1)) 
+--	begin
+--		err_matrix(l-1) <= wanted - conn_matrix(l-1);
+--	end process;
 	--diff_unit: Diff port map 
 	--(
 	--	current => conn_matrix(l-1), wanted => wanted_real, difference => err_matrix(l-1)
