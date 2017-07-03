@@ -18,17 +18,17 @@ use IEEE.NUMERIC_STD.all;
 
 package Common is
 
-constant b					:   integer := 8;
+constant b					:   integer := 16;
 
 subtype fixed_point is signed(b-1 downto 0);
 subtype double_fixed_point is signed(b+b-1 downto 0);
 
-constant w 					: 	natural := 3;
+constant w 					: 	natural := 2;
 constant l 					:	natural := 3;
 constant eps				:	natural := 10;
-constant factor			:	fixed_point := to_signed(64, b);
-constant factor_shift	:	natural := 7;
-constant factor_2   		:	fixed_point := to_signed(32, b);
+constant factor			:	fixed_point := to_signed(1024, b);
+constant factor_shift	:	natural := 10;
+constant factor_2   		:	fixed_point := to_signed(512, b);
 constant zero				:	fixed_point := (others => '0');
 constant init_weight		:	fixed_point := factor_2;
 --constant input_number		:	natural := 0;
@@ -100,12 +100,23 @@ package body Common is
 	function log2( i : natural) return integer is
 		variable temp    : integer := i;
 		variable ret_val : integer := 0; 
-	begin					
+		variable init_div: integer := i/2;
+	begin
+--		-- increment until next power of 2
+--		while (temp + 1) / 2 = init_div loop 
+--			temp := temp+1;
+--		end loop;
+--	
 		while temp > 1 loop
-		ret_val := ret_val + 1;
-		temp    := temp / 2;     
+			ret_val := ret_val + 1;
+			temp    := (temp / 2);
 		end loop;
-		return ret_val;
+		
+		if 2**ret_val < i then
+			return ret_val + 1;
+		else
+			return ret_val;
+		end if;
 	end function;
 
 	function weighted_sum (signal weights : fixed_point_vector; signal connections : fixed_point_vector) return fixed_point is

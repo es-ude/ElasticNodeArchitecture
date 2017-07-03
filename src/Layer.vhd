@@ -22,9 +22,12 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 library neuralnetwork;
 use neuralnetwork.Common.all;
+
+library fpgamiddlewarelibs;
+use fpgamiddlewarelibs.userlogicinterface.all;
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
@@ -37,7 +40,8 @@ entity Layer is
 
 			n_feedback				:	in std_logic;
 			output_layer			:	in std_logic; -- tell each to only consider own error
-
+			current_neuron			:	in uint8_t;
+					
 			connections_in			:	in fixed_point_vector;
 			connections_out		:	out fixed_point_vector;
 			connections_out_prev	:	in fixed_point_vector;
@@ -63,12 +67,13 @@ architecture Behavioral of Layer is
 	end component;
 
 	component Neuron
-		generic ( index		:	integer range 0 to w-1 );
+		-- generic ( 
 		port (
 			clk					:	in std_logic;
 
 			n_feedback			:	in std_logic;
 			output_neuron		:	in std_logic; -- tell neuron to only consider own error
+			index		:	integer range 0 to w-1;
 
 			input_connections : 	in fixed_point_vector;
 			input_errors		:	in fixed_point_vector;
@@ -82,8 +87,48 @@ architecture Behavioral of Layer is
 			);
 	end component;
 
+signal conn_in, error_out, weight_in, weight_out : fixed_point_vector;
+signal conn_out, conn_out_prev : fixed_point;
+signal current_neuron_int : integer range 0 to w-1;
 begin
 
+	-- grab current neuron
+--	process (clk) is
+--	begin
+--		if rising_edge(clk) then
+	current_neuron_int <= to_integer(current_neuron);
+--		end if;
+--	end process;
+	
+--	-- assign in/out based on neuron
+--	process (clk) is
+--	begin
+--		if falling_edge(clk) then
+	-- assign from vector or matrix for current neuron
+		-- conn_in <= connections_in(current_neuron_int);
+	process(clk, conn_out) is 
+	begin
+		connections_out(current_neuron_int) <= conn_out;
+	end process;
+	process (clk, connections_out_prev) is
+	begin
+		conn_out_prev <= connections_out_prev(current_neuron_int);
+	end process;
+	process (clk, weights_in) is
+	begin
+		weight_in <= weights_in(current_neuron_int);
+	end process;
+	process (clk, weight_out) is
+	begin
+		weights_out(current_neuron_int) <= weight_out;
+	end process;
+	process (clk, error_out) is
+	begin
+		errors_matrix(current_neuron_int) <= error_out;
+	end process;
+--		end if;
+--	end process;
+	
 	mux : sumMux port map
 	(
 		--clk => clk,
@@ -91,24 +136,27 @@ begin
 		errors_out => errors_out
 	);
 
-gen_neutrons:
-	for i in 0 to w-1 generate neuron_x : Neuron generic map
-	(
-		index => i
-	)
+-- gen_neutrons:
+--	for i in 0 to w-1 generate neuron_x : Neuron generic map
+--	(
+--		index => i
+--	)
+neur:
+	Neuron
 	port map 
 	(
 		clk => clk, 
 		n_feedback => n_feedback,
 		output_neuron => output_layer,
+		index => current_neuron_int,
 		input_connections => connections_in, 
 		input_errors => errors_in,
-		output_connection => connections_out(i),
-		output_previous => connections_out_prev(i),
-		output_errors => errors_matrix(i),
-		weights_in => weights_in(i),
-		weights_out => weights_out(i)
+		output_connection => conn_out,
+		output_previous => conn_out_prev,
+		output_errors => error_out,
+		weights_in => weight_in,
+		weights_out => weight_out
 	);
-	end generate;
+	-- end generate;
 end Behavioral;
 

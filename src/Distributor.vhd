@@ -45,6 +45,7 @@ entity Distributor is
 		
 		n_feedback		: 	out std_logic;
 		current_layer	:	out uint8_t;
+		current_neuron	:	out uint8_t;
 
 		data_rdy       :  out std_logic;
 		mode_out       :  out std_logic_vector(2 downto 0)
@@ -57,11 +58,13 @@ signal mode : integer range 0 to 6 := 0; -- 0 idle 1 feedforward 2 feedback 3 fe
 begin
 	process (reset, clk, calculate, learn)
 	variable n_feedback_var : std_logic := 'Z';
-	variable counter : integer range 0 to l := 0;
+	variable layer_counter : integer range -1 to l := 0;
+	variable neuron_counter : integer range 0 to w := 0;
 	begin
 	    -- keep distributor 
 		if reset = '1' then
-			counter := 0;
+			layer_counter := 0;
+			neuron_counter := 0;
 			n_feedback_var := 'Z'; -- init feed forward
 			mode <= 0;
 			n_feedback_bus <= (others => 'Z');
@@ -74,7 +77,8 @@ begin
 				
 					case mode is 
 						when 0 => -- init
-							counter := 0;
+							layer_counter := 0;
+							neuron_counter := 0;
 							n_feedback_var := 'Z';
 							
 							-- stay in idle until told to calculate
@@ -85,34 +89,46 @@ begin
 							end if;
 		--					data_rdy <= '0';
 						when 1 => -- feedforward
-							counter := counter + 1;
-							if counter = l-1 then -- through all layers
-								-- avoid extra cycle on l=1
-								-- if counter > l-1 then counter := l-1; end if;
+							neuron_counter := neuron_counter + 1;
+							if neuron_counter = w then
+								neuron_counter := 0;
 								
-								if learn = '1' then
-									-- if counter = l * 10 then -- through all layers
-									-- n_feedback_var := '1';
-									-- counter := counter + 1; -- will be reduced again before active
-									mode <= 6;
-								else
-									-- if not learning, just return to first layer for feed forward
-									-- if counter = l * 10 + 1 then -- through all layers
-									n_feedback_var := 'Z';
-									mode <= 4;
-									--                            n_feedback_var := '0';
-									--                            mode <= 2;
-									--counter := 0;
-									--data_rdy <= '1';
+								-- move on to next layer
+								layer_counter := layer_counter + 1;
+								if layer_counter = l then -- through all layers
+									-- return to last layer for feedback
+									layer_counter := l-1; 
+									
+									if learn = '1' then
+										-- if counter = l * 10 then -- through all layers
+										n_feedback_var := '0';
+										-- counter := counter + 1; -- will be reduced again before active
+										mode <= 6;
+									else
+										-- if not learning, just return to first layer for feed forward
+										-- if counter = l * 10 + 1 then -- through all layers
+										n_feedback_var := 'Z';
+										mode <= 4;
+										--                            n_feedback_var := '0';
+										--                            mode <= 2;
+										--counter := 0;
+										--data_rdy <= '1';
+									end if;
 								end if;
 							-- counter := l;
 							end if;
 						when 2 => -- feedback
-							counter := counter - 1;
-							if counter = 0 then
-								mode <= 5;
-								n_feedback_var := '0';
-								--counter := 0;
+							neuron_counter := neuron_counter + 1;
+							if neuron_counter = w then
+								neuron_counter := 0;
+							
+								layer_counter := layer_counter - 1;
+								if layer_counter = -1 then
+									layer_counter := 0;
+									mode <= 5;
+									n_feedback_var := 'Z';
+									--counter := 0;
+								end if;
 							end if;
 		--					data_rdy <= '0';
 						when 3 => -- input layer low then high
@@ -120,24 +136,26 @@ begin
 							mode <= 1; -- back to feedforward
 		--					data_rdy <= '0';
 						when 4 => -- wait for next input
-								  n_feedback_var := 'Z';
-								  mode <= 0;
-		                    data_rdy <= '1';
-		
-							
+							n_feedback_var := 'Z';
+							mode <= 0;
+							data_rdy <= '1';
 						when 5 => -- input layer high 
-								  n_feedback_var := 'Z';
-								  mode <= 4;
+							n_feedback_var := 'Z';
+							
+							mode <= 4;
 						when 6 => -- output layer low
 							n_feedback_var := '0';
 							mode <= 2;
+							neuron_counter := neuron_counter + 1;
 						when others =>
 					end case;
 					
 					if (n_feedback_var = '0' or n_feedback_var = '1') then
-						current_layer <= to_unsigned(counter, current_layer'length);
+						current_layer <= to_unsigned(layer_counter, current_layer'length);
+						current_neuron <= to_unsigned(neuron_counter, current_neuron'length);
 					else
 						current_layer <= (others => 'U');
+						current_neuron <= (others => 'U');
 					end if;
 				
 			--else
@@ -145,7 +163,7 @@ begin
 			--	n_feedback_var <= 'Z';
 			--end if;
 			n_feedback_bus <= (others => 'Z');
-			n_feedback_bus(counter) <= n_feedback_var;
+			n_feedback_bus(layer_counter) <= n_feedback_var;
 			n_feedback <= n_feedback_var;
 		end if;
 	end process;

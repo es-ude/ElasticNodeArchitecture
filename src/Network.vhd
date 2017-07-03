@@ -79,7 +79,8 @@ architecture Behavioral of Network is
 
 			n_feedback		:	in std_logic;
 			current_layer	: 	in uint8_t;
-
+			current_neuron	:	in uint8_t;
+			
 			connections_in	:	in fixed_point_vector;
 			connections_out	:	out fixed_point_vector;
 
@@ -124,9 +125,10 @@ architecture Behavioral of Network is
 				
 		n_feedback		: 	out std_logic;
 		current_layer	:	out uint8_t;
-		
-        data_rdy        :   out std_logic;
-        mode_out        :   out std_logic_vector(2 downto 0)
+		current_neuron	:	out uint8_t;
+				
+	  data_rdy        :   out std_logic;
+	  mode_out        :   out std_logic_vector(2 downto 0)
 	);
 	end component;
 	
@@ -138,18 +140,19 @@ architecture Behavioral of Network is
 		);
 	end component;
 
-	signal conn_matrix 	: fixed_point_array;
-	signal err_matrix 	: fixed_point_array;
-	signal err_out 		: fixed_point_vector;
-	signal data_rdy_s	: std_logic := '0';
+	signal conn_matrix 		: fixed_point_array;
+	signal err_matrix 		: fixed_point_array;
+	signal err_out 			: fixed_point_vector;
+	signal data_rdy_s			: std_logic := '0';
 	-- signal wanted_fp	: fixed_point_vector;
 	--signal conn_in_real	: fixed_point_vector;
 	--signal conn_out_real: fixed_point_vector;
 
 	--signal learn		: std_logic := '0';
-	signal n_feedback_bus : std_logic_vector(l downto 0) := (others => 'Z');
-	signal n_feedback		 : std_logic;
-	signal current_layer  : uint8_t;
+	signal n_feedback_bus 	: std_logic_vector(l downto 0) := (others => 'Z');
+	signal n_feedback		 	: std_logic;
+	signal current_layer  	: uint8_t;
+	signal current_neuron	: uint8_t;
 	
 begin
 	data_rdy <= data_rdy_s;
@@ -219,7 +222,7 @@ begin
 
 
 	-- input_layer : InputLayer port map (clk, n_feedback_bus(0), connections_in, conn_matrix(0), err_matrix(0), err_out);
-	hidden_layers: HiddenLayers port map (clk, n_feedback, current_layer, connections_in, conn_matrix(l-1), wanted); --  err_matrix(l-1), err_out);
+	hidden_layers: HiddenLayers port map (clk, n_feedback, current_layer, current_neuron, connections_in, conn_matrix(l-1), wanted); --  err_matrix(l-1), err_out);
 	-- output_layer : OutputLayer port map (clk, n_feedback_bus(l-1), conn_matrix(l-2), conn_matrix(l-1), err_matrix(l-1), err_matrix(l-2));
 
 	-- lfp: Logic_FixedPoint port map (wanted_fp, wanted, clk);
@@ -235,7 +238,7 @@ begin
 
 	distr: Distributor port map
 	(
-		clk, reset, learn, calculate, n_feedback_bus, n_feedback, current_layer, data_rdy_s, mode_out
+		clk, reset, learn, calculate, n_feedback_bus, n_feedback, current_layer, current_neuron, data_rdy_s, mode_out
 	);
 
 --	process (clk, learn)

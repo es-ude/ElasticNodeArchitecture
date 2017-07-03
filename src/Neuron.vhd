@@ -45,14 +45,15 @@ entity Neuron is
 	--	input_number 		: 	integer := input_number;
 	--	output_number		:	integer := output_number
 	--	);
-	generic (
-		index					:	integer range 0 to w-1
-		);
+--	generic (
+--		index					:	integer range 0 to w-1
+--		);
 	port (
 		clk					:	in std_logic;
 
 		n_feedback			:	in std_logic;
 		output_neuron		:	in std_logic; -- tell neuron to only consider own error
+		index					:	in integer range 0 to w-1;
 
 		input_connections : 	in fixed_point_vector;
 		input_errors		:	in fixed_point_vector;
@@ -85,10 +86,11 @@ sig:
 	entity neuralnetwork.sigmoid(Behavioral) port map (tf_signal, output_connection_signal);
 
 	process (clk, n_feedback)
-		variable bias			:	fixed_point := zero;
-		variable tf				: 	fixed_point := zero;
-		variable delta			:	fixed_point := zero;
-		variable weights		: 	fixed_point;
+		variable bias				:	fixed_point := zero;
+		variable tf					: 	fixed_point := zero;
+		variable output_factor 	: 	fixed_point;
+		variable delta				:	fixed_point := zero;
+		variable weights			: 	fixed_point;
 	begin
 		if rising_edge(clk) then
 			if n_feedback = '1' then
@@ -103,11 +105,12 @@ sig:
 				-- delta := resize_fixed_point(resize_fixed_point(output_connection_signal * (factor - (output_connection_signal))) * error_factor);
 				-- delta := multiply(multiply(output_connection_signal, factor - output_connection_signal), error_factor);
 				
+				output_factor := multiply(output_previous, factor - output_previous);
 				-- TODO output_previous being set up with output, need to add earlier
 				if output_neuron = '1' then
-					delta := multiply(multiply(output_previous, factor - output_previous), input_errors(index)); -- input connection is output of previous cycle
+					delta := multiply(output_factor, input_errors(index)); -- input connection is output of previous cycle
 				else
-					delta := multiply(multiply(output_previous, factor - output_previous), error_factor); -- input connection is output of previous cycle
+					delta := multiply(output_factor, error_factor); -- input connection is output of previous cycle
 				end if;
 				delta_signal <= delta;
 				bias := bias + delta;
@@ -125,7 +128,8 @@ sig:
 
 					weights_out(i) <= weights;
 				end loop;
-			-- else
+			else
+				
 			--	weights_out <= weights_in;
 			end if;
 		else

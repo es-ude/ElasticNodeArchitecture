@@ -5,7 +5,7 @@ import matplotlib as mpl
 import numpy as np
 import math
 
-factor = 64.
+factor = 1024.
 # max = 128.
 eps = 5.
 limit = 4.

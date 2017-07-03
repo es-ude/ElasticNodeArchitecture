@@ -40,7 +40,8 @@ entity HiddenLayers is
 
 			n_feedback				:	in std_logic;
 			current_layer			:	in uint8_t;
-
+			current_neuron			:	in uint8_t;
+					
 			connections_in			:	in fixed_point_vector;
 			connections_out		:	out fixed_point_vector;
 
@@ -81,7 +82,7 @@ begin
 lay: 
 	entity neuralNetwork.Layer(Behavioral) port map
 	(
-		clk, n_feedback, output_layer, conn_in, conn_out, conn_out_prev, err_in, err_out, weights_in, weights_out
+		clk, n_feedback, output_layer, current_neuron, conn_in, conn_out, conn_out_prev, err_in, err_out, weights_in, weights_out
 	);
 output_layer <= '1' when current_layer = l-1 else '0';
 
@@ -150,27 +151,41 @@ ctv:
 	-- ram prep process
 	process(clk, current_layer) is
 		variable current_layer_sample : integer range 0 to l;
+		variable last_neuron : boolean;
 	begin
 		if rising_edge(clk) then
-			weights_wr <= '0';
+			last_neuron := current_neuron = w-1;
+			
+			-- weights_wr <= '0';
+			if n_feedback = '0' and last_neuron then 
+				weights_wr <= '1';		
+			else
+				weights_wr <= '0';
+			end if;
 			
 			current_layer_sample := to_integer(current_layer);
-			weights_wr_address <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
+			
+			if last_neuron then
+				weights_wr_address <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
+			end if;
 			
 			-- when forward, load weights for next (clocks inverted)
 			if n_feedback = '1' then
-				if current_layer_sample = l-1 then
-					weights_rd_address <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
-				else
-					weights_rd_address <= std_logic_vector(resize(current_layer + 1, WEIGHTS_RAM_WIDTH));
+				if last_neuron then
+					if current_layer_sample = l-1 then
+						weights_rd_address <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
+					else
+						weights_rd_address <= std_logic_vector(resize(current_layer + 1, WEIGHTS_RAM_WIDTH));
+					end if;
 				end if;
 			-- when backward, load next 
 			elsif n_feedback = '0' then
-				weights_rd_address <= std_logic_vector(resize(current_layer - 1, WEIGHTS_RAM_WIDTH));
-				-- if currently in hidden layer, queue write next cycle
-				-- if current_layer_sample > 0 and current_layer_sample < l-1 then
-				weights_wr <= '1';
-				-- end if;
+				if last_neuron then
+					weights_rd_address <= std_logic_vector(resize(current_layer - 1, WEIGHTS_RAM_WIDTH));
+					-- if currently in hidden layer, queue write next cycle
+					-- if current_layer_sample > 0 and current_layer_sample < l-1 then
+					-- end if;
+				end if;
 			else
 				weights_rd_address <= (others => '0'); -- preload first one 
 			end if;
@@ -191,30 +206,34 @@ ctv:
 			current_layer_sample := to_integer(current_layer);
 			-- weights_wr_address <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
 			
-			-- when forward, load weights for next (clocks inverted)
-			if n_feedback = '1' then
-				conn_address_a <= std_logic_vector(resize(current_layer + 1, CONN_RAM_WIDTH));
-				conn_address_b <= std_logic_vector(to_unsigned(l-1, CONN_RAM_WIDTH));
-				conn_wr <= '1';
---				if current_layer_sample = l-1 then
---					weights_rd_address <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
---				else
---					weights_rd_address <= std_logic_vector(resize(current_layer + 1, WEIGHTS_RAM_WIDTH));
---				end if;
-			-- when backward, load next 
-			elsif n_feedback = '0' then
-				conn_address_a <= std_logic_vector(resize(current_layer, CONN_RAM_WIDTH));
-				conn_address_b <= std_logic_vector(resize(current_layer-1, CONN_RAM_WIDTH));
-				--weights_rd_address <= std_logic_vector(resize(current_layer - 1, WEIGHTS_RAM_WIDTH));
-				-- if currently in hidden layer, queue write next cycle
-				-- if current_layer_sample > 0 and current_layer_sample < l-1 then
-				-- weights_wr <= '1';
-				-- end if;
-			else
+			-- update conn ram reading address 
+			if current_neuron = w-1 then
+				-- when forward, load weights for next (clocks inverted)
+				if n_feedback = '1' then
+					conn_address_a <= std_logic_vector(resize(current_layer + 1, CONN_RAM_WIDTH));
+					conn_address_b <= std_logic_vector(to_unsigned(l-1, CONN_RAM_WIDTH));
+					conn_wr <= '1';
+	--				if current_layer_sample = l-1 then
+	--					weights_rd_address <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
+	--				else
+	--					weights_rd_address <= std_logic_vector(resize(current_layer + 1, WEIGHTS_RAM_WIDTH));
+	--				end if;
+				-- when backward, load next 
+				elsif n_feedback = '0' then
+					conn_address_a <= std_logic_vector(resize(current_layer, CONN_RAM_WIDTH));
+					conn_address_b <= std_logic_vector(resize(current_layer-1, CONN_RAM_WIDTH));
+					--weights_rd_address <= std_logic_vector(resize(current_layer - 1, WEIGHTS_RAM_WIDTH));
+					-- if currently in hidden layer, queue write next cycle
+					-- if current_layer_sample > 0 and current_layer_sample < l-1 then
+					-- weights_wr <= '1';
+					-- end if;
+				end if;
+			elsif n_feedback /= '0' and n_feedback /= '1' then
 				conn_wr <= '1';
 				conn_address_a <= (others => '0');
-				
-				-- weights_rd_address <= (others => '0'); -- preload first one 
+		
+			
+			-- weights_rd_address <= (others => '0'); -- preload first one 
 			end if;
 			
 			-- weights_in <= vector_to_weights(weights_dout); -- weights((current_layer_sample+1)*w-1 downto current_layer_sample*w);
@@ -255,7 +274,12 @@ ctv:
 --					end loop;
 
 				-- if current_layer_sample < l-1 then
-					err_in <= err_out; -- forward results of previous layer to next layer
+					
+					-- feedback errors when layer complete
+					if current_neuron = w-1 then
+						err_in <= err_out; -- forward results of previous layer to next layer
+					end if;
+					
 						-- ***
 --						-- currently addressing w of w*l 
 --						-- type incompatibility: writing part of a fp_matrix_array to a fp_matrix
@@ -284,7 +308,11 @@ ctv:
 				-- conn_in <= conn_out; -- forward results of previous layer to next layer
 					--- connections(current_layer_sample) <= conn_out;
 				-- conn_write <= conn_out;
-				conn_feedback <= conn_out;
+				
+				-- perform feedback when last neuron calculated
+				if current_neuron = w-1 then
+					conn_feedback <= conn_out;
+				end if;
 				
 				-- when in the last feed forward, preload the conn_out_prev
 				if current_layer_sample = l-1 then

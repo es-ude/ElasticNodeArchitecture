@@ -44,7 +44,7 @@ architecture Behavioral of VectorToWeights is
 	-- signal weights : fixed_point_matrix := (others => (others => init_weight));
 begin
 	process (vector) is
-		variable fpv : fixed_point_vector;
+--		variable fpv : fixed_point_vector;
 		variable fp : fixed_point;
 		variable index : integer range 0 to vector'length;
 	begin
@@ -52,18 +52,15 @@ begin
 		if vector(0) = 'U' then
 			weights <= (others => (others => init_weight));
 		else
-			-- first dim (each outside neuron)
 			for i in 0 to w-1 loop
-				-- fpv := matrix(i);
-				-- second dim (each neuron)
+				-- first dim (each neuron)
 				for j in 0 to w-1 loop
 					-- fp := fpv(j);
 					-- vector
 					-- for k in 0 to b-1 loop
-					index := j * (b) + i * (b*w);
+					index := i * (b*w) + j * (b);
 					weights(i)(j) <= signed(vector(index+b-1 downto index));
 						-- vector(k + j * (b) + i * (b*w)) <= fp(k);
-					-- end loop;
 				end loop;
 			end loop;
 		end if;
