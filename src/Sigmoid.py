@@ -31,20 +31,30 @@ if __name__ == '__main__':
 	output.append('use work.Common.all;')
 
 	output.append('')
-	output.append('package Sigmoid is')
-	output.append('function sigmoid(arg : in fixed_point) return fixed_point;')
+	output.append('entity Sigmoid is')
+	output.append('port (')
+	output.append('	arg 	: in fixed_point;')
+	output.append('	ret 	: out fixed_point')
+	output.append(');')
 	output.append('end Sigmoid;')
+	# output.append('package Sigmoid is')
+	# output.append('function sigmoid(arg : in fixed_point) return fixed_point;')
+	# output.append('end Sigmoid;')
 
 	output.append('')
-	output.append('package body Sigmoid is')
-	output.append('	function sigmoid (arg: in fixed_point) return fixed_point is')
-	output.append("		variable ret : fixed_point;")
+	output.append('architecture Behavioral of Sigmoid is')
+	# output.append('package body Sigmoid is')
+	# output.append('	function sigmoid (arg: in fixed_point) return fixed_point is')
+	# output.append("		variable ret : fixed_point;")
 	output.append('	begin')
 
-	output.append('		if arg < to_signed(%d, fixed_point\'length) then' % int(-limit*factor))
-	output.append('			ret := to_signed(%d, fixed_point\'length);' % eps)
-	output.append('		elsif arg > to_signed(%d, fixed_point\'length) then' % int(limit*factor))
-	output.append('			ret := to_signed(%d, fixed_point\'length);' % (factor - eps))
+	output.append('	process (arg) is')
+	output.append('	begin')
+	output.append('		if arg < %d then' % int(-limit*factor))
+	output.append('			ret <= to_fixed_point(%d);' % eps)
+	output.append('		elsif arg > %d then' % int(limit*factor))
+	output.append('			ret <= to_fixed_point(%d);' % (factor - eps))
+
 
 
 	x = np.linspace(-limit, limit, 10)
@@ -75,10 +85,11 @@ if __name__ == '__main__':
 		current[0] = (int(factor * x[current[0]]))
 		current[1] = (int(factor * x[current[1]]))
 
-		#print current
-		#pp.plot([current[0], current[1]], [current[2], current[2]], 'b')
-		output.append('		elsif arg >= to_signed(%d, fixed_point\'length) and arg < to_signed(%d, fixed_point\'length) then' % (current[0], current[1]))
-		output.append('			ret := to_signed(%d, fixed_point\'length);' % current[2])
+		print current
+		pp.plot([current[0], current[1]], [current[2], current[2]], 'b')
+		output.append('		elsif arg >= to_fixed_point(%d) and arg < to_fixed_point(%d) then' % (current[0], current[1]))
+		output.append('			ret <= to_fixed_point(%d);' % current[2])
+
 	#print y3
 	
 	#pp.plot(factor * x, np.array([y2]).T, 'r')
@@ -87,11 +98,12 @@ if __name__ == '__main__':
 	#pp.show()
 	
 	output.append('		else')
-	output.append('			return factor;')
+	output.append('			ret <= factor;')
 	output.append('		end if;')
-	output.append("		return ret;")
-	output.append('	end sigmoid;')
-	output.append('end Sigmoid;')
+	output.append('	end process;')
+	# output.append("		return ret;")
+	# output.append('	end sigmoid;')
+	output.append('end Behavioral;')
 
 	fopen = open('Sigmoid.vhd', 'w')
 	for line in output:
