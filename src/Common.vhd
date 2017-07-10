@@ -23,7 +23,7 @@ constant b					:   integer := 16;
 subtype fixed_point is signed(b-1 downto 0);
 subtype double_fixed_point is signed(b+b-1 downto 0);
 
-constant w 					: 	natural := 2;
+constant w 					: 	natural := 4;
 constant l 					:	natural := 3;
 constant eps				:	natural := 10;
 constant factor			:	fixed_point := to_signed(1024, b);

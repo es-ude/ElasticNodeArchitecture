@@ -63,7 +63,10 @@ entity Neuron is
 		output_errors		: 	out fixed_point_vector := (others => zero);
 		
 		weights_in			: 	in fixed_point_vector;
-		weights_out			: 	out fixed_point_vector := (others => factor_2)
+		weights_out			: 	out fixed_point_vector := (others => factor_2);
+		
+		bias_in				: 	in fixed_point;
+		bias_out				: 	out fixed_point
 		);
 end Neuron;
 
@@ -74,10 +77,14 @@ architecture Behavioral_Neuron of Neuron is
 	signal tf_signal 			:	fixed_point;
 	signal output_connection_signal	:	fixed_point;
 begin
-	process (input_errors)
+	process (input_errors, output_neuron, index)
 	begin
 		-- if falling_edge(clk) then 
-		error_factor <= sum(input_errors);
+		if output_neuron = '1' then
+			error_factor <= input_errors(index);
+		else
+			error_factor <= sum(input_errors);
+		end if;
 		-- end if;
 	end process;
 	output_connection <= output_connection_signal;
@@ -89,13 +96,14 @@ sig:
 		variable bias				:	fixed_point := zero;
 		variable tf					: 	fixed_point := zero;
 		variable output_factor 	: 	fixed_point;
+		variable out_prev			: 	fixed_point;
 		variable delta				:	fixed_point := zero;
 		variable weights			: 	fixed_point;
 	begin
 		if rising_edge(clk) then
 			if n_feedback = '1' then
 				--calculate output values
-				tf := weighted_sum(weights_in, input_connections) + bias;
+				tf := weighted_sum(weights_in, input_connections) + bias_in;
 				tf_signal <= tf;
 				--output_connection_signal <= resize_fixed_point(real_to_fixed_point(1.0) / resize_fixed_point(1.0 + exp(resize_fixed_point(-tf))));
 				-- output_connection_signal <= sigmoid(tf);
@@ -104,16 +112,17 @@ sig:
 			elsif n_feedback = '0' then
 				-- delta := resize_fixed_point(resize_fixed_point(output_connection_signal * (factor - (output_connection_signal))) * error_factor);
 				-- delta := multiply(multiply(output_connection_signal, factor - output_connection_signal), error_factor);
-				
+
 				output_factor := multiply(output_previous, factor - output_previous);
 				-- TODO output_previous being set up with output, need to add earlier
-				if output_neuron = '1' then
-					delta := multiply(output_factor, input_errors(index)); -- input connection is output of previous cycle
-				else
-					delta := multiply(output_factor, error_factor); -- input connection is output of previous cycle
-				end if;
+				--if output_neuron = '1' then
+					--delta := multiply(output_factor, input_errors(index)); -- input connection is output of previous cycle
+				--else
+				delta := multiply(output_factor, error_factor); -- input connection is output of previous cycle
+				--end if;
 				delta_signal <= delta;
-				bias := bias + delta;
+				bias := bias_in + delta;
+				bias_out <= bias;
 				-- bias := limit(bias);
 
 				-- correct weight

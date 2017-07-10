@@ -64,11 +64,12 @@ architecture Behavioral of NeuralNetworkSkeleton is
 	signal connections_in  :  uintw_t;
 	signal wanted          :  uintw_t;
 	signal connections_out :  uintw_t;
+	signal run_counter	  :  uintw_t;
 	
 begin
 
 nn: entity neuralnetwork.NeuralNetwork(Behavioral)
-	port map (clock, reset, learn, done, calculate, connections_in, wanted, connections_out);
+	port map (clock, reset, learn, open, done, calculate, connections_in, wanted, connections_out); -- done wired to busy
 				
 	-- process data receive 
 	process (clock, rd, wr, reset)
@@ -77,6 +78,7 @@ nn: entity neuralnetwork.NeuralNetwork(Behavioral)
 		if reset = '1' then
 			data_out <= (others => '0');
 			calculate <= '0';
+			run_counter <= (others => '0');
 			-- done <= '0';
 		else
 		-- beginning/end
@@ -98,7 +100,6 @@ nn: entity neuralnetwork.NeuralNetwork(Behavioral)
 						when 2 => 
 							learn <= data_in(0);
 						-- when 107 =>
-							-- do not calculate, unless accessing vectorB
 							calculate  <= '1'; -- trigger calculate high for one clock cycle
 						when others =>
 						end case;
@@ -111,9 +112,14 @@ nn: entity neuralnetwork.NeuralNetwork(Behavioral)
 							data_out(w-1 downto 0) <= connections_in(w-1 downto 0);
 						when 1 =>
 							data_out(w-1 downto 0) <= wanted(w-1 downto 0);
+						when 2 => 
+							data_out <= (others => '0');
+							data_out(0) <= learn;
 						when 3 =>
 							data_out(w-1 downto 0) <= connections_out(w-1 downto 0);
 	
+						when 255 => 
+							data_out(w-1 downto 0) <= run_counter(w-1 downto 0);
 						when others =>
 							data_out <= to_unsigned(255, 8) - address_in(7 downto 0) + address_in(15 downto 8);
 						end case;

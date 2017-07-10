@@ -57,7 +57,7 @@ if __name__ == '__main__':
 
 
 
-	x = np.linspace(-limit, limit, 10)
+	x = np.linspace(-limit, limit, 100)
 	y = float_sigmoid(x)
 	y2 = np.zeros_like(x)
 	r = np.zeros((2,))

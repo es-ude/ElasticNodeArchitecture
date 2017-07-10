@@ -32,7 +32,7 @@ use fpgamiddlewarelibs.userlogicinterface.all;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
@@ -53,7 +53,7 @@ entity Network is
 
 			--errors_in		:	in fixed_point_vector;
 			wanted			:	in fixed_point_vector;
-         	mode_out       :   out std_logic_vector(2 downto 0)
+         mode_out       :  out uint8_t
 		);
 end Network;
 
@@ -76,6 +76,7 @@ architecture Behavioral of Network is
 	component HiddenLayers is
 	port (
 			clk				:	in std_logic;
+			reset				: 	in std_logic;
 
 			n_feedback		:	in std_logic;
 			current_layer	: 	in uint8_t;
@@ -119,7 +120,7 @@ architecture Behavioral of Network is
 		clk				:	in std_logic;
 		reset				: in std_logic;
 		learn				:	in std_logic;
-        calculate    :   in std_logic;
+      calculate    	:   in std_logic;
 		n_feedback_bus	:	out std_logic_vector(l downto 0) := (others => 'Z'); -- l layers + summation (at l)
 		
 				
@@ -128,7 +129,7 @@ architecture Behavioral of Network is
 		current_neuron	:	out uint8_t;
 				
 	  data_rdy        :   out std_logic;
-	  mode_out        :   out std_logic_vector(2 downto 0)
+	  mode_out        :   out uint8_t
 	);
 	end component;
 	
@@ -144,6 +145,8 @@ architecture Behavioral of Network is
 	signal err_matrix 		: fixed_point_array;
 	signal err_out 			: fixed_point_vector;
 	signal data_rdy_s			: std_logic := '0';
+	signal mode_out_signal	: uint8_t;
+	
 	-- signal wanted_fp	: fixed_point_vector;
 	--signal conn_in_real	: fixed_point_vector;
 	--signal conn_out_real: fixed_point_vector;
@@ -156,7 +159,17 @@ architecture Behavioral of Network is
 	
 begin
 	data_rdy <= data_rdy_s;
-	connections_out <= conn_matrix(l-1);
+	-- set output connections when changing to learning
+	process (n_feedback, learn, mode_out_signal) is
+	begin
+		if learn = '0' then
+			if mode_out_signal = to_unsigned(4, mode_out_signal'length) then -- std_logic_vector(to_unsigned(4, mode_out_signal'length)) then
+				connections_out <= conn_matrix(l-1);
+			end if;
+		elsif falling_edge(n_feedback) then
+			connections_out <= conn_matrix(l-1);
+		end if;
+	end process;
 	--process (conn_matrix(l-1))
 	--begin
 	--	for i in 0 to w-1 loop
@@ -238,8 +251,9 @@ begin
 
 	distr: Distributor port map
 	(
-		clk, reset, learn, calculate, n_feedback_bus, n_feedback, current_layer, current_neuron, data_rdy_s, mode_out
+		clk, reset, learn, calculate, n_feedback_bus, n_feedback, current_layer, current_neuron, data_rdy_s, mode_out_signal
 	);
+	mode_out <= mode_out_signal;
 
 --	process (clk, learn)
 --	variable clk_count : natural range 0 to (l * 2 + 1) := 0;

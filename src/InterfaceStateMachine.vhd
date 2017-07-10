@@ -33,7 +33,7 @@ entity InterfaceStateMachine is
 		
 		-- userlogic interface
 		userlogic_reset	: out std_logic;
-		userlogic_done 	: in std_logic;
+		userlogic_busy 	: in std_logic;
 		userlogic_data_in	: out uint8_t;
 		userlogic_address	: out uint16_t;
 		userlogic_data_out: in uint8_t;
