@@ -20,7 +20,7 @@ library neuralnetwork;
 --!
 entity genericProject is
 	port (
-		userlogic_done	: out std_logic;
+		userlogic_busy	: out std_logic;
 		userlogic_sleep: out std_logic;
 
 		ARD_RESET 	: out std_logic;
@@ -72,7 +72,7 @@ signal invert_clk				: std_logic;
 
 -- userlogic variables
 signal userlogic_reset			: std_logic;
-signal userlogic_done_s			: std_logic;
+signal userlogic_busy_s			: std_logic;
 signal userlogic_data_in, userlogic_data_out : uint8_t;
 signal userlogic_address		: uint16_t;
 signal userlogic_rd, userlogic_wr: std_logic;
@@ -107,7 +107,7 @@ mw: entity work.middleware(Behavioral)
 
 		-- userlogic
 		userlogic_reset,
-		userlogic_done_s,
+		userlogic_busy_s,
 		userlogic_data_in,
 		userlogic_data_out,
 		-- userlogic_address,
@@ -153,9 +153,9 @@ mw: entity work.middleware(Behavioral)
 	ul: entity neuralnetwork.NeuralNetworkSkeleton(Behavioral) port map
 	-- ul: entity work.KeyboardSkeleton(Behavioral) port map
 		(
-			invert_clk, userlogic_reset, userlogic_done_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out --, kb_leds
+			invert_clk, userlogic_reset, userlogic_busy_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out --, kb_leds
 		);
-	userlogic_done <= userlogic_done_s;
+	userlogic_busy <= userlogic_busy_s;
 	userlogic_sleep <= userlogic_reset;
 	
 	-- inout of mcu_ad

@@ -48,13 +48,12 @@ entity Distributor is
 		current_neuron	:	out uint8_t;
 
 		data_rdy       :  out std_logic;
-		mode_out       :  out std_logic_vector(2 downto 0)
+		mode_out       :  out uint8_t
 	);
 end Distributor;
 
 architecture Behavioral of Distributor is
-
-signal mode : integer range 0 to 6 := 0; -- 0 idle 1 feedforward 2 feedback 3 feedback->feedforward
+	signal mode : integer range 0 to 7 := 0; -- 0 idle 1 feedforward 2 feedback 3 feedback->feedforward
 begin
 	process (reset, clk, calculate, learn)
 	variable n_feedback_var : std_logic := 'Z';
@@ -73,8 +72,6 @@ begin
 		elsif falling_edge(clk) then 
 			--if learn = '1' then 
 				-- start learning
-				
-				
 					case mode is 
 						when 0 => -- init
 							layer_counter := 0;
@@ -83,25 +80,30 @@ begin
 							
 							-- stay in idle until told to calculate
 							if calculate = '1' then 
-								mode <= 1;
+								mode <= 7;
 								n_feedback_var := '1';
 								data_rdy <= '0';
 							end if;
 		--					data_rdy <= '0';
 						when 1 => -- feedforward
 							neuron_counter := neuron_counter + 1;
-							if neuron_counter = w then
+							if n_feedback_var = 'Z' then -- start again
+								
+								n_feedback_var := '1'; -- reassert feedback after delay
 								neuron_counter := 0;
+							elsif neuron_counter = w then
+								neuron_counter := 0;
+								n_feedback_var := 'Z'; -- one cycle delay
 								
 								-- move on to next layer
 								layer_counter := layer_counter + 1;
 								if layer_counter = l then -- through all layers
 									-- return to last layer for feedback
-									layer_counter := l-1; 
+									-- layer_counter := l-1; 
 									
 									if learn = '1' then
 										-- if counter = l * 10 then -- through all layers
-										n_feedback_var := '0';
+										n_feedback_var := 'Z';
 										-- counter := counter + 1; -- will be reduced again before active
 										mode <= 6;
 									else
@@ -115,12 +117,26 @@ begin
 										--data_rdy <= '1';
 									end if;
 								end if;
-							-- counter := l;
+									
+--							else 
+--								-- first wait
+--								n_feedback_var := 'Z';
 							end if;
+								
+								
+								
+							-- counter := l;
+							-- end if;
 						when 2 => -- feedback
 							neuron_counter := neuron_counter + 1;
-							if neuron_counter = w then
+							-- was delayed, resume and restore variables
+							if n_feedback_var = 'Z' then
 								neuron_counter := 0;
+								n_feedback_var := '0';
+							elsif neuron_counter = w then
+								neuron_counter := 0;
+								
+								n_feedback_var := 'Z'; -- one cycle delay
 							
 								layer_counter := layer_counter - 1;
 								if layer_counter = -1 then
@@ -143,10 +159,17 @@ begin
 							n_feedback_var := 'Z';
 							
 							mode <= 4;
-						when 6 => -- output layer low
+						when 6 => -- intermediate
 							n_feedback_var := '0';
+							layer_counter := l-1; 
 							mode <= 2;
-							neuron_counter := neuron_counter + 1;
+							neuron_counter := 0; -- neuron_counter + 1;
+						when 7 => -- wait until calculate goes low
+							if calculate = '1' then
+								mode <= 7;
+							elsif calculate = '0' then
+								mode <= 1;
+							end if;
 						when others =>
 					end case;
 					
@@ -168,8 +191,10 @@ begin
 		end if;
 	end process;
 	
+	
+	
 	-- data_rdy <= '1' when mode = 4 else '0';
-    mode_out <= std_logic_vector(to_unsigned(mode, mode_out'length));
+    mode_out <= to_unsigned(mode, mode_out'length); -- std_logic_vector(to_unsigned(mode, mode_out'length));
     
 end Behavioral;
 

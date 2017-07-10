@@ -28,11 +28,15 @@ CONFIG PROHIBIT=P60;
 
 NET "*" IOSTANDARD = LVTTL;
 
+#PIN "ul/nn/net/distr/current_neuron_0_BUFG.O" CLOCK_DEDICATED_ROUTE = FALSE;
+#PIN "ul/nn/net/distr/n_feedback_BUFG.O" CLOCK_DEDICATED_ROUTE = FALSE;
+#PIN "ul/nn/net/distr/current_neuron_1_BUFG.O" CLOCK_DEDICATED_ROUTE = FALSE;
+
 #NET CLK      LOC="P94"  | IOSTANDARD=LVTTL;               										# CLK
 # NET CLK      LOC="P94"  | IOSTANDARD=LVTTL | PERIOD=31.25 ns | CLOCK_DEDICATED_ROUTE = FALSE;
 NET CLK      LOC="P94"  | IOSTANDARD=LVTTL | TNM=CLK_32 | CLOCK_DEDICATED_ROUTE = FALSE;
 #NET ICAP_CLK IOSTANDARD=LVTTL | TNM=CLK_ICAP | CLOCK_DEDICATED_ROUTE = FALSE;
-TIMESPEC TS_Period_1 = PERIOD CLK_32 31.25 ns HIGH 50%;
+TIMESPEC TS_Period_1 = PERIOD CLK_32 315.25 ns HIGH 50%;
 #TIMESPEC TS_Period_1 = PERIOD CLK_32 50 ns HIGH 50%;
 #TIMESPEC TS_Period_2 = PERIOD CLK_ICAP 50.0 ns HIGH 50%;
 #NET TXD       LOC="P141" | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=FAST;          										# TX
@@ -53,7 +57,7 @@ NET tx          			LOC="P124" | IOSTANDARD=LVTTL;                               
 #NET Arduino_12         LOC="P133" | IOSTANDARD=LVTTL;                                # A12
 #NET Arduino_13         LOC="P134" | IOSTANDARD=LVTTL;                                # A13
 #
-NET userlogic_done          LOC="P115" | IOSTANDARD=LVTTL;                              # B0 14
+NET userlogic_busy          LOC="P115" | IOSTANDARD=LVTTL;                              # B0 14
 NET userlogic_sleep          LOC="P114" | IOSTANDARD=LVTTL;                                # B1
 #NET userlogic_done      LOC="P112" | IOSTANDARD=LVTTL;                                # B2 	16
 #NET userlogic_rdy       LOC="P111" | IOSTANDARD=LVTTL;                                # B3	17

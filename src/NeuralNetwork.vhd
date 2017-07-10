@@ -22,15 +22,15 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
--- library fpgamiddlewarelibs;
--- use fpgamiddlewarelibs.userlogicinterface.all;
+library fpgamiddlewarelibs;
+use fpgamiddlewarelibs.userlogicinterface.all;
 
 library neuralnetwork;
 use neuralnetwork.Common.all;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
@@ -44,6 +44,7 @@ entity NeuralNetwork is
 		
 		learn           :  in std_logic;
 		data_rdy        :  out std_logic;
+		busy				 :  out std_logic;
 		calculate       :  in std_logic;
 		
 		connections_in  :  in uintw_t;
@@ -66,7 +67,9 @@ component Network is
 		connections_out	:	out fixed_point_vector;
 		
 		-- wanted			:	in fixed_point_vector
-		wanted				:	in fixed_point_vector
+		wanted				:	in fixed_point_vector;
+		mode_out       	:  out uint8_t
+
 		);
 end component;
 
@@ -93,7 +96,7 @@ end component;
 --signal wanted           : std_logic_vector(w-1 downto 0);
 --signal connections_in   : std_logic_vector(w-1 downto 0);
 --signal connections_out  : std_logic_vector(w-1 downto 0);
-signal mode_out         : std_logic_vector(2 downto 0);
+signal mode			         : uint8_t;
 
 signal connections_in_fp   : fixed_point_vector := (others => real_to_fixed_point(0.0));
 signal wanted_fp           : fixed_point_vector := (others => real_to_fixed_point(0.0));
@@ -132,8 +135,9 @@ begin
 
 net: Network port map
 (
-    clk, reset, learn, data_rdy, calculate, connections_in_fp, connections_out_fp, wanted_fp
+    clk, reset, learn, data_rdy, calculate, connections_in_fp, connections_out_fp, wanted_fp, mode
 );
+busy <= '0' when mode = to_unsigned(0, mode'length) else '1';
 
 fpl: FixedPoint_Logic port map
 (

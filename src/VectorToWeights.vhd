@@ -48,22 +48,19 @@ begin
 		variable fp : fixed_point;
 		variable index : integer range 0 to vector'length;
 	begin
-		-- if undefined, revert to default:
-		if vector(0) = 'U' then
-			weights <= (others => (others => init_weight));
-		else
-			for i in 0 to w-1 loop
-				-- first dim (each neuron)
-				for j in 0 to w-1 loop
-					-- fp := fpv(j);
-					-- vector
-					-- for k in 0 to b-1 loop
-					index := i * (b*w) + j * (b);
-					weights(i)(j) <= signed(vector(index+b-1 downto index));
-						-- vector(k + j * (b) + i * (b*w)) <= fp(k);
-				end loop;
+		
+		for i in 0 to w-1 loop
+			-- first dim (each neuron)
+			for j in 0 to w-1 loop
+				-- fp := fpv(j);
+				-- vector
+				-- for k in 0 to b-1 loop
+				index := i * (b*w) + j * (b);
+				weights(i)(j) <= signed(vector(index+b-1 downto index));
+					-- vector(k + j * (b) + i * (b*w)) <= fp(k);
 			end loop;
-		end if;
+		end loop;
+
 	end process;
 end Behavioral;
 

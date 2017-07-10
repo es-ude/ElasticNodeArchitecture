@@ -55,6 +55,7 @@ architecture Behavioral of SimulateNetwork is
 	signal clk : std_logic := '0';	
 	signal learn, data_rdy : std_logic := 'Z';
 	constant period : time := 100 ns;
+	constant period_internal : time := 25 ns;
 	constant repeat : integer := 10;
 
 	signal wanted			: 	fixed_point_vector := (others => (others => '0'));
@@ -71,7 +72,7 @@ begin
 	process
 	begin
 		if busy then
-			wait for period/2;
+			wait for period_internal/2;
 			clk <= not clk;
 		else 
 			wait;
@@ -81,7 +82,7 @@ begin
 	uut: Network port map (clk, reset, learn, data_rdy, calculate, conn_in, conn_out, wanted);
 	process begin
 		reset <= '1';
-		wait for period;
+		wait for period_internal * l*2;
 		reset <= '0';
 		--n_feedback <= 'Z';
 
@@ -105,7 +106,6 @@ begin
 --		calculate <= '0';
 --		
 --		wait until data_rdy = '1';
-		learn <= '1';
 		--n_feedback <= '1';
 		-- wait for period * 2 * (l * 2 + 1);
 		-- weait until data_rdy = '1';
@@ -114,6 +114,17 @@ begin
 		for i in 0 to 10000 loop
 			iteration <= i;
 			
+			learn <= '1';
+			calculate <= '0';
+			wait for period;
+			calculate <= '1';
+			wait for period;
+			calculate <= '0';
+			-- wait for period * 2 * (l * 2 + 1);
+			wait until data_rdy = '1';
+			wait for period;
+			
+			learn <= '0';
 			calculate <= '0';
 			wait for period;
 			calculate <= '1';

@@ -1,3 +1,5 @@
+*.swp
+*.save*
 .DS_Store
 ._*
 scripts/remote-script.sh

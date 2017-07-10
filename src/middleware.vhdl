@@ -21,7 +21,7 @@ entity middleware is
 
 		-- userlogic
 		userlogic_reset: out std_logic;
-		userlogic_done	: in std_logic;
+		userlogic_busy	: in std_logic;
 		userlogic_data_in: out uint8_t;
 		userlogic_data_out: in uint8_t;
 		-- userlogic_address	: out uint16_t;
@@ -74,7 +74,7 @@ begin
 		 sram_rd => sram_rd,
 		 sram_wr => sram_wr,
 		 userlogic_reset => userlogic_reset,
-		 userlogic_done => userlogic_done,
+		 userlogic_busy => userlogic_busy,
 		 userlogic_data_in => userlogic_data_in,
 		 -- userlogic_address => userlogic_address,
 		 userlogic_data_out => userlogic_data_out,
