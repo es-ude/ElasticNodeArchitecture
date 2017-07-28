@@ -96,6 +96,8 @@ architecture Behavioral of Layer is
 
 	signal conn_in, error_out, weight_in, weight_out : fixed_point_vector;
 	signal conn_out, conn_out_prev : fixed_point; -- 
+
+
 	signal current_neuron_int, next_neuron_int, previous_neuron_int : integer range 0 to w-1; -- next and previous are half clock cycle delayed/ahead
 	signal bias_in, bias_out : fixed_point;
 	signal next_neuron : uint8_t := (others => '0');
@@ -114,6 +116,7 @@ begin
 	begin
 		if rising_edge(clk) then
 			previous_neuron_int <= current_neuron_int;
+
 			if current_neuron < w-1 then
 				next_neuron <= current_neuron + 1;
 			else
@@ -124,9 +127,10 @@ begin
 	end process;
 	next_neuron_int <= to_integer(next_neuron);
 	
+
 	
 	-- TODO: conn in timing?
-	
+
 --		end if;
 --	end process;
 	
@@ -161,6 +165,7 @@ begin
 			end if;
 		end if;
 	end process;
+
 	process (clk, biases_in, current_neuron_int) is
 	begin
 		if falling_edge(clk) then

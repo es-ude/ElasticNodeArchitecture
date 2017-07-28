@@ -93,7 +93,11 @@ begin
 lay: 
 	entity neuralNetwork.Layer(Behavioral) port map
 	(
+<<<<<<< HEAD
 		clk, reset, n_feedback, output_layer, current_neuron, conn_in, conn_out, conn_out_prev, err_in, err_out, weights_in, weights_out, biases_in, biases_out
+=======
+		clk, n_feedback, output_layer, current_neuron, conn_in, conn_out, conn_out_prev, err_in, err_out, weights_in, weights_out, biases_in, biases_out
+>>>>>>> refs/remotes/github/sram_mcu_interface
 	);
 output_layer <= '1' when current_layer = l-1 else '0';
 
@@ -215,6 +219,7 @@ btv:
 	
 	-- weights ram prep process
 	--reading
+
 	process(clk, current_layer, reset) is
 		variable current_layer_sample : integer range 0 to l;
 		variable last_neuron, second_last_neuron : boolean;
@@ -276,6 +281,47 @@ btv:
 				else 
 					weights_wr <= '0';
 					weights_wr_address <= (others => '0');
+				end if;
+				
+			else
+				reset_counter := 0;
+		
+				last_neuron := current_neuron = w-1;
+				
+				-- weights_wr <= '0';
+				if n_feedback = '0' and last_neuron then 
+					weights_wr <= '1';		
+				else
+					weights_wr <= '0';
+				end if;
+				
+				current_layer_sample := to_integer(current_layer);
+				
+				if last_neuron then
+					weights_wr_address <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
+					bias_wr_address <= std_logic_vector(resize(current_layer, BIAS_RAM_WIDTH));
+
+				end if;
+			end if;
+
+		end if;
+	end process;
+	--writing
+	process(clk, current_layer, reset) is
+		variable current_layer_sample : integer range 0 to l;
+		variable last_neuron : boolean;
+		
+		variable reset_counter : integer range 0 to l+1 := 0; -- l+1 means it's done
+
+	begin
+		if rising_edge(clk) then
+			if reset = '1' then
+				-- reset all weights in memory
+				if reset_counter < l+1 then
+					weights_wr_address <= std_logic_vector(resize(reset_counter, WEIGHTS_RAM_WIDTH));
+					weights_wr <= '1';
+				else 
+					weights_wr <= '0';
 				end if;
 				
 			else
