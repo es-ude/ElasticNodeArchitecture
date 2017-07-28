@@ -69,6 +69,7 @@ signal weights_wr							 	: std_logic := '0';
 signal weights_rd_address,weights_wr_address	: std_logic_vector(WEIGHTS_RAM_WIDTH-1 downto 0);
 signal weights_din, weights_dout			: weights_vector; -- read entire layer's weights at a time 
 signal invert_clk								: std_logic;
+signal reset_counter 						: unsigned(WEIGHTS_RAM_WIDTH-1 downto 0) := (others => '0'); -- l+1 means it's done
 
 -- conn ram interface
 constant CONN_RAM_WIDTH						: integer := log2(l+1);
@@ -93,11 +94,7 @@ begin
 lay: 
 	entity neuralNetwork.Layer(Behavioral) port map
 	(
-<<<<<<< HEAD
 		clk, reset, n_feedback, output_layer, current_neuron, conn_in, conn_out, conn_out_prev, err_in, err_out, weights_in, weights_out, biases_in, biases_out
-=======
-		clk, n_feedback, output_layer, current_neuron, conn_in, conn_out, conn_out_prev, err_in, err_out, weights_in, weights_out, biases_in, biases_out
->>>>>>> refs/remotes/github/sram_mcu_interface
 	);
 output_layer <= '1' when current_layer = l-1 else '0';
 
@@ -261,22 +258,20 @@ btv:
 			end if;
 		end if;
 	end process;
-	--writing (bias & weights
+	
+	--writing (bias & weights)
 	process(clk, current_layer, reset) is
 		variable current_layer_sample : integer range 0 to l;
 		variable last_neuron : boolean;
-		
-		variable reset_counter : integer range 0 to l+1 := 0; -- l+1 means it's done
-
 	begin
 		if rising_edge(clk) then
 			if reset = '1' then
 				-- reset all weights in memory
 				if reset_counter < l+1 then
 					-- data is being set by Layer.vhd
-					weights_wr_address <= std_logic_vector(to_unsigned(reset_counter, WEIGHTS_RAM_WIDTH));
-					bias_wr_address <= std_logic_vector(to_unsigned(reset_counter, WEIGHTS_RAM_WIDTH));
-					reset_counter := reset_counter + 1;
+					weights_wr_address <= std_logic_vector(reset_counter);
+					bias_wr_address <= std_logic_vector(reset_counter);
+					reset_counter <= reset_counter + to_unsigned(1, reset_counter'length);
 					weights_wr <= '1';
 				else 
 					weights_wr <= '0';
@@ -284,7 +279,7 @@ btv:
 				end if;
 				
 			else
-				reset_counter := 0;
+				reset_counter <= (others => '0');
 		
 				last_neuron := current_neuron = w-1;
 				
@@ -318,7 +313,7 @@ btv:
 			if reset = '1' then
 				-- reset all weights in memory
 				if reset_counter < l+1 then
-					weights_wr_address <= std_logic_vector(resize(reset_counter, WEIGHTS_RAM_WIDTH));
+					weights_wr_address <= std_logic_vector(to_unsigned(reset_counter, WEIGHTS_RAM_WIDTH));
 					weights_wr <= '1';
 				else 
 					weights_wr <= '0';
@@ -363,36 +358,15 @@ btv:
 				if n_feedback = '1' then
 					conn_address_a <= std_logic_vector(resize(current_layer + 1, CONN_RAM_WIDTH));
 					conn_address_b <= std_logic_vector(to_unsigned(l-1, CONN_RAM_WIDTH));
-					-- conn_wr <= '1';
-	--				if current_layer_sample = l-1 then
-	--					weights_rd_address <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
-	--				else
-	--					weights_rd_address <= std_logic_vector(resize(current_layer + 1, WEIGHTS_RAM_WIDTH));
-	--				end if;
 				-- when backward, load next 
 				elsif n_feedback = '0' then
 					conn_address_b <= std_logic_vector(resize(current_layer-1, CONN_RAM_WIDTH));
-					--weights_rd_address <= std_logic_vector(resize(current_layer - 1, WEIGHTS_RAM_WIDTH));
-					-- if currently in hidden layer, queue write next cycle
-					-- if current_layer_sample > 0 and current_layer_sample < l-1 then
-					-- weights_wr <= '1';
-					-- end if;
+					conn_address_a <= std_logic_vector(resize(current_layer, CONN_RAM_WIDTH));
 				end if;
 			elsif current_neuron = w-1-1 then
 				if n_feedback = '0' then
-					conn_address_a <= std_logic_vector(resize(current_layer, CONN_RAM_WIDTH));
 				end if;
-			
---			elsif n_feedback /= '0' and n_feedback /= '1' then
---				conn_wr <= '1';
---				conn_address_a <= (others => '0');
-		
-			
-			-- weights_rd_address <= (others => '0'); -- preload first one 
 			end if;
-			
-			-- weights_in <= vector_to_weights(weights_dout); -- weights((current_layer_sample+1)*w-1 downto current_layer_sample*w);
-
 		end if;
 	end process;
 	
