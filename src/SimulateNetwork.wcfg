@@ -155,14 +155,17 @@
          <wvobject fp_name="/simulatenetwork/uut/hidden_layers/bias/a_addr" type="array" db_ref_id="1">
             <obj_property name="ElementShortName">a_addr[1:0]</obj_property>
             <obj_property name="ObjectShortName">a_addr[1:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/simulatenetwork/uut/hidden_layers/bias/a_din" type="array" db_ref_id="1">
             <obj_property name="ElementShortName">a_din[63:0]</obj_property>
             <obj_property name="ObjectShortName">a_din[63:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/simulatenetwork/uut/hidden_layers/bias/a_dout" type="array" db_ref_id="1">
             <obj_property name="ElementShortName">a_dout[63:0]</obj_property>
             <obj_property name="ObjectShortName">a_dout[63:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/simulatenetwork/uut/hidden_layers/bias/b_clk" type="logic" db_ref_id="1">
             <obj_property name="ElementShortName">b_clk</obj_property>
@@ -175,22 +178,27 @@
          <wvobject fp_name="/simulatenetwork/uut/hidden_layers/bias/b_addr" type="array" db_ref_id="1">
             <obj_property name="ElementShortName">b_addr[1:0]</obj_property>
             <obj_property name="ObjectShortName">b_addr[1:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/simulatenetwork/uut/hidden_layers/bias/b_din" type="array" db_ref_id="1">
             <obj_property name="ElementShortName">b_din[63:0]</obj_property>
             <obj_property name="ObjectShortName">b_din[63:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/simulatenetwork/uut/hidden_layers/bias/b_dout" type="array" db_ref_id="1">
             <obj_property name="ElementShortName">b_dout[63:0]</obj_property>
             <obj_property name="ObjectShortName">b_dout[63:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/simulatenetwork/uut/hidden_layers/bias/data" type="other" db_ref_id="1">
             <obj_property name="ElementShortName">data</obj_property>
             <obj_property name="ObjectShortName">data</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/simulatenetwork/uut/hidden_layers/bias/addr" type="other" db_ref_id="1">
             <obj_property name="ElementShortName">addr</obj_property>
             <obj_property name="ObjectShortName">addr</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
          </wvobject>
       </wvobject>
       <wvobject fp_name="group155" type="group">
@@ -329,31 +337,6 @@
          <obj_property name="ObjectShortName">dist_mode[7:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/connections_in" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">connections_in[3:0]</obj_property>
-         <obj_property name="ObjectShortName">connections_in[3:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/connections_out" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">connections_out[3:0]</obj_property>
-         <obj_property name="ObjectShortName">connections_out[3:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/wanted" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">wanted[3:0]</obj_property>
-         <obj_property name="ObjectShortName">wanted[3:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights_in" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">weights_in[3:0]</obj_property>
-         <obj_property name="ObjectShortName">weights_in[3:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights_out" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">weights_out[3:0]</obj_property>
-         <obj_property name="ObjectShortName">weights_out[3:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
       <wvobject fp_name="/simulatenetwork/uut/hidden_layers/conn_in" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">conn_in[3:0]</obj_property>
          <obj_property name="ObjectShortName">conn_in[3:0]</obj_property>
@@ -388,6 +371,51 @@
          <obj_property name="ElementShortName">conn_out_prev[3:0]</obj_property>
          <obj_property name="ObjectShortName">conn_out_prev[3:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/connections_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_in[3:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in[3:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/connections_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_out[3:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out[3:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/wanted" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">wanted[3:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted[3:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">weights_in[3:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_in[3:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">weights_out[3:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_out[3:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights_out[3]" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">[3]</obj_property>
+            <obj_property name="ObjectShortName">weights_out[3]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights_out[2]" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">[2]</obj_property>
+            <obj_property name="ObjectShortName">weights_out[2]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights_out[1]" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">[1]</obj_property>
+            <obj_property name="ObjectShortName">weights_out[1]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/simulatenetwork/uut/hidden_layers/weights_out[0]" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">[0]</obj_property>
+            <obj_property name="ObjectShortName">weights_out[0]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         </wvobject>
       </wvobject>
       <wvobject fp_name="/simulatenetwork/uut/hidden_layers/err_in" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">err_in[3:0]</obj_property>
