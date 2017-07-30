@@ -42,7 +42,7 @@ entity NeuralNetworkSkeleton is
 		-- control interface
 		clock				: in std_logic;
 		reset				: in std_logic; -- controls functionality (sleep)
-		done 				: out std_logic; -- done with entire calculation
+		busy				: out std_logic; -- done with entire calculation
 				
 		-- indicate new data or request
 		rd					: in std_logic;	-- request a variable
@@ -57,19 +57,19 @@ end NeuralNetworkSkeleton;
 
 architecture Behavioral of NeuralNetworkSkeleton is
 
-	signal learn           :  std_logic;
-	signal data_rdy        :  std_logic;
-	signal calculate       :  std_logic;
+	signal learn			:  std_logic;
+	signal data_rdy			:  std_logic;
+	signal calculate		:  std_logic;
 	
-	signal connections_in  :  uintw_t;
-	signal wanted          :  uintw_t;
-	signal connections_out :  uintw_t;
-	signal run_counter	  :  uintw_t;
+	signal connections_in	:  uintw_t;
+	signal wanted			:  uintw_t;
+	signal connections_out	:  uintw_t;
+	signal run_counter		:  uintw_t;
 	
 begin
 
 nn: entity neuralnetwork.NeuralNetwork(Behavioral)
-	port map (clock, reset, learn, open, done, calculate, connections_in, wanted, connections_out); -- done wired to busy
+	port map (clock, reset, learn, data_rdy, busy, calculate, connections_in, wanted, connections_out); -- done wired to busy
 				
 	-- process data receive 
 	process (clock, rd, wr, reset)

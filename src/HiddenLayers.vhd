@@ -259,64 +259,70 @@ btv:
 		end if;
 	end process;
 	
+--	--writing (bias & weights)
+--	process(clk, current_layer, reset) is
+--		variable current_layer_sample : integer range 0 to l;
+--		variable last_neuron : boolean;
+--	begin
+--		if rising_edge(clk) then
+--			if reset = '1' then
+--				-- reset all weights in memory
+--				if reset_counter < l+1 then
+--					-- data is being set by Layer.vhd
+--					weights_wr_address <= std_logic_vector(reset_counter);
+--					bias_wr_address <= std_logic_vector(reset_counter);
+--					reset_counter <= reset_counter + to_unsigned(1, reset_counter'length);
+--					weights_wr <= '1';
+--				else 
+--					weights_wr <= '0';
+--					weights_wr_address <= (others => '0');
+--				end if;
+--				
+--			else
+--				reset_counter <= (others => '0');
+--		
+--				last_neuron := current_neuron = w-1;
+--				
+--				-- weights_wr <= '0';
+--				if n_feedback = '0' and last_neuron then 
+--					weights_wr <= '1';		
+--				else
+--					weights_wr <= '0';
+--				end if;
+--				
+--				current_layer_sample := to_integer(current_layer);
+--				
+--				if last_neuron then
+--					weights_wr_address <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
+--					bias_wr_address <= std_logic_vector(resize(current_layer, BIAS_RAM_WIDTH));
+--
+--				end if;
+--			end if;
+--
+--		end if;
+--	end process;
+	
 	--writing (bias & weights)
-	process(clk, current_layer, reset) is
-		variable current_layer_sample : integer range 0 to l;
-		variable last_neuron : boolean;
-	begin
-		if rising_edge(clk) then
-			if reset = '1' then
-				-- reset all weights in memory
-				if reset_counter < l+1 then
-					-- data is being set by Layer.vhd
-					weights_wr_address <= std_logic_vector(reset_counter);
-					bias_wr_address <= std_logic_vector(reset_counter);
-					reset_counter <= reset_counter + to_unsigned(1, reset_counter'length);
-					weights_wr <= '1';
-				else 
-					weights_wr <= '0';
-					weights_wr_address <= (others => '0');
-				end if;
-				
-			else
-				reset_counter <= (others => '0');
-		
-				last_neuron := current_neuron = w-1;
-				
-				-- weights_wr <= '0';
-				if n_feedback = '0' and last_neuron then 
-					weights_wr <= '1';		
-				else
-					weights_wr <= '0';
-				end if;
-				
-				current_layer_sample := to_integer(current_layer);
-				
-				if last_neuron then
-					weights_wr_address <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
-					bias_wr_address <= std_logic_vector(resize(current_layer, BIAS_RAM_WIDTH));
-
-				end if;
-			end if;
-
-		end if;
-	end process;
-	--writing
 	process(clk, current_layer, reset) is
 		variable current_layer_sample : integer range 0 to l;
 		variable last_neuron : boolean;
 		
 		variable reset_counter : integer range 0 to l+1 := 0; -- l+1 means it's done
-
+		variable reset_counter_unsigned : unsigned(WEIGHTS_RAM_WIDTH-1 downto 0);
 	begin
 		if rising_edge(clk) then
 			if reset = '1' then
+				reset_counter_unsigned := to_unsigned(reset_counter, reset_counter_unsigned'length);
+				
 				-- reset all weights in memory
 				if reset_counter < l+1 then
-					weights_wr_address <= std_logic_vector(to_unsigned(reset_counter, WEIGHTS_RAM_WIDTH));
+					weights_wr_address <= std_logic_vector(reset_counter_unsigned);
+					bias_wr_address <= std_logic_vector(reset_counter_unsigned);
 					weights_wr <= '1';
+					reset_counter := reset_counter + 1;
 				else 
 					weights_wr <= '0';
+					weights_wr_address <= (others => '0');
 				end if;
 				
 			else
@@ -371,7 +377,7 @@ btv:
 	end process;
 	
 	-- bias ram process
-	process(clk, current_layer) is
+	process(reset, clk, current_layer) is
 		variable current_layer_sample : integer range 0 to l;
 		variable last_neuron, second_last_neuron : boolean;
 	begin
