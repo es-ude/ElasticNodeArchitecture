@@ -36,8 +36,8 @@ use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
+library UNISIM;
+use UNISIM.VComponents.all;
 
 entity Network is
 	port (
@@ -157,6 +157,7 @@ architecture Behavioral of Network is
 	--signal learn		: std_logic := '0';
 	signal n_feedback_bus 	: std_logic_vector(l downto 0) := (others => 'Z');
 	signal n_feedback		 	: std_logic;
+	signal n_feedback_buffered : std_logic;
 	signal current_layer  	: uint8_t;
 	signal current_neuron	: uint8_t;
 	
@@ -240,7 +241,7 @@ begin
 
 
 	-- input_layer : InputLayer port map (clk, n_feedback_bus(0), connections_in, conn_matrix(0), err_matrix(0), err_out);
-	hidden_layers: HiddenLayers port map (clk, reset, n_feedback, current_layer, current_neuron, mode_out_signal, connections_in, hidden_connections_out, wanted); --  err_matrix(l-1), err_out);
+	hidden_layers: HiddenLayers port map (clk, reset, n_feedback_buffered, current_layer, current_neuron, mode_out_signal, connections_in, hidden_connections_out, wanted); --  err_matrix(l-1), err_out);
 	-- output_layer : OutputLayer port map (clk, n_feedback_bus(l-1), conn_matrix(l-2), conn_matrix(l-1), err_matrix(l-1), err_matrix(l-2));
 
 	-- lfp: Logic_FixedPoint port map (wanted_fp, wanted, clk);
@@ -257,6 +258,10 @@ begin
 	distr: Distributor port map
 	(
 		clk, reset, learn, calculate, n_feedback_bus, n_feedback, current_layer, current_neuron, data_rdy_s, mode_out_signal
+	);
+	buff: BUFG port map
+	(
+		O=>n_feedback_buffered, I=>n_feedback
 	);
 	mode_out <= mode_out_signal;
 

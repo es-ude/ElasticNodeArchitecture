@@ -43,6 +43,11 @@ TIMESPEC TS_CLK = PERIOD tnm_clk 50 ns HIGH 50%;
 #NET TXD       LOC="P141" | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=FAST;          										# TX
 #NET RXD       LOC="P46" | IOSTANDARD=LVTTL | DRIVE=8 | SLEW=FAST; 	    											# RX
 
+
+# fix for mapping errors
+PIN "ul/nn/net/buff.O" CLOCK_DEDICATED_ROUTE = FALSE;
+INST "ul/nn/net/buff" LOC = BUFGMUX_X3Y8;
+
 #NET Arduino_0          LOC="P116" | IOSTANDARD=LVTTL;                                # A0
 #NET Arduino_1          LOC="P117" | IOSTANDARD=LVTTL;                                # A1
 #NET Arduino_2          LOC="P118" | IOSTANDARD=LVTTL;                                # A2
