@@ -66,11 +66,24 @@ architecture Behavioral of NeuralNetworkSkeleton is
 	signal connections_out	:  uintw_t;
 	signal run_counter		:  uintw_t;
 	
+	signal half_clock			: std_logic := '0';
 begin
 
+-- half the clock
+process (clock) is
+	variable val : std_logic := '0';
+begin
+	if rising_edge(clock) then
+		val := not val;
+		half_clock <= val;
+	end if;
+end process;
+			
+
 nn: entity neuralnetwork.NeuralNetwork(Behavioral)
-	port map (clock, reset, learn, data_rdy, busy, calculate, connections_in, wanted, connections_out); -- done wired to busy
-				
+	port map (half_clock, reset, learn, data_rdy, busy, calculate, connections_in, wanted, connections_out); -- done wired to busy
+
+
 	-- process data receive 
 	process (clock, rd, wr, reset)
 	begin
@@ -115,13 +128,16 @@ nn: entity neuralnetwork.NeuralNetwork(Behavioral)
 						when 2 => 
 							data_out <= (others => '0');
 							data_out(0) <= learn;
+							data_out(1) <= data_rdy;
 						when 3 =>
 							data_out(w-1 downto 0) <= connections_out(w-1 downto 0);
 	
-						when 255 => 
+						when 200 => 
 							data_out(w-1 downto 0) <= run_counter(w-1 downto 0);
+						when 255 =>
+							data_out <= address_in(15 downto 8);
 						when others =>
-							data_out <= to_unsigned(255, 8) - address_in(7 downto 0) + address_in(15 downto 8);
+							data_out <= address_in(7 downto 0);
 						end case;
 					else
 						calculate <= '0';

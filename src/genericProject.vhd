@@ -37,7 +37,9 @@ entity genericProject is
 
 		leds			: out std_logic_vector(3 downto 0);
 		
-		clk 			: in std_ulogic;	--! Clock 32 MHz
+		clk_32		: in std_ulogic;	--! Clock 32 MHz
+		clk_50		: in std_ulogic;
+		
 		rx				: in std_logic;
 		tx 			: out std_logic;
 		
@@ -86,10 +88,11 @@ signal sram_data_in 				: uint8_t;
 -- attribute IOB of ad : signal is "TRUE";
 signal address_s 					: std_logic_vector(15 downto 0);
 
-constant OFFSET					: unsigned(15 downto 0) := x"2200";
-constant USERLOGIC_OFFSET 		: unsigned(15 downto 0) := x"2300";
+constant OFFSET					: unsigned(15 downto 0) := x"2000";
+constant USERLOGIC_OFFSET 		: unsigned(15 downto 0) := x"2100";
 		-- MULTIBOOT			: unsigned(23 downto 0) := x"000000"
 	
+signal clk							: std_ulogic;
 -- attribute IOB of sram_data_in : signal is "TRUE";
 
 
@@ -98,6 +101,10 @@ begin
 ARD_RESET <= '0';
 
 invert_clk <= not clk;
+
+clk <= clk_50;
+
+
 
 -- todo add to mw the async -> sync comm part, and decode incoming data not meant for ul
 mw: entity work.middleware(Behavioral)

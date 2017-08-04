@@ -5,17 +5,24 @@
    <db_ref_list>
       <db_ref path="/home/ES/burger/git/fpgamiddlewareproject/TestGenericProject_isim_beh.wdb" id="1" type="auto">
          <top_modules>
+            <top_module name="common" />
+            <top_module name="math_real" />
             <top_module name="numeric_std" />
             <top_module name="procedures" />
             <top_module name="std_logic_1164" />
             <top_module name="std_logic_arith" />
+            <top_module name="std_logic_unsigned" />
             <top_module name="testgenericproject" />
+            <top_module name="textio" />
             <top_module name="userlogicinterface" />
             <top_module name="vcomponents" />
+            <top_module name="vital_primitives" />
+            <top_module name="vital_timing" />
+            <top_module name="vpkg" />
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="3" />
+   <WVObjectSize size="4" />
    <wvobject fp_name="group15" type="group">
       <obj_property name="label">base</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -54,10 +61,6 @@
          <obj_property name="ObjectShortName">mcu_ad_s[7:0]</obj_property>
          <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
-      <wvobject fp_name="/testgenericproject/userlogic_done" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">userlogic_done</obj_property>
-         <obj_property name="ObjectShortName">userlogic_done</obj_property>
-      </wvobject>
       <wvobject fp_name="/testgenericproject/leds" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">leds[3:0]</obj_property>
          <obj_property name="ObjectShortName">leds[3:0]</obj_property>
@@ -90,10 +93,6 @@
          <obj_property name="ElementShortName">reset</obj_property>
          <obj_property name="ObjectShortName">reset</obj_property>
       </wvobject>
-      <wvobject fp_name="/testgenericproject/uut/ul/done" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">done</obj_property>
-         <obj_property name="ObjectShortName">done</obj_property>
-      </wvobject>
       <wvobject fp_name="/testgenericproject/uut/ul/rd" type="logic" db_ref_id="1">
          <obj_property name="ElementShortName">rd</obj_property>
          <obj_property name="ObjectShortName">rd</obj_property>
@@ -121,29 +120,67 @@
          <obj_property name="ElementShortName">calculate</obj_property>
          <obj_property name="ObjectShortName">calculate</obj_property>
       </wvobject>
-      <wvobject fp_name="/testgenericproject/uut/ul/vectora" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">vectora[31:0]</obj_property>
-         <obj_property name="ObjectShortName">vectora[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="group84" type="group">
+      <obj_property name="label">nn</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/reset" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/learn" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">learn</obj_property>
+         <obj_property name="ObjectShortName">learn</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/data_rdy" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">data_rdy</obj_property>
+         <obj_property name="ObjectShortName">data_rdy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/busy" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">busy</obj_property>
+         <obj_property name="ObjectShortName">busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/calculate" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">calculate</obj_property>
+         <obj_property name="ObjectShortName">calculate</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/connections_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_in[3:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in[3:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
-      <wvobject fp_name="/testgenericproject/uut/ul/vectorb" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">vectorb[31:0]</obj_property>
-         <obj_property name="ObjectShortName">vectorb[31:0]</obj_property>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/wanted" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">wanted[3:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted[3:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
-      <wvobject fp_name="/testgenericproject/uut/ul/result" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">result[31:0]</obj_property>
-         <obj_property name="ObjectShortName">result[31:0]</obj_property>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/connections_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_out[3:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out[3:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
-      <wvobject fp_name="/testgenericproject/uut/ul/width" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">width[31:0]</obj_property>
-         <obj_property name="ObjectShortName">width[31:0]</obj_property>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/mode" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">mode[7:0]</obj_property>
+         <obj_property name="ObjectShortName">mode[7:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
-      <wvobject fp_name="/testgenericproject/uut/ul/current_dimension_s" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">current_dimension_s[31:0]</obj_property>
-         <obj_property name="ObjectShortName">current_dimension_s[31:0]</obj_property>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/connections_in_fp" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_in_fp[3:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in_fp[3:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/wanted_fp" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">wanted_fp[3:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted_fp[3:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/connections_out_fp" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_out_fp[3:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out_fp[3:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
    </wvobject>
@@ -161,10 +198,6 @@
       <wvobject fp_name="/testgenericproject/uut/mw/userlogic_reset" type="logic" db_ref_id="1">
          <obj_property name="ElementShortName">userlogic_reset</obj_property>
          <obj_property name="ObjectShortName">userlogic_reset</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testgenericproject/uut/mw/userlogic_done" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">userlogic_done</obj_property>
-         <obj_property name="ObjectShortName">userlogic_done</obj_property>
       </wvobject>
       <wvobject fp_name="/testgenericproject/uut/mw/userlogic_data_in" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">userlogic_data_in[7:0]</obj_property>

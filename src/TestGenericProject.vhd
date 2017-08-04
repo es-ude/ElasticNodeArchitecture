@@ -35,7 +35,9 @@ ARCHITECTURE behavior OF TestGenericProject IS
 		
 		leds			: out std_logic_vector(3 downto 0);
 		
-		clk 			: in std_ulogic;	--! Clock 32 MHz
+		clk_32		: in std_ulogic;	--! Clock 32 MHz
+		clk_50		: in std_ulogic;
+		
 		rx				: in std_logic;
 		tx 			: out std_logic;
 		
@@ -87,7 +89,9 @@ BEGIN
 		ARD_RESET => open,
 		leds => leds,
 		
-		clk => clk,
+		clk_32 => clk,
+		clk_50 => clk,
+		
 		rx => rx,
 		tx => tx,
 		
@@ -121,8 +125,8 @@ BEGIN
 		-- reset <= '0';
 
       -- insert stimulus here 
-		write_uint8_t_ext(x"02", x"2203", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); --leds
-		write_uint8_t_ext(x"00", x"2204", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- sleep
+		write_uint8_t_ext(x"02", x"2003", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); --leds
+		write_uint8_t_ext(x"00", x"2004", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- sleep
 		
 		wait for clk_period * 2;
 --		-- vdp ul
@@ -145,9 +149,9 @@ BEGIN
 --		wait for clk_period * 2;
 		
 		-- ann ul
-		write_uint8_t_ext(to_unsigned(1, 8), x"2300", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- conn_in
-		write_uint8_t_ext(to_unsigned(3, 8), x"2301", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- wanted
-		write_uint8_t_ext(to_unsigned(1, 8), x"2302", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- control
+		write_uint8_t_ext(x"01", x"2100", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- conn_in
+		write_uint8_t_ext(x"03", x"2101", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- wanted
+		write_uint8_t_ext(x"01", x"2102", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- control
 		
 		waiting <= true;
 		
@@ -156,23 +160,23 @@ BEGIN
 		wait until userlogic_busy = '0';
 		waiting <= false;
 		
-		read_uint8_t_ext(x"2300", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- conn_in 
-		read_uint8_t_ext(x"2301", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- wanted
-		read_uint8_t_ext(x"2302", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- control
-		read_uint8_t_ext(x"2303", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- conn_out
+		read_uint8_t_ext(x"2100", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- conn_in 
+		read_uint8_t_ext(x"2101", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- wanted
+		read_uint8_t_ext(x"2102", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- control
+		read_uint8_t_ext(x"2103", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- conn_out
 		
 				
 		-- ann ul
-		write_uint8_t_ext(to_unsigned(1, 8), x"2300", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- conn_in
-		write_uint8_t_ext(to_unsigned(2, 8), x"2301", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- wanted
-		write_uint8_t_ext(to_unsigned(0, 8), x"2302", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- control
+		write_uint8_t_ext(x"01", x"2300", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- conn_in
+		write_uint8_t_ext(x"02", x"2301", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- wanted
+		write_uint8_t_ext(x"00", x"2302", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- control
 		
 		wait for clk_period * 2;
 		
-		read_uint8_t_ext(x"2300", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- conn_in 
-		read_uint8_t_ext(x"2301", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- wanted
-		read_uint8_t_ext(x"2302", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- control
-		read_uint8_t_ext(x"2303", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- conn_out
+		read_uint8_t_ext(x"2100", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- conn_in 
+		read_uint8_t_ext(x"2101", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- wanted
+		read_uint8_t_ext(x"2102", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- control
+		read_uint8_t_ext(x"2103", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- conn_out
 		
 		
 		write_uint8_t_ext(x"02", x"2203", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); --leds

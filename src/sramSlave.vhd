@@ -35,7 +35,7 @@ use fpgamiddlewarelibs.UserLogicInterface.all;
 entity sramSlave is
 	generic
 	(
-		OFFSET			: unsigned(15 downto 0) := x"2200"
+		OFFSET			: unsigned(15 downto 0) := x"2000"
 	);
 	port
 	(
