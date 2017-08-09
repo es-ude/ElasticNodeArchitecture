@@ -38,6 +38,9 @@ use neuralnetwork.common.all;
 
 
 entity NeuralNetworkSkeleton is
+	generic (
+		clk_divider : integer := 5000000
+		);
 	port (
 		-- control interface
 		clock				: in std_logic;
@@ -51,7 +54,10 @@ entity NeuralNetworkSkeleton is
 		-- data interface
 		data_in			: in uint8_t; -- std_logic_vector(31 downto 0);
 		address_in		: in uint16_t;
-		data_out			: out uint8_t -- std_logic_vector(31 downto 0)
+		data_out			: out uint8_t; -- std_logic_vector(31 downto 0)
+		
+		calculate_out	: out std_logic;
+		debug				: out uint8_t
 	);
 end NeuralNetworkSkeleton;
 
@@ -62,27 +68,38 @@ architecture Behavioral of NeuralNetworkSkeleton is
 	signal calculate		:  std_logic;
 	
 	signal connections_in	:  uintw_t;
-	signal wanted			:  uintw_t;
+	signal wanted				:  uintw_t;
 	signal connections_out	:  uintw_t;
-	signal run_counter		:  uintw_t;
+	signal run_counter		:  uint8_t;
 	
 	signal half_clock			: std_logic := '0';
+	signal busy_signal		: std_logic;
 begin
-
+	calculate_out <= calculate;
+	
 -- half the clock
-process (clock) is
+process (reset, clock) is
 	variable val : std_logic := '0';
+	variable counter : integer range 0 to clk_divider := 0;-- slow down to 5 Hz from 50 MHz: 50M/2 /5 = 5M
 begin
-	if rising_edge(clock) then
-		val := not val;
-		half_clock <= val;
+	if reset = '1' then
+		val := '0';
+		half_clock <= '0';
+		counter := 0;
+	elsif rising_edge(clock) then
+		counter := counter + 1;
+		if counter = clk_divider then
+			counter := 0;
+			val := not val;
+			half_clock <= val;
+		end if;
 	end if;
 end process;
 			
 
 nn: entity neuralnetwork.NeuralNetwork(Behavioral)
-	port map (half_clock, reset, learn, data_rdy, busy, calculate, connections_in, wanted, connections_out); -- done wired to busy
-
+	port map (half_clock, reset, learn, data_rdy, busy_signal, calculate, connections_in, wanted, connections_out, debug); -- done wired to busy
+	busy <= busy_signal;
 
 	-- process data receive 
 	process (clock, rd, wr, reset)
@@ -98,7 +115,7 @@ nn: entity neuralnetwork.NeuralNetwork(Behavioral)
 			if rising_edge(clock) then
 				-- process address of written value
 				
-				calculate <= '0'; -- set to not calculate (can be overwritten below)
+				-- calculate <= '0'; -- set to not calculate (can be overwritten below)
 				
 				if wr = '0' or rd = '0' then
 					-- variable being set
@@ -113,11 +130,14 @@ nn: entity neuralnetwork.NeuralNetwork(Behavioral)
 						when 2 => 
 							learn <= data_in(0);
 						-- when 107 =>
-							calculate  <= '1'; -- trigger calculate high for one clock cycle
+							calculate  <= '1'; -- queue calculate to happen
+							run_counter <= run_counter + to_unsigned(1, run_counter'length);
+						when 3 =>
+							calculate <= '0'; -- starts calculation
 						when others =>
 						end case;
 					elsif rd = '0' then
-						calculate <= '0';
+						-- calculate <= '0';
 						case to_integer(address_in) is
 						-- inputA
 						-- row 1
@@ -129,18 +149,21 @@ nn: entity neuralnetwork.NeuralNetwork(Behavioral)
 							data_out <= (others => '0');
 							data_out(0) <= learn;
 							data_out(1) <= data_rdy;
+							data_out(2) <= busy_signal;
+							data_out(3) <= calculate;
+							data_out(4) <= half_clock;
 						when 3 =>
 							data_out(w-1 downto 0) <= connections_out(w-1 downto 0);
 	
 						when 200 => 
-							data_out(w-1 downto 0) <= run_counter(w-1 downto 0);
+							data_out <= run_counter;
 						when 255 =>
 							data_out <= address_in(15 downto 8);
 						when others =>
 							data_out <= address_in(7 downto 0);
 						end case;
-					else
-						calculate <= '0';
+--					else
+--						calculate <= '0';
 					end if;
 				end if;
 			end if;

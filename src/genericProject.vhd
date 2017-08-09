@@ -48,8 +48,10 @@ entity genericProject is
 		mcu_ale		: in std_logic;
 		mcu_a			: in std_logic_vector(15 downto 8);
 		mcu_rd		: in std_logic;
-		mcu_wr		: in std_logic--;
+		mcu_wr		: in std_logic;
 		
+		-- gpio
+		gpio			: out std_logic_vector(3 downto 0)
 		-- kb_leds		: out kb_led_vector
 	);
 	attribute IOB 	: String;
@@ -94,7 +96,9 @@ constant USERLOGIC_OFFSET 		: unsigned(15 downto 0) := x"2100";
 	
 signal clk							: std_ulogic;
 -- attribute IOB of sram_data_in : signal is "TRUE";
-
+signal mw_leds						: std_logic_vector(3 downto 0);
+signal calculate					: std_logic;
+signal debug						: uint8_t;
 
 begin
 
@@ -104,6 +108,10 @@ invert_clk <= not clk;
 
 clk <= clk_50;
 
+leds(0) <= calculate;
+leds(1) <= reset;
+leds(2) <= userlogic_reset;
+leds(3) <= userlogic_busy_s;
 
 
 -- todo add to mw the async -> sync comm part, and decode incoming data not meant for ul
@@ -122,7 +130,7 @@ mw: entity work.middleware(Behavioral)
 		userlogic_wr,
 		
 		-- debug
-		leds,
+		mw_leds,
 		
 		-- uart
 		rx,
@@ -157,13 +165,16 @@ mw: entity work.middleware(Behavioral)
 	-- ul: entity work.Dummy(Behavioral) port map
 	-- ul: entity vectordotproduct.VectorDotproductSkeleton(Behavioral) port map
 	-- ul: entity matrixmultiplication.MatrixMultiplicationSkeleton(Behavioral) port map
-	ul: entity neuralnetwork.NeuralNetworkSkeleton(Behavioral) port map
+	ul: entity neuralnetwork.NeuralNetworkSkeleton(Behavioral) generic map (1) port map
 	-- ul: entity work.KeyboardSkeleton(Behavioral) port map
 		(
-			invert_clk, userlogic_reset, userlogic_busy_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out --, kb_leds
+			invert_clk, userlogic_reset, userlogic_busy_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out, calculate, debug --, kb_leds
 		);
 	userlogic_busy <= userlogic_busy_s;
 	userlogic_sleep <= userlogic_reset;
+	gpio(2 downto 0) <= std_logic_vector(debug(2 downto 0));
+	gpio(3) <= debug(3);
+	-- leds <= std_logic_vector(debug(7 downto 4));
 	
 	-- inout of mcu_ad
 	mcu_ad <= std_logic_vector(sram_data_out) when mcu_rd = '0' else (others => 'Z');

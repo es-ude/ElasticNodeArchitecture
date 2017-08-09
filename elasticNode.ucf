@@ -29,10 +29,10 @@ NET "leds<0>"	LOC="P144";
 #NET CCLK LOC="P70";
 
 ## GPIO
-#NET "gpio<0>" LOC="P1";
-#NET "gpio<1>" LOC="P2";
-#NET "gpio<2>" LOC="P5";
-#NET "gpio<3>" LOC="P6";
+NET "gpio<0>" LOC="P1";
+NET "gpio<1>" LOC="P2";
+NET "gpio<2>" LOC="P5";
+NET "gpio<3>" LOC="P6";
 #NET "gpio<4>" LOC="P7";
 #NET "gpio<5>" LOC="P8";
 #NET "gpio<6>" LOC="P9";

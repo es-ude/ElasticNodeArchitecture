@@ -152,6 +152,7 @@ BEGIN
 		write_uint8_t_ext(x"01", x"2100", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- conn_in
 		write_uint8_t_ext(x"03", x"2101", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- wanted
 		write_uint8_t_ext(x"01", x"2102", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- control
+		write_uint8_t_ext(x"01", x"2103", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- start
 		
 		waiting <= true;
 		
@@ -170,6 +171,8 @@ BEGIN
 		write_uint8_t_ext(x"01", x"2300", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- conn_in
 		write_uint8_t_ext(x"02", x"2301", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- wanted
 		write_uint8_t_ext(x"00", x"2302", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- control
+		write_uint8_t_ext(x"01", x"2103", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- start
+
 		
 		wait for clk_period * 2;
 		

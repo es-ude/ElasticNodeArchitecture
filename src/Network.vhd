@@ -53,7 +53,7 @@ entity Network is
 
 			--errors_in		:	in fixed_point_vector;
 			wanted			:	in fixed_point_vector;
-         mode_out       :  out uint8_t
+         debug		      :  out uint8_t
 		);
 end Network;
 
@@ -263,7 +263,9 @@ begin
 	(
 		O=>n_feedback_buffered, I=>n_feedback
 	);
-	mode_out <= mode_out_signal;
+	debug(2 downto 0) <= mode_out_signal(2 downto 0);
+	debug(3) <= n_feedback;
+	debug(7 downto 4) <= current_layer(3 downto 0);
 
 --	process (clk, learn)
 --	variable clk_count : natural range 0 to (l * 2 + 1) := 0;

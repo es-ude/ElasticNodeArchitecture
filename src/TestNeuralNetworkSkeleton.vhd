@@ -37,7 +37,7 @@
 
 		-- Component Instantiation
 		uut: entity neuralnetwork.NeuralNetworkSkeleton(Behavioral)
-			port map (clock, reset, done, rd, wr, data_in, address_in, data_out);
+			generic map (1) port map (clock, reset, done, rd, wr, data_in, address_in, data_out);
 		
 		clock_process : process
 		begin
@@ -65,7 +65,8 @@
 				-- inputs
 				write_uint8_t(3, x"0000", address_in, data_in, wr); -- connections in
 				write_uint8_t(4, x"0001", address_in, data_in, wr); -- wanted
-				write_uint8_t(1, x"0002", address_in, data_in, wr); -- wanted
+				write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
+				write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
 				
 				wait until done = '1';
 				wait for clock_period * 2;

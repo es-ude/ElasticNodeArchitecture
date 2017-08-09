@@ -49,7 +49,9 @@ entity NeuralNetwork is
 		
 		connections_in  :  in uintw_t;
 		wanted          :  in uintw_t;
-		connections_out :  out uintw_t
+		connections_out :  out uintw_t;
+		
+		debug				 :  out uint8_t
 	);
 end NeuralNetwork;
 
@@ -68,9 +70,8 @@ component Network is
 		
 		-- wanted			:	in fixed_point_vector
 		wanted				:	in fixed_point_vector;
-		mode_out       	:  out uint8_t
-
-		);
+		debug		       	:  out uint8_t
+	);
 end component;
 
 
@@ -135,9 +136,10 @@ begin
 
 net: Network port map
 (
-    clk, reset, learn, data_rdy, calculate, connections_in_fp, connections_out_fp, wanted_fp, mode
+    clk, reset, learn, data_rdy, calculate, connections_in_fp, connections_out_fp, wanted_fp, debug
 );
 busy <= '0' when mode = to_unsigned(0, mode'length) else '1';
+--mode_out <= mode;
 
 fpl: FixedPoint_Logic port map
 (
