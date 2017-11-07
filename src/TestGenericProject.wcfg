@@ -3,7 +3,7 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="/home/ES/burger/git/fpgamiddlewareproject/TestGenericProject_isim_beh.wdb" id="1" type="auto">
+      <db_ref path="/home/alwynster/git/fpgamiddlewareproject/TestGenericProject_isim_beh.wdb" id="1" type="auto">
          <top_modules>
             <top_module name="common" />
             <top_module name="math_real" />
@@ -22,7 +22,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="4" />
+   <WVObjectSize size="5" />
    <wvobject fp_name="group15" type="group">
       <obj_property name="label">base</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -80,6 +80,10 @@
       <wvobject fp_name="/testgenericproject/mcu_clk" type="other" db_ref_id="1">
          <obj_property name="ElementShortName">mcu_clk</obj_property>
          <obj_property name="ObjectShortName">mcu_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/waiting" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">waiting</obj_property>
+         <obj_property name="ObjectShortName">waiting</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group29" type="group">
@@ -144,8 +148,8 @@
             <obj_property name="ObjectShortName">calculate</obj_property>
          </wvobject>
          <wvobject fp_name="/testgenericproject/uut/ul/nn/net/distr/n_feedback_bus" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">n_feedback_bus[5:0]</obj_property>
-            <obj_property name="ObjectShortName">n_feedback_bus[5:0]</obj_property>
+            <obj_property name="ElementShortName">n_feedback_bus[10:0]</obj_property>
+            <obj_property name="ObjectShortName">n_feedback_bus[10:0]</obj_property>
          </wvobject>
          <wvobject fp_name="/testgenericproject/uut/ul/nn/net/distr/n_feedback" type="logic" db_ref_id="1">
             <obj_property name="ElementShortName">n_feedback</obj_property>
@@ -197,18 +201,18 @@
          <obj_property name="ObjectShortName">calculate</obj_property>
       </wvobject>
       <wvobject fp_name="/testgenericproject/uut/ul/nn/connections_in" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">connections_in[7:0]</obj_property>
-         <obj_property name="ObjectShortName">connections_in[7:0]</obj_property>
+         <obj_property name="ElementShortName">connections_in[5:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in[5:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/testgenericproject/uut/ul/nn/wanted" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">wanted[7:0]</obj_property>
-         <obj_property name="ObjectShortName">wanted[7:0]</obj_property>
+         <obj_property name="ElementShortName">wanted[5:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted[5:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/testgenericproject/uut/ul/nn/connections_out" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">connections_out[7:0]</obj_property>
-         <obj_property name="ObjectShortName">connections_out[7:0]</obj_property>
+         <obj_property name="ElementShortName">connections_out[5:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out[5:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/testgenericproject/uut/ul/nn/mode" type="array" db_ref_id="1">
@@ -217,18 +221,18 @@
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/testgenericproject/uut/ul/nn/connections_in_fp" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">connections_in_fp[7:0]</obj_property>
-         <obj_property name="ObjectShortName">connections_in_fp[7:0]</obj_property>
+         <obj_property name="ElementShortName">connections_in_fp[5:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in_fp[5:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/testgenericproject/uut/ul/nn/wanted_fp" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">wanted_fp[7:0]</obj_property>
-         <obj_property name="ObjectShortName">wanted_fp[7:0]</obj_property>
+         <obj_property name="ElementShortName">wanted_fp[5:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted_fp[5:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/testgenericproject/uut/ul/nn/connections_out_fp" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">connections_out_fp[7:0]</obj_property>
-         <obj_property name="ObjectShortName">connections_out_fp[7:0]</obj_property>
+         <obj_property name="ElementShortName">connections_out_fp[5:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out_fp[5:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
    </wvobject>
@@ -331,6 +335,81 @@
       <wvobject fp_name="/testgenericproject/uut/mw/uart_tx_active" type="logic" db_ref_id="1">
          <obj_property name="ElementShortName">uart_tx_active</obj_property>
          <obj_property name="ObjectShortName">uart_tx_active</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group91" type="group">
+      <obj_property name="label">net</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/net/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/net/reset" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/net/learn" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">learn</obj_property>
+         <obj_property name="ObjectShortName">learn</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/net/data_rdy" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">data_rdy</obj_property>
+         <obj_property name="ObjectShortName">data_rdy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/net/calculate" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">calculate</obj_property>
+         <obj_property name="ObjectShortName">calculate</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/net/connections_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_in[5:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in[5:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/net/connections_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">connections_out[5:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out[5:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/net/wanted" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">wanted[5:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted[5:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/net/debug" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">debug[7:0]</obj_property>
+         <obj_property name="ObjectShortName">debug[7:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/net/hidden_connections_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">hidden_connections_out[5:0]</obj_property>
+         <obj_property name="ObjectShortName">hidden_connections_out[5:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/net/err_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">err_out[5:0]</obj_property>
+         <obj_property name="ObjectShortName">err_out[5:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/net/data_rdy_s" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">data_rdy_s</obj_property>
+         <obj_property name="ObjectShortName">data_rdy_s</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/net/mode_out_signal" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">mode_out_signal[7:0]</obj_property>
+         <obj_property name="ObjectShortName">mode_out_signal[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/net/n_feedback" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/net/current_layer" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testgenericproject/uut/ul/nn/net/current_neuron" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
       </wvobject>
    </wvobject>
 </wave_config>

@@ -43,7 +43,7 @@ entity Distributor is
 		calculate      :  in std_logic;
 		n_feedback_bus	:	out std_logic_vector(l downto 0) := (others => 'Z'); -- l layers + summation (at l)
 		
-		n_feedback		: 	out std_logic;
+		n_feedback		: 	out integer range 0 to 2; -- 0 is back, 1 forward, 2 inbetween
 		current_layer	:	out uint8_t;
 		current_neuron	:	out uint8_t;
 
@@ -188,11 +188,11 @@ begin
 			-- n_feedback_bus <= (others => 'Z');
 			-- n_feedback_bus(layer_counter) <= n_feedback_var;
 			if n_feedback_var = forward then
-				n_feedback <= 	'1';
+				n_feedback <= 	1;
 			elsif n_feedback_var = back then
-				n_feedback <= 	'0';
+				n_feedback <= 	0;
 			else
-				n_feedback <= 	'Z';
+				n_feedback <= 	2;
 			end if; -- n_feedback <= n_feedback_var;
 		end if;
 	end process;

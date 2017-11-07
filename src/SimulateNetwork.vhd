@@ -111,7 +111,7 @@ begin
 		-- weait until data_rdy = '1';
 		
 
-		for i in 0 to 10000 loop
+		for i in 0 to 100 loop
 			iteration <= i;
 			
 			learn <= '1';
@@ -124,15 +124,15 @@ begin
 			wait until data_rdy = '1';
 			wait for period;
 			
-			learn <= '0';
-			calculate <= '0';
-			wait for period;
-			calculate <= '1';
-			wait for period;
-			calculate <= '0';
-			-- wait for period * 2 * (l * 2 + 1);
-			wait until data_rdy = '1';
-			wait for period;
+--			learn <= '0';
+--			calculate <= '0';
+--			wait for period;
+--			calculate <= '1';
+--			wait for period;
+--			calculate <= '0';
+--			-- wait for period * 2 * (l * 2 + 1);
+--			wait until data_rdy = '1';
+--			wait for period;
 		end loop;
 		busy <= false;
 		wait;

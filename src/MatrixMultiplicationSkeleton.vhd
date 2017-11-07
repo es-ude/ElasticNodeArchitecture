@@ -41,7 +41,8 @@ entity MatrixMultiplicationSkeleton is
 		-- control interface
 		clock				: in std_logic;
 		reset				: in std_logic; -- controls functionality (sleep)
-		done 				: out std_logic; -- done with entire calculation
+		busy				: out std_logic;
+		-- done 				: out std_logic; -- done with entire calculation
 				
 		-- indicate new data or request
 		rd					: in std_logic;	-- request a variable
@@ -50,7 +51,12 @@ entity MatrixMultiplicationSkeleton is
 		-- data interface
 		data_in			: in uint8_t; -- std_logic_vector(31 downto 0);
 		address_in		: in uint16_t;
-		data_out			: out uint8_t -- std_logic_vector(31 downto 0)
+		data_out			: out uint8_t; -- std_logic_vector(31 downto 0)
+		
+		-- trigger a calculation
+		calculate_out	: out std_logic;
+		
+		debug				: out uint8_t
 	);
 end MatrixMultiplicationSkeleton;
 
@@ -68,12 +74,17 @@ architecture Behavioral of MatrixMultiplicationSkeleton is
 --	
 	-- debug
 	signal row1_s, row2_s, column1_s, column2_s : integer;
+	signal busy_s : std_logic;
 	-- signal reset, mm_done : std_logic := '0';
 begin
 
+	
 mm: entity work.MatrixMultiplication(Behavioral)
-	port map (clock, reset, calculate, done, inputA, inputB, result);
-
+	port map (clock, reset, calculate, busy_s, inputA, inputB, result);
+	
+	busy <= busy_s;
+	calculate_out <= calculate;
+	
 	-- process data receive 
 	process (clock, rd, wr, reset)
 --		variable inputA, inputB : uint16_t;
@@ -545,6 +556,9 @@ mm: entity work.MatrixMultiplication(Behavioral)
 							data_out <= result(3)(4)(23 downto 16);
 						when 187 =>
 							data_out <= result(3)(4)(31 downto 24);
+						-- status
+						when 188 =>
+							data_out(0) <= busy_s;
 						when others =>
 							data_out <= to_unsigned(255, 8) - address_in(7 downto 0) + address_in(15 downto 8);
 						end case;

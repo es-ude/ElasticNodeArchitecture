@@ -10,7 +10,7 @@ use work.all;
 library fpgamiddlewarelibs;
 use fpgamiddlewarelibs.userlogicinterface.all;
 
---library matrixMultiplication;
+library matrixMultiplication;
 --library vectordotproduct;
 library neuralnetwork;
 
@@ -20,10 +20,10 @@ library neuralnetwork;
 --!
 entity genericProject is
 	port (
-		userlogic_busy	: out std_logic;
-		userlogic_sleep: out std_logic;
+		--userlogic_busy	: out std_logic;
+		--userlogic_sleep: out std_logic;
 
-		ARD_RESET 	: out std_logic;
+		-- ARD_RESET 	: out std_logic;
 --		spi_switch	: in std_logic;
 --		flash_cs		: out std_logic;
 --		flash_sck	: out std_logic;
@@ -40,10 +40,14 @@ entity genericProject is
 		clk_32		: in std_ulogic;	--! Clock 32 MHz
 		clk_50		: in std_ulogic;
 		
-		rx				: in std_logic;
-		tx 			: out std_logic;
+		--rx				: in std_logic;
+		--tx 			: out std_logic;
 		
-		-- sram
+		-- reconfiguration ports
+		selectmap 	: in std_logic_vector(7 downto 0);
+		cclk			: in std_logic;
+		
+		-- xmem
 		mcu_ad		: inout std_logic_vector(7 downto 0) := (others => 'Z');
 		mcu_ale		: in std_logic;
 		mcu_a			: in std_logic_vector(15 downto 8);
@@ -51,7 +55,7 @@ entity genericProject is
 		mcu_wr		: in std_logic;
 		
 		-- gpio
-		gpio			: out std_logic_vector(3 downto 0)
+		gpio			: out std_logic_vector(19 downto 0) := (others => '0')
 		-- kb_leds		: out kb_led_vector
 	);
 	attribute IOB 	: String;
@@ -100,6 +104,9 @@ signal mw_leds						: std_logic_vector(3 downto 0);
 signal calculate					: std_logic;
 signal debug						: uint8_t;
 
+-- compatibility signals for mojo
+signal rx, tx, ard_reset		: std_logic;
+
 begin
 
 ARD_RESET <= '0';
@@ -108,10 +115,18 @@ invert_clk <= not clk;
 
 clk <= clk_50;
 
-leds(0) <= calculate;
-leds(1) <= reset;
-leds(2) <= userlogic_reset;
-leds(3) <= userlogic_busy_s;
+leds <= mw_leds;
+--leds(0) <= calculate;
+--leds(1) <= reset;
+--leds(2) <= userlogic_reset;
+--leds(3) <= userlogic_busy_s;
+
+gpio(0) <= calculate;
+gpio(1) <= reset;
+gpio(2) <= userlogic_reset;
+gpio(3) <= userlogic_busy_s;
+
+
 
 
 -- todo add to mw the async -> sync comm part, and decode incoming data not meant for ul
@@ -170,10 +185,10 @@ mw: entity work.middleware(Behavioral)
 		(
 			invert_clk, userlogic_reset, userlogic_busy_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out, calculate, debug --, kb_leds
 		);
-	userlogic_busy <= userlogic_busy_s;
-	userlogic_sleep <= userlogic_reset;
-	gpio(2 downto 0) <= std_logic_vector(debug(2 downto 0));
-	gpio(3) <= debug(3);
+	--userlogic_busy <= userlogic_busy_s;
+	--userlogic_sleep <= userlogic_reset;
+	gpio(12 downto 10) <= std_logic_vector(debug(2 downto 0));
+	gpio(13) <= debug(3);
 	-- leds <= std_logic_vector(debug(7 downto 4));
 	
 	-- inout of mcu_ad
@@ -195,28 +210,5 @@ mw: entity work.middleware(Behavioral)
 	end process;
 	sram_address <= unsigned(address_s);
 	-- userlogic_done <= '1' when (mcu_wr = '0' and sram_address = x"0004") or mcu_wr = '1' else '0';
-	
-	--sram sync interface
---sram: entity work.sramSlave(Behavioral) generic map
---	(
---		x"2200"
---	)
---	port map
---	(
---		clk,
---		
---		mcu_ad_s,
---		mcu_ale,
---		mcu_a,
---		mcu_rd,
---		mcu_wr,
---		
---		-- higher level ports
---		sram_address,
---		sram_data_out,
---		sram_data_in,
---		sram_rd,
---		sram_wr
---	);
---		
+
 end Behavioral;

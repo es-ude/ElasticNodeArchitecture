@@ -39,7 +39,8 @@ entity Layer is
 			clk						:	in std_logic;
 			reset						: 	in std_logic;
 
-			n_feedback				:	in std_logic;
+			n_feedback				:	in integer range 0 to 2;
+			dist_mode				:	in uint8_t;
 			output_layer			:	in std_logic; -- tell each to only consider own error
 			current_neuron			:	in uint8_t;
 					
@@ -75,7 +76,7 @@ architecture Behavioral of Layer is
 		port (
 			clk					:	in std_logic;
 
-			n_feedback			:	in std_logic;
+			n_feedback			:	in integer range 0 to 2;
 			output_neuron		:	in std_logic; -- tell neuron to only consider own error
 			index					:	integer range 0 to w-1;
 
@@ -117,11 +118,14 @@ begin
 		if rising_edge(clk) then
 			previous_neuron_int <= current_neuron_int;
 
-			if current_neuron < w-1 then
-				next_neuron <= current_neuron + 1;
-			else
-				next_neuron <= (others => '0');
-				output_previous_buffer <= connections_out_prev; -- hold this value of output_previous for next layer
+			-- no change if currently idle
+			if dist_mode /= to_unsigned(7, dist_mode'length) then
+				if current_neuron < w-1 then
+					next_neuron <= current_neuron + 1;
+				else
+					next_neuron <= (others => '0');
+					output_previous_buffer <= connections_out_prev; -- hold this value of output_previous for next layer
+				end if;
 			end if;
 		end if;
 	end process;
@@ -151,7 +155,8 @@ begin
 	process (clk, connections_out_prev) is
 	begin
 		if falling_edge(clk) then
-			conn_out_prev <= output_previous_buffer(next_neuron_int);
+			conn_out_prev <= connections_out_prev(next_neuron_int);
+			-- conn_out_prev <= output_previous_buffer(next_neuron_int);
 		end if;
 	end process;
 	

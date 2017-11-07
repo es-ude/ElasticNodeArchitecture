@@ -51,7 +51,7 @@ entity Neuron is
 	port (
 		clk					:	in std_logic;
 
-		n_feedback			:	in std_logic;
+		n_feedback			:	in integer range 0 to 2;
 		output_neuron		:	in std_logic; -- tell neuron to only consider own error
 		index					:	in integer range 0 to w-1;
 
@@ -101,7 +101,7 @@ sig:
 		variable weights			: 	fixed_point;
 	begin
 		if rising_edge(clk) then
-			if n_feedback = '1' then
+			if n_feedback = 1 then
 				--calculate output values
 				tf := weighted_sum(weights_in, input_connections) + bias_in;
 				tf_signal <= tf;
@@ -109,7 +109,7 @@ sig:
 				-- output_connection_signal <= sigmoid(tf);
 				
 				weights_out <= weights_in;
-			elsif n_feedback = '0' then
+			elsif n_feedback = 0 then
 				-- delta := resize_fixed_point(resize_fixed_point(output_connection_signal * (factor - (output_connection_signal))) * error_factor);
 				-- delta := multiply(multiply(output_connection_signal, factor - output_connection_signal), error_factor);
 

@@ -44,7 +44,7 @@ entity MatrixMultiplication is
 		reset				: in std_logic;
 		calculate		: in std_logic; -- controls functionality (sleep)
 		
-		done 				: out std_logic; -- done with entire calculation
+		busy 				: out std_logic; -- done with entire calculation
 		
 		-- data interface
 		matrixA			: in MatrixMultiplicationPackage.inputMatrix1;
@@ -61,6 +61,8 @@ architecture Behavioral of MatrixMultiplication is
 	
 	-- constant OUTPUT_SIZE : unsigned := to_unsigned((MatrixMultiplicationPackage.numrows1 * MatrixMultiplicationPackage.numcols2) * 4, 32);
 begin
+	
+	busy <= '1' when current_state = calculating else '0';
 
 	-- process data receive 
 	process (clock, current_state)
@@ -71,10 +73,11 @@ begin
 	
 		variable intermediate_result : MatrixMultiplicationPackage.outputMatrix := (others => (others => (others => '0')));
 	begin
+	
 		if reset = '1' then
 			current_state <= idle;
 			intermediate_result := (others => (others => (others => '0')));
-			done <= '0';
+			-- done <= '0';
 			column2 := 0;
 			row2 := 0;
 			
@@ -89,7 +92,7 @@ begin
 					end if;
 					
 					intermediate_result := (others => (others => (others => '0')));
-					done <= '0';
+					-- done <= '0';
 					column2 := 0;
 					row2 := 0;
 					
@@ -116,7 +119,7 @@ begin
 					end if;
 				elsif current_state = finished then
 					matrixC <= intermediate_result;
-					done <= '1';
+					-- done <= '1';
 					
 					-- perform next calculation
 					if calculate = '1' then

@@ -65,9 +65,10 @@ architecture Behavioral of TestHiddenLayers is
 		
 		n_feedback		: 	out std_logic;
 		current_layer	:	out uint8_t;
+		current_neuron	:	out uint8_t;
 
 		data_rdy       :  out std_logic;
-		mode_out       :  out std_logic_vector(2 downto 0)
+		mode_out       :  out uint8_t
 	);
 	end component;
 
@@ -101,7 +102,7 @@ begin
 
 	distr: Distributor port map
 	(
-		clk, reset, learn, calculate, n_feedback_bus, n_feedback, current_layer, data_rdy, open
+		clk, reset, learn, calculate, n_feedback_bus, n_feedback, current_layer, current_neuron, data_rdy, open
 	);
 	
 	uut : HiddenLayers port map (clk, n_feedback, current_layer, conn_in, conn_out, err_in, err_out);

@@ -78,7 +78,7 @@ architecture Behavioral of Network is
 			clk					:	in std_logic;
 			reset					: 	in std_logic;
 
-			n_feedback			:	in std_logic;
+			n_feedback			:	in integer range 0 to 2;
 			current_layer		: 	in uint8_t;
 			current_neuron		:	in uint8_t;
 			
@@ -126,7 +126,7 @@ architecture Behavioral of Network is
 		n_feedback_bus	:	out std_logic_vector(l downto 0) := (others => 'Z'); -- l layers + summation (at l)
 		
 				
-		n_feedback		: 	out std_logic;
+		n_feedback		: 	out integer range 0 to 2;
 		current_layer	:	out uint8_t;
 		current_neuron	:	out uint8_t;
 				
@@ -156,8 +156,8 @@ architecture Behavioral of Network is
 
 	--signal learn		: std_logic := '0';
 	signal n_feedback_bus 	: std_logic_vector(l downto 0) := (others => 'Z');
-	signal n_feedback		 	: std_logic;
-	signal n_feedback_buffered : std_logic;
+	signal n_feedback		 	: integer range 0 to 2;
+	signal n_feedback_buffered : integer range 0 to 2;
 	signal current_layer  	: uint8_t;
 	signal current_neuron	: uint8_t;
 	
@@ -172,129 +172,22 @@ begin
 				connections_out <= hidden_connections_out;
 			end if;
 		end if;
---		elsif falling_edge(n_feedback) then
---			connections_out <= hidden_connections_out;
---		end if;
+
 	end process;
-	--process (conn_matrix(l-1))
-	--begin
-	--	for i in 0 to w-1 loop
-	--		if conn_matrix(l-1)(i)) > 0.5 then
-	--			connections_out(i) <= '1'; 
-	--		else
-	--			connections_out(i) <= '0';
-	--		end if;
-	--	end loop;
-	--end process;
 
---    -- disable distributor entirely when enable low so processing stops
---    process(connections_in, clk, enable)
---    begin
---        if enable = '0' then
---             -- keep disabling distr when enable is low
---            distr_enable <= '0';
---        else
---            -- async distr_enable, reenable on next clock and restart distributor
---            if rising_edge(clk) then
---                if distr_enable = '0' then
---                    distr_enable <= '1';
---                end if;
---            elsif falling_edge(clk) then
---            else -- must be connections_in changed
---                distr_enable <= '0';
---            end if;
---        end if;
---    end process;
-	--process (connections_in)
-	--begin
-	--	for i in 0 to w-1 loop
-	--		if connections_in(i) = '1' then
-	--			conn_in_real(i) <= real_to_fixed_point(1.0);
-	--		else
-	--			conn_in_real(i) <= real_to_fixed_point(0.0);
-	--		end if;
-	--	end loop;
-	--end process;
-
-	--process(wanted)
-	--begin
-	--	for i in 0 to w-1 loop
-	--		if wanted(i) = '1' then
-	--			wanted_real(i) <= real_to_fixed_point(1.0); 
-	--		else
-	--			wanted_real(i) <= real_to_fixed_point(0.0);
-	--		end if;
-	--	end loop;
-	--end process;
-
-	--	gen_layers:
---	for i in 1 to l-2 generate layer_x : Layer port map -- l-2 hidden layers
---		(
---			clk => clk,
---			n_feedback => n_feedback_bus(i),
---			connections_in => conn_matrix(i-1),
---			connections_out => conn_matrix(i),
---			errors_in => err_matrix(i),
---			errors_out => err_matrix(i-1)
---		);
---	end generate;
-
-
-	-- input_layer : InputLayer port map (clk, n_feedback_bus(0), connections_in, conn_matrix(0), err_matrix(0), err_out);
-	hidden_layers: HiddenLayers port map (clk, reset, n_feedback_buffered, current_layer, current_neuron, mode_out_signal, connections_in, hidden_connections_out, wanted); --  err_matrix(l-1), err_out);
-	-- output_layer : OutputLayer port map (clk, n_feedback_bus(l-1), conn_matrix(l-2), conn_matrix(l-1), err_matrix(l-1), err_matrix(l-2));
-
-	-- lfp: Logic_FixedPoint port map (wanted_fp, wanted, clk);
-	
---	process (wanted, conn_matrix(l-1)) 
---	begin
---		err_matrix(l-1) <= wanted - conn_matrix(l-1);
---	end process;
-	--diff_unit: Diff port map 
-	--(
-	--	current => conn_matrix(l-1), wanted => wanted_real, difference => err_matrix(l-1)
-	--);
+	hidden_layers: HiddenLayers port map (clk, reset, n_feedback, current_layer, current_neuron, mode_out_signal, connections_in, hidden_connections_out, wanted); --  err_matrix(l-1), err_out);
 
 	distr: Distributor port map
 	(
 		clk, reset, learn, calculate, n_feedback_bus, n_feedback, current_layer, current_neuron, data_rdy_s, mode_out_signal
 	);
-	buff: BUFG port map
-	(
-		O=>n_feedback_buffered, I=>n_feedback
-	);
+--	buff: BUFG port map
+--	(
+--		O=>n_feedback_buffered, I=>n_feedback
+--	);
 	debug(2 downto 0) <= mode_out_signal(2 downto 0);
-	debug(3) <= n_feedback;
+	debug(3) <= '1' when n_feedback = 1 else '0';
 	debug(7 downto 4) <= current_layer(3 downto 0);
-
---	process (clk, learn)
---	variable clk_count : natural range 0 to (l * 2 + 1) := 0;
---	begin
---		if rising_edge(clk) then
---            -- data ready after one clock cycle per layer
---			if learn = '1' then
---				clk_count := clk_count + 1;
---				if clk_count = l + 2 then
---					data_rdy_s <= '1';
---				elsif clk_count = l * 2 + 4 then
---					data_rdy_s <= '0';
---					clk_count := 0;
---				else 
---					data_rdy_s <= '0';
---				end if;
---			else
---				clk_count := clk_count + 1;
---				if clk_count = l + 2 then
---					data_rdy_s <= '1';
---				--elsif clk_count = l * 2 + 1 then
---				--	data_rdy_s <= '0';
---					clk_count := 0;
---				else 
---					data_rdy_s <= '0';
---				end if;
---			end if;
---		end if;
---	end process;
 
 end Behavioral;
 

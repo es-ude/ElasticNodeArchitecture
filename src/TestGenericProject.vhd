@@ -18,10 +18,10 @@ ARCHITECTURE behavior OF TestGenericProject IS
  
     COMPONENT genericProject
     PORT(
-		userlogic_busy	: out std_logic;
-		userlogic_sleep: out std_logic;
+		--userlogic_busy	: out std_logic;
+		--userlogic_sleep: out std_logic;
 		
-		ARD_RESET 	: out std_logic;
+		--ARD_RESET 	: out std_logic;
 		--		spi_switch	: in std_logic;
 		--		flash_cs		: out std_logic;
 		--		flash_sck	: out std_logic;
@@ -38,15 +38,23 @@ ARCHITECTURE behavior OF TestGenericProject IS
 		clk_32		: in std_ulogic;	--! Clock 32 MHz
 		clk_50		: in std_ulogic;
 		
-		rx				: in std_logic;
-		tx 			: out std_logic;
+		--rx				: in std_logic;
+		--tx 			: out std_logic;
+				
+		-- reconfiguration ports
+		selectmap 	: in std_logic_vector(7 downto 0);
+		cclk			: in std_logic;
 		
 		-- sram
 		mcu_ad		: inout std_logic_vector(7 downto 0) := (others => 'Z');
 		mcu_ale		: in std_logic;
 		mcu_a		: in std_logic_vector(15 downto 8);
 		mcu_rd		: in std_logic;
-		mcu_wr		: in std_logic--;
+		mcu_wr		: in std_logic;
+		
+				
+		-- gpio
+		gpio			: out std_logic_vector(19 downto 0)
 		
 		-- kb_leds		: out kb_led_vector
         );
@@ -83,23 +91,27 @@ BEGIN
 	
 	-- Instantiate the Unit Under Test (UUT)
    uut: genericProject PORT MAP (
-		userlogic_busy => userlogic_busy,
-		userlogic_sleep => userlogic_sleep,
-		
-		ARD_RESET => open,
+--		userlogic_busy => userlogic_busy,
+--		userlogic_sleep => userlogic_sleep,
+--		
+--		ARD_RESET => open,
 		leds => leds,
 		
 		clk_32 => clk,
 		clk_50 => clk,
 		
-		rx => rx,
-		tx => tx,
+		selectmap => (others => '0'),
+		cclk => '0',
+--		rx => rx,
+--		tx => tx,
 		
 		mcu_ad => mcu_ad,
 		mcu_ale => mcu_ale,
 		mcu_a => mcu_a,
 		mcu_rd => mcu_rd,
-		mcu_wr => mcu_wr
+		mcu_wr => mcu_wr,
+		
+		gpio => open
         );
 
    -- Clock process definitions
@@ -150,7 +162,7 @@ BEGIN
 		
 		-- ann ul
 		write_uint8_t_ext(x"01", x"2100", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- conn_in
-		write_uint8_t_ext(x"03", x"2101", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- wanted
+		write_uint8_t_ext(x"AA", x"2101", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- wanted
 		write_uint8_t_ext(x"01", x"2102", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- control
 		write_uint8_t_ext(x"01", x"2103", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- start
 		
@@ -158,7 +170,8 @@ BEGIN
 		
 		wait for clk_period * 2;
 		
-		wait until userlogic_busy = '0';
+		wait for clk_period*300;
+
 		waiting <= false;
 		
 		read_uint8_t_ext(x"2100", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- conn_in 
@@ -174,7 +187,7 @@ BEGIN
 		write_uint8_t_ext(x"01", x"2103", mcu_ad_s, mcu_a, mcu_ale, mcu_wr); -- start
 
 		
-		wait for clk_period * 2;
+		wait for 110ns;
 		
 		read_uint8_t_ext(x"2100", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- conn_in 
 		read_uint8_t_ext(x"2101", mcu_ad_s, mcu_a, mcu_ale, mcu_rd); -- wanted
