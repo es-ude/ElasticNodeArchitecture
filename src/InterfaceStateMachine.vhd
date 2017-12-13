@@ -48,7 +48,13 @@ architecture Behavior of InterfaceStateMachine is
 	constant MULTIBOOT : uint16_t := x"0005";
 	constant LED : uint16_t := x"0003";
 	constant USERLOGIC_CONTROL : uint16_t := x"0004";
+	
+	signal led_signal : std_logic_vector(3 downto 0) := (others => '0');
+	signal userlogic_reset_signal : std_logic := '0';
 begin
+	leds <= led_signal;
+	userlogic_reset <= userlogic_reset_signal;
+
 	-- main data receiving process
 	process (reset, clk, sram_rd, sram_wr) 
 		variable data_var : std_logic_vector(7 downto 0);
@@ -56,9 +62,9 @@ begin
 	begin
 		if reset = '1' then
 			icap_address.ready <= '0';
-			leds <= (others => '0');
+			led_signal <= (others => '0');
 			sram_data_out <= (others => '0');
-			userlogic_reset <= '1';
+			userlogic_reset_signal <= '1';
 			userlogic_rd <= '1';
 			userlogic_wr <= '1';
 		else
@@ -84,10 +90,10 @@ begin
 								icap_address.ready <= '1'; -- will go low automatically when done with multiboot
 							when LED =>
 								data_var := std_logic_vector(sram_data_in);
-								leds <= data_var(3 downto 0);
+								led_signal <= data_var(3 downto 0);
 							when USERLOGIC_CONTROL =>
 								data_var := std_logic_vector(sram_data_in);
-								userlogic_reset <= data_var(0);
+								userlogic_reset_signal <= data_var(0);
 							when others =>
 							end case;
 						-- data region
@@ -101,7 +107,26 @@ begin
 					else
 						-- control region
 						if sram_address <= control_region then
-							sram_data_out <= sram_address(7 downto 0);
+							-- write unaffected as zero
+							sram_data_out <= (others => '0');
+							
+							-- icap
+							case sram_address is
+--							when MULTIBOOT =>
+--								sram_data_out <= icap_address.data(7 downto 0);
+--							when MULTIBOOT + 1 =>
+--								sram_data_out <= icap_address.data(15 downto 8);
+--							when MULTIBOOT + 2 =>
+--								sram_data_out <= icap_address.data(23 downto 16);
+							when LED =>
+								sram_data_out(3 downto 0) <= unsigned(led_signal);
+							when USERLOGIC_CONTROL =>
+								sram_data_out(0) <= userlogic_reset_signal;
+							when others =>
+								sram_data_out <= sram_address(7 downto 0);
+							end case;
+							
+							
 						-- data region
 							userlogic_rd <= '1';
 						else

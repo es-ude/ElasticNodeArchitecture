@@ -36,7 +36,7 @@ use neuralnetwork.Common.all;
 
 entity Logic_FixedPoint is
 	Port (
-		fixed_point		:	out fixed_point_vector;
+		fixed_point		:	out fixed_point_vector := (others => zero);
 		std_logic_vec	: 	in uintw_t;
 		clk				:	in std_logic
 	);

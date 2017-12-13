@@ -63,6 +63,7 @@ component Network is
 		
 		learn					:	in std_logic;
 		data_rdy				:	out std_logic := '0';
+		busy				 	:  out std_logic;
 		calculate			:   in std_logic;
 	
 		connections_in		:	in fixed_point_vector;
@@ -136,9 +137,9 @@ begin
 
 net: Network port map
 (
-    clk, reset, learn, data_rdy, calculate, connections_in_fp, connections_out_fp, wanted_fp, debug
+    clk, reset, learn, data_rdy, busy, calculate, connections_in_fp, connections_out_fp, wanted_fp, debug
 );
-busy <= '0' when mode = to_unsigned(0, mode'length) else '1';
+-- busy <= '0' when mode = to_unsigned(0, mode'length) else '1';
 --mode_out <= mode;
 
 fpl: FixedPoint_Logic port map

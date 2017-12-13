@@ -35,6 +35,10 @@
          <obj_property name="ElementShortName">busy</obj_property>
          <obj_property name="ObjectShortName">busy</obj_property>
       </wvobject>
+      <wvobject fp_name="/testnetworkskeleton/done" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">done</obj_property>
+         <obj_property name="ObjectShortName">done</obj_property>
+      </wvobject>
       <wvobject fp_name="/testnetworkskeleton/uut/rd" type="logic" db_ref_id="1">
          <obj_property name="ElementShortName">rd</obj_property>
          <obj_property name="ObjectShortName">rd</obj_property>
@@ -93,11 +97,26 @@
          <obj_property name="ElementShortName">wanted[2:0]</obj_property>
          <obj_property name="ObjectShortName">wanted[2:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <wvobject fp_name="/testnetworkskeleton/uut/wanted[2]" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">[2]</obj_property>
+            <obj_property name="ObjectShortName">wanted[2]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/testnetworkskeleton/uut/wanted[1]" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">[1]</obj_property>
+            <obj_property name="ObjectShortName">wanted[1]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/testnetworkskeleton/uut/wanted[0]" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">[0]</obj_property>
+            <obj_property name="ObjectShortName">wanted[0]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         </wvobject>
       </wvobject>
       <wvobject fp_name="/testnetworkskeleton/uut/wanted_uintw" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">wanted_uintw[2:0]</obj_property>
          <obj_property name="ObjectShortName">wanted_uintw[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/testnetworkskeleton/uut/connections_out" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">connections_out[2:0]</obj_property>
@@ -107,7 +126,7 @@
       <wvobject fp_name="/testnetworkskeleton/uut/connections_out_uintw" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">connections_out_uintw[2:0]</obj_property>
          <obj_property name="ObjectShortName">connections_out_uintw[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/testnetworkskeleton/uut/run_counter" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">run_counter[7:0]</obj_property>
@@ -126,6 +145,22 @@
          <obj_property name="ElementShortName">clk_divider</obj_property>
          <obj_property name="ObjectShortName">clk_divider</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="group160" type="group">
+         <obj_property name="label">wanted_lfp</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/testnetworkskeleton/uut/lfpw/fixed_point" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">fixed_point[2:0]</obj_property>
+            <obj_property name="ObjectShortName">fixed_point[2:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/testnetworkskeleton/uut/lfpw/std_logic_vec" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">std_logic_vec[2:0]</obj_property>
+            <obj_property name="ObjectShortName">std_logic_vec[2:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/testnetworkskeleton/uut/lfpw/clk" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">clk</obj_property>
+            <obj_property name="ObjectShortName">clk</obj_property>
+         </wvobject>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group39" type="group">

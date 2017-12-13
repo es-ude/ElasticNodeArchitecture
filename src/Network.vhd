@@ -46,10 +46,11 @@ entity Network is
 			
 			learn				:	in std_logic;
 			data_rdy			:	out std_logic := '0';
+			busy				:  out std_logic;
         	calculate      :   in std_logic;
             
 			connections_in	:	in fixed_point_vector;
-			connections_out	:	out fixed_point_vector;
+			connections_out	:	out fixed_point_vector := (others => zero);
 
 			--errors_in		:	in fixed_point_vector;
 			wanted			:	in fixed_point_vector;
@@ -92,6 +93,7 @@ architecture Behavioral of Network is
 		);
 	end component;
 
+
 --	component OutputLayer is
 --	port (
 --			clk				:	in std_logic;
@@ -122,7 +124,7 @@ architecture Behavioral of Network is
 		clk				:	in std_logic;
 		reset				: in std_logic;
 		learn				:	in std_logic;
-      	calculate    	:   in std_logic;
+		calculate    	:   in std_logic;
 		n_feedback_bus	:	out std_logic_vector(l downto 0) := (others => 'Z'); -- l layers + summation (at l)
 		
 				
@@ -146,6 +148,7 @@ architecture Behavioral of Network is
 --	signal conn_matrix 		: fixed_point_array;
 --	signal err_matrix 		: fixed_point_array;
 	signal hidden_connections_out : fixed_point_vector;
+	signal connections_out_signal : fixed_point_vector;
 	signal err_out 			: fixed_point_vector;
 	signal data_rdy_s			: std_logic := '0';
 	signal mode_out_signal	: uint8_t;
@@ -161,19 +164,28 @@ architecture Behavioral of Network is
 	signal current_layer  	: uint8_t;
 	signal current_neuron	: uint8_t;
 	
+	
 begin
 	data_rdy <= data_rdy_s;
 	-- set output connections when changing to learning
-	process (clk, mode_out_signal) is
+	process (reset, clk, mode_out_signal) is
 	begin
-		if rising_edge(clk) then
+		if reset = '1' then
+			connections_out_signal <= (others => zero);
+		elsif rising_edge(clk) then
 			-- if learn = '0' then
 			if mode_out_signal = to_unsigned(4, mode_out_signal'length) then -- std_logic_vector(to_unsigned(4, mode_out_signal'length)) then
-				connections_out <= hidden_connections_out;
+				connections_out_signal <= hidden_connections_out;
+			else
+				connections_out_signal <= connections_out_signal;
 			end if;
 		end if;
 
 	end process;
+	
+	connections_out <= connections_out_signal;
+
+	busy <= '0' when mode_out_signal = to_unsigned(0, mode_out_signal'length) else '1';
 
 	hidden_layers: HiddenLayers port map (clk, reset, n_feedback, current_layer, current_neuron, mode_out_signal, connections_in, hidden_connections_out, wanted); --  err_matrix(l-1), err_out);
 
