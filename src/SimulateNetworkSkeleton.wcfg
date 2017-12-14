@@ -18,7 +18,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="6" />
+   <WVObjectSize size="7" />
    <wvobject fp_name="group11" type="group">
       <obj_property name="label">sim</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -60,7 +60,7 @@
       <wvobject fp_name="/testnetworkskeleton/uut/data_out" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">data_out[7:0]</obj_property>
          <obj_property name="ObjectShortName">data_out[7:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/testnetworkskeleton/uut/calculate_out" type="logic" db_ref_id="1">
          <obj_property name="ElementShortName">calculate_out</obj_property>
@@ -122,11 +122,26 @@
          <obj_property name="ElementShortName">connections_out[2:0]</obj_property>
          <obj_property name="ObjectShortName">connections_out[2:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <wvobject fp_name="/testnetworkskeleton/uut/connections_out[2]" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">[2]</obj_property>
+            <obj_property name="ObjectShortName">connections_out[2]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/testnetworkskeleton/uut/connections_out[1]" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">[1]</obj_property>
+            <obj_property name="ObjectShortName">connections_out[1]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/testnetworkskeleton/uut/connections_out[0]" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">[0]</obj_property>
+            <obj_property name="ObjectShortName">connections_out[0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
       </wvobject>
       <wvobject fp_name="/testnetworkskeleton/uut/connections_out_uintw" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">connections_out_uintw[2:0]</obj_property>
          <obj_property name="ObjectShortName">connections_out_uintw[2:0]</obj_property>
-         <obj_property name="Radix">BINARYRADIX</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/testnetworkskeleton/uut/run_counter" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">run_counter[7:0]</obj_property>
@@ -161,6 +176,25 @@
             <obj_property name="ElementShortName">clk</obj_property>
             <obj_property name="ObjectShortName">clk</obj_property>
          </wvobject>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group177" type="group">
+      <obj_property name="label">diag</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/testnetworkskeleton/uut/address_s" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">address_s[15:0]</obj_property>
+         <obj_property name="ObjectShortName">address_s[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testnetworkskeleton/uut/index_s" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">index_s[15:0]</obj_property>
+         <obj_property name="ObjectShortName">index_s[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testnetworkskeleton/uut/fp_s" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">fp_s[15:0]</obj_property>
+         <obj_property name="ObjectShortName">fp_s[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group39" type="group">
@@ -308,16 +342,6 @@
          <obj_property name="ObjectShortName">wanted[2:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
-      <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_in" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">weights_in[2:0]</obj_property>
-         <obj_property name="ObjectShortName">weights_in[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_out" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">weights_out[2:0]</obj_property>
-         <obj_property name="ObjectShortName">weights_out[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
       <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/conn_in" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">conn_in[2:0]</obj_property>
          <obj_property name="ObjectShortName">conn_in[2:0]</obj_property>
@@ -360,30 +384,6 @@
       <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/n_feedback_s" type="other" db_ref_id="1">
          <obj_property name="ElementShortName">n_feedback_s</obj_property>
          <obj_property name="ObjectShortName">n_feedback_s</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_wr" type="logic" db_ref_id="1">
-         <obj_property name="ElementShortName">weights_wr</obj_property>
-         <obj_property name="ObjectShortName">weights_wr</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_rd_address" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">weights_rd_address[2:0]</obj_property>
-         <obj_property name="ObjectShortName">weights_rd_address[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_wr_address" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">weights_wr_address[2:0]</obj_property>
-         <obj_property name="ObjectShortName">weights_wr_address[2:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_din" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">weights_din[143:0]</obj_property>
-         <obj_property name="ObjectShortName">weights_din[143:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_dout" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">weights_dout[143:0]</obj_property>
-         <obj_property name="ObjectShortName">weights_dout[143:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/invert_clk" type="logic" db_ref_id="1">
@@ -512,6 +512,70 @@
          <obj_property name="label">weights</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_in" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">weights_in[2:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_in[2:0]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_in[2]" type="array" db_ref_id="1">
+               <obj_property name="ElementShortName">[2]</obj_property>
+               <obj_property name="ObjectShortName">weights_in[2]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_in[1]" type="array" db_ref_id="1">
+               <obj_property name="ElementShortName">[1]</obj_property>
+               <obj_property name="ObjectShortName">weights_in[1]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_in[0]" type="array" db_ref_id="1">
+               <obj_property name="ElementShortName">[0]</obj_property>
+               <obj_property name="ObjectShortName">weights_in[0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+         </wvobject>
+         <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_out" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">weights_out[2:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_out[2:0]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_out[2]" type="array" db_ref_id="1">
+               <obj_property name="ElementShortName">[2]</obj_property>
+               <obj_property name="ObjectShortName">weights_out[2]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_out[1]" type="array" db_ref_id="1">
+               <obj_property name="ElementShortName">[1]</obj_property>
+               <obj_property name="ObjectShortName">weights_out[1]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_out[0]" type="array" db_ref_id="1">
+               <obj_property name="ElementShortName">[0]</obj_property>
+               <obj_property name="ObjectShortName">weights_out[0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+         </wvobject>
+         <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_wr" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">weights_wr</obj_property>
+            <obj_property name="ObjectShortName">weights_wr</obj_property>
+         </wvobject>
+         <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_rd_address" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">weights_rd_address[2:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_rd_address[2:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_wr_address" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">weights_wr_address[2:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_wr_address[2:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_din" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">weights_din[143:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_din[143:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/testnetworkskeleton/uut/nn/hidden_layers/weights_dout" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">weights_dout[143:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_dout[143:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group99" type="group">

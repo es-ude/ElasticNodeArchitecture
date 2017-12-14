@@ -78,6 +78,10 @@ architecture Behavioral of NetworkSkeleton is
 	signal half_clock			: std_logic := '0';
 	signal busy_signal		: std_logic;
 	
+	signal address_s : uint16_t;
+	signal index_s : uint16_t;
+	signal fp_s : fixed_point;
+		
 	component FixedPoint_Logic is
 		Port (
 			fixed_point		:	in fixed_point_vector;
@@ -143,6 +147,9 @@ nn: entity neuralnetwork.Network(Behavioral)
 
 	-- process data receive 
 	process (clock, rd, wr, reset)
+		variable address : uint16_t;
+		variable index : uint16_t;
+		variable fp : fixed_point;
 	begin
 		
 		if reset = '1' then
@@ -197,10 +204,24 @@ nn: entity neuralnetwork.Network(Behavioral)
 	
 						when 200 => 
 							data_out <= run_counter;
-						when 255 =>
-							data_out <= address_in(15 downto 8);
+--						when 255 =>
+--							data_out <= address_in(15 downto 8);
 						when others =>
-							data_out <= address_in(7 downto 0);
+							address := (address_in - to_unsigned(256, address_in'length));
+							index := address / 2;
+							fp := connections_out(to_integer(index));
+							
+							address_s <= address;
+							index_s <= index;
+							fp_s <= fp;
+
+							-- if odd
+							if address(0) = '1' then
+								data_out <= unsigned(fp(7 downto 0));
+							else
+								data_out <= unsigned(fp(15 downto 8));
+							end if;
+							-- data_out <= address_in(7 downto 0);
 						end case;
 --					else
 --						calculate <= '0';

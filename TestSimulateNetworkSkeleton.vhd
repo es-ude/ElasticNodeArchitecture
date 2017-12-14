@@ -59,8 +59,8 @@
 			
 			reset <= '0';
 			
-			for i in 0 to 100 loop
-				wait for clock_period * 2; -- wait until global set/reset completes
+			for i in 0 to 1000 loop
+				wait for clock_period * 20; -- wait until global set/reset completes
 				
 				-- inputs
 				write_uint8_t(3, x"0000", address_in, data_in, wr); -- connections in
@@ -75,7 +75,10 @@
 				-- wait until done = '1';
 				
 				-- outputs
-				-- read_uint8_t(x"0002", address_in, rd);
+				read_uint8_t(x"0100", address_in, rd);
+				read_uint8_t(x"0101", address_in, rd);
+				read_uint8_t(x"0102", address_in, rd);
+				read_uint8_t(x"0103", address_in, rd);
 			end loop;
 			
 			wait for clock_period * 4;

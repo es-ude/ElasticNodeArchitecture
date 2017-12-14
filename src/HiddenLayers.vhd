@@ -237,7 +237,7 @@ btv:
 				
 				-- when forward, load weights for next (clocks inverted)
 				if n_feedback = 1 then
-					if last_neuron then
+					if last_neuron and current_layer < l - 1 then -- dont load l+1 weights
 						weights_rd_address <= std_logic_vector(resize(current_layer + 1, WEIGHTS_RAM_WIDTH));
 					end if;
 				-- when backward, load next 
