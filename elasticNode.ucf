@@ -10,20 +10,20 @@ NET CLK_32		LOC="P94" | PERIOD=31.25ns;
 #TIMESPEC TS_<top_level_port> = PERIOD tnm_<top_level_port> 10ns;
 
 # LEDs
-NET "leds<3>"	LOC="P141";
-NET "leds<2>"	LOC="P142";
-NET "leds<1>"	LOC="P143";
-NET "leds<0>"	LOC="P144";
+NET "leds<3>"	LOC="P101";
+NET "leds<2>"	LOC="P102";
+NET "leds<1>"	LOC="P104";
+NET "leds<0>"	LOC="P105";
 
-# SELECT MAP
-NET "selectmap<0>" LOC="P65";
-NET "selectmap<1>" LOC="P62";
-NET "selectmap<2>" LOC="P61";
-NET "selectmap<3>" LOC="P46";
-NET "selectmap<4>" LOC="P45";
-NET "selectmap<5>" LOC="P44";
-NET "selectmap<6>" LOC="P43";
-NET "selectmap<7>" LOC="P48";
+## SELECT MAP
+#NET "selectmap<0>" LOC="P65";
+#NET "selectmap<1>" LOC="P62";
+#NET "selectmap<2>" LOC="P61";
+#NET "selectmap<3>" LOC="P46";
+#NET "selectmap<4>" LOC="P45";
+#NET "selectmap<5>" LOC="P44";
+#NET "selectmap<6>" LOC="P43";
+#NET "selectmap<7>" LOC="P48";
 
 # CONFIG
 NET CCLK LOC="P70";
@@ -52,22 +52,22 @@ NET "gpio<18>" LOC="P35";
 NET "gpio<19>" LOC="P34";
 
 # XMEM
-NET "MCU_AD<0>" LOC="P105";
-NET "MCU_AD<1>" LOC="P104";
-NET "MCU_AD<2>" LOC="P102";
-NET "MCU_AD<3>" LOC="P101";
-NET "MCU_AD<4>" LOC="P100";
-NET "MCU_AD<5>" LOC="P99";
-NET "MCU_AD<6>" LOC="P98";
-NET "MCU_AD<7>" LOC="P97";
-NET "MCU_ALE" LOC="P95";
-NET "MCU_A<8>" LOC="P78";
-NET "MCU_A<9>" LOC="P79";
-NET "MCU_A<10>" LOC="P80";
-NET "MCU_A<11>" LOC="P81";
-NET "MCU_A<12>" LOC="P82";
-NET "MCU_A<13>" LOC="P83";
-NET "MCU_A<14>" LOC="P84";
-NET "MCU_A<15>" LOC="P85";
-NET "MCU_WR" LOC="P74";
-NET "MCU_RD" LOC="P75";
+NET "MCU_AD<0>" LOC="P48";
+NET "MCU_AD<1>" LOC="P43";
+NET "MCU_AD<2>" LOC="P44";
+NET "MCU_AD<3>" LOC="P45";
+NET "MCU_AD<4>" LOC="P46";
+NET "MCU_AD<5>" LOC="P61";
+NET "MCU_AD<6>" LOC="P62";
+NET "MCU_AD<7>" LOC="P65";
+NET "MCU_ALE" LOC="P66";
+NET "MCU_A<8>" LOC="P83";
+NET "MCU_A<9>" LOC="P82";
+NET "MCU_A<10>" LOC="P81";
+NET "MCU_A<11>" LOC="P80";
+NET "MCU_A<12>" LOC="P79";
+NET "MCU_A<13>" LOC="P78";
+NET "MCU_A<14>" LOC="P75";
+NET "MCU_A<15>" LOC="P74";
+NET "MCU_WR" LOC="P85";
+NET "MCU_RD" LOC="P84";

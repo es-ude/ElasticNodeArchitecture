@@ -116,23 +116,23 @@ fpl: FixedPoint_Logic port map
 
 	calculate_out <= calculate;
 	
--- half the clock
-process (reset, clock) is
-	variable val : std_logic := '0';
-	variable counter : integer range 0 to clk_divider := 0;-- slow down to 5 Hz from 50 MHz: 50M/2 /5 = 5M
-begin
-	if reset = '1' then
-		val := '0';
-		counter := 0;
-	elsif rising_edge(clock) then
-		counter := counter + 1;
-		if counter = clk_divider then
-			counter := 0;
-			val := not val;
-			-- half_clock <= val;
-		end if;
-	end if;
-end process;
+---- half the clock
+--process (reset, clock) is
+--	variable val : std_logic := '0';
+--	variable counter : integer range 0 to clk_divider := 0;-- slow down to 5 Hz from 50 MHz: 50M/2 /5 = 5M
+--begin
+--	if reset = '1' then
+--		val := '0';
+--		counter := 0;
+--	elsif rising_edge(clock) then
+--		counter := counter + 1;
+--		if counter = clk_divider then
+--			counter := 0;
+--			val := not val;
+--			-- half_clock <= val;
+--		end if;
+--	end if;
+--end process;
 
 clockprocess: process(clock) is
 begin
@@ -142,7 +142,7 @@ begin
 end process;
 
 nn: entity neuralnetwork.Network(Behavioral)
-	port map (half_clock, reset, learn, data_rdy, busy_signal, calculate, connections_in, connections_out, wanted, debug); -- done wired to busy
+	port map (clock, reset, learn, data_rdy, busy_signal, calculate, connections_in, connections_out, wanted, debug); -- done wired to busy
 	busy <= busy_signal;
 
 	-- process data receive 

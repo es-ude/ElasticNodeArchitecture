@@ -42,7 +42,7 @@ ARCHITECTURE behavior OF TestGenericProject IS
 		--tx 			: out std_logic;
 				
 		-- reconfiguration ports
-		selectmap 	: in std_logic_vector(7 downto 0);
+		-- selectmap 	: in std_logic_vector(7 downto 0);
 		cclk			: in std_logic;
 		
 		-- sram
@@ -80,8 +80,8 @@ ARCHITECTURE behavior OF TestGenericProject IS
    signal tx : std_logic;
 
    -- Clock period definitions
-   constant clk_period : time := 20 ns;
-	constant mcu_clk : time := 125 ns;
+   constant clk_period : time := 31.25 ns;
+	constant mcu_clk : time := 83.3333333333333333333 ns;
 
 	signal busy : boolean := true;
 	signal waiting : boolean := false;
@@ -100,7 +100,7 @@ BEGIN
 		clk_32 => clk,
 		clk_50 => clk,
 		
-		selectmap => (others => '0'),
+		-- selectmap => (others => '0'),
 		cclk => '0',
 --		rx => rx,
 --		tx => tx,

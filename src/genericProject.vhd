@@ -44,7 +44,7 @@ entity genericProject is
 		--tx 			: out std_logic;
 		
 		-- reconfiguration ports
-		selectmap 	: in std_logic_vector(7 downto 0);
+		-- selectmap 	: in std_logic_vector(7 downto 0);
 		cclk			: in std_logic;
 		
 		-- xmem
@@ -113,7 +113,7 @@ ARD_RESET <= '0';
 
 invert_clk <= not clk;
 
-clk <= clk_50;
+clk <= clk_32;
 
 leds <= mw_leds;
 --leds(0) <= calculate;
@@ -122,10 +122,10 @@ leds <= mw_leds;
 --leds(3) <= userlogic_busy_s;
 
 gpio(0) <= calculate;
-gpio(1) <= reset;
+gpio(1) <= invert_clk;
 gpio(2) <= userlogic_reset;
 gpio(3) <= userlogic_busy_s;
-
+gpio(19 downto 14) <= (others => '0');
 
 
 
@@ -198,15 +198,37 @@ mw: entity work.middleware(Behavioral)
 	
 	--sram interface
 	-- lower address latch
-	process (mcu_ale) is 
+	process (reset, clk, mcu_ale) is 
+		variable address_concat_var : uint16_t;
 		variable address_var : uint16_t;
 		variable userlogic_address_var : uint16_t;
+		variable old_mcu_ale : std_logic;
 	begin
-		if falling_edge(mcu_ale) then
-			address_var := unsigned(mcu_a & mcu_ad) - OFFSET;
-			userlogic_address_var := unsigned(mcu_a & mcu_ad) - USERLOGIC_OFFSET;
-			address_s <= std_logic_vector(address_var);
-			userlogic_address <= userlogic_address_var;
+		if reset = '1' then
+			old_mcu_ale := '0';
+		else 
+			-- find falling edge of mcu_ale
+			if rising_edge(clk) then
+				if mcu_ale = '1' then
+					address_concat_var := unsigned(mcu_a & mcu_ad);
+					address_var := address_concat_var - OFFSET;
+					userlogic_address_var := address_concat_var - USERLOGIC_OFFSET;
+					address_s <= std_logic_vector(address_var);
+					userlogic_address <= userlogic_address_var;
+				end if;
+--				-- see if ale has changed
+--				if mcu_ale /= old_mcu_ale then
+--					if mcu_ale = '0' then -- was '1'
+--						address_var := unsigned(mcu_a & mcu_ad) - OFFSET;
+--						userlogic_address_var := unsigned(mcu_a & mcu_ad) - USERLOGIC_OFFSET;
+--						address_s <= std_logic_vector(address_var);
+--						userlogic_address <= userlogic_address_var;
+--					end if;
+--					old_mcu_ale := mcu_ale;
+--				end if;
+			--if falling_edge(mcu_ale) then
+				
+			end if;
 		end if;
 	end process;
 	sram_address <= unsigned(address_s);

@@ -2,3 +2,4 @@
 # fix for mapping errors
 #PIN "ul/nn/net/buff.O" CLOCK_DEDICATED_ROUTE = FALSE;
 #INST "ul/nn/net/buff" LOC = BUFGMUX_X3Y8;
+#NET "mcu_ale" CLOCK_DEDICATED_ROUTE = FALSE;
