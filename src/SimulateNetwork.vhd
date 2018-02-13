@@ -64,8 +64,22 @@ architecture Behavioral of SimulateNetwork is
 	signal busy 	: boolean := true;
 	
 	signal debug : uint8_t;
-
+	
+	signal multiply_result : fixed_point;	-- 16
+	signal multiply_test : fixed_point;		-- 16
+	signal A : fixed_point := factor_2; -- 16
+	signal B : fixed_point := factor_2; -- 16
+	signal TMP, TMP2 : signed(7 downto 0); -- 8
+	signal TMP3 : signed(15 downto 0); -- 16
+		
 begin
+
+	multiply_result <= multiply(A, B);
+	TMP <= A(12 downto 5);
+	TMP2 <= B(12 downto 5);
+	TMP3 <= TMP * TMP2;
+	multiply_test <= TMP3(15 downto 0);
+
 --	data_in(w-1 downto 0) <= conn_in;
 --	data_in(2*w-1 downto w) <= wanted;
 --	data_in(2*w) <= learn;
