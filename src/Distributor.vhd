@@ -133,6 +133,7 @@ begin
 							-- was delayed, resume and restore variables
 							if n_feedback_var = idle then
 								n_feedback_var := back;
+								neuron_counter := 0;
 							elsif neuron_counter = w then
 								neuron_counter := 0;
 								

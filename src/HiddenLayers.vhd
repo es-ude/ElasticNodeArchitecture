@@ -486,26 +486,6 @@ btv:
 					if current_neuron = w-1 then
 						--err_in <= err_out; -- forward results of previous layer to next layer
 					end if;
-					
-						-- ***
---						-- currently addressing w of w*l 
---						-- type incompatibility: writing part of a fp_matrix_array to a fp_matrix
---						for i in 0 to w-1 loop
---							weights(current_layer_sample, i) <= weights_out(i);
---						end loop;
-						
-						-- weights_din <= weights_to_vector(weights_out);
-						-- weights_wr <= '1';
-						-- weights((current_layer_sample+1)*w-1 downto current_layer_sample*w) <= weights_out(w-1 downto 0); -- save updated weights
-						-- weights <= weights_out;
---					else 
---						errors_out <= err_out;
---					end if;
-----					elsif current_layer_sample = 1 then
-----						conn_in <= connections_in;
---				else
---					err_in <= errors_in;
-				-- end if;
 				
 			elsif n_feedback = 1 then
 				-- current_layer_sample := current_layer_sample + 1;
@@ -547,47 +527,6 @@ btv:
 --			end if;		
 		end if;	
 	end process;
-	
---		-- set outputs correctly
---		elsif rising_edge(clk) then
---			if current_layer_sample >= 0 and current_layer_sample < l then -- hidden layer active
---				if current_layer_sample > 0 and current_layer_sample < l-1 then
---					-- if training, save weights
---					if n_feedback = '0' then
-----						weights(current_layer_sample) <= weights_out; -- save updated weights
---					end if;
---				end if;
---				 -- TODO can probably get away from n_feedback_s, checking for layer anyway...
---				--if n_feedback = '1' then 
---				--	n_feedback_s <= n_feedback; --  when (current_layer > 0 and current_layer < l-1) else 'Z';
---				--end if;
-----			else
-----				n_feedback_s <= 'Z';
---			end if;
---		end if;	
---		-- current_layer changed
---		else
---			-- sample current layer once with rising, not falling edge
---			current_layer_sample := to_integer(current_layer);
-			
---			-- is current hidden layer
---			if current_layer_sample > 0 and current_layer_sample < l-1 then -- hidden layer active
---				-- n_feedback_s <= n_feedback;
---				weights_in <= weights(current_layer_sample);
-				
---			-- outside connections and errors
---			elsif current_layer_sample = 1  then
---				-- if forward, connect to connections_in
---				-- if n_feedback_s = '1' then
---				-- conn_in <= connections_in;
---				-- if backward, connect to errors_in
---			elsif current_layer_sample = l-1 then
---			-- if n_feedback_s = '0' then
---				err_in <= errors_in;
---				-- end if;
---			end if;
---		end if;
-
 
 
 end Behavioral;

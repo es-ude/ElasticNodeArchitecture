@@ -116,7 +116,7 @@ fpl: FixedPoint_Logic port map
 
 	calculate_out <= calculate;
 	
----- half the clock
+-- half the clock
 --process (reset, clock) is
 --	variable val : std_logic := '0';
 --	variable counter : integer range 0 to clk_divider := 0;-- slow down to 5 Hz from 50 MHz: 50M/2 /5 = 5M
@@ -142,7 +142,7 @@ begin
 end process;
 
 nn: entity neuralnetwork.Network(Behavioral)
-	port map (clock, reset, learn, data_rdy, busy_signal, calculate, connections_in, connections_out, wanted, debug); -- done wired to busy
+	port map (half_clock, reset, learn, data_rdy, busy_signal, calculate, connections_in, connections_out, wanted, debug); -- done wired to busy
 	busy <= busy_signal;
 
 	-- process data receive 

@@ -60,13 +60,16 @@ entity Layer is
 end Layer;
 
 architecture Behavioral of Layer is
-	signal errors_matrix : fixed_point_matrix;
+	-- signal errors_matrix : fixed_point_matrix;
+	signal reset_mux : std_logic;
 	
 	-- signal errors_out, errors_in : fixed_point
 	component sumMux
 		port (
-			--clk			:	in std_logic;
-			errors 		:	in fixed_point_matrix;
+			reset			:	in std_logic;
+			clk			:	in std_logic;
+			index			:	in integer range 0 to w-1;
+			errors_in	:	in fixed_point_vector;
 			errors_out	: 	out fixed_point_vector
 			);
 	end component;
@@ -196,24 +199,40 @@ begin
 			end if;
 		end if;
 	end process;
-	process (clk, error_out) is
+	
+	-- error mux reset
+	process (reset, clk) is
 	begin
-		if falling_edge(clk) then
-			errors_matrix(previous_neuron_int) <= error_out;
---			if current_neuron_int = 0 then
---				errors_out_seq <= error_out;
---			else
---				errors_out_seq <= errors_out_seq + error_out;
---			end if;
+		if reset = '1' then
+			reset_mux <= '1';
+		elsif rising_edge(clk) then
+			if n_feedback = 2 then
+				reset_mux <= '1';
+			else
+				reset_mux <= '0';
+			end if;
 		end if;
 	end process;
+--	process (clk, error_out) is
+--	begin
+--		if falling_edge(clk) then
+--			errors_matrix(previous_neuron_int) <= error_out;
+----			if current_neuron_int = 0 then
+----				errors_out_seq <= error_out;
+----			else
+----				errors_out_seq <= errors_out_seq + error_out;
+----			end if;
+--		end if;
+--	end process;
 --		end if;
 --	end process;
 	
 	mux : sumMux port map
 	(
-		--clk => clk,
-		errors => errors_matrix,
+		reset => reset_mux,
+		clk => clk,
+		index => previous_neuron_int,
+		errors_in => error_out,
 		errors_out => errors_out
 	);
 
@@ -242,4 +261,3 @@ neur:
 	);
 	-- end generate;
 end Behavioral;
-
