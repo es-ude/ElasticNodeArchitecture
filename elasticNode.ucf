@@ -9,6 +9,7 @@ NET CLK_32		LOC="P94" | PERIOD=31.25ns;
 #NET <top_level_port> TNM_NET = tnm_<top_level_port>;
 #TIMESPEC TS_<top_level_port> = PERIOD tnm_<top_level_port> 10ns;
 
+#Config ENABLE_SUSPEND = "UNFILTERED";
 # LEDs
 NET "leds<3>"	LOC="P101";
 NET "leds<2>"	LOC="P102";
@@ -67,7 +68,8 @@ NET "MCU_A<10>" LOC="P81";
 NET "MCU_A<11>" LOC="P80";
 NET "MCU_A<12>" LOC="P79";
 NET "MCU_A<13>" LOC="P78";
-NET "MCU_A<14>" LOC="P75";
-NET "MCU_A<15>" LOC="P74";
+#NET "MCU_A<14>" LOC="P75";
+#NET "MCU_A<15>" LOC="P74";
+NET "MCU_A<14>" LOC="P74";
 NET "MCU_WR" LOC="P85";
 NET "MCU_RD" LOC="P84";

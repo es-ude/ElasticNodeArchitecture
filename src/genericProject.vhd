@@ -50,7 +50,7 @@ entity genericProject is
 		-- xmem
 		mcu_ad		: inout std_logic_vector(7 downto 0) := (others => 'Z');
 		mcu_ale		: in std_logic;
-		mcu_a			: in std_logic_vector(15 downto 8);
+		mcu_a			: in std_logic_vector(14 downto 8);
 		mcu_rd		: in std_logic;
 		mcu_wr		: in std_logic;
 		
@@ -77,6 +77,8 @@ signal invert_clk				: std_logic;
 --signal spi_sck				: std_logic;
 --signal spi_mosi				: std_logic;
 --signal spi_miso				: std_logic; 
+
+signal mcu_a_s						: std_logic_vector(15 downto 8) := (others => '0');
 
 -- userlogic variables
 signal userlogic_reset			: std_logic;
@@ -113,7 +115,7 @@ ARD_RESET <= '0';
 
 invert_clk <= not clk;
 
-clk <= clk_32;
+clk <= clk_50;
 
 leds <= mw_leds;
 --leds(0) <= calculate;
@@ -125,9 +127,12 @@ gpio(0) <= calculate;
 gpio(1) <= invert_clk;
 gpio(2) <= userlogic_reset;
 gpio(3) <= userlogic_busy_s;
+gpio(4) <= userlogic_rd;
+gpio(5) <= userlogic_wr;
+
 gpio(19 downto 14) <= (others => '0');
 
-
+mcu_a_s(14 downto 8) <= mcu_a;
 
 -- todo add to mw the async -> sync comm part, and decode incoming data not meant for ul
 mw: entity work.middleware(Behavioral)
@@ -210,7 +215,7 @@ mw: entity work.middleware(Behavioral)
 			-- find falling edge of mcu_ale
 			if rising_edge(clk) then
 				if mcu_ale = '1' then
-					address_concat_var := unsigned(mcu_a & mcu_ad);
+					address_concat_var := unsigned(mcu_a_s & mcu_ad);
 					address_var := address_concat_var - OFFSET;
 					userlogic_address_var := address_concat_var - USERLOGIC_OFFSET;
 					address_s <= std_logic_vector(address_var);

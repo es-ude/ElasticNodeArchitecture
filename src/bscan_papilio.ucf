@@ -1,0 +1,44 @@
+NET "*" IOSTANDARD = LVTTL;
+
+CONFIG PROHIBIT=P47;
+
+#CLOCKS
+NET CLK_32		LOC="P94" | TNM_NET=TNM_CLK_32;
+TIMESPEC TS_CLK_32 = PERIOD TNM_CLK_32 31.25ns;
+#NET CLK_32		LOC="P94" | PERIOD=31.25ns;
+#NET <top_level_port> TNM_NET = tnm_<top_level_port>;
+#TIMESPEC TS_<top_level_port> = PERIOD tnm_<top_level_port> 10ns;
+
+#Config ENABLE_SUSPEND = "UNFILTERED";
+# LEDs
+NET "leds<3>"	LOC="P101";
+NET "leds<2>"	LOC="P102";
+NET "leds<1>"	LOC="P104";
+NET "leds<0>"	LOC="P105";
+
+## SELECT MAP
+#NET "selectmap<0>" LOC="P65";
+#NET "selectmap<1>" LOC="P62";
+#NET "selectmap<2>" LOC="P61";
+#NET "selectmap<3>" LOC="P46";
+#NET "selectmap<4>" LOC="P45";
+#NET "selectmap<5>" LOC="P44";
+#NET "selectmap<6>" LOC="P43";
+#NET "selectmap<7>" LOC="P48";
+
+# CONFIG
+
+
+# SPI Flash
+NET flash_sck LOC="P70";
+NET flash_miso LOC="P65";
+NET flash_mosi LOC="P64";
+NET flash_wp LOC="P62";
+NET flash_ce LOC="P38";
+NET flash_hold LOC="P61";
+
+# SPI MCU
+NET mcu_sck LOC="P98"; # d23
+NET mcu_miso LOC="P95"; # d25
+NET mcu_mosi LOC="P92"; # d27
+NET mcu_ce LOC="P87"; # d29

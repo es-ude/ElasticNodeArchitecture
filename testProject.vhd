@@ -45,6 +45,8 @@ begin
 	leds(2) <= mcu_ad(2) xor mcu_ad(6) xor mcu_a(10) xor mcu_a(14) xor mcu_rd;
 	leds(3) <= mcu_ad(3) xor mcu_ad(7) xor mcu_a(11) xor mcu_a(15) xor cclk;
 
+--	leds(3 downto 0) <= (others => '1');
+
 	counter50_vector <= std_logic_vector(counter50_unsigned);
 	counter32_vector <= std_logic_vector(counter32_unsigned);
 	
