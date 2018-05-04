@@ -1,0 +1,746 @@
+*******************************************************************************
+*
+*                      IMPORT XISE SUMMARY REPORT
+*
+*                       (import_ise_summary.txt)
+*
+*  PLEASE READ THIS REPORT TO GET THE DETAILED INFORMATION ON THE DATA THAT
+*  WAS PARSED FROM THE ISE PROJECT AND IMPORTED INTO THE CURRENT PROJECT.
+*
+*
+* The report is divided into following three sections:-
+*
+* Section (1) - ISE PROJECT INFORMATION
+*
+*  This section provides the details of the ISE project that was imported
+*
+* Section (2) - EXCEPTIONS
+*
+*  This section summarizes the ISE project data that was either not imported or
+*  not mapped into the current project
+*
+* Section (3) - MAPPED DATA
+*
+*  This section summarizes the Vivado project information that was imported
+*  from the ISE project data
+*
+*******************************************************************************
+
+Section (1) - ISE PROJECT INFORMATION
+-------------------------------------
+
+The following items describes the information about the ISE project that was imported:-
+
+Project Name    = fpgamiddlewareproject
+Project File    = /home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject.xise
+Project Version = 14.7
+Device Family   = Spartan6
+Part Name       = xc6slx9-2-tqg144*
+
+*This part is not supported in Vivado and is replaced with the default part in the new project.
+ Please see Section (3.1) - "Target Device" below for more details.
+
+
+Section (2) - EXCEPTIONS
+------------------------
+
+The following sub-sections describes the list of items that were NOT mapped from the
+XISE file contents into the current project:-
+
+Section (2.1) - Missing Sources
+-------------------------------
+None
+
+
+Section (2.2) - Unknown Sources
+-------------------------------
+
+The following ISE design sources referenced in the XISE file are not recognizable in the
+current version of Vivado. Please read the recommendation on how to resolve this issue:-
+
+<ISE Filename>      <File Type>  <Recommendation>
+"src/xessdemo.bmm"  'BMM'        Files of these types are currently not supported in the Vivado environment.
+                                 
+
+
+Section (2.3) - IP Import Issues
+--------------------------------
+None
+
+
+Section (2.4) - Unknown Properties
+----------------------------------
+
+The following ISE properties were not mapped into the current project:-
+
+
+<ISE Property Name>                                              <ISE Property Value>
+"AES Initial Vector spartan6"                                    ''
+"AES Key (Hex String) spartan6"                                  ''
+"Allow SelectMAP Pins to Persist"                                'false'
+"Analysis Effort Level"                                          'Standard'
+"Asynchronous To Synchronous"                                    'false'
+"Automatically Insert glbl Module in the Netlist"                'true'
+"Automatically Run Generate Target PROM/ACE File"                'false'
+"BRAM Utilization Ratio"                                         '100'
+"Bring Out Global Set/Reset Net as a Port"                       'false'
+"Bring Out Global Tristate Net as a Port"                        'false'
+"Bus Delimiter"                                                  '[]'
+"CLB Pack Factor Percentage"                                     '100'
+"Case"                                                           'Maintain'
+"Case Implementation Style"                                      'None'
+"Change Device Speed To"                                         '-2'
+"Change Device Speed To Post Trace"                              '-2'
+"Configuration Clk (Configuration Pins)"                         'Pull Up'
+"Configuration Pin Done"                                         'Pull Up'
+"Configuration Pin HSWAPEN"                                      'Pull Up'
+"Configuration Pin M0"                                           'Pull Up'
+"Configuration Pin M1"                                           'Pull Up'
+"Configuration Pin M2"                                           'Pull Up'
+"Configuration Pin Program"                                      'Pull Up'
+"Configuration Rate"                                             '4'
+"Configuration Rate spartan6"                                    '2'
+"Correlate Output to Input Design"                               'false'
+"Create Binary Configuration File"                               'true'
+"Create IEEE 1532 Configuration File spartan6"                   'false'
+"Create ReadBack Data Files"                                     'false'
+"Cross Clock Analysis"                                           'false'
+"DSP Utilization Ratio"                                          '100'
+"Decoder Extraction"                                             'true'
+"Device Speed Grade/Select ABS Minimum"                          '-2'
+"Disable Detailed Package Model Insertion"                       'false'
+"Do Not Escape Signal and Instance Names in Netlist"             'false'
+"Done (Output Events)"                                           'Default (4)'
+"Drive Awake Pin During Suspend/Wake Sequence spartan6"          'true'
+"Drive Done Pin High"                                            'false'
+"Enable BitStream Compression"                                   'false'
+"Enable Cyclic Redundancy Checking (CRC) spartan6"               'true'
+"Enable Debugging of Serial Mode BitStream"                      'false'
+"Enable External Master Clock spartan6"                          'false'
+"Enable Internal Done Pipe"                                      'true'
+"Enable Message Filtering"                                       'false'
+"Enable Multi-Pin Wake-Up Suspend Mode spartan6"                 'false'
+"Enable Outputs (Output Events)"                                 'Default (5)'
+"Enable Suspend/Wake Global Set/Reset spartan6"                  'false'
+"Encrypt Bitstream spartan6"                                     'false'
+"Encrypt Key Select spartan6"                                    'BBRAM'
+"Essential Bits"                                                 'false'
+"Evaluation Development Board"                                   'None Specified'
+"FPGA Start-Up Clock"                                            'CCLK'
+"FSM Style"                                                      'LUT'
+"Flatten Output Netlist"                                         'false'
+"Functional Model Target Language ArchWiz"                       'VHDL'
+"Functional Model Target Language Coregen"                       'VHDL'
+"Functional Model Target Language Schematic"                     'VHDL'
+"GTS Cycle During Suspend/Wakeup Sequence spartan6"              '4'
+"GWE Cycle During Suspend/Wakeup Sequence spartan6"              '5'
+"Generate Asynchronous Delay Report"                             'false'
+"Generate Clock Region Report"                                   'false'
+"Generate Constraints Interaction Report"                        'false'
+"Generate Constraints Interaction Report Post Trace"             'false'
+"Generate Datasheet Section"                                     'true'
+"Generate Detailed MAP Report"                                   'true'
+"Generate Multiple Hierarchical Netlist Files"                   'false'
+"Generate Post-Place & Route Power Report"                       'false'
+"Generate Post-Place & Route Simulation Model"                   'false'
+"Generate RTL Schematic"                                         'Yes'
+"Generate Testbench File"                                        'false'
+"Generate Timegroups Section"                                    'false'
+"Generate Timegroups Section Post Trace"                         'false'
+"Global Optimization Goal"                                       'AllClockNets'
+"Global Optimization map spartan6"                               'Off'
+"Global Set/Reset Port Name"                                     'GSR_PORT'
+"Global Tristate Port Name"                                      'GTS_PORT'
+"HDL Instantiation Template Target Language"                     'VHDL'
+"Hierarchy Separator"                                            '/'
+"Ignore User Timing Constraints Map"                             'false'
+"Include 'uselib Directive in Verilog File"                      'false'
+"Include SIMPRIM Models in Verilog File"                         'false'
+"Include UNISIM Models in Verilog File"                          'false'
+"Include sdf_annotate task in Verilog File"                      'true'
+"Insert Buffers to Prevent Pulse Swallowing"                     'true'
+"JTAG Pin TCK"                                                   'Pull Up'
+"JTAG Pin TDI"                                                   'Pull Up'
+"JTAG Pin TDO"                                                   'Pull Up'
+"JTAG Pin TMS"                                                   'Pull Up'
+"Keep Hierarchy"                                                 'Soft'
+"Last Selected UCF File"                                         '/home/alwynster/git/fpgamiddlewareproject/elasticNode.ucf'
+"Last Unlock Status"                                             'false'
+"Library for Verilog Sources"                                    ''
+"Logical Shifter Extraction"                                     'true'
+"Mask Pins for Multi-Pin Wake-Up Suspend Mode spartan6"          '0x00'
+"Max Fanout"                                                     '100000'
+"Maximum Compression"                                            'false'
+"Maximum Number of Lines in Report"                              '1000'
+"Maximum Signal Name Length"                                     '20'
+"Move First Flip-Flop Stage"                                     'true'
+"Move Last Flip-Flop Stage"                                      'true'
+"MultiBoot: Insert IPROG CMD in the Bitfile spartan6"            'Enable'
+"MultiBoot: Next Configuration Mode spartan6"                    '001'
+"MultiBoot: Starting Address for Golden Configuration spartan6"  '0x00000000'
+"MultiBoot: Starting Address for Next Configuration spartan6"    '0x00000000'
+"MultiBoot: Use New Mode for Next Configuration spartan6"        'true'
+"MultiBoot: User-Defined Register for Failsafe Scheme spartan6"  '0x0000'
+"Multiplier Style"                                               'LUT'
+"Mux Extraction"                                                 'Yes'
+"Mux Style"                                                      'Auto'
+"Netlist Translation Type"                                       'Timestamp'
+"Number of Paths in Error/Verbose Report"                        '3'
+"Optimize Instantiated Primitives"                               'false'
+"Other Bitgen Command Line Options spartan6"                     '-g INIT_9K:Yes -g en_suspend:Yes'
+"Other XPWR Command Line Options"                                ''
+"Output Extended Identifiers"                                    'false'
+"Output File Name"                                               'bscan'
+"Overwrite Existing Symbol"                                      'false'
+"Perform Advanced Analysis"                                      'false'
+"Perform Advanced Analysis Post Trace"                           'false'
+"Place And Route Mode"                                           'Normal Place and Route'
+"Place MultiBoot Settings into Bitstream spartan6"               'false'
+"Port to be used"                                                'Auto - default'
+"Post Map Simulation Model Name"                                 'bscan_map.vhd'
+"Post Place & Route Simulation Model Name"                       'bscan_timesim.vhd'
+"Post Synthesis Simulation Model Name"                           'bscan_synthesis.vhd'
+"Post Translate Simulation Model Name"                           'bscan_translate.vhd'
+"Priority Encoder Extraction"                                    'Yes'
+"Produce Verbose Report"                                         'false'
+"RAM Extraction"                                                 'true'
+"ROM Extraction"                                                 'true'
+"ROM Style"                                                      'Auto'
+"Read Cores"                                                     'true'
+"Reduce Control Sets"                                            'Auto'
+"Regenerate Core"                                                'Under Current Project Setting'
+"Register Duplication Xst"                                       'true'
+"Release Write Enable (Output Events)"                           'Default (6)'
+"Rename Design Instance in Testbench File to"                    'UUT'
+"Rename Top Level Architecture To"                               'Structure'
+"Rename Top Level Entity to"                                     'bscan'
+"Report Paths by Endpoint"                                       '3'
+"Report Paths by Endpoint Post Trace"                            '3'
+"Report Type"                                                    'Verbose Report'
+"Report Type Post Trace"                                         'Verbose Report'
+"Reset On Configuration Pulse Width"                             '100'
+"Retry Configuration if CRC Error Occurs spartan6"               'false'
+"Revision Select"                                                '00'
+"Revision Select Tristate"                                       'Disable'
+"Safe Implementation"                                            'No'
+"Security"                                                       'Enable Readback and Reconfiguration'
+"Set SPI Configuration Bus Width spartan6"                       '4'
+"Setup External Master Clock Division spartan6"                  '1'
+"Shift Register Extraction"                                      'true'
+"Shift Register Minimum Size spartan6"                           '2'
+"Show All Models"                                                'false'
+"Slice Packing"                                                  'true'
+"Slice Utilization Ratio"                                        '100'
+"Target UCF File Name"                                           'mojo_v3.ucf'
+"Top-Level Module Name in Output Netlist"                        ''
+"Tristate On Configuration Pulse Width"                          '0'
+"Unused IOB Pins"                                                'Float'
+"Use Clock Enable"                                               'Auto'
+"Use DSP Block spartan6"                                         'Auto'
+"Use Smart Guide"                                                'false'
+"Use Synchronous Reset"                                          'Auto'
+"Use Synchronous Set"                                            'Auto'
+"Use Synthesis Constraints File"                                 'true'
+"UserID Code (8 Digit Hexadecimal)"                              '0xFFFFFFFF'
+"VCCAUX Voltage Level spartan6"                                  '2.5V'
+"VHDL Source Analysis Standard"                                  'VHDL-93'
+"Verilog 2001 Xst"                                               'true'
+"Wait for DCM and PLL Lock (Output Events) spartan6"             'Default (NoWait)'
+"Wait for DLL Lock (Output Events)"                              'Default (NoWait)'
+"Wakeup Clock spartan6"                                          'Internal Clock'
+"Watchdog Timer Value spartan6"                                  '0xFFFF'
+"Work Directory"                                                 'build/xst'
+"Write Timing Constraints"                                       'false'
+"XOR Collapsing"                                                 'true'
+
+
+Section (3) - MAPPED DATA
+-------------------------
+
+The following sub-sections describes the list of items that were imported from the
+ISE properties and sources and mapped into the current project:-
+
+Section (3.1) - Target Device
+-----------------------------
+
+Default Part = xc7vx485tffg1157-1
+Family       = virtex7
+Package      = ffg1157
+Speed Grade  = -1
+
+
+Section (3.2) - Filesets
+------------------------
+
+<sources_1>
+FILESET_TYPE   = DesignSrcs
+TOP            = bscan
+DESIGN_MODE    = RTL
+VERILOG_DIR    = 
+VERILOG_DEFINE = 
+VHDL_GENERICS  = 
+
+File(s):-
+NAME      = Layer.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/Layer.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = FixedPoint_Logic.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/FixedPoint_Logic.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = Logic_FixedPoint.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/Logic_FixedPoint.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = Network.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/Network.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = NeuralNetwork.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/NeuralNetwork.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = Neuron.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/Neuron.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = OutputLayer.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/OutputLayer.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = OutputNeuron.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/OutputNeuron.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = Sigmoid.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/Sigmoid.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = sumMux.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/sumMux.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = NeuralNetworkSkeleton.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/NeuralNetworkSkeleton.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = InputLayer.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/InputLayer.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = InputNeuron.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/InputNeuron.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = HiddenLayers.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/HiddenLayers.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = Distributor.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/Distributor.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = bram_tdp.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/bram_tdp.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = WeightsToVector.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/WeightsToVector.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = VectorToWeights.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/VectorToWeights.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = VectorToConn.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/VectorToConn.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = ConnToVector.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/ConnToVector.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = testProject.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/testProject.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = NetworkSkeleton.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/NetworkSkeleton.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = SimulateLogicFixedPoint.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/SimulateLogicFixedPoint.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = SimulateFixedPointLogic.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/SimulateFixedPointLogic.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = MatrixMultiplicationSkeleton.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/MatrixMultiplicationSkeleton.vhd
+FILE_TYPE = VHDL
+LIBRARY   = matrixMultiplication
+
+NAME      = icapInterface.vhdl
+FILE PATH = /home/alwynster/git/fpgamiddlewarelibs/IcapInterface/icapInterface.vhdl
+FILE_TYPE = VHDL
+LIBRARY   = fpgamiddlewarelibs
+
+NAME      = spi_master.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewarelibs/SpiInterface/spi_master.vhd
+FILE_TYPE = VHDL
+LIBRARY   = fpgamiddlewarelibs
+
+NAME      = SpiInterface.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd
+FILE_TYPE = VHDL
+LIBRARY   = fpgamiddlewarelibs
+
+NAME      = uart_rx.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewarelibs/UartInterface/uart_rx.vhd
+FILE_TYPE = VHDL
+LIBRARY   = fpgamiddlewarelibs
+
+NAME      = uart_tx.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewarelibs/UartInterface/uart_tx.vhd
+FILE_TYPE = VHDL
+LIBRARY   = fpgamiddlewarelibs
+
+NAME      = uartInterface.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewarelibs/UartInterface/uartInterface.vhd
+FILE_TYPE = VHDL
+LIBRARY   = fpgamiddlewarelibs
+
+NAME      = CommunicationStateMachine.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/CommunicationStateMachine.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = UserLogicInterface.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewarelibs/UserLogicInterface/UserLogicInterface.vhd
+FILE_TYPE = VHDL
+LIBRARY   = fpgamiddlewarelibs
+
+NAME      = VectorDotproduct.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/VectorDotproduct.vhd
+FILE_TYPE = VHDL
+LIBRARY   = vectorDotProduct
+
+NAME      = MatrixMultiplication.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/MatrixMultiplication.vhd
+FILE_TYPE = VHDL
+LIBRARY   = matrixMultiplication
+
+NAME      = Dummy.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/Dummy.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = VectorDotproductSkeleton.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/VectorDotproductSkeleton.vhd
+FILE_TYPE = VHDL
+LIBRARY   = vectorDotProduct
+
+NAME      = middleware.vhdl
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/middleware.vhdl
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = genericProject.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/genericProject.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = MatrixMultiplicationPackage.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/MatrixMultiplicationPackage.vhd
+FILE_TYPE = VHDL
+LIBRARY   = matrixMultiplication
+
+NAME      = InterfaceStateMachine.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/InterfaceStateMachine.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = sramSlave.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/sramSlave.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = key.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/key.vhd
+FILE_TYPE = VHDL
+LIBRARY   = Keyboard
+
+NAME      = keyboard.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/keyboard.vhd
+FILE_TYPE = VHDL
+LIBRARY   = Keyboard
+
+NAME      = pwm.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/pwm.vhd
+FILE_TYPE = VHDL
+LIBRARY   = Keyboard
+
+NAME      = KeyboardSkeleton.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/KeyboardSkeleton.vhd
+FILE_TYPE = VHDL
+LIBRARY   = Keyboard
+
+NAME      = KeyboardRgbLedDecoder.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/KeyboardRgbLedDecoder.vhd
+FILE_TYPE = VHDL
+LIBRARY   = Keyboard
+
+NAME      = Procedures.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewarelibs/Procedures.vhd
+FILE_TYPE = VHDL
+LIBRARY   = fpgamiddlewarelibs
+
+NAME      = SimulateSumMux.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/SimulateSumMux.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = Common.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/Common.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = Diff.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/Diff.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = bscan.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/bscan.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = Sigmoid.py
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/Sigmoid.py
+FILE_TYPE = Unknown
+LIBRARY   = xil_defaultlib
+
+
+<constrs_1>
+FILESET_TYPE   = Constrs
+
+Note: During the import operation, any constraint file(s) that are found in the ISE project will be added to the current Vivado project.
+      However, please note that none of these files will be automatically marked as a "Target Constraint File". To set a constraint file
+      as target, select the file in the GUI "Sources" window, right-click on this file and then select "Set Target UCF". Alternatively,
+      the target constraint file can be set using the "set_property target_constrs_file <filename> <fileset>" Tcl command.
+
+File(s):-
+NAME      = mapping_fix.ucf
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/mapping_fix.ucf
+FILE_TYPE = Unknown
+
+NAME      = elasticNode.ucf
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/elasticNode.ucf
+FILE_TYPE = Unknown
+
+NAME      = bscan_elasticNode.ucf
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/bscan_elasticNode.ucf
+FILE_TYPE = Unknown
+
+
+<sim_1>
+FILESET_TYPE   = SimulationSrcs
+
+File(s):-
+NAME      = SimulateNeuralNetwork.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/SimulateNeuralNetwork.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = TestKeyboardSkeleton.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/TestKeyboardSkeleton.vhd
+FILE_TYPE = VHDL
+LIBRARY   = Keyboard
+
+NAME      = TestKeyboard.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/TestKeyboard.vhd
+FILE_TYPE = VHDL
+LIBRARY   = Keyboard
+
+NAME      = TestNeuralNetworkSkeleton.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/TestNeuralNetworkSkeleton.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = SimulateDiff.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/SimulateDiff.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = TestGenericProject.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/TestGenericProject.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = TestMiddleware.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/TestMiddleware.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = TestKey.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/TestKey.vhd
+FILE_TYPE = VHDL
+LIBRARY   = Keyboard
+
+NAME      = SimulateDistributor.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/SimulateDistributor.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = TestPwm.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/TestPwm.vhd
+FILE_TYPE = VHDL
+LIBRARY   = Keyboard
+
+NAME      = SimulateLayer.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/SimulateLayer.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = TestHiddenLayers.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = SimulateNetwork.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/SimulateNetwork.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = SimulateNeuron.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/SimulateNeuron.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = TestMatrixMultiplicationSkeleton.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/TestMatrixMultiplicationSkeleton.vhd
+FILE_TYPE = VHDL
+LIBRARY   = matrixMultiplication
+
+NAME      = TestVectorDotproductSkeleton.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/TestVectorDotproductSkeleton.vhd
+FILE_TYPE = VHDL
+LIBRARY   = vectorDotProduct
+
+NAME      = TestWeightToVector.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/TestWeightToVector.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = TestWeightToVector.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/TestWeightToVector.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = TestMatrixMultiply.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/TestMatrixMultiply.vhd
+FILE_TYPE = VHDL
+LIBRARY   = matrixMultiplication
+
+NAME      = TestVectorToWeights.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/TestVectorToWeights.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = TestVectorDotproduct.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/TestVectorDotproduct.vhd
+FILE_TYPE = VHDL
+LIBRARY   = vectorDotProduct
+
+NAME      = SimulateOutputLayer.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/SimulateOutputLayer.vhd
+FILE_TYPE = VHDL
+LIBRARY   = neuralNetwork
+
+NAME      = TestCommunicationStateMachine.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/TestCommunicationStateMachine.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = TestDummy.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/src/TestDummy.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = TestSpiInterface.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewarelibs/SpiInterface/TestSpiInterface.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = TestSimulateNetworkSkeleton.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/TestSimulateNetworkSkeleton.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+NAME      = Simulate_Logic_FixedPoint.vhd
+FILE PATH = /home/alwynster/git/fpgamiddlewareproject/Simulate_Logic_FixedPoint.vhd
+FILE_TYPE = VHDL
+LIBRARY   = xil_defaultlib
+
+
+Section (3.3) - Design Runs(s)
+------------------------------
+
+<synth_1>
+FLOW      = Vivado Synthesis 2017
+PART      = xc7vx485tffg1157-1
+SRCSET    = sources_1
+CONSTRSET = constrs_1
+STRATEGY  = Vivado Synthesis Defaults
+
+Options:-
+
+Note: The current run uses Vivado Strategies; hence no ISE run options will be mapped to this run during the import operation.
+
+
+
+<impl_1>
+FLOW      = Vivado Implementation 2017
+PART      = xc7vx485tffg1157-1
+SRCSET    = sources_1
+CONSTRSET = constrs_1
+STRATEGY  = Vivado Implementation Defaults
+
+Options:-
+
+Note: The current run uses Vivado Strategies; hence no ISE run options will be mapped to this run during the import operation.
+
+
+
+<sim_1>
+TOP  = SimulateNetwork
+SOURCE_SET  = sources_1
+
+Options:-
+        

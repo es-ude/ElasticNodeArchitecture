@@ -1,0 +1,7 @@
+vhdl neuralNetwork "src/Common.vhd"
+vhdl neuralNetwork "src/Sigmoid.vhd"
+vhdl neuralNetwork "src/sumMux.vhd"
+vhdl neuralNetwork "src/Neuron.vhd"
+vhdl fpgamiddlewarelibs "../fpgamiddlewarelibs/UserLogicInterface/UserLogicInterface.vhd"
+vhdl neuralNetwork "src/Layer.vhd"
+vhdl neuralNetwork "src/SimulateLayer.vhd"
