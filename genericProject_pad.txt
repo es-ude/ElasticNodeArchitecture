@@ -1,7 +1,7 @@
 Release 14.7 - par P.20131013 (lin64)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-Fri May  4 13:24:53 2018
+Thu May 17 16:28:01 2018
 
 
 INFO: The IO information is provided in three file formats as part of the Place and Route (PAR) process.  These formats are:
@@ -57,7 +57,7 @@ Pinout by Pin Number:
 |P35       |gpio[18]   |IOB      |IO_L1P_3                  |OUTPUT   |LVTTL      |3             |12        |SLOW     |           |         |         |LOCATED   |NO         |NONE            |
 |P36       |           |         |VCCAUX                    |         |           |              |          |         |           |         |2.5      |          |           |                |
 |P37       |           |         |PROGRAM_B_2               |         |           |              |          |         |           |         |         |          |           |                |
-|P38       |           |IOBS     |IO_L65N_CSO_B_2           |UNUSED   |           |2             |          |         |           |         |         |          |           |                |
+|P38       |flash_ce   |IOB      |IO_L65N_CSO_B_2           |OUTPUT   |LVTTL      |2             |12        |SLOW     |           |         |         |LOCATED   |NO         |NONE            |
 |P39       |           |IOBM     |IO_L65P_INIT_B_2          |UNUSED   |           |2             |          |         |           |         |         |          |           |                |
 |P40       |           |IOBS     |IO_L64N_D9_2              |UNUSED   |           |2             |          |         |           |         |         |          |           |                |
 |P41       |           |IOBM     |IO_L64P_D8_2              |UNUSED   |           |2             |          |         |           |         |         |          |           |                |
@@ -83,7 +83,7 @@ Pinout by Pin Number:
 |P61       |mcu_ad[5]  |IOB      |IO_L12N_D2_MISO3_2        |BIDIR    |LVTTL      |2             |12        |SLOW     |           |NONE     |         |LOCATED   |NO         |NONE            |
 |P62       |mcu_ad[6]  |IOB      |IO_L12P_D1_MISO2_2        |BIDIR    |LVTTL      |2             |12        |SLOW     |           |NONE     |         |LOCATED   |NO         |NONE            |
 |P63       |           |         |VCCO_2                    |         |           |2             |          |         |           |         |3.30     |          |           |                |
-|P64       |           |IOBS     |IO_L3N_MOSI_CSI_B_MISO0_2 |UNUSED   |           |2             |          |         |           |         |         |          |           |                |
+|P64       |flash_si   |IOB      |IO_L3N_MOSI_CSI_B_MISO0_2 |OUTPUT   |LVTTL      |2             |12        |SLOW     |           |         |         |LOCATED   |NO         |NONE            |
 |P65       |mcu_ad[7]  |IOB      |IO_L3P_D0_DIN_MISO_MISO1_2|BIDIR    |LVTTL      |2             |12        |SLOW     |           |NONE     |         |LOCATED   |NO         |NONE            |
 |P66       |mcu_ale    |IOB      |IO_L2N_CMPMOSI_2          |INPUT    |LVTTL      |2             |          |         |           |NONE     |         |LOCATED   |NO         |NONE            |
 |P67       |           |IOBM     |IO_L2P_CMPCLK_2           |UNUSED   |           |2             |          |         |           |         |         |          |           |                |

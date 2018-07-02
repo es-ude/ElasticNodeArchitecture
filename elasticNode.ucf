@@ -9,6 +9,14 @@ NET CLK_32		LOC="P94" | PERIOD=31.25ns;
 #NET <top_level_port> TNM_NET = tnm_<top_level_port>;
 #TIMESPEC TS_<top_level_port> = PERIOD tnm_<top_level_port> 10ns;
 
+# FLASH
+NET "flash_ce" LOC="P38";
+NET "flash_si" LOC="P64"; # MCU_AD<4>
+# flash_sck CCLK
+# flash_so MCU_AD<7>
+# flash_wp MCU_AD<6>
+# flash_hold MCU_AD<5>
+
 #Config ENABLE_SUSPEND = "UNFILTERED";
 # LEDs
 NET "leds<3>"	LOC="P101";

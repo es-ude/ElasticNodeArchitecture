@@ -24,6 +24,9 @@ entity InterfaceStateMachine is
 		uart_tx_done		: in std_logic;
 		uart_rx				: in uint8_t_interface;
 		
+		-- flash interface
+		flash_ce				: out std_logic := '1';
+		
 		-- sram interface
 		sram_address		: in uint16_t;
 		sram_data_out		: out uint8_t;
@@ -48,6 +51,7 @@ architecture Behavior of InterfaceStateMachine is
 	constant MULTIBOOT : uint16_t := x"0005";
 	constant LED : uint16_t := x"0003";
 	constant USERLOGIC_CONTROL : uint16_t := x"0004";
+	constant FLASH_CONTROL : uint16_t := x"0008";
 	
 	signal led_signal : std_logic_vector(3 downto 0) := (others => '0');
 	signal userlogic_reset_signal : std_logic := '0';
@@ -67,6 +71,7 @@ begin
 			userlogic_reset_signal <= '1';
 			userlogic_rd <= '1';
 			userlogic_wr <= '1';
+			flash_ce <= '1';
 		else
 			if rising_edge(clk) then
 				if sram_rd = '0' or sram_wr = '0' then -- or wr_was_low then
@@ -94,6 +99,9 @@ begin
 							when USERLOGIC_CONTROL =>
 								data_var := std_logic_vector(sram_data_in);
 								userlogic_reset_signal <= data_var(0);
+							when FLASH_CONTROL =>
+								data_var := std_logic_vector(sram_data_in);
+								flash_ce <= data_var(0);
 							when others =>
 							end case;
 						-- data region

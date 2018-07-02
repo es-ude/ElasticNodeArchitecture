@@ -22,7 +22,9 @@ entity genericProject is
 	port (
 		--userlogic_busy	: out std_logic;
 		--userlogic_sleep: out std_logic;
-
+		flash_ce		: out std_logic;
+		flash_si		: out std_logic;
+		
 		-- ARD_RESET 	: out std_logic;
 --		spi_switch	: in std_logic;
 --		flash_cs		: out std_logic;
@@ -65,6 +67,9 @@ end genericProject;
 architecture Behavioral of genericProject is
 
 signal invert_clk				: std_logic;
+
+-- flash 
+signal flash_ce_s					: std_logic;
 ---- spi variables
 --signal spi_en_s		 		: std_logic := '0'; -- general enable to allow sending data
 --signal spi_data_in_rdy	: std_logic := '0'; -- stretched strobe to send a byte 
@@ -134,6 +139,9 @@ gpio(19 downto 14) <= (others => '0');
 
 mcu_a_s(14 downto 8) <= mcu_a;
 
+flash_ce <= flash_ce_s;
+flash_si <= mcu_ad(4);
+
 -- todo add to mw the async -> sync comm part, and decode incoming data not meant for ul
 mw: entity work.middleware(Behavioral)
 	port map(
@@ -155,6 +163,9 @@ mw: entity work.middleware(Behavioral)
 		-- uart
 		rx,
 		tx,
+		
+		-- flash
+		flash_ce_s,
 		
 		-- sram
 		sram_address,

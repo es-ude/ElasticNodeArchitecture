@@ -35,6 +35,8 @@ entity middleware is
 		rx					: in std_logic;
 		tx 				: out std_logic;
 		
+		flash_ce			: out std_logic;
+		
 		-- sram
 		sram_address 	: in uint16_t;
 		sram_data_out	: out uint8_t; -- for reading from ext ram
@@ -68,6 +70,7 @@ begin
 		 uart_tx => uart_tx,
 		 uart_tx_done => uart_tx_done,
 		 uart_rx => uart_rx,
+		 flash_ce => flash_ce,
 		 sram_address => sram_address,
 		 sram_data_out => sram_data_out,
 		 sram_data_in => sram_data_in,
