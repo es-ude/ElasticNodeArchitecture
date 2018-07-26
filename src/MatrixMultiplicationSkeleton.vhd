@@ -125,7 +125,7 @@ mm: entity work.MatrixMultiplication(Behavioral)
 						parameter := 1; 
 					end if; 
 					
-					row1_s <= row1; 
+ 					row1_s <= row1; 
 					row2_s <= row2; 
 					column1_s <= column1; 
 					column2_s <= column2; 
@@ -134,15 +134,7 @@ mm: entity work.MatrixMultiplication(Behavioral)
 					-- reverse from big to little endian 
 					if wr = '0' then 
 						case to_integer(address_in) is
- 						when 0 =>
-							inputA(0)(0)(7 downto 0) <= data_in;
-						when 1 =>
-							inputA(1)(0)(15 downto 0) <= data_in;
-						when 2 =>
-							inputA(2)(0)(7 downto 0) <= data_in;
-						when 3 =>
-							inputA(3)(0)(15 downto 0) <= data_in;
-						when 107 =>
+ 						when 107 =>
 							calculate <= '1';
 						when others =>
 						end case;
@@ -150,13 +142,13 @@ mm: entity work.MatrixMultiplication(Behavioral)
 						calculate <= '0';
 						case to_integer(address_in) is
 						when 108 =>
-							data_in <= results(0)(0)(7 downto 0) <= data_in;
+							data_out <= result(0)(0)(7 downto 0);
 						when 109 =>
-							data_in <= results(0)(0)(15 downto 8) <= data_in;
+							data_out <= result(0)(0)(15 downto 8);
 						when 110 =>
-							data_in <= results(0)(0)(23 downto 16) <= data_in;
+							data_out <= result(0)(0)(23 downto 16);
 						when 111 =>
-							data_in <= results(0)(0)(31 downto 24) <= data_in;
+							data_out <= result(0)(0)(31 downto 24);
 						when others =>
 
 						end case; 

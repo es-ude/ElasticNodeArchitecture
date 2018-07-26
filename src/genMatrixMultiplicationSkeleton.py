@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+import sys
+
 def grabFile(filename):
 	for i in file(filename):
 		print i[:-1], '\\n\\'
@@ -130,7 +133,7 @@ mm: entity work.MatrixMultiplication(Behavioral) \n\
 						parameter := 1; \n\
 					end if; \n\
 					\n\
-					row1_s <= row1; \n\
+ 					row1_s <= row1; \n\
 					row2_s <= row2; \n\
 					column1_s <= column1; \n\
 					column2_s <= column2; \n\
@@ -143,11 +146,18 @@ mm: entity work.MatrixMultiplication(Behavioral) \n\
 
 def middle(X, file):
 	# write
+	#inputa
 	for i in range(X):
 		file.write("\t\t\t\t\t\twhen {} =>\n".format((i) * 2 + 0))
-		file.write( "\t\t\t\t\t\t\tinputA({})(0)(7 downto 0) <= data_in;\n".format((i) * 2 + 0))
+		file.write( "\t\t\t\t\t\t\tinputA(0)({})(7 downto 0) <= data_in;\n".format((i) + 0))
 		file.write( "\t\t\t\t\t\twhen {} =>\n".format((i) * 2 + 1))
-		file.write( "\t\t\t\t\t\t\tinputA({})(0)(15 downto 0) <= data_in;\n".format((i) * 2 + 1))
+		file.write( "\t\t\t\t\t\t\tinputA(0)({})(15 downto 8) <= data_in;\n".format((i) + 0))
+	#inputb
+	for i in range(X):
+		file.write("\t\t\t\t\t\twhen {} =>\n".format(X * 2 + (i) * 2 + 0))
+		file.write( "\t\t\t\t\t\t\tinputB({})(0)(7 downto 0) <= data_in;\n".format((i) + 0))
+		file.write( "\t\t\t\t\t\twhen {} =>\n".format(X * 2 + (i) * 2 + 1))
+		file.write( "\t\t\t\t\t\t\tinputB({})(0)(15 downto 8) <= data_in;\n".format((i) + 0))
 	file.write( "\t\t\t\t\t\twhen 107 =>\n")
 	file.write( "\t\t\t\t\t\t\tcalculate <= '1';\n")
 	file.write( "\t\t\t\t\t\twhen others =>\n")
@@ -160,13 +170,13 @@ def middle(X, file):
 
 	# read
 	file.write("\t\t\t\t\t\twhen {} =>\n".format(108 + 0))
-	file.write( "\t\t\t\t\t\t\tdata_in <= results(0)(0)(7 downto 0) <= data_in;\n")
+	file.write( "\t\t\t\t\t\t\tdata_out <= result(0)(0)(7 downto 0);\n")
 	file.write("\t\t\t\t\t\twhen {} =>\n".format(108 + 1))
-	file.write( "\t\t\t\t\t\t\tdata_in <= results(0)(0)(15 downto 8) <= data_in;\n")
+	file.write( "\t\t\t\t\t\t\tdata_out <= result(0)(0)(15 downto 8);\n")
 	file.write("\t\t\t\t\t\twhen {} =>\n".format(108 + 2))
-	file.write( "\t\t\t\t\t\t\tdata_in <= results(0)(0)(23 downto 16) <= data_in;\n")
+	file.write( "\t\t\t\t\t\t\tdata_out <= result(0)(0)(23 downto 16);\n")
 	file.write("\t\t\t\t\t\twhen {} =>\n".format(108 + 3))
-	file.write( "\t\t\t\t\t\t\tdata_in <= results(0)(0)(31 downto 24) <= data_in;\n")
+	file.write( "\t\t\t\t\t\t\tdata_out <= result(0)(0)(31 downto 24);\n")
 	file.write( "\t\t\t\t\t\twhen others =>\n")
 
 	# example = "\
@@ -229,9 +239,14 @@ end MatrixMultiplicationPackage; ".format(X)
 	file.close()
 
 if __name__ == '__main__':
+
 	# grabFile('MatrixMultiplicationPackage.vhd')
-	package(0, open('MatrixMultiplicationPackage.vhd', 'w'));
-	skeleton = open('MatrixMultiplicationSkeleton.vhd', 'w')
+	print sys.argv
+	X = int(sys.argv[-1])
+
+	print 'creating package and skeleton for X = {}'.format(X)
+	package(X, open('../src/MatrixMultiplicationPackage.vhd', 'w'));
+	skeleton = open('../src/MatrixMultiplicationSkeleton.vhd', 'w')
 	initial(skeleton)
-	middle(2, skeleton)
+	middle(X, skeleton)
 	final(skeleton)	
