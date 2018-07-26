@@ -12,10 +12,11 @@ package MatrixMultiplicationPackage is
 	--numrows3 : integer := 4;
 
 -- size parameters
-constant numcols1 : integer := 3;
-constant numrows1 : integer := 4;
-constant numcols2 : integer := 5;
-constant numrows2 : integer := 3;
+constant X : integer:= 10;
+constant numcols1 : integer := X;
+constant numrows1 : integer := 1;
+constant numcols2 : integer := 1;
+constant numrows2 : integer := X;
 
 
 -- input and output types definitions
