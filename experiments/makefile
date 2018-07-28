@@ -1,7 +1,10 @@
-FIRST := 18
+FIRST := 1
 LAST := 18
 NUMBERS := $(shell seq ${FIRST} ${LAST})
 JOBS := $(addprefix job,${NUMBERS})
+
+all: ${JOBS}
+	echo "done"
 
 ${JOBS}: job%:
 	python ../src/genMatrixMultiplicationSkeleton.py $* 
