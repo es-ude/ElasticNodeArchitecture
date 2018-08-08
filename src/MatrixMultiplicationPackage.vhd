@@ -9,7 +9,7 @@ use fpgamiddlewarelibs.UserLogicInterface.all;
 package MatrixMultiplicationPackage is 
  
 -- size parameters 
-constant X : integer := 0; 
+constant X : integer := 15; 
 constant numcols1 : integer := X; 
 constant numrows1 : integer := 1; 
 constant numcols2 : integer := 1; 

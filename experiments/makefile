@@ -1,5 +1,5 @@
-FIRST := 1
-LAST := 18
+FIRST := 15
+LAST := 15
 NUMBERS := $(shell seq ${FIRST} ${LAST})
 JOBS := $(addprefix job,${NUMBERS})
 
