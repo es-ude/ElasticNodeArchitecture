@@ -68,7 +68,7 @@ architecture neuron_simulation of chao_test_Neuron is
     
     -- External test signal definatition
     signal n_feedback : integer range 0 to 2;
-    signal o_neuron   : std_logic := 'Z';
+    signal o_neuron   : std_logic := '1';
     signal i_index    : integer range 0 to w-1;
     
     
@@ -131,10 +131,9 @@ begin
     begin
         wait until reset='1';
         wait until reset='0';
+        
+        -- First step test the feedforward logic --
         n_feedback <= 1;
-        -- i_errors() <= real_to_fixed_point();
-        -- i_conn() <= real_to_fixed_point();
-        -- i_weights <= real_to_fixed_point();
         i_errors(0) <= real_to_fixed_point(0.0);
         i_errors(1) <= real_to_fixed_point(0.1);
         i_errors(2) <= real_to_fixed_point(1.0);
@@ -160,12 +159,33 @@ begin
         i_weights(4) <= real_to_fixed_point(0.1);
         i_weights(5) <= real_to_fixed_point(1.0);
         i_weights(6) <= real_to_fixed_point(0.1);
-        i_weights(7) <= real_to_fixed_point(0.1);               
+        i_weights(7) <= real_to_fixed_point(0.1);
         wait until rising_edge(clock);
-        wait for 20*period;
+        wait for period;
+        
+        -- Now we switch the Neuron to backward mode
+        n_feedback <= 0; -- n_feedback is a integer 
+        i_index <= 2;
+        o_neuron <= '0';
+        i_prev_out <= to_fixed_point(123);
+        
+        
+        
+        wait until rising_edge(clock);
+        wait for 5*period;
+        
+        
         
         busy <= false;
         report "Finished" severity warning;    
     end process;
 
 end neuron_simulation;
+
+
+
+
+-- i_errors() <= real_to_fixed_point();
+-- i_conn() <= real_to_fixed_point();
+-- i_weights <= real_to_fixed_point();
+---------------------- File End -----------------------
