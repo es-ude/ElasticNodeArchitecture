@@ -1,0 +1,4 @@
+vhdl neuralNetwork "src/Common.vhd"
+vhdl neuralNetwork "src/Sigmoid.vhd"
+vhdl neuralNetwork "src/Neuron.vhd"
+vhdl neuralNetwork "src/SimulateNeuron.vhd"

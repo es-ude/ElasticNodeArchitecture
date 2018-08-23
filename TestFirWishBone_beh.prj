@@ -1,0 +1,3 @@
+vhdl fpgamiddlewarelibs "../fpgamiddlewarelibs/UserLogicInterface/UserLogicInterface.vhd"
+vhdl work "src/firWishbone.vhd"
+vhdl work "src/TestFirWishbone.vhd"

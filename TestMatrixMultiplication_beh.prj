@@ -1,0 +1,4 @@
+vhdl fpgamiddlewarelibs "../fpgamiddlewarelibs/UserLogicInterface/UserLogicInterface.vhd"
+vhdl matrixMultiplication "src/MatrixMultiplicationPackage.vhd"
+vhdl matrixMultiplication "src/MatrixMultiplication.vhd"
+vhdl matrixMultiplication "src/TestMatrixMultiply.vhd"

@@ -120,7 +120,7 @@ ARD_RESET <= '0';
 
 invert_clk <= not clk;
 
-clk <= clk_50;
+clk <= clk_32;
 
 leds <= mw_leds;
 --leds(0) <= calculate;
@@ -195,12 +195,13 @@ mw: entity work.middleware(Behavioral)
 	-- initialise user logic
 	-- ul: entity work.Dummy(Behavioral) port map
 	-- ul: entity vectordotproduct.VectorDotproductSkeleton(Behavioral) port map
-	ul: entity matrixmultiplication.MatrixMultiplicationSkeleton(Behavioral) port map
+	-- ul: entity matrixmultiplication.MatrixMultiplicationSkeleton(Behavioral) port map
 	-- ul: entity neuralnetwork.NeuralNetworkSkeleton(Behavioral) generic map (1) port map
 	-- ul: entity neuralnetwork.NetworkSkeleton(Behavioral) generic map (1) port map
 	-- ul: entity work.KeyboardSkeleton(Behavioral) port map
+	ul: entity work.FirWishboneSkeleton(Behavioral) port map
 		(
-			invert_clk, userlogic_reset, userlogic_busy_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out, calculate, debug --, kb_leds
+			invert_clk, userlogic_reset, userlogic_busy_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out --, calculate, debug --, kb_leds
 		);
 	--userlogic_busy <= userlogic_busy_s;
 	--userlogic_sleep <= userlogic_reset;

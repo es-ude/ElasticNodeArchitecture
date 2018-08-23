@@ -1,0 +1,4 @@
+vhdl isim_temp "src/fir.vhdl"
+vhdl fpgamiddlewarelibs "../fpgamiddlewarelibs/UserLogicInterface/UserLogicInterface.vhd"
+vhdl isim_temp "src/firWishbone.vhd"
+vhdl isim_temp "src/FirWishboneSkeleton.vhd"

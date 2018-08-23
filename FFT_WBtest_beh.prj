@@ -1,0 +1,3 @@
+vhdl wdsp "src/wdsp/WISHBONE_FFT/RAM_Memory.vhd"
+vhdl wdsp "src/wdsp/WISHBONE_FFT/interface_slave_fft.vhd"
+vhdl wdsp "src/wdsp/WISHBONE_FFT/FFT_WBtest.vhd"

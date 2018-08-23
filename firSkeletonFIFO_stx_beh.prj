@@ -1,0 +1,4 @@
+vhdl isim_temp "src/localFIFO.vhd"
+vhdl isim_temp "src/fir.vhdl"
+vhdl fpgamiddlewarelibs "../fpgamiddlewarelibs/UserLogicInterface/UserLogicInterface.vhd"
+vhdl isim_temp "src/firSkeletonFIFO.vhd"
