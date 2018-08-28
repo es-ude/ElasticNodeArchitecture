@@ -26,6 +26,8 @@ use fpgamiddlewarelibs.UserLogicInterface.all;
 -- arithmetic functions with Signed or Unsigned values
 use IEEE.NUMERIC_STD.ALL;
 
+use work.firPackage.all;
+
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
 --library UNISIM;
@@ -52,26 +54,24 @@ entity FirWishboneSkeleton is
 
 architecture Behavioral of FirWishboneSkeleton is
 
-constant firWidth : integer := 16;
-constant firDepth : integer := 2;
+
 
 -- convert 
 signal addressVector : std_logic_vector(address_in'length-1 downto 0);
 signal invertClock : std_logic;
 -- 16-bit interface
 signal hwfStb, stb, writeEnable : std_logic;
-signal hwfAddressIn, hwfAddress : std_logic_vector(1 downto 0);
+signal hwfAddressIn, hwfAddress : std_logic_vector(addressWidth-1 downto 0);
 signal hwfDataIn : int16_t;
 signal hwfDataOut : int32_t;
 
 -- fifo
-constant fifoDepth : natural := 50;
 type fifoStateType is (idle, newvalue, request, store);
 signal fifoState : fifoStateType;
 signal fifoStb, fifoDataValid, fifoDataRequest, fifoEmpty, fifoFull : std_logic;
 signal fifoDataOut : std_logic_vector(31 downto 0);
 signal fifoDataIn : std_logic_vector(31 downto 0);
-signal fifoAddress : std_logic_vector(1 downto 0);
+signal fifoAddress : std_logic_vector(hwfAddress'range);
 
 signal fifoCount : integer range 0 to fifoDepth;
 signal fifoCountVector : uint8_t := (others => '0');
@@ -112,10 +112,10 @@ begin
 					-- variable being set 
 					-- reverse from big to little endian 
 					if wr = '0' then 
-						case to_integer(address_in) is
- 						when 0 =>
+						case addressVector(0) is
+ 						when '0' =>
 							hwfDataIn(7 downto 0) <= signed(data_in);
-						when 1 =>
+						when '1' =>
 							hwfDataIn(15 downto 8) <= signed(data_in);
 							if not newDataIn then
 								hwfStb <= '1'; -- last byte activates hwf
@@ -123,6 +123,7 @@ begin
 							else
 								hwfStb <= '0';
 							end if;
+
 						when others =>
 						end case;
 					elsif rd = '0' then
@@ -179,7 +180,12 @@ begin
 
 			when idle =>
 				if hwfStb = '1' then
-					fifoState <= newvalue;
+					-- only fifo if u being updated
+					if hwfAddressIn = u_address then
+						fifoState <= newvalue;
+					else 
+						fifoState <= idle;
+					end if;
 				end if;
 				-- fifoDataRequest <= '0';
 				fifoDataValid <= '0';
@@ -188,7 +194,7 @@ begin
 			when request =>
 				fifoStb <= '1';
 				-- fifoDataRequest <= '1';
-				fifoAddress <= "00";
+				fifoAddress <= u_address;
 				fifoState <= store;
 			when store =>
 				--fifoDataRequest <= '1';
@@ -205,7 +211,7 @@ begin
 fifo: entity work.localFIFO(Behavioral) 
 	generic map
 	(
-		width => 32, depth => fifoDepth
+		width => 2*firWidth, depth => fifoDepth
 	)
 	port MAP
 	(

@@ -57,6 +57,14 @@
 			
 			reset <= '0';
 			
+			-- set coefficients
+			write_uint16_t(x"0108", to_unsigned(2, 16), address_in, data_in, wr);
+			write_uint16_t(x"057D", to_unsigned(4, 16), address_in, data_in, wr);
+			write_uint16_t(x"0D02", to_unsigned(6, 16), address_in, data_in, wr);
+			write_uint16_t(x"0D02", to_unsigned(8, 16), address_in, data_in, wr);
+			write_uint16_t(x"057D", to_unsigned(10, 16), address_in, data_in, wr);
+			write_uint16_t(x"0108", to_unsigned(12, 16), address_in, data_in, wr);
+
 			-- write one input
 			write_uint16_t(to_unsigned(1, 16), to_unsigned(0, 16), address_in, data_in, wr);
 			-- read its output

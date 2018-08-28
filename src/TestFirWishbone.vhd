@@ -16,7 +16,7 @@ ARCHITECTURE behavior OF TestFirWishBone IS
 	signal clk, reset, writeEnable, stb : std_logic := '0';
 	signal datain : int16_t;
 	signal dataout : int32_t;
-	signal addressIn : std_logic_vector(1 downto 0);
+	signal addressIn : std_logic_vector(3 downto 0);
 	signal finish : boolean := false;
 	constant cycle : time := 10ns;
 

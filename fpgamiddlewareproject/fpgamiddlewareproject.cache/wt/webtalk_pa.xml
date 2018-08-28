@@ -3,7 +3,7 @@
 <!--The data in this file is primarily intended for consumption by Xilinx tools.
 The structure and the elements are likely to change over the next few releases.
 This means code written to parse this file will need to be revisited each subsequent release.-->
-<application name="pa" timeStamp="Mon Aug 20 13:05:48 2018">
+<application name="pa" timeStamp="Fri Aug 24 16:38:04 2018">
 <section name="Project Information" visible="false">
 <property name="ProjectID" value="c5a11707853d453fa6030358e7796dda" type="ProjectID"/>
 <property name="ProjectIteration" value="3" type="ProjectIteration"/>
@@ -21,13 +21,14 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="EditDelete" value="1" type="JavaHandler"/>
 <property name="EditProperties" value="1" type="JavaHandler"/>
 <property name="EditSimulationSets" value="1" type="JavaHandler"/>
+<property name="FileExit" value="1" type="JavaHandler"/>
 <property name="MoveSources" value="1" type="JavaHandler"/>
 <property name="RunImplementation" value="2" type="JavaHandler"/>
 <property name="RunSynthesis" value="2" type="JavaHandler"/>
 <property name="SetTopNode" value="2" type="JavaHandler"/>
 <property name="ShowView" value="3" type="JavaHandler"/>
 <property name="SimulationRun" value="10" type="JavaHandler"/>
-<property name="ToolsSettings" value="4" type="JavaHandler"/>
+<property name="ToolsSettings" value="5" type="JavaHandler"/>
 <property name="ToolsTemplates" value="1" type="JavaHandler"/>
 <property name="WaveformSaveConfiguration" value="1" type="JavaHandler"/>
 </item>
@@ -36,7 +37,7 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="AddSrcWizard_SPECIFY_HDL_NETLIST_BLOCK_DESIGN" value="1" type="GuiResourceData"/>
 <property name="AddSrcWizard_SPECIFY_SIMULATION_SPECIFIC_HDL_FILES" value="2" type="GuiResourceData"/>
 <property name="BaseDialog_APPLY" value="6" type="GuiResourceData"/>
-<property name="BaseDialog_CANCEL" value="1" type="GuiResourceData"/>
+<property name="BaseDialog_CANCEL" value="2" type="GuiResourceData"/>
 <property name="BaseDialog_CLOSE" value="1" type="GuiResourceData"/>
 <property name="BaseDialog_NO" value="1" type="GuiResourceData"/>
 <property name="BaseDialog_OK" value="16" type="GuiResourceData"/>
@@ -48,7 +49,7 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="CreateConstraintsFilePanel_FILE_NAME" value="1" type="GuiResourceData"/>
 <property name="ExpRunMenu_LAUNCH_STEP" value="1" type="GuiResourceData"/>
 <property name="ExpRunTreePanel_EXP_RUN_TREE_TABLE" value="6" type="GuiResourceData"/>
-<property name="FileSetPanel_FILE_SET_PANEL_TREE" value="117" type="GuiResourceData"/>
+<property name="FileSetPanel_FILE_SET_PANEL_TREE" value="118" type="GuiResourceData"/>
 <property name="FileSetPanel_USED_IN" value="1" type="GuiResourceData"/>
 <property name="FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE" value="29" type="GuiResourceData"/>
 <property name="HCodeEditor_BLANK_OPERATIONS" value="3" type="GuiResourceData"/>
@@ -57,15 +58,17 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="HCodeEditor_SEARCH_TEXT_COMBO_BOX" value="1" type="GuiResourceData"/>
 <property name="LanguageTemplatesDialog_TEMPLATES_TREE" value="6" type="GuiResourceData"/>
 <property name="MainMenuMgr_EDIT" value="2" type="GuiResourceData"/>
-<property name="MainMenuMgr_FILE" value="2" type="GuiResourceData"/>
-<property name="MainMenuMgr_FLOW" value="3" type="GuiResourceData"/>
-<property name="MainMenuMgr_OPEN_RECENT_PROJECT" value="4" type="GuiResourceData"/>
+<property name="MainMenuMgr_EXPORT" value="2" type="GuiResourceData"/>
+<property name="MainMenuMgr_FILE" value="10" type="GuiResourceData"/>
+<property name="MainMenuMgr_FLOW" value="15" type="GuiResourceData"/>
+<property name="MainMenuMgr_HELP" value="8" type="GuiResourceData"/>
+<property name="MainMenuMgr_OPEN_RECENT_PROJECT" value="7" type="GuiResourceData"/>
 <property name="MainMenuMgr_REPORT" value="2" type="GuiResourceData"/>
-<property name="MainMenuMgr_TOOLS" value="6" type="GuiResourceData"/>
+<property name="MainMenuMgr_TOOLS" value="26" type="GuiResourceData"/>
 <property name="MainMenuMgr_VIEW" value="2" type="GuiResourceData"/>
-<property name="MainMenuMgr_WINDOW" value="2" type="GuiResourceData"/>
+<property name="MainMenuMgr_WINDOW" value="20" type="GuiResourceData"/>
 <property name="MainToolbarMgr_OPEN" value="1" type="GuiResourceData"/>
-<property name="MainWinMenuMgr_LAYOUT" value="4" type="GuiResourceData"/>
+<property name="MainWinMenuMgr_LAYOUT" value="6" type="GuiResourceData"/>
 <property name="MessageWithOptionDialog_DONT_SHOW_THIS_DIALOG_AGAIN" value="3" type="GuiResourceData"/>
 <property name="MsgTreePanel_MESSAGE_VIEW_TREE" value="15" type="GuiResourceData"/>
 <property name="MsgView_CRITICAL_WARNINGS" value="1" type="GuiResourceData"/>
@@ -74,6 +77,7 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="PACommandNames_ADD_SOURCES" value="5" type="GuiResourceData"/>
 <property name="PACommandNames_AUTO_UPDATE_HIER" value="19" type="GuiResourceData"/>
 <property name="PACommandNames_EDIT_SIMULATION_SETS" value="1" type="GuiResourceData"/>
+<property name="PACommandNames_EXIT" value="1" type="GuiResourceData"/>
 <property name="PACommandNames_LANGUAGE_TEMPLATES" value="1" type="GuiResourceData"/>
 <property name="PACommandNames_MOVE_TO_TOP" value="1" type="GuiResourceData"/>
 <property name="PACommandNames_REPORTS_WINDOW" value="1" type="GuiResourceData"/>
@@ -85,12 +89,12 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="PartChooser_PARTS" value="3" type="GuiResourceData"/>
 <property name="PartChooser_PART_PACKAGE_CHOOSER" value="1" type="GuiResourceData"/>
 <property name="Project_AUTOMATIC_UPDATE_AND_COMPILE_ORDER" value="1" type="GuiResourceData"/>
-<property name="RDICommands_CUSTOM_COMMANDS" value="2" type="GuiResourceData"/>
+<property name="RDICommands_CUSTOM_COMMANDS" value="5" type="GuiResourceData"/>
 <property name="RDICommands_DELETE" value="1" type="GuiResourceData"/>
 <property name="RDICommands_PROPERTIES" value="1" type="GuiResourceData"/>
-<property name="RDICommands_SETTINGS" value="2" type="GuiResourceData"/>
+<property name="RDICommands_SETTINGS" value="3" type="GuiResourceData"/>
 <property name="RunGadget_SHOW_ERROR_AND_CRITICAL_WARNING_MESSAGES" value="1" type="GuiResourceData"/>
-<property name="SettingsDialog_OPTIONS_TREE" value="9" type="GuiResourceData"/>
+<property name="SettingsDialog_OPTIONS_TREE" value="13" type="GuiResourceData"/>
 <property name="SettingsDialog_RESTORE" value="1" type="GuiResourceData"/>
 <property name="SettingsDisplayPage_DISPLAY_DENSITY" value="2" type="GuiResourceData"/>
 <property name="SettingsEditorPage_USE_THIS_DROP_DOWN_LIST_BOX_TO_SELECT" value="1" type="GuiResourceData"/>
@@ -103,15 +107,15 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="SrcMenu_IP_HIERARCHY" value="17" type="GuiResourceData"/>
 <property name="SrcMenu_REFRESH_HIERARCHY" value="1" type="GuiResourceData"/>
 <property name="SrcMenu_SET_LIBRARY" value="2" type="GuiResourceData"/>
-<property name="SyntheticaGettingStartedView_RECENT_PROJECTS" value="3" type="GuiResourceData"/>
+<property name="SyntheticaGettingStartedView_RECENT_PROJECTS" value="4" type="GuiResourceData"/>
 <property name="TaskBanner_CLOSE" value="3" type="GuiResourceData"/>
 <property name="TclConsoleView_CLEAR_ALL_OUTPUT_IN_TCL_CONSOLE" value="3" type="GuiResourceData"/>
 <property name="TclConsoleView_TCL_CONSOLE_CODE_EDITOR" value="4" type="GuiResourceData"/>
 </item>
 <item name="Other">
-<property name="GuiMode" value="14" type="GuiMode"/>
+<property name="GuiMode" value="19" type="GuiMode"/>
 <property name="BatchMode" value="0" type="BatchMode"/>
-<property name="TclMode" value="8" type="TclMode"/>
+<property name="TclMode" value="9" type="TclMode"/>
 </item>
 </section>
 </application>

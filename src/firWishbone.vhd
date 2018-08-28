@@ -23,6 +23,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 library fpgamiddlewarelibs;
 use fpgamiddlewarelibs.UserLogicInterface.all;
 
+library work;
 use work.firPackage.all;
 
 -- Uncomment the following library declaration if using
@@ -35,9 +36,6 @@ use IEEE.NUMERIC_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity firWishbone is
-	generic(
-		uWidth			: natural := 16
-	);
 	port(
 		-- generic interface
 		clk				: in std_logic;
@@ -48,7 +46,7 @@ entity firWishbone is
 		-- ack and cyc ignored for now
 		
 		-- streaming interface
-		addressIn		: in std_logic_vector(1 downto 0);
+		addressIn		: in std_logic_vector(addressWidth-1 downto 0);
 		dataIn			: in int16_t;
 --		dataInValid		: in std_logic;
 		dataOut			: out int32_t
@@ -60,14 +58,10 @@ architecture Behavioral of firWishbone is
 
 	signal dataOutSignal : int32_t;
 
-	signal u : signed(uWidth-1 downto 0);
-	signal y : signed(uWidth*2-1 downto 0);
+	signal u : signed(firWidth-1 downto 0);
+	signal y : signed(firWidth*2-1 downto 0);
 
 	signal q : signed(u'range);
-
-	-- /* 32-by-N matrix array structure (as in RAM). Similar to integer_vector, difference being base vector is 32-bit unsigned. */
-	type signed_vector is array(natural range <>) of signed(u'range);
-	type signedx2_vector is array(natural range<>) of signed(y'range);
 
 	-- /* Pipes and delay chains. */
 	signal y0:signed(u'length*2-1 downto 0);
@@ -75,22 +69,28 @@ architecture Behavioral of firWishbone is
 	signal y_pipe:signedx2_vector(b'range):=(others=>(others=>'0'));
 	
 	signal filterClock : std_logic := '0';
+	signal b_signal : signed_vector(0 to order);
 -- attribute mult_style:string; attribute mult_style of fir:entity is "block";		--xilinx
 	
 begin
 
 	-- data input
-dataInProcess: process (clk, stb, writeEnable) is
-	
+dataInProcess: process (reset, clk, stb, writeEnable) is
+	variable index : integer range 0 to order := 0;
 	begin
 		if reset = '1' then
-			
+			u <= (others => '0');
+			b_signal <= b;
+			index := 0;
 		elsif rising_edge(clk) then
 			if stb = '1' and writeEnable = '1' then
 				-- u
-				if addressIn = "00" then
+				if addressIn = u_address then
 					u <= dataIn;
 					filterClock <= '1';
+				else
+					index := to_integer(unsigned(addressIn)) - 1;
+					b_signal(index) <= dataIn;
 				end if;
 			else
 				filterClock <= '0';
@@ -100,7 +100,7 @@ dataInProcess: process (clk, stb, writeEnable) is
 
 
 	-- data output
-dataOutProcess: process (clk, stb, writeEnable) is
+dataOutProcess: process (reset, clk, stb, writeEnable) is
 	
 	begin
 		if reset = '1' then
@@ -109,7 +109,7 @@ dataOutProcess: process (clk, stb, writeEnable) is
 			if stb = '1' and writeEnable = '0' then
 				-- y
 				case addressIn is 
-					when "00" =>
+					when y_address =>
 						dataOut <= y;
 					when others =>
 				end case;
@@ -131,7 +131,7 @@ dataOutProcess: process (clk, stb, writeEnable) is
 	
 	y_pipe(0)<=b(0)*u;
 	y_dlyChain: for i in 1 to y_pipe'high generate
-		y_pipe(i)<=b(i)*u_pipe(i) + y_pipe(i-1);
+		y_pipe(i)<=b_signal(i)*u_pipe(i) + y_pipe(i-1);
 	end generate y_dlyChain;
 	
 	y0<=y_pipe(y_pipe'high) when reset='0' else (others=>'0');
