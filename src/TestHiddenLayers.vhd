@@ -57,7 +57,7 @@ architecture Behavioral of TestHiddenLayers is
 	);
 	end component;
 	
-	-- ToDo what this used for??? 
+	-- tested by TestDistributor.vhd
 	component Distributor is
 	port
 	(
@@ -138,7 +138,8 @@ begin
 		-- n_feedback <= 'Z';
 		wait for period*1;
 		busy <= false;
-		wait;
+		report "Finished" severity warning;
+		
 	end process;
 end Behavioral;
 
