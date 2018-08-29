@@ -48,15 +48,12 @@ architecture Behavioral of TestHiddenLayers is
 		current_layer	: 	in uint8_t;
 		current_neuron  :   in uint8_t;
 		
-		dist_mode       :   in distributor_mode;
+		dist_mode       :   in uint8_t;
 
 		connections_in	:	in fixed_point_vector;
 		connections_out	:	out fixed_point_vector;
 
-		wanted 			: 	in fixed_point_vector;
-
-		weights_wr_en	: 	in std_logic;
-		weights 		: 	buffer weights_vector
+        wanted          :   in fixed_point_vector
 	);
 	end component;
 	
@@ -74,8 +71,8 @@ architecture Behavioral of TestHiddenLayers is
 		current_layer	:	out uint8_t;
 		current_neuron	:	out uint8_t;
 
-		data_rdy       :  out std_logic;
-		mode_out       :  out distributor_mode
+		data_rdy        :   out std_logic;
+		mode_out        :   out uint8_t
 	);
 	end component;
 
@@ -86,19 +83,13 @@ architecture Behavioral of TestHiddenLayers is
     signal busy 	: boolean := true;
     
     -- Common signals
-    
+    signal n_feedback : integer;
+    signal current_layer : uint8_t := (others => '0');
+    signal current_neuron : uint8_t := (others => '0');
+    signal dist_mode : uint8_t := (others => '0');
+        
     -- Signals for Layer module
 	signal conn_in, conn_out : fixed_point_vector := (others => (others => '0'));
-	signal err_in, err_out : fixed_point_vector := (others => (others => '0'));
-	
-	signal n_feedback : integer range 0 to 2;
-
-	signal current_layer : uint8_t := (others => '0');
-	signal current_neuron : uint8_t := (others => '0');
-	signal dist_mode : distributor_mode;
-
-	signal weights_wr_en : std_logic;
-	signal weights : weights_vector;
 	signal wanted : fixed_point_vector := (others => (others => '0'));
 
 	
@@ -129,11 +120,11 @@ begin
 		clk, reset, learn, calculate, n_feedback_bus, n_feedback, current_layer, current_neuron, data_rdy, dist_mode
 	);
 	
+	-- need to be corrected
 	uut : HiddenLayers port map 
-		(
-			clk, reset, n_feedback, current_layer, current_neuron, dist_mode, conn_in, conn_out, wanted, weights_wr_en, weights
-		);
-
+	(
+	   clk, reset, n_feedback, current_layer, current_neuron, dist_mode, conn_in, conn_out, wanted
+	);
 	process begin
 		reset <= '1';
 		wait for period *2;

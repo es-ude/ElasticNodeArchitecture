@@ -74,12 +74,12 @@ signal invert_clk								: std_logic;
 signal reset_counter 							: unsigned(WEIGHTS_RAM_WIDTH-1 downto 0) := (others => '0'); -- l+1 means it's done
 
 -- conn ram interface
-constant CONN_RAM_WIDTH						: integer := log2(l+1);
+constant CONN_RAM_WIDTH							: integer := log2(l+1);
 signal conn_wr									: std_logic := '0';
-signal conn_address_a,conn_address_b	: std_logic_vector(CONN_RAM_WIDTH-1 downto 0);
+signal conn_address_a,conn_address_b			: std_logic_vector(CONN_RAM_WIDTH-1 downto 0);
 signal conn_wr_din, conn_rd_dout_a, conn_rd_dout_b	: conn_vector;
-signal conn_write, conn_rd_b				: fixed_point_vector; -- data to be written
-signal conn_feedback							: fixed_point_vector;
+signal conn_write, conn_rd_b					: fixed_point_vector; -- data to be written
+signal conn_feedback								: fixed_point_vector;
 
 -- bias ram interface
 constant BIAS_RAM_WIDTH						: integer := log2(l);
