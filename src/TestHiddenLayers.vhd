@@ -42,15 +42,21 @@ architecture Behavioral of TestHiddenLayers is
 	component HiddenLayers
 	port (
 		clk				:	in std_logic;
+		reset			: 	in std_logic;
 
-		n_feedback		:	in std_logic;
+		n_feedback		:	in integer range 0 to 2;
 		current_layer	: 	in uint8_t;
+		current_neuron	: 	in uint8_t;
+
+		dist_mode		: 	in distributor_mode;
 
 		connections_in	:	in fixed_point_vector;
 		connections_out	:	out fixed_point_vector;
 
-		errors_in		:	in fixed_point_vector;
-		errors_out		:	out fixed_point_vector
+		wanted 			: 	in fixed_point_vector;
+
+		weights_wr_en	: 	in std_logic;
+		weights 		: 	buffer weights_vector
 	);
 	end component;
 	
@@ -63,12 +69,12 @@ architecture Behavioral of TestHiddenLayers is
 		calculate      :  in std_logic;
 		n_feedback_bus	:	out std_logic_vector(l downto 0) := (others => 'Z'); -- l layers + summation (at l)
 		
-		n_feedback		: 	out std_logic;
+		n_feedback		: 	out integer range 0 to 2;
 		current_layer	:	out uint8_t;
 		current_neuron	:	out uint8_t;
 
 		data_rdy       :  out std_logic;
-		mode_out       :  out uint8_t
+		mode_out       :  out distributor_mode
 	);
 	end component;
 
@@ -78,8 +84,15 @@ architecture Behavioral of TestHiddenLayers is
 
 	signal conn_in, conn_out : fixed_point_vector := (others => (others => '0'));
 	signal err_in, err_out : fixed_point_vector := (others => (others => '0'));
-	signal n_feedback : std_logic := 'Z';
+	signal n_feedback : integer range 0 to 2;
+
 	signal current_layer : uint8_t := (others => '0');
+	signal current_neuron : uint8_t := (others => '0');
+	signal dist_mode : distributor_mode;
+	signal wanted : fixed_point_vector;
+
+	signal weights_wr_en : std_logic;
+	signal weights : weights_vector;
 
 	signal errors_in		:	fixed_point_vector;
 	signal connections_out	: 	fixed_point_vector;
@@ -102,10 +115,10 @@ begin
 
 	distr: Distributor port map
 	(
-		clk, reset, learn, calculate, n_feedback_bus, n_feedback, current_layer, current_neuron, data_rdy, open
+		clk, reset, learn, calculate, n_feedback_bus, n_feedback, current_layer, current_neuron, data_rdy, distributor_mode
 	);
 	
-	uut : HiddenLayers port map (clk, n_feedback, current_layer, conn_in, conn_out, err_in, err_out);
+	uut : HiddenLayers port map (clk, reset, n_feedback, current_layer, current_neuron, dist_mode, conn_in, conn_out, wanted, weights_wr_en, weights);
 	process begin
 		reset <= '1';
 		wait for period *2;

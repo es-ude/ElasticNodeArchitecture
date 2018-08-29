@@ -40,7 +40,7 @@ entity Layer is
 			reset						: 	in std_logic;
 
 			n_feedback				:	in integer range 0 to 2;
-			dist_mode				:	in uint8_t;
+			dist_mode				:	in distributor_mode;
 			output_layer			:	in std_logic; -- tell each to only consider own error
 			current_neuron			:	in uint8_t;
 					
@@ -122,7 +122,7 @@ begin
 			previous_neuron_int <= current_neuron_int;
 
 			-- no change if currently idle
-			if dist_mode /= to_unsigned(7, dist_mode'length) then
+			if dist_mode /= waiting then
 				if current_neuron < w-1 then
 					next_neuron <= current_neuron + 1;
 				else

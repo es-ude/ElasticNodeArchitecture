@@ -42,6 +42,9 @@ subtype uintw_t is unsigned (w-1 downto 0);
 subtype weights_vector is std_logic_vector(b*w*w-1 downto 0);-- used for reading/writing ram
 subtype conn_vector is std_logic_vector(b*w-1 downto 0);-- used for reading/writing ram
 
+-- 0 idle 1 feedforward 2 feedback 3 feedback->feedforward 4 done 5 delay 7 waiting 6 intermediate (between forward and back)
+type distributor_mode is (idle, feedforward, feedback, done, delay, waiting, intermediate);
+
 -- subtype fixed_point is integer range -10000 to 10000;
 type fixed_point_vector is array (w-1 downto 0) of fixed_point;
 type fixed_point_matrix is array (w-1 downto 0) of fixed_point_vector;

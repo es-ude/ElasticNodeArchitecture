@@ -35,20 +35,23 @@ end SimulateNetwork;
 architecture Behavioral of SimulateNetwork is
 	component Network is
 	port (
-		clk					: 	in std_logic;
+		clk						: 	in std_logic;
 		reset					:	in std_logic;
 		
 		learn					:	in std_logic;
 		data_rdy				:	out std_logic := '0';
 		busy				 	:  out std_logic;
-		calculate			:   in std_logic;
+		calculate				:   in std_logic;
 	
-		connections_in		:	in fixed_point_vector;
-		connections_out	:	out fixed_point_vector;
+		connections_in			:	in fixed_point_vector;
+		connections_out			:	out fixed_point_vector;
 		
-		-- wanted			:	in fixed_point_vector
-		wanted				:	in fixed_point_vector;
-		debug		       	:  out uint8_t
+		-- wanted				:	in fixed_point_vector
+		wanted					:	in fixed_point_vector
+
+		weights_wr_en 			:	in std_logic;
+		weights_vector			:	buffer weights_vector;
+		debug		       		:  out uint8_t
 	);
 	end component;
 
@@ -62,6 +65,9 @@ architecture Behavioral of SimulateNetwork is
 	signal conn_in, conn_out 	: fixed_point_vector := (others => zero);
 	
 	signal busy 	: boolean := true;
+	
+	signal weights_en : std_logic;
+	signal weights_vector : weights_vector;
 	
 	signal debug : uint8_t;
 	
@@ -104,6 +110,9 @@ begin
 	begin
 		wait for period * 16;
 		reset <= '0';
+
+		-- set weights of network
+
 
 L: loop
 	exit L when I = 2;

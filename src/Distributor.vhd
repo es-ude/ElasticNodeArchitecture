@@ -38,9 +38,9 @@ entity Distributor is
 	port
 	(
 		clk				:	in std_logic;
-		reset				: 	in std_logic;
-		learn				:	in std_logic;
-		calculate      :  in std_logic;
+		reset			: 	in std_logic;
+		learn			:	in std_logic;
+		calculate      	:  in std_logic;
 		n_feedback_bus	:	out std_logic_vector(l downto 0) := (others => 'Z'); -- l layers + summation (at l)
 		
 		n_feedback		: 	out integer range 0 to 2; -- 0 is back, 1 forward, 2 inbetween
@@ -48,12 +48,12 @@ entity Distributor is
 		current_neuron	:	out uint8_t;
 
 		data_rdy       :  out std_logic;
-		mode_out       :  out uint8_t
+		mode_out       :  out distributor_mode
 	);
 end Distributor;
 
 architecture Behavioral of Distributor is
-	signal mode : integer range 0 to 7 := 0; -- 0 idle 1 feedforward 2 feedback 3 feedback->feedforward
+	signal mode : distributor_mode := idle; -- range 0 to 7 := 0; -- 0 idle 1 feedforward 2 feedback 3 feedback->feedforward
 begin
 	process (reset, clk, calculate, learn)
 	type FeedbackType is (forward, back, idle);
@@ -66,7 +66,7 @@ begin
 			layer_counter := 0;
 			neuron_counter := 0;
 			n_feedback_var := idle; -- init feed forward
-			mode <= 0;
+			mode <= idle;
 			n_feedback_bus <= (others => 'Z');
 			data_rdy <= '0';
 		-- set up before the clock cycle for hidden layers to sample current_layer
@@ -74,19 +74,19 @@ begin
 			--if learn = '1' then 
 				-- start learning
 					case mode is 
-						when 0 => -- init
+						when idle => -- init
 							layer_counter := 0;
 							neuron_counter := 0;
 							n_feedback_var := idle;
 							
 							-- stay in idle until told to calculate
 							if calculate = '1' then 
-								mode <= 7;
+								mode <= waiting;
 								n_feedback_var := forward;
 								data_rdy <= '0';
 							end if;
 		--					data_rdy <= '0';
-						when 1 => -- feedforward
+						when feedforward => -- feedforward
 							neuron_counter := neuron_counter + 1;
 							if n_feedback_var = idle then -- start again
 								
@@ -106,12 +106,12 @@ begin
 										-- if counter = l * 10 then -- through all layers
 										n_feedback_var := idle;
 										-- counter := counter + 1; -- will be reduced again before active
-										mode <= 6;
+										mode <= intermediate;
 									else
 										-- if not learning, just return to first layer for feed forward
 										-- if counter = l * 10 + 1 then -- through all layers
 										n_feedback_var := idle;
-										mode <= 4;
+										mode <= done;
 										--                            n_feedback_var := '0';
 										--                            mode <= 2;
 										--counter := 0;
@@ -128,7 +128,7 @@ begin
 								
 							-- counter := l;
 							-- end if;
-						when 2 => -- feedback
+						when feedback => -- feedback
 							neuron_counter := neuron_counter + 1;
 							-- was delayed, resume and restore variables
 							if n_feedback_var = idle then
@@ -142,34 +142,36 @@ begin
 								layer_counter := layer_counter - 1;
 								if layer_counter = -1 then
 									layer_counter := 0;
-									mode <= 5;
+									mode <= delay;
 									n_feedback_var := idle;
 									--counter := 0;
 								end if;
 							end if;
 		--					data_rdy <= '0';
-						when 3 => -- input layer low then high
-							n_feedback_var := forward;
-							mode <= 1; -- back to feedforward
+
+						-- apparently not used ??
+						--when 3 => -- input layer low then high
+						--	n_feedback_var := forward;
+						--	mode <= feedforward; -- back to feedforward
 		--					data_rdy <= '0';
-						when 4 => -- wait for next input
+						when done => -- wait for next input
 							n_feedback_var := idle;
-							mode <= 0;
+							mode <= idle;
 							data_rdy <= '1';
-						when 5 => -- input layer high 
+						when delay => -- input layer high 
 							n_feedback_var := idle;
 							
-							mode <= 4;
-						when 6 => -- intermediate
+							mode <= done;
+						when intermediate => -- intermediate
 							n_feedback_var := back;
 							layer_counter := l-1; 
-							mode <= 2;
+							mode <= feedback;
 							neuron_counter := 0; -- neuron_counter + 1;
-						when 7 => -- wait until calculate goes low
+						when waiting => -- wait until calculate goes low
 							if calculate = '1' then
-								mode <= 7;
+								mode <= waiting;
 							elsif calculate = '0' then
-								mode <= 1;
+								mode <= feedforward;
 							end if;
 						when others =>
 					end case;
@@ -201,7 +203,8 @@ begin
 	
 	
 	-- data_rdy <= '1' when mode = 4 else '0';
-    mode_out <= to_unsigned(mode, mode_out'length); -- std_logic_vector(to_unsigned(mode, mode_out'length));
+    --mode_out <= to_unsigned(mode, mode_out'length); -- std_logic_vector(to_unsigned(mode, mode_out'length));
+    mode_out <= mode;
     
 end Behavioral;
 
