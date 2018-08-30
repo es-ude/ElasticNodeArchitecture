@@ -98,6 +98,8 @@ architecture Behavioral of Layer is
 			);
 	end component;
 
+	signal neuron_clk : std_logic := '0';
+
 	signal conn_in, error_out, weight_in, weight_out : fixed_point_vector;
 	signal conn_out, conn_out_prev : fixed_point; -- 
 
@@ -236,6 +238,9 @@ begin
 		errors_out => errors_out
 	);
 
+	-- only clock neuron logic when calculating something
+	neuron_clk <= clk when dist_mode = feedforward or dist_mode = feedback;
+
 -- gen_neutrons:
 --	for i in 0 to w-1 generate neuron_x : Neuron generic map
 --	(
@@ -245,7 +250,7 @@ neur:
 	Neuron
 	port map 
 	(
-		clk => clk, 
+		clk => neuron_clk, 
 		n_feedback => n_feedback,
 		output_neuron => output_layer,
 		index => current_neuron_int,

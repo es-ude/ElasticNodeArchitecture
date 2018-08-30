@@ -26,9 +26,9 @@ subtype double_fixed_point is signed(b+b-1 downto 0);
 constant w 					: 	natural := 8;
 constant l 					:	natural := 4;
 constant eps				:	natural := 10;
-constant factor			:	fixed_point := to_signed(1024, b);
-constant factor_shift	:	natural := 10;
-constant factor_shift_2	:	natural := 5;
+constant factor				:	fixed_point := to_signed(1024, b);
+constant factor_shift		:	natural := 10;
+constant factor_shift_2		:	natural := 5;
 constant factor_2   		:	fixed_point := to_signed(512, b);
 constant zero				:	fixed_point := (others => '0');
 constant init_weight		:	fixed_point := factor_2;
@@ -325,12 +325,12 @@ package body Common is
 	   variable TEMP2 : fixed_point;
 		variable A_short, B_short : signed(fixed_point'length+1-factor_shift downto 0);
 	begin
-		A_short := A(fixed_point'length+1-factor_shift_2 downto factor_shift_2);
-		B_short := B(fixed_point'length+1-factor_shift_2 downto factor_shift_2);
-	   -- TEMP := A * B;
-	   -- TEMP2 := TEMP(factor_shift+fixed_point'length-1 downto factor_shift);
-	   return A_short * B_short;
---		return TEMP(25 downto 10); -- take result and divide by factor ( >> 10 ) and cut off top
+		--A_short := A(fixed_point'length+1-factor_shift_2 downto factor_shift_2);
+		--B_short := B(fixed_point'length+1-factor_shift_2 downto factor_shift_2);
+	    TEMP := A * B;
+	    --TEMP2 := TEMP(factor_shift+fixed_point'length-1 downto factor_shift);
+	   --return A_short * B_short;
+		return TEMP(factor_shift+fixed_point'length-1 downto factor_shift); -- take result and divide by factor ( >> 10 ) and cut off top
 	end multiply;
     
 --	 function multiply(A : in fixed_point; B : in fixed_point) return fixed_point is

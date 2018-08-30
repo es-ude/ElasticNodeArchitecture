@@ -49,23 +49,23 @@ entity Neuron is
 --		index					:	integer range 0 to w-1
 --		);
 	port (
-		clk					:	in std_logic;
+		clk						:	in std_logic;
 
-		n_feedback			:	in integer range 0 to 2;
-		output_neuron		:	in std_logic; -- tell neuron to only consider own error
+		n_feedback				:	in integer range 0 to 2;
+		output_neuron			:	in std_logic; -- tell neuron to only consider own error
 		index					:	in integer range 0 to w-1;
 
-		input_connections : 	in fixed_point_vector;
-		input_errors		:	in fixed_point_vector;
+		input_connections 		: 	in fixed_point_vector;
+		input_errors			:	in fixed_point_vector;
 
-		output_connection	:	out fixed_point := zero;
-		output_previous	:	in fixed_point;
-		output_errors		: 	out fixed_point_vector := (others => zero);
+		output_connection		:	out fixed_point := zero;
+		output_previous			:	in fixed_point;
+		output_errors			: 	out fixed_point_vector := (others => zero);
 		
-		weights_in			: 	in fixed_point_vector;
-		weights_out			: 	out fixed_point_vector := (others => factor_2);
+		weights_in				: 	in fixed_point_vector;
+		weights_out				: 	out fixed_point_vector := (others => factor_2);
 		
-		bias_in				: 	in fixed_point;
+		bias_in					: 	in fixed_point;
 		bias_out				: 	out fixed_point
 		);
 end Neuron;
