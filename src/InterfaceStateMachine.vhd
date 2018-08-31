@@ -55,9 +55,25 @@ architecture Behavior of InterfaceStateMachine is
 	
 	signal led_signal : std_logic_vector(3 downto 0) := (others => '0');
 	signal userlogic_reset_signal : std_logic := '0';
+
+	signal middleware_data_out : uint8_t;
+
+	signal sram_control_region_active : boolean;
 begin
 	leds <= led_signal;
 	userlogic_reset <= userlogic_reset_signal;
+
+	-- assign sram interface to correct ul or mw interface
+	sram_control_region_active <= sram_address <= control_region;
+	sram_data_out <= 
+		middleware_data_out when sram_control_region_active else
+		userlogic_data_out;
+	userlogic_wr <= sram_wr when not sram_control_region_active else
+		'1';
+	userlogic_rd <= sram_rd when not sram_control_region_active else
+		'1';
+
+	userlogic_data_in <= sram_data_in;
 
 	-- main data receiving process
 	process (reset, clk, sram_rd, sram_wr) 
@@ -67,11 +83,12 @@ begin
 		if reset = '1' then
 			icap_address.ready <= '0';
 			led_signal <= (others => '0');
-			sram_data_out <= (others => '0');
+			-- sram_data_out <= (others => '0');
 			userlogic_reset_signal <= '1';
-			userlogic_rd <= '1';
-			userlogic_wr <= '1';
+			-- userlogic_rd <= '1';
+			-- userlogic_wr <= '1';
 			flash_ce <= '1';
+			middleware_data_out <= (others => '0');
 		else
 			if rising_edge(clk) then
 				if sram_rd = '0' or sram_wr = '0' then -- or wr_was_low then
@@ -105,18 +122,18 @@ begin
 							when others =>
 							end case;
 						-- data region
-							userlogic_wr <= '1';
+							--userlogic_wr <= '1';
 						else
-							userlogic_wr <= '0';
+							--userlogic_wr <= '0';
 							-- userlogic_address <= sram_address - control_region - 1;
-							userlogic_data_in <= sram_data_in;
+							--userlogic_data_in <= sram_data_in;
 						end if;
 					-- otherwise reading
 					else
 						-- control region
 						if sram_address <= control_region then
 							-- write unaffected as zero
-							sram_data_out <= (others => '0');
+							middleware_data_out <= (others => '0');
 							
 							-- icap
 							case sram_address is
@@ -127,25 +144,24 @@ begin
 --							when MULTIBOOT + 2 =>
 --								sram_data_out <= icap_address.data(23 downto 16);
 							when LED =>
-								sram_data_out(3 downto 0) <= unsigned(led_signal);
+								middleware_data_out(3 downto 0) <= unsigned(led_signal);
 							when USERLOGIC_CONTROL =>
-								sram_data_out(0) <= userlogic_reset_signal;
+								middleware_data_out(0) <= userlogic_reset_signal;
 							when others =>
-								sram_data_out <= sram_address(7 downto 0);
+								middleware_data_out <= sram_address(7 downto 0);
 							end case;
 							
-							
 						-- data region
-							userlogic_rd <= '1';
+							-- userlogic_rd <= '1';
 						else
 							-- userlogic_address <= sram_address - control_region - 1;
-							sram_data_out <= userlogic_data_out;
-							userlogic_rd <= '0'; -- need rd to be low for at least 2 clk
+							-- sram_data_out <= userlogic_data_out;
+							-- userlogic_rd <= '0'; -- need rd to be low for at least 2 clk
 						end if;
 					end if;
 				else
-					userlogic_rd <= '1';
-					userlogic_wr <= '1';
+					-- userlogic_rd <= '1';
+					-- userlogic_wr <= '1';
 				end if;
 			end if;
 		end if;

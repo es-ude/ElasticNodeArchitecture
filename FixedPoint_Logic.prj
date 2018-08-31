@@ -1,0 +1,2 @@
+vhdl neuralNetwork "src/Common.vhd"
+vhdl neuralNetwork "src/FixedPoint_Logic.vhd"

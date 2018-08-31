@@ -40,7 +40,7 @@ entity Layer is
 			reset						: 	in std_logic;
 
 			n_feedback				:	in integer range 0 to 2;
-			dist_mode				:	in uint8_t;
+			dist_mode				:	in distributor_mode;
 			output_layer			:	in std_logic; -- tell each to only consider own error
 			current_neuron			:	in uint8_t;
 					
@@ -98,6 +98,8 @@ architecture Behavioral of Layer is
 			);
 	end component;
 
+	signal neuron_clk : std_logic := '0';
+
 	signal conn_in, error_out, weight_in, weight_out : fixed_point_vector;
 	signal conn_out, conn_out_prev : fixed_point; -- 
 
@@ -122,7 +124,7 @@ begin
 			previous_neuron_int <= current_neuron_int;
 
 			-- no change if currently idle
-			if dist_mode /= to_unsigned(7, dist_mode'length) then
+			if dist_mode /= waiting then
 				if current_neuron < w-1 then
 					next_neuron <= current_neuron + 1;
 				else
@@ -236,6 +238,9 @@ begin
 		errors_out => errors_out
 	);
 
+	-- only clock neuron logic when calculating something
+	neuron_clk <= clk when dist_mode = feedforward or dist_mode = feedback;
+
 -- gen_neutrons:
 --	for i in 0 to w-1 generate neuron_x : Neuron generic map
 --	(
@@ -245,7 +250,7 @@ neur:
 	Neuron
 	port map 
 	(
-		clk => clk, 
+		clk => neuron_clk, 
 		n_feedback => n_feedback,
 		output_neuron => output_layer,
 		index => current_neuron_int,

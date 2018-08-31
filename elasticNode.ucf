@@ -3,8 +3,8 @@ NET "*" IOSTANDARD = LVTTL;
 CONFIG PROHIBIT=P47;
 
 #CLOCKS
-NET CLK_50		LOC="P51" | TNM_NET=TNM_CLK_50;
-TIMESPEC TS_CLK_50 = PERIOD TNM_CLK_50 20ns;
+NET CLK_50		LOC="P51" | PERIOD=20ns;
+#TIMESPEC TS_CLK_50 = PERIOD TNM_CLK_50 20ns;
 NET CLK_32		LOC="P94" | PERIOD=31.25ns;
 #NET <top_level_port> TNM_NET = tnm_<top_level_port>;
 #TIMESPEC TS_<top_level_port> = PERIOD tnm_<top_level_port> 10ns;

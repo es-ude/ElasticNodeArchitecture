@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/alwynster/git/fpgamiddlewareproject/TestLocalFIFO_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="std_logic_1164" />
+            <top_module name="testlocalfifo" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="15" />
+   <wvobject fp_name="/testlocalfifo/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testlocalfifo/reset" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testlocalfifo/datain" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">datain[15:0]</obj_property>
+      <obj_property name="ObjectShortName">datain[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testlocalfifo/datainvalid" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">datainvalid</obj_property>
+      <obj_property name="ObjectShortName">datainvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testlocalfifo/dataoutrequest" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">dataoutrequest</obj_property>
+      <obj_property name="ObjectShortName">dataoutrequest</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testlocalfifo/dataout" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">dataout[15:0]</obj_property>
+      <obj_property name="ObjectShortName">dataout[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testlocalfifo/empty" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">empty</obj_property>
+      <obj_property name="ObjectShortName">empty</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testlocalfifo/full" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">full</obj_property>
+      <obj_property name="ObjectShortName">full</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testlocalfifo/w" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">w</obj_property>
+      <obj_property name="ObjectShortName">w</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testlocalfifo/d" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">d</obj_property>
+      <obj_property name="ObjectShortName">d</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testlocalfifo/clk_period" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">clk_period</obj_property>
+      <obj_property name="ObjectShortName">clk_period</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testlocalfifo/uut/mem_s" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_s[0:1]</obj_property>
+      <obj_property name="ObjectShortName">mem_s[0:1]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <wvobject fp_name="/testlocalfifo/uut/mem_s[0]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[0]</obj_property>
+         <obj_property name="ObjectShortName">mem_s[0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/testlocalfifo/uut/mem_s[1]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">mem_s[1]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/testlocalfifo/uut/head_s" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">head_s</obj_property>
+      <obj_property name="ObjectShortName">head_s</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testlocalfifo/uut/tail_s" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">tail_s</obj_property>
+      <obj_property name="ObjectShortName">tail_s</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testlocalfifo/uut/count_s" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">count_s</obj_property>
+      <obj_property name="ObjectShortName">count_s</obj_property>
+   </wvobject>
+</wave_config>

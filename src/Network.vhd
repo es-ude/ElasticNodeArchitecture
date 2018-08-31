@@ -41,20 +41,24 @@ use UNISIM.VComponents.all;
 
 entity Network is
 	port (
-			clk				: 	in std_logic;
-			reset				:	 in std_logic;
+			clk					: 	in std_logic;
+			reset				:	in std_logic;
 			
 			learn				:	in std_logic;
 			data_rdy			:	out std_logic := '0';
-			busy				:  out std_logic;
-        	calculate      :   in std_logic;
+			busy				:  	out std_logic;
+        	calculate      		:   in std_logic;
             
-			connections_in	:	in fixed_point_vector;
-			connections_out	:	out fixed_point_vector := (others => zero);
+			connections_in		:	in fixed_point_vector;
+			connections_out		:	out fixed_point_vector := (others => zero);
 
-			--errors_in		:	in fixed_point_vector;
-			wanted			:	in fixed_point_vector;
-         debug		      :  out uint8_t
+			--errors_in			:	in fixed_point_vector;
+			wanted				:	in fixed_point_vector;
+
+			weights_wr_en 		:	in std_logic;
+			weights 			:	buffer weights_vector;
+
+         	debug		      	:  	out uint8_t
 		);
 end Network;
 
@@ -86,9 +90,12 @@ architecture Behavioral of Network is
 			dist_mode			:	in uint8_t;
 
 			connections_in		:	in fixed_point_vector;
-			connections_out	:	out fixed_point_vector;
+			connections_out		:	out fixed_point_vector;
 
-			wanted				:	in fixed_point_vector
+			wanted				:	in fixed_point_vector;
+
+			weights_wr_en 		:	in std_logic;
+			weights_vector		:	buffer weights_vector
 			-- errors_out		:	out fixed_point_vector
 		);
 	end component;
@@ -187,7 +194,7 @@ begin
 
 	busy <= '0' when mode_out_signal = to_unsigned(0, mode_out_signal'length) else '1';
 
-	hidden_layers: HiddenLayers port map (clk, reset, n_feedback, current_layer, current_neuron, mode_out_signal, connections_in, hidden_connections_out, wanted); --  err_matrix(l-1), err_out);
+	hidden_layers: HiddenLayers port map (clk, reset, n_feedback, current_layer, current_neuron, mode_out_signal, connections_in, hidden_connections_out, wanted, weights_set_en, weights_set_vector, weights_set_index); --  err_matrix(l-1), err_out);
 
 	distr: Distributor port map
 	(

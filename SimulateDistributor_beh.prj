@@ -1,0 +1,4 @@
+vhdl neuralNetwork "src/Common.vhd"
+vhdl fpgamiddlewarelibs "../fpgamiddlewarelibs/UserLogicInterface/UserLogicInterface.vhd"
+vhdl neuralNetwork "src/Distributor.vhd"
+vhdl neuralNetwork "src/SimulateDistributor.vhd"
