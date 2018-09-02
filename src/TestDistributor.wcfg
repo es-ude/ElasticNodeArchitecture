@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="TestDistributor_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="TestDistributor" />
+            <top_module name="common" />
+            <top_module name="userlogicinterface" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="11704532827fs"></ZoomStartTime>
+      <ZoomEndTime time="12961144652fs"></ZoomEndTime>
+      <Cursor1Time time="12650000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="151"></NameColumnWidth>
+      <ValueColumnWidth column_width="93"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="12" />
+   <wvobject fp_name="/TestDistributor/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestDistributor/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestDistributor/busy" type="other">
+      <obj_property name="ElementShortName">busy</obj_property>
+      <obj_property name="ObjectShortName">busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestDistributor/learn" type="logic">
+      <obj_property name="ElementShortName">learn</obj_property>
+      <obj_property name="ObjectShortName">learn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestDistributor/calculate" type="logic">
+      <obj_property name="ElementShortName">calculate</obj_property>
+      <obj_property name="ObjectShortName">calculate</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestDistributor/n_feedback_bus" type="array">
+      <obj_property name="ElementShortName">n_feedback_bus[4:0]</obj_property>
+      <obj_property name="ObjectShortName">n_feedback_bus[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestDistributor/n_feedback" type="other">
+      <obj_property name="ElementShortName">n_feedback</obj_property>
+      <obj_property name="ObjectShortName">n_feedback</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestDistributor/current_layer" type="array">
+      <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+      <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestDistributor/current_neuron" type="array">
+      <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
+      <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestDistributor/data_rdy" type="logic">
+      <obj_property name="ElementShortName">data_rdy</obj_property>
+      <obj_property name="ObjectShortName">data_rdy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestDistributor/dist_mode" type="other">
+      <obj_property name="ElementShortName">dist_mode</obj_property>
+      <obj_property name="ObjectShortName">dist_mode</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestDistributor/period" type="other">
+      <obj_property name="ElementShortName">period</obj_property>
+      <obj_property name="ObjectShortName">period</obj_property>
+   </wvobject>
+</wave_config>
