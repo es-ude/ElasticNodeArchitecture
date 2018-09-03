@@ -160,8 +160,7 @@ begin
 
 
 		-- read weights
-		for i in 0 to l loop
-			--weights <= (others => '0');
+		for i in 0 to l-1 loop
 			current_layer_manual <= to_unsigned(i, current_layer_manual'length);
 			wait for period * 3;
 		end loop;
@@ -173,12 +172,13 @@ begin
 			current_layer_manual <= to_unsigned(i, current_layer_manual'length);
 			wait for period;
 			weights_wr_en <= '0';
-			weights <= (others => 'Z');
+			weights <= (others => 'Z');  -- set to 'Z' then we can read out.
 			wait for period * 2;
 		end loop;
 		weights <= (others => 'Z');
+		
 
-		-- secodn test
+		-- second test(bias need to be checked here)
 		learn <= '0';
 		calculate <= '1';
 		weights_wr_en <= '0';
