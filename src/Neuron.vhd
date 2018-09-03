@@ -71,7 +71,6 @@ entity Neuron is
 end Neuron;
 
 architecture Behavioral_Neuron of Neuron is
-	signal weights				: 	fixed_point_vector := (others => real_to_fixed_point(0.5));
 	signal delta_signal		:	fixed_point := real_to_fixed_point(0.0);
 	signal error_factor		:	fixed_point;
 	signal tf_signal 			:	fixed_point;
@@ -131,6 +130,7 @@ sig:
 					output_errors(i) <= multiply(weights_in(i), delta);
 					
 					weights :=  weights_in(i) + multiply(delta, input_connections(i));
+					-- TODO layer 0 connections_in incorrect
 					
 					-- weights := limit(weights);
 					

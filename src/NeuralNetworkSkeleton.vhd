@@ -1,4 +1,4 @@
-----------------------------------------------------------------------------------
+ø----------------------------------------------------------------------------------
 -- Company: 
 -- Engineer: 
 -- 
@@ -97,7 +97,7 @@ begin
 end process;
 			
 
-nn: entity neuralnetwork.NeuralNetwork(Behavioral)
+nn: entity neuralnetwork.Network(Behavioral)
 	port map (half_clock, reset, learn, data_rdy, busy_signal, calculate, connections_in, wanted, connections_out, debug); -- done wired to busy
 	busy <= busy_signal;
 

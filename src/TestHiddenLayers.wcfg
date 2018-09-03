@@ -12,9 +12,9 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="25521972000fs"></ZoomStartTime>
-      <ZoomEndTime time="26551972001fs"></ZoomEndTime>
-      <Cursor1Time time="25735972000fs"></Cursor1Time>
+      <ZoomStartTime time="87466869904fs"></ZoomStartTime>
+      <ZoomEndTime time="87965650486fs"></ZoomEndTime>
+      <Cursor1Time time="87550000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="151"></NameColumnWidth>
@@ -171,6 +171,10 @@
       <wvobject type="logic" fp_name="/TestHiddenLayers/uut/weights_wr_en">
          <obj_property name="ElementShortName">weights_wr_en</obj_property>
          <obj_property name="ObjectShortName">weights_wr_en</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/weights_wr_ext">
+         <obj_property name="ElementShortName">weights_wr_ext</obj_property>
+         <obj_property name="ObjectShortName">weights_wr_ext</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/TestHiddenLayers/uut/weights">
          <obj_property name="ElementShortName">weights[1023:0]</obj_property>

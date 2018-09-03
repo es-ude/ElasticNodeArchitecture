@@ -49,72 +49,36 @@ entity Network is
 			busy				:  	out std_logic;
         	calculate      		:   in std_logic;
             
-			connections_in		:	in fixed_point_vector;
-			connections_out		:	out fixed_point_vector := (others => zero);
+			connections_in		:	in uintw_t;
+			connections_out		:	out uintw_t := (others => '0');
 
 			--errors_in			:	in fixed_point_vector;
-			wanted				:	in fixed_point_vector;
+			wanted				:	in uintw_t;
 
 			weights_wr_en 		:	in std_logic;
-			weights 			:	buffer weights_vector;
+			weights 			:	inout weights_vector;
 
          	debug		      	:  	out uint8_t
 		);
 end Network;
 
 architecture Behavioral of Network is
---	component InputLayer is
---	port (
---			clk				:	in std_logic;
---
---			n_feedback		:	in std_logic;
---
---			connections_in	:	in uintw_t;
---			connections_out	:	out fixed_point_vector;
---
---			errors_in		:	in fixed_point_vector;
---			errors_out		:	out fixed_point_vector
---		);
---	end component;
 
-	
-	component HiddenLayers is
-	port (
-			clk					:	in std_logic;
-			reset					: 	in std_logic;
-
-			n_feedback			:	in integer range 0 to 2;
-			current_layer		: 	in uint8_t;
-			current_neuron		:	in uint8_t;
-			
-			dist_mode			:	in uint8_t;
-
-			connections_in		:	in fixed_point_vector;
-			connections_out		:	out fixed_point_vector;
-
-			wanted				:	in fixed_point_vector;
-
-			weights_wr_en 		:	in std_logic;
-			weights_vector		:	buffer weights_vector
-			-- errors_out		:	out fixed_point_vector
+	component FixedPoint_Logic is
+		Port (
+			fixed_point		:	in fixed_point_vector;
+			std_logic_vec	: 	out uintw_t;
+			clk			:	in std_logic
 		);
 	end component;
 
-
---	component OutputLayer is
---	port (
---			clk				:	in std_logic;
---
---			n_feedback		:	in std_logic;
---
---			connections_in	:	in fixed_point_vector;
---			connections_out	:	out fixed_point_vector;
---
---			errors_in		:	in fixed_point_vector;
---			errors_out		:	out fixed_point_vector
---		);
---	end component;
-
+	component Logic_FixedPoint is
+		Port (
+			fixed_point		:	out fixed_point_vector;
+			std_logic_vec	: 	in uintw_t;
+			clk				:	in std_logic
+		);
+	end component;
 
 	component Diff is
 		port 
@@ -129,36 +93,36 @@ architecture Behavioral of Network is
 	port
 	(
 		clk				:	in std_logic;
-		reset				: in std_logic;
-		learn				:	in std_logic;
+		reset			: 	in std_logic;
+		learn			:	in std_logic;
 		calculate    	:   in std_logic;
 		n_feedback_bus	:	out std_logic_vector(l downto 0) := (others => 'Z'); -- l layers + summation (at l)
-		
-				
+
+
 		n_feedback		: 	out integer range 0 to 2;
 		current_layer	:	out uint8_t;
 		current_neuron	:	out uint8_t;
-				
-	  data_rdy        :   out std_logic;
-	  mode_out        :   out uint8_t
+
+		data_rdy        :   out std_logic;
+		mode_out        :   out distributor_mode
 	);
 	end component;
 	
-	component Logic_FixedPoint is
-		Port (
-			fixed_point		:	out fixed_point_vector;
-			std_logic_vec	: 	in uintw_t;
-			clk				:	in std_logic
-		);
-	end component;
+	--component Logic_FixedPoint is
+	--	Port (
+	--		fixed_point		:	out fixed_point_vector;
+	--		std_logic_vec	: 	in uintw_t;
+	--		clk				:	in std_logic
+	--	);
+	--end component;
 
 --	signal conn_matrix 		: fixed_point_array;
 --	signal err_matrix 		: fixed_point_array;
-	signal hidden_connections_out : fixed_point_vector;
-	signal connections_out_signal : fixed_point_vector;
+	signal hidden_connections_out_fp : fixed_point_vector;
+	--signal connections_out_fp : fixed_point_vector;
 	signal err_out 			: fixed_point_vector;
-	signal data_rdy_s			: std_logic := '0';
-	signal mode_out_signal	: uint8_t;
+	signal data_rdy_s		: std_logic := '0';
+	signal mode_out_signal	: distributor_mode;
 	
 	-- signal wanted_fp	: fixed_point_vector;
 	--signal conn_in_real	: fixed_point_vector;
@@ -172,39 +136,75 @@ architecture Behavioral of Network is
 	signal current_neuron	: uint8_t;
 	
 	
+	signal connections_in_fp   : fixed_point_vector := (others => real_to_fixed_point(0.0));
+	signal wanted_fp           : fixed_point_vector := (others => real_to_fixed_point(0.0));
+	signal connections_out_fp  : fixed_point_vector;
+
 begin
 	data_rdy <= data_rdy_s;
 	-- set output connections when changing to learning
 	process (reset, clk, mode_out_signal) is
 	begin
 		if reset = '1' then
-			connections_out_signal <= (others => zero);
+			connections_out_fp <= (others => zero);
 		elsif rising_edge(clk) then
 			-- if learn = '0' then
-			if mode_out_signal = to_unsigned(4, mode_out_signal'length) then -- std_logic_vector(to_unsigned(4, mode_out_signal'length)) then
-				connections_out_signal <= hidden_connections_out;
+			if mode_out_signal = done then -- std_logic_vector(to_unsigned(4, mode_out_signal'length)) then
+				connections_out_fp <= hidden_connections_out_fp;
 			else
-				connections_out_signal <= connections_out_signal;
+				connections_out_fp <= connections_out_fp;
 			end if;
 		end if;
 
 	end process;
 	
-	connections_out <= connections_out_signal;
+	-- connections_out <= connections_out_fp;
 
-	busy <= '0' when mode_out_signal = to_unsigned(0, mode_out_signal'length) else '1';
+	busy <= '0' when mode_out_signal = idle else '1';
 
-	hidden_layers: HiddenLayers port map (clk, reset, n_feedback, current_layer, current_neuron, mode_out_signal, connections_in, hidden_connections_out, wanted, weights_set_en, weights_set_vector, weights_set_index); --  err_matrix(l-1), err_out);
+
+	
+hidden_layers: entity work.HiddenLayers(Behavioral) port map 
+	(
+		clk => clk, 
+		reset => reset, 
+		n_feedback => n_feedback, 
+		current_layer => current_layer, 
+		current_neuron => current_neuron, 
+		dist_mode => mode_out_signal, 
+		connections_in => connections_in_fp, 
+		connections_out => hidden_connections_out_fp,
+		wanted => wanted_fp, 
+		weights_wr_en => weights_wr_en, 
+		weights => weights
+	);
+
 
 	distr: Distributor port map
 	(
 		clk, reset, learn, calculate, n_feedback_bus, n_feedback, current_layer, current_neuron, data_rdy_s, mode_out_signal
 	);
+
+	fpl: FixedPoint_Logic port map
+	(
+	    connections_out_fp, connections_out, clk
+	);
+
+	lfp: Logic_FixedPoint port map
+	(
+	    connections_in_fp, connections_in, clk
+	);
+
+	lfpw: Logic_FixedPoint port map
+	(
+	    wanted_fp, wanted, clk
+	);
+
 --	buff: BUFG port map
 --	(
 --		O=>n_feedback_buffered, I=>n_feedback
 --	);
-	debug(2 downto 0) <= mode_out_signal(2 downto 0);
+	debug(2 downto 0) <= to_unsigned(distributor_mode'POS(mode_out_signal), 3);
 	debug(3) <= '1' when n_feedback = 1 else '0';
 	debug(7 downto 4) <= current_layer(3 downto 0);
 

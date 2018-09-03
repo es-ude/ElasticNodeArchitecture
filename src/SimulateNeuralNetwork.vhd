@@ -33,32 +33,18 @@ entity SimulateNeuralNetwork is
 end SimulateNeuralNetwork;
 
 architecture Behavioral of SimulateNeuralNetwork is
-	component NeuralNetwork is
-    Port (
-		clk             :  in std_logic;
-		reset				:  in std_logic;
-		
-		learn           :  in std_logic;
-		data_rdy        :  out std_logic;
-		busy				 :  out std_logic;
-		calculate       :  in std_logic;
-		
-		connections_in  :  in uintw_t;
-		wanted          :  in uintw_t;
-		connections_out :  out uintw_t;
-		
-		debug				 :  out uint8_t
-        );
-	end component;
-
 	signal clk_s : std_logic := '0';	
 	signal learn, data_rdy, calculate, ul_busy : std_logic := 'Z';
 	signal reset : std_logic := '1';
 	constant period : time := 40 ns;
 	constant repeat : integer := 10;
+	constant NUM_LOOPS : integer := 2;
 
-	signal wanted					: 	uintw_t := (others => '0');
+	signal wanted				: 	uintw_t := (others => '0');
 	signal conn_in, conn_out 	: uintw_t := (others => '0');
+
+	signal weights_wr : std_logic := '0';
+	signal weights : weights_vector;
 	
 	signal busy 	: boolean := true;
 	
@@ -83,43 +69,145 @@ begin
 		end if;
 	end process;
 
-	uut: NeuralNetwork port map (clk_s, reset, learn, data_rdy, ul_busy, calculate, conn_in, wanted, conn_out, debug);
+uut: entity work.Network(Behavioral) port map 
+	(
+		clk => clk_s, 
+		reset => reset, 
+		learn => learn, 
+		data_rdy => data_rdy, 
+		busy => ul_busy, 
+		calculate => calculate, 
+		connections_in => conn_in, 
+		connections_out => conn_out, 
+		wanted => wanted, 
+		weights_wr_en => weights_wr,
+		weights => weights,
+		debug => debug
+	);
+
 	process 
 		variable I: integer range 0 to 1000;
 	begin
 		wait for period * 16;
 		reset <= '0';
 
-L: loop
-	exit L when I = 2;
-		--n_feedback <= 'Z';
-		learn <= '1';
-		conn_in <= to_unsigned(5, w); -- (real_to_fixed_point(1.0), real_to_fixed_point(0.0), real_to_fixed_point(1.0));
-		wanted <= to_unsigned(10, w); -- (real_to_fixed_point(1.0), real_to_fixed_point(1.0), real_to_fixed_point(0.0));
-		calculate <= '1';
-		
-		wait for period;
-		calculate <= '0';
-		wait until data_rdy = '1';
-		wait for period*4; 
-		
-		learn <= '1';
+	learn <= '1';
+	-- train XOR (only using second output)
+	for i in 0 to NUM_LOOPS loop 
+		-- 01 01
+		conn_in <= "0100";
+		wanted <= "1010";
 		calculate <= '1';
 		wait for period;
 		calculate <= '0';
+		wait until ul_busy = '0';
+		wait for period;
+	end loop;
+
+	--for i in 0 to NUM_LOOPS loop 
+	--	-- 10 01
+	--	conn_in <= "1000";
+	--	wanted <= "1111";
+	--	calculate <= '1';
+	--	wait for period;
+	--	calculate <= '0';
+	--	wait until ul_busy = '0';
+	--	wait for period;
+	--end loop;
+
+	--for i in 0 to NUM_LOOPS loop 
+	--	-- 00 00
+	--	conn_in <= "0000";
+	--	wanted <= "0000";
+	--	calculate <= '1';
+	--	wait for period;
+	--	calculate <= '0';
+	--	wait until ul_busy = '0';
+	--	wait for period;
+	--end loop;
+
+	--for i in 0 to NUM_LOOPS loop 
+	--	-- 11 00
+	--	conn_in <= "1100";
+	--	wanted <= "0000";
+	--	calculate <= '1';
+	--	wait for period;
+	--	calculate <= '0';
+	--	wait until ul_busy = '0';
+	--	wait for period;
+	--end loop;
+
+	---- query results
+	--learn <= '0';
+	--wanted <= "0000";
+
+	--conn_in <= "0000";
+	--calculate <= '1';
+	--wait for period;
+	--calculate <= '0';
+	--wait until ul_busy = '0';
+	--wait for period;
+	--assert conn_out = "00" report "Result incorrect for 00";
+
+	--conn_in <= "1000";
+	--calculate <= '1';
+	--wait for period;
+	--calculate <= '0';
+	--wait until ul_busy = '0';
+	--wait for period;
+	--assert conn_out = "01" report "Result incorrect for 10";
+
+	--conn_in <= "1100";
+	--calculate <= '1';
+	--wait for period;
+	--calculate <= '0';
+	--wait until ul_busy = '0';
+	--wait for period;
+	--assert conn_out = "00" report "Result incorrect for 11";
+
+	--conn_in <= "0100";
+	--calculate <= '1';
+	--wait for period;
+	--calculate <= '0';
+	--wait until ul_busy = '0';
+	--wait for period;
+	--assert conn_out = "01" report "Result incorrect for 01";
+
+	busy <= false;
+	wait;
+
+
+--L: loop
+--	exit L when I = 2;
+--		--n_feedback <= 'Z';
+
+--		learn <= '1';
+--		conn_in <= to_unsigned(5, w); -- (real_to_fixed_point(1.0), real_to_fixed_point(0.0), real_to_fixed_point(1.0));
+--		wanted <= to_unsigned(10, w); -- (real_to_fixed_point(1.0), real_to_fixed_point(1.0), real_to_fixed_point(0.0));
+--		calculate <= '1';
 		
-		--learn <= '1';
-		----n_feedback <= '1';
-		wait until data_rdy = '1';
-		wait for period * 4; 
+--		wait for period;
+--		calculate <= '0';
+--		wait until data_rdy = '1';
+--		wait for period*4; 
 		
-		I := I + 1;
+--		learn <= '1';
+--		calculate <= '1';
+--		wait for period;
+--		calculate <= '0';
 		
-		end loop;
+--		--learn <= '1';
+--		----n_feedback <= '1';
+--		wait until data_rdy = '1';
+--		wait for period * 4; 
+		
+--		I := I + 1;
+		
+--		end loop;
 		
 
-		busy <= false;
-		wait;
+--		busy <= false;
+--		wait;
 	end process;
 end Behavioral;
 

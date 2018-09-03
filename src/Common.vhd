@@ -23,7 +23,7 @@ constant b					:   integer := 16;
 subtype fixed_point is signed(b-1 downto 0);
 subtype double_fixed_point is signed(b+b-1 downto 0);
 
-constant w 					: 	natural := 8;
+constant w 					: 	natural := 4;
 constant l 					:	natural := 4;
 constant eps				:	natural := 10;
 constant factor				:	fixed_point := to_signed(1024, b);
@@ -31,7 +31,7 @@ constant factor_shift		:	natural := 10;
 constant factor_shift_2		:	natural := 5;
 constant factor_2   		:	fixed_point := to_signed(512, b);
 constant zero				:	fixed_point := (others => '0');
-constant init_weight		:	fixed_point := factor_2;
+constant init_weight		:	fixed_point := to_signed(128, b);
 --constant input_number		:	natural := 0;
 --constant output_number		:	natural := 0;
 
@@ -52,6 +52,7 @@ type fixed_point_array is array (l-1 downto 0) of fixed_point_vector;
 -- cannot synthesize array of fpm, so make it wider instead
 type fixed_point_matrix_array is array (l-1 downto 0, w-1 downto 0) of fixed_point_vector; -- in total l x w of vectors (each vector is weights in one neuron)
 -- type fixed_point_matrix_array is array (l-1 downto 0) of fixed_point_matrix;
+
 
 function log2( i : natural) return integer;
 --function maximum_probability (signal probs_in : in fixed_point_vector) return fixed_point;
@@ -80,14 +81,27 @@ function logic_to_fixed_point (A: in std_logic) return fixed_point;
 function resize_fixed_point (A : in fixed_point) return fixed_point;
 function multiply(A : in fixed_point; B : in fixed_point) return fixed_point;
 function round (A : in fixed_point) return std_logic;
+
+function gen_init_weights return fixed_point_vector;
 --function exp(A: in fixed_point) return fixed_point;
 --function sigmoid(arg : in fixed_point) return fixed_point;
 -- function limit(A : in fixed_point) return fixed_point;
+
+constant init_weights		:	fixed_point_vector := gen_init_weights;
 
 
 end Common;
 
 package body Common is
+
+	function gen_init_weights  return fixed_point_vector is
+		variable weights : fixed_point_vector;
+	begin
+		for i in 0 to w-1 loop
+			weights(i) := resize(factor * (i + 1) / w, b);
+		end loop;
+		return weights;
+	end function;
 
 --	function maximum_probability (signal probs_in : in fixed_point_vector) return fixed_point is
 --	variable max_i : natural := 0;
