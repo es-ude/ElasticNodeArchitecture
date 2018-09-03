@@ -197,24 +197,3 @@ begin
 		wait;
 	end process;
 end Behavioral;
-
--- n_feedback <= 'Z';
-		
---		conn_in(0) <= real_to_fixed_point(1.0);
---		conn_in(2) <= real_to_fixed_point(1.0);
-		
---		calculate <= '1';
---		-- n_feedback <= '0';
---		err_in(0) <= real_to_fixed_point(1.0);
---		err_in(2) <= real_to_fixed_point(1.0);
-
---		wait until data_rdy = '1';
---		calculate <= '0';
---		wait for period;
---		-- wait for period * (l + 2);
---		-- n_feedback <= '1';
---		learn <= '1';
---		calculate <= '1';
---		-- wait for period * (l + 2);
---		wait until data_rdy = '1';
---		wait for period;
