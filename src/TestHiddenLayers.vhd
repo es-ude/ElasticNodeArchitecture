@@ -142,6 +142,7 @@ begin
 		wait for period *(l+2);
 		reset <= '0';
 		
+		-- train 11 times
 		for i in 0 to 10 loop
 			-- initial test
 			learn <= '1';
@@ -159,14 +160,14 @@ begin
 
 
 
-		-- read weights
+		-- read weights (loop 4 times, every time out put whole layer.
 		for i in 0 to l-1 loop
 			current_layer_manual <= to_unsigned(i, current_layer_manual'length);
 			wait for period * 3;
 		end loop;
 
 		-- change weights
-		for i in 0 to l loop
+		for i in 0 to l-1 loop
 			weights <= (others => '0');
 			weights_wr_en <= '1';
 			current_layer_manual <= to_unsigned(i, current_layer_manual'length);
