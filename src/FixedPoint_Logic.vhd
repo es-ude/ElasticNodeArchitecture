@@ -48,7 +48,7 @@ begin
 	process(clk, fixed_point)
 	begin
 		if rising_edge(clk) then
-			for i in 0 to w-1 loop
+			for i in 0 to maxWidth-1 loop
 				std_logic_vec(i) <= round(fixed_point(i));
 			end loop;
 		end if;

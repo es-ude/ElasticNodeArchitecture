@@ -49,7 +49,7 @@ architecture neuron_simulation of chao_test_Neuron is
         
             n_feedback        : in integer range 0 to 2;
             output_neuron     : in std_logic; -- tell neuron to only consider own error
-            index             : in integer range 0 to w-1;
+            index             : in integer range 0 to maxWidth-1;
     
             input_connections : in fixed_point_vector;
             input_errors      : in fixed_point_vector;
@@ -69,7 +69,7 @@ architecture neuron_simulation of chao_test_Neuron is
     -- External test signal definatition
     signal n_feedback : integer range 0 to 2;
     signal o_neuron   : std_logic := '1';
-    signal i_index    : integer range 0 to w-1;
+    signal i_index    : integer range 0 to maxWidth-1;
     
     
     signal i_conn     : fixed_point_vector := (others => real_to_fixed_point(0.0));

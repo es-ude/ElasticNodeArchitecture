@@ -12,20 +12,19 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="2001688685fs"></ZoomStartTime>
-      <ZoomEndTime time="2471556579fs"></ZoomEndTime>
-      <Cursor1Time time="2166024000fs"></Cursor1Time>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="1519153044fs"></ZoomEndTime>
+      <Cursor1Time time="700000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="151"></NameColumnWidth>
-      <ValueColumnWidth column_width="407"></ValueColumnWidth>
+      <NameColumnWidth column_width="216"></NameColumnWidth>
+      <ValueColumnWidth column_width="126"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="6" />
    <wvobject type="group" fp_name="group11">
       <obj_property name="label">sim</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="logic" fp_name="/SimulateNeuralNetwork/clk_s">
          <obj_property name="ElementShortName">clk_s</obj_property>
          <obj_property name="ObjectShortName">clk_s</obj_property>
@@ -56,6 +55,7 @@
          <obj_property name="ElementShortName">conn_out[3:0]</obj_property>
          <obj_property name="ObjectShortName">conn_out[3:0]</obj_property>
          <obj_property name="Radix">BINARYRADIX</obj_property>
+         <obj_property name="isExpanded"></obj_property>
       </wvobject>
       <wvobject type="other" fp_name="/SimulateNeuralNetwork/busy">
          <obj_property name="ElementShortName">busy</obj_property>
@@ -89,6 +89,14 @@
       <wvobject type="logic" fp_name="/SimulateNeuralNetwork/uut/data_rdy">
          <obj_property name="ElementShortName">data_rdy</obj_property>
          <obj_property name="ObjectShortName">data_rdy</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/SimulateNeuralNetwork/uut/mode_out_signal">
+         <obj_property name="ElementShortName">mode_out_signal</obj_property>
+         <obj_property name="ObjectShortName">mode_out_signal</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/SimulateNeuralNetwork/uut/mode_out_signal_delay">
+         <obj_property name="ElementShortName">mode_out_signal_delay</obj_property>
+         <obj_property name="ObjectShortName">mode_out_signal_delay</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/connections_in">
          <obj_property name="ElementShortName">connections_in[3:0]</obj_property>
@@ -128,6 +136,39 @@
          <obj_property name="radix_realType">UNSIGNEDFIXEDPOINTRADIX</obj_property>
          <obj_property name="radix_fractionWidth">10</obj_property>
          <obj_property name="radix_otherWidth">0</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/connections_out_fp[3]">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/connections_out_fp[2]">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/connections_out_fp[1]">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/connections_out_fp[0]">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
       </wvobject>
    </wvobject>
    <wvobject type="group" fp_name="group139">
@@ -184,6 +225,7 @@
    <wvobject type="group" fp_name="group93">
       <obj_property name="label">hidden</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject type="logic" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/clk">
          <obj_property name="ElementShortName">clk</obj_property>
          <obj_property name="ObjectShortName">clk</obj_property>
@@ -199,30 +241,16 @@
       <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/current_layer">
          <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
          <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/current_neuron">
          <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
          <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject type="other" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/dist_mode">
          <obj_property name="ElementShortName">dist_mode</obj_property>
          <obj_property name="ObjectShortName">dist_mode</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/connections_in">
-         <obj_property name="ElementShortName">connections_in[3:0][15:0]</obj_property>
-         <obj_property name="ObjectShortName">connections_in[3:0][15:0]</obj_property>
-         <obj_property name="Radix">REALRADIX</obj_property>
-         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
-         <obj_property name="radix_fractionWidth">10</obj_property>
-         <obj_property name="radix_otherWidth">0</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/connections_out">
-         <obj_property name="ElementShortName">connections_out[3:0][15:0]</obj_property>
-         <obj_property name="ObjectShortName">connections_out[3:0][15:0]</obj_property>
-         <obj_property name="Radix">REALRADIX</obj_property>
-         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
-         <obj_property name="radix_fractionWidth">10</obj_property>
-         <obj_property name="radix_otherWidth">0</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/wanted">
          <obj_property name="ElementShortName">wanted[3:0][15:0]</obj_property>
@@ -236,6 +264,11 @@
          <obj_property name="ElementShortName">weights_wr_en</obj_property>
          <obj_property name="ObjectShortName">weights_wr_en</obj_property>
       </wvobject>
+      <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/reset_counter">
+         <obj_property name="ElementShortName">reset_counter[1:0]</obj_property>
+         <obj_property name="ObjectShortName">reset_counter[1:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
       <wvobject type="group" fp_name="group581">
          <obj_property name="label">weights</obj_property>
          <obj_property name="DisplayName">label</obj_property>
@@ -243,7 +276,6 @@
          <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/weights_in">
             <obj_property name="ElementShortName">weights_in[3:0][3:0][15:0]</obj_property>
             <obj_property name="ObjectShortName">weights_in[3:0][3:0][15:0]</obj_property>
-            <obj_property name="isExpanded"></obj_property>
             <obj_property name="Radix">REALRADIX</obj_property>
             <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
             <obj_property name="radix_fractionWidth">10</obj_property>
@@ -322,13 +354,13 @@
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
          </wvobject>
-         <wvobject type="logic" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/weights_wr_a">
-            <obj_property name="ElementShortName">weights_wr_a</obj_property>
-            <obj_property name="ObjectShortName">weights_wr_a</obj_property>
-         </wvobject>
          <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/weights_address_a">
             <obj_property name="ElementShortName">weights_address_a[1:0]</obj_property>
             <obj_property name="ObjectShortName">weights_address_a[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/weights_dout_a">
+            <obj_property name="ElementShortName">weights_dout_a[255:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_dout_a[255:0]</obj_property>
          </wvobject>
          <wvobject type="logic" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/weights_wr_ext">
             <obj_property name="ElementShortName">weights_wr_ext</obj_property>
@@ -350,10 +382,6 @@
             <obj_property name="ElementShortName">weights_din_ann[255:0]</obj_property>
             <obj_property name="ObjectShortName">weights_din_ann[255:0]</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/weights_dout_a">
-            <obj_property name="ElementShortName">weights_dout_a[255:0]</obj_property>
-            <obj_property name="ObjectShortName">weights_dout_a[255:0]</obj_property>
-         </wvobject>
          <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/weights_dout_b">
             <obj_property name="ElementShortName">weights_dout_b[255:0]</obj_property>
             <obj_property name="ObjectShortName">weights_dout_b[255:0]</obj_property>
@@ -361,7 +389,6 @@
          <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/weights_bram/mem_s">
             <obj_property name="ElementShortName">mem_s[3:0][255:0]</obj_property>
             <obj_property name="ObjectShortName">mem_s[3:0][255:0]</obj_property>
-            <obj_property name="isExpanded"></obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/weights">
             <obj_property name="ElementShortName">weights[255:0]</obj_property>
@@ -371,6 +398,7 @@
       <wvobject type="group" fp_name="group582">
          <obj_property name="label">connections</obj_property>
          <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
          <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_in">
             <obj_property name="ElementShortName">conn_in[3:0][15:0]</obj_property>
             <obj_property name="ObjectShortName">conn_in[3:0][15:0]</obj_property>
@@ -386,6 +414,51 @@
             <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
             <obj_property name="radix_fractionWidth">10</obj_property>
             <obj_property name="radix_otherWidth">0</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_out[3]">
+               <obj_property name="ElementShortName">[3][15:0]</obj_property>
+               <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_out[2]">
+               <obj_property name="ElementShortName">[2][15:0]</obj_property>
+               <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_out[1]">
+               <obj_property name="ElementShortName">[1][15:0]</obj_property>
+               <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_out[0]">
+               <obj_property name="ElementShortName">[0][15:0]</obj_property>
+               <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">10</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+         </wvobject>
+         <wvobject type="logic" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_wr">
+            <obj_property name="ElementShortName">conn_wr</obj_property>
+            <obj_property name="ObjectShortName">conn_wr</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_address_a">
+            <obj_property name="ElementShortName">conn_address_a[2:0]</obj_property>
+            <obj_property name="ObjectShortName">conn_address_a[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_wr_din">
+            <obj_property name="ElementShortName">conn_wr_din[63:0]</obj_property>
+            <obj_property name="ObjectShortName">conn_wr_din[63:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_write">
+            <obj_property name="ElementShortName">conn_write[3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">conn_write[3:0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_rd_dout_a">
+            <obj_property name="ElementShortName">conn_rd_dout_a[63:0]</obj_property>
+            <obj_property name="ObjectShortName">conn_rd_dout_a[63:0]</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_out_prev">
             <obj_property name="ElementShortName">conn_out_prev[3:0][15:0]</obj_property>
@@ -395,41 +468,70 @@
             <obj_property name="radix_fractionWidth">10</obj_property>
             <obj_property name="radix_otherWidth">0</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_address_a">
-            <obj_property name="ElementShortName">conn_address_a[2:0]</obj_property>
-            <obj_property name="ObjectShortName">conn_address_a[2:0]</obj_property>
+         <wvobject type="logic" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/invert_clk">
+            <obj_property name="ElementShortName">invert_clk</obj_property>
+            <obj_property name="ObjectShortName">invert_clk</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_address_b">
             <obj_property name="ElementShortName">conn_address_b[2:0]</obj_property>
             <obj_property name="ObjectShortName">conn_address_b[2:0]</obj_property>
          </wvobject>
-         <wvobject type="logic" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_wr">
-            <obj_property name="ElementShortName">conn_wr</obj_property>
-            <obj_property name="ObjectShortName">conn_wr</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_wr_din">
-            <obj_property name="ElementShortName">conn_wr_din[63:0]</obj_property>
-            <obj_property name="ObjectShortName">conn_wr_din[63:0]</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_rd_dout_a">
-            <obj_property name="ElementShortName">conn_rd_dout_a[63:0]</obj_property>
-            <obj_property name="ObjectShortName">conn_rd_dout_a[63:0]</obj_property>
-         </wvobject>
          <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_rd_dout_b">
             <obj_property name="ElementShortName">conn_rd_dout_b[63:0]</obj_property>
             <obj_property name="ObjectShortName">conn_rd_dout_b[63:0]</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_write">
-            <obj_property name="ElementShortName">conn_write[3:0][15:0]</obj_property>
-            <obj_property name="ObjectShortName">conn_write[3:0][15:0]</obj_property>
-         </wvobject>
          <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_rd_b">
             <obj_property name="ElementShortName">conn_rd_b[3:0][15:0]</obj_property>
             <obj_property name="ObjectShortName">conn_rd_b[3:0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/conn_feedback">
             <obj_property name="ElementShortName">conn_feedback[3:0][15:0]</obj_property>
             <obj_property name="ObjectShortName">conn_feedback[3:0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/connections_in">
+            <obj_property name="ElementShortName">connections_in[3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">connections_in[3:0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/connections_out">
+            <obj_property name="ElementShortName">connections_out[3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">connections_out[3:0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/connections_out[3]">
+               <obj_property name="ElementShortName">[3][15:0]</obj_property>
+               <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/connections_out[2]">
+               <obj_property name="ElementShortName">[2][15:0]</obj_property>
+               <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/connections_out[1]">
+               <obj_property name="ElementShortName">[1][15:0]</obj_property>
+               <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/connections_out[0]">
+               <obj_property name="ElementShortName">[0][15:0]</obj_property>
+               <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">10</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
          </wvobject>
       </wvobject>
       <wvobject type="group" fp_name="group583">
@@ -501,17 +603,9 @@
             <obj_property name="ObjectShortName">biases_out[3:0][15:0]</obj_property>
          </wvobject>
       </wvobject>
-      <wvobject type="logic" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/output_layer">
-         <obj_property name="ElementShortName">output_layer</obj_property>
-         <obj_property name="ObjectShortName">output_layer</obj_property>
-      </wvobject>
       <wvobject type="other" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/n_feedback_s">
          <obj_property name="ElementShortName">n_feedback_s</obj_property>
          <obj_property name="ObjectShortName">n_feedback_s</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/invert_clk">
-         <obj_property name="ElementShortName">invert_clk</obj_property>
-         <obj_property name="ObjectShortName">invert_clk</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/reset_counter">
          <obj_property name="ElementShortName">reset_counter[1:0]</obj_property>
@@ -541,6 +635,7 @@
    <wvobject type="group" fp_name="group123">
       <obj_property name="label">layer</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject type="logic" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/clk">
          <obj_property name="ElementShortName">clk</obj_property>
          <obj_property name="ObjectShortName">clk</obj_property>
@@ -557,9 +652,9 @@
          <obj_property name="ElementShortName">dist_mode</obj_property>
          <obj_property name="ObjectShortName">dist_mode</obj_property>
       </wvobject>
-      <wvobject type="logic" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/output_layer">
-         <obj_property name="ElementShortName">output_layer</obj_property>
-         <obj_property name="ObjectShortName">output_layer</obj_property>
+      <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/current_layer">
+         <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/current_neuron">
          <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
@@ -580,6 +675,31 @@
          <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
          <obj_property name="radix_fractionWidth">10</obj_property>
          <obj_property name="radix_otherWidth">0</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/connections_out[3]">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/connections_out[2]">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/connections_out[1]">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/connections_out[0]">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
       </wvobject>
       <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/connections_out_prev">
          <obj_property name="ElementShortName">connections_out_prev[3:0][15:0]</obj_property>
@@ -588,6 +708,26 @@
          <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
          <obj_property name="radix_fractionWidth">10</obj_property>
          <obj_property name="radix_otherWidth">0</obj_property>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/connections_out_prev[3]">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/connections_out_prev[2]">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/connections_out_prev[1]">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/connections_out_prev[0]">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
       </wvobject>
       <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/errors_in">
          <obj_property name="ElementShortName">errors_in[3:0][15:0]</obj_property>
@@ -596,6 +736,38 @@
          <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
          <obj_property name="radix_fractionWidth">10</obj_property>
          <obj_property name="radix_otherWidth">0</obj_property>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/errors_in[3]">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/errors_in[2]">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/errors_in[1]">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/errors_in[0]">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
       </wvobject>
       <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/errors_out">
          <obj_property name="ElementShortName">errors_out[3:0][15:0]</obj_property>
@@ -652,6 +824,39 @@
             <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
             <obj_property name="radix_fractionWidth">10</obj_property>
             <obj_property name="radix_otherWidth">0</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/weights_out[0][3]">
+               <obj_property name="ElementShortName">[3][15:0]</obj_property>
+               <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">10</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/weights_out[0][2]">
+               <obj_property name="ElementShortName">[2][15:0]</obj_property>
+               <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">10</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/weights_out[0][1]">
+               <obj_property name="ElementShortName">[1][15:0]</obj_property>
+               <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">10</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/weights_out[0][0]">
+               <obj_property name="ElementShortName">[0][15:0]</obj_property>
+               <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">10</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
          </wvobject>
       </wvobject>
       <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/biases_in">
@@ -783,13 +988,15 @@
          <obj_property name="ElementShortName">n_feedback</obj_property>
          <obj_property name="ObjectShortName">n_feedback</obj_property>
       </wvobject>
-      <wvobject type="logic" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/neur/output_neuron">
-         <obj_property name="ElementShortName">output_neuron</obj_property>
-         <obj_property name="ObjectShortName">output_neuron</obj_property>
+      <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/neur/current_layer">
+         <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
-      <wvobject type="other" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/neur/index">
-         <obj_property name="ElementShortName">index</obj_property>
-         <obj_property name="ObjectShortName">index</obj_property>
+      <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/neur/current_neuron">
+         <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/neur/input_connections">
          <obj_property name="ElementShortName">input_connections[3:0][15:0]</obj_property>
@@ -798,6 +1005,39 @@
          <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
          <obj_property name="radix_fractionWidth">10</obj_property>
          <obj_property name="radix_otherWidth">0</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/neur/input_connections[3]">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/neur/input_connections[2]">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/neur/input_connections[1]">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/neur/input_connections[0]">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
       </wvobject>
       <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/neur/input_errors">
          <obj_property name="ElementShortName">input_errors[3:0][15:0]</obj_property>
@@ -806,6 +1046,26 @@
          <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
          <obj_property name="radix_fractionWidth">10</obj_property>
          <obj_property name="radix_otherWidth">0</obj_property>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/neur/input_errors[3]">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/neur/input_errors[2]">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/neur/input_errors[1]">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/neur/input_errors[0]">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
       </wvobject>
       <wvobject type="array" fp_name="/SimulateNeuralNetwork/uut/hidden_layers/lay/neur/output_connection">
          <obj_property name="ElementShortName">output_connection[15:0]</obj_property>

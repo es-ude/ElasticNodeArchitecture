@@ -62,12 +62,12 @@ ARCHITECTURE behavior OF TestLocalFIFO IS
    signal reset : std_logic := '0';
 	constant w : integer := 16;
 	constant d : integer := 2;
-   signal dataIn : std_logic_vector(w-1 downto 0) := (others => '0');
+   signal dataIn : std_logic_vector(maxWidth-1 downto 0) := (others => '0');
    signal dataInValid : std_logic := '0';
    signal dataOutRequest : std_logic := '0';
 
  	--Outputs
-   signal dataOut : std_logic_vector(w-1 downto 0);
+   signal dataOut : std_logic_vector(maxWidth-1 downto 0);
    signal empty : std_logic;
    signal full : std_logic;
 

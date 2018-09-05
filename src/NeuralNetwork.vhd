@@ -80,9 +80,9 @@ end component;
 --signal enable           : std_logic;
 --signal learn            : std_logic;
 --signal data_rdy         : std_logic;
---signal wanted           : std_logic_vector(w-1 downto 0);
---signal connections_in   : std_logic_vector(w-1 downto 0);
---signal connections_out  : std_logic_vector(w-1 downto 0);
+--signal wanted           : std_logic_vector(maxWidth-1 downto 0);
+--signal connections_in   : std_logic_vector(maxWidth-1 downto 0);
+--signal connections_out  : std_logic_vector(maxWidth-1 downto 0);
 signal mode			         : uint8_t;
 
 
@@ -91,13 +91,13 @@ signal mode			         : uint8_t;
 
 begin
 
---connections_in <= data_in(w-1 downto 0);
---wanted <= data_in(2*w-1 downto w);
+--connections_in <= data_in(maxWidth-1 downto 0);
+--wanted <= data_in(2*maxWidth-1 downto w);
 --learn <= data_in(2*w);1
 --enable <= data_in(2*w + 1);
 --
---data_out(w-1 downto 0) <= connections_in;
---data_out(2*w-1 downto w) <= wanted;
+--data_out(maxWidth-1 downto 0) <= connections_in;
+--data_out(2*maxWidth-1 downto w) <= wanted;
 --data_out(2*w) <= learn;
 --data_out(2*w+1) <= enable;
 --data_out(2*w+2) <= data_rdy;

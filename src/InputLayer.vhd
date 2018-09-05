@@ -80,7 +80,7 @@ begin
 		);
 
 	gen_neutrons:
-	for i in 0 to w-1 generate neuron_x : InputNeuron port map 
+	for i in 0 to maxWidth-1 generate neuron_x : InputNeuron port map 
 		(
 			clk => clk, 
 			n_feedback => n_feedback,

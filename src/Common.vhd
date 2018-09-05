@@ -18,19 +18,28 @@ use IEEE.NUMERIC_STD.all;
 
 package Common is
 
+function max (A : in natural; B : in natural) return natural;
+
 constant b					:   integer := 16;
 
 subtype fixed_point is signed(b-1 downto 0);
 subtype double_fixed_point is signed(b+b-1 downto 0);
 
-constant w 					: 	natural := 4;
-constant l 					:	natural := 4;
+constant inputWidth			:	natural := 2;
+constant hiddenWidth		: 	natural := 4;
+constant outputWidth		: 	natural := 1;
+constant maxWidth			: 	natural := max(max(inputWidth, hiddenWidth), outputWidth);
+
+constant numHiddenLayers	:	natural := 2;
+constant totalLayers		:	natural := numHiddenLayers + 2;
 constant eps				:	natural := 10;
 constant factor				:	fixed_point := to_signed(1024, b);
 constant factor_shift		:	natural := 10;
 constant factor_shift_2		:	natural := 5;
 constant factor_2   		:	fixed_point := to_signed(512, b);
 constant zero				:	fixed_point := (others => '0');
+constant one				:	fixed_point := factor;
+constant maxValue			:	fixed_point := ('0', others => '1');
 constant init_weight		:	fixed_point := to_signed(128, b);
 --constant input_number		:	natural := 0;
 --constant output_number		:	natural := 0;
@@ -38,26 +47,26 @@ constant init_weight		:	fixed_point := to_signed(128, b);
 --constant maximum			:	fixed_point := '0' & (others => '1');
 --constant minimum			:	fixed_point := x"FE";
 
-subtype uintw_t is unsigned (w-1 downto 0);
-subtype weights_vector is std_logic_vector(b*w*w-1 downto 0);-- used for reading/writing ram
-subtype conn_vector is std_logic_vector(b*w-1 downto 0);-- used for reading/writing ram
+subtype uintw_t is unsigned (maxWidth-1 downto 0);
+subtype weights_vector is std_logic_vector(b*maxWidth*maxWidth-1 downto 0);-- used for reading/writing ram
+subtype conn_vector is std_logic_vector(b*maxWidth-1 downto 0);-- used for reading/writing ram
 
 -- 0 idle 1 feedforward 2 feedback 3 feedback->feedforward 4 done 5 delay 7 waiting 6 intermediate (between forward and back)
-type distributor_mode is (idle, feedforward, feedback, done, delay, waiting, intermediate);
+type distributor_mode is (idle, feedforward, feedback, doneQuery, doneLearn, delay, waiting, intermediate);
 
 -- subtype fixed_point is integer range -10000 to 10000;
-type fixed_point_vector is array (w-1 downto 0) of fixed_point;
-type fixed_point_matrix is array (w-1 downto 0) of fixed_point_vector;
-type fixed_point_array is array (l-1 downto 0) of fixed_point_vector;
+type fixed_point_vector is array (maxWidth-1 downto 0) of fixed_point;
+type fixed_point_matrix is array (maxWidth-1 downto 0) of fixed_point_vector;
+type fixed_point_array is array (totalLayers-1 downto 0) of fixed_point_vector;
 -- cannot synthesize array of fpm, so make it wider instead
-type fixed_point_matrix_array is array (l-1 downto 0, w-1 downto 0) of fixed_point_vector; -- in total l x w of vectors (each vector is weights in one neuron)
--- type fixed_point_matrix_array is array (l-1 downto 0) of fixed_point_matrix;
+type fixed_point_matrix_array is array (totalLayers-1 downto 0, maxWidth-1 downto 0) of fixed_point_vector; -- in total l x w of vectors (each vector is weights in one neuron)
+-- type fixed_point_matrix_array is array (totalLayers-1 downto 0) of fixed_point_matrix;
 
 
 function log2( i : natural) return integer;
 --function maximum_probability (signal probs_in : in fixed_point_vector) return fixed_point;
-function weighted_sum (signal weights : fixed_point_vector; signal connections : fixed_point_vector) return fixed_point;
-function weighted_sum (signal weights : fixed_point_vector; signal connections : uintw_t) return fixed_point;
+function weighted_sum (signal weights : fixed_point_vector; signal connections : fixed_point_vector; firstHidden : in boolean) return fixed_point;
+function weighted_sum (signal weights : fixed_point_vector; signal connections : uintw_t; firstHidden : in boolean) return fixed_point;
 function sum (signal connections : fixed_point_vector) return fixed_point;
 --function scale (signal weights : fixed_point_vector; const : real) return fixed_point_vector;
 function "+" (A: in fixed_point_vector; B: in fixed_point_vector) return fixed_point_vector;
@@ -82,23 +91,43 @@ function resize_fixed_point (A : in fixed_point) return fixed_point;
 function multiply(A : in fixed_point; B : in fixed_point) return fixed_point;
 function round (A : in fixed_point) return std_logic;
 
-function gen_init_weights return fixed_point_vector;
+function gen_hidden_weights return fixed_point_vector;
+function gen_input_weights return fixed_point_vector;
 --function exp(A: in fixed_point) return fixed_point;
 --function sigmoid(arg : in fixed_point) return fixed_point;
 -- function limit(A : in fixed_point) return fixed_point;
 
-constant init_weights		:	fixed_point_vector := gen_init_weights;
+constant init_hidden_weights		:	fixed_point_vector := gen_hidden_weights;
+constant init_input_weights			: 	fixed_point_vector := gen_input_weights;
 
 
 end Common;
 
 package body Common is
 
-	function gen_init_weights  return fixed_point_vector is
+	function max (A : in natural; B : in natural) return natural is
+	begin
+		if A > B then 
+			return A;
+		else
+			return B;
+		end if;
+	end function;
+
+	function gen_hidden_weights  return fixed_point_vector is
 		variable weights : fixed_point_vector;
 	begin
-		for i in 0 to w-1 loop
-			weights(i) := resize(factor * (i + 1) / w, b);
+		for i in 0 to hiddenWidth-1 loop
+			weights(i) := resize(factor * (i + 1) / hiddenWidth, b);
+		end loop;
+		return weights;
+	end function;
+
+	function gen_input_weights  return fixed_point_vector is
+		variable weights : fixed_point_vector := (others => zero);
+	begin
+		for i in 0 to inputWidth-1 loop
+			weights(i) := resize(factor * (i + 1) / inputWidth, b);
 		end loop;
 		return weights;
 	end function;
@@ -137,28 +166,42 @@ package body Common is
 		end if;
 	end function;
 
-	function weighted_sum (signal weights : fixed_point_vector; signal connections : fixed_point_vector) return fixed_point is
+	function weighted_sum (signal weights : fixed_point_vector; signal connections : fixed_point_vector; firstHidden : in boolean) return fixed_point is
 	variable sum : fixed_point := (others => '0');
 	begin
-		for i in 0 to w-1 loop
+		for i in 0 to maxWidth-1 loop
 			-- sum := resize_fixed_point(sum + resize_fixed_point(weights(i) * connections(i)));
 			-- scales to factor*factor
 			sum := sum + multiply(weights(i), connections(i));
 		end loop;
+		-- do not add higher than the number of input layer neurons if first hidden layer
+		if not firstHidden then
+			for i in inputWidth to maxWidth-1 loop
+				sum := sum + multiply(weights(i), connections(i));
+			end loop;
+		end if;
 --		return sum / factor;
         return sum;
 	end weighted_sum;
 	
-	function weighted_sum (signal weights : fixed_point_vector; signal connections : uintw_t) return fixed_point is
+	function weighted_sum (signal weights : fixed_point_vector; signal connections : uintw_t; firstHidden : in boolean) return fixed_point is
 	variable sum : fixed_point := (others => '0');
 	begin
-		for i in 0 to w-1 loop
+		for i in 0 to inputWidth-1 loop
 			-- sum := resize_fixed_point(sum + resize_fixed_point(weights(i) * connections(i)));
 			-- scales to factor*factor
 			if (connections(i) = '1') then 
 				sum := sum + weights(i);
 			end if;
 		end loop;
+		-- do not add higher than the number of input layer neurons if first hidden layer
+		if firstHidden then
+			for i in inputWidth to maxWidth-1 loop
+				if (connections(i) = '1') then 
+					sum := sum + weights(i);
+				end if;
+			end loop;
+		end if;
 --		return sum / factor;
         return sum;
 	end weighted_sum;
@@ -186,7 +229,7 @@ package body Common is
 	function "+" (A: in fixed_point_vector; B: in fixed_point_vector) return fixed_point_vector is
 	variable add : fixed_point_vector := (others => factor);
 	begin
-		for i in 0 to w-1 loop
+		for i in 0 to maxWidth-1 loop
 			add(i) := A(i) + B(i);
 		end loop;
 		return add;
@@ -208,7 +251,7 @@ package body Common is
 	function "-" (A: in fixed_point_vector; B: in fixed_point_vector) return fixed_point_vector is
 	variable diff : fixed_point_vector := (others => factor);
 	begin
-		for i in 0 to w-1 loop
+		for i in 0 to maxWidth-1 loop
 			diff(i) := A(i) - B(i);
 		end loop;
 		return diff;
@@ -217,7 +260,7 @@ package body Common is
 	function "=" (A: in fixed_point_vector; B: in fixed_point_vector) return boolean is
 	variable same : boolean := true;
 	begin
-		for i in 0 to w-1 loop
+		for i in 0 to maxWidth-1 loop
 			if abs(A(i) - B(i)) > eps then
 				same := false;
 			end if;
@@ -282,7 +325,7 @@ package body Common is
 	function "and" (A: fixed_point_vector; B: std_logic) return fixed_point_vector is
 	variable ret : fixed_point_vector := (others => factor);
 	begin
-		for i in 0 to w-1 loop
+		for i in 0 to maxWidth-1 loop
 			if B = '1' then
 				ret(i) := A(i);
 			else

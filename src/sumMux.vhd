@@ -31,7 +31,7 @@ entity sumMux is
 	port (
 			reset			:	in std_logic;
 			clk			:	in std_logic;
-			index			:	in integer range 0 to w-1;
+			index			:	in integer range 0 to maxWidth-1;
 			errors_in	:	in fixed_point_vector;
 			errors_out	: 	out fixed_point_vector
 		);
@@ -50,9 +50,9 @@ begin
 			-- errors_out_signal := (others => (others => '0'));
 			errors_out_var := zero;
 			-- i counts over output neurons
-			for i in 0 to w - 1 loop
+			for i in 0 to maxWidth - 1 loop
 				-- j counts over input neurons
-				-- for j in 0 to w - 1 loop
+				-- for j in 0 to maxWidth - 1 loop
 					--errors_out_signal(i) := resize_fixed_point(errors_out_signal(i) + errors(j)(i));
 					errors_out_var := errors_out_var + errors_in(i);
 				-- end loop;

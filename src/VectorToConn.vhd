@@ -51,7 +51,7 @@ begin
 			conn <= (others => zero);
 		else
 			-- first dim (each neuron)
-			for j in 0 to w-1 loop
+			for j in 0 to maxWidth-1 loop
 				index := j * (b);
 				conn(j) <= signed(vector(index+b-1 downto index));
 			end loop;

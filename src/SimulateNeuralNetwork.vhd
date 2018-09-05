@@ -38,10 +38,10 @@ architecture Behavioral of SimulateNeuralNetwork is
 	signal reset : std_logic := '1';
 	constant period : time := 40 ns;
 	constant repeat : integer := 10;
-	constant NUM_LOOPS : integer := 2;
+	constant NUM_LOOPS : integer := 0;
 
 	signal wanted				: 	uintw_t := (others => '0');
-	signal conn_in, conn_out 	: uintw_t := (others => '0');
+	signal conn_in, conn_out 	: 	uintw_t := (others => '0');
 
 	signal weights_wr : std_logic := '0';
 	signal weights : weights_vector;
@@ -51,8 +51,8 @@ architecture Behavioral of SimulateNeuralNetwork is
 	signal debug : uint8_t;
 
 begin
---	data_in(w-1 downto 0) <= conn_in;
---	data_in(2*w-1 downto w) <= wanted;
+--	data_in(maxWidth-1 downto 0) <= conn_in;
+--	data_in(2*maxWidth-1 downto w) <= wanted;
 --	data_in(2*w) <= learn;
 --	data_in(2*w + 1) <= enable;
 --
@@ -94,9 +94,36 @@ uut: entity work.Network(Behavioral) port map
 	learn <= '1';
 	-- train XOR (only using second output)
 	for i in 0 to NUM_LOOPS loop 
-		-- 01 01
-		conn_in <= "0100";
-		wanted <= "1010";
+		---- 01 01
+		--conn_in <= "0100";
+		--wanted <= "0001";
+		--calculate <= '1';
+		--wait for period;
+		--calculate <= '0';
+		--wait until ul_busy = '0';
+		--wait for period;
+
+		---- 00 00
+		--conn_in <= "0000";
+		--wanted <= "0000";
+		--calculate <= '1';
+		--wait for period;
+		--calculate <= '0';
+		--wait until ul_busy = '0';
+		--wait for period;
+
+		---- 10 01
+		--conn_in <= "1000";
+		--wanted <= "0001";
+		--calculate <= '1';
+		--wait for period;
+		--calculate <= '0';
+		--wait until ul_busy = '0';
+		--wait for period;
+
+		-- 11 00
+		conn_in <= "0011";
+		wanted <= "0000";
 		calculate <= '1';
 		wait for period;
 		calculate <= '0';
@@ -104,42 +131,9 @@ uut: entity work.Network(Behavioral) port map
 		wait for period;
 	end loop;
 
-	--for i in 0 to NUM_LOOPS loop 
-	--	-- 10 01
-	--	conn_in <= "1000";
-	--	wanted <= "1111";
-	--	calculate <= '1';
-	--	wait for period;
-	--	calculate <= '0';
-	--	wait until ul_busy = '0';
-	--	wait for period;
-	--end loop;
-
-	--for i in 0 to NUM_LOOPS loop 
-	--	-- 00 00
-	--	conn_in <= "0000";
-	--	wanted <= "0000";
-	--	calculate <= '1';
-	--	wait for period;
-	--	calculate <= '0';
-	--	wait until ul_busy = '0';
-	--	wait for period;
-	--end loop;
-
-	--for i in 0 to NUM_LOOPS loop 
-	--	-- 11 00
-	--	conn_in <= "1100";
-	--	wanted <= "0000";
-	--	calculate <= '1';
-	--	wait for period;
-	--	calculate <= '0';
-	--	wait until ul_busy = '0';
-	--	wait for period;
-	--end loop;
-
-	---- query results
-	--learn <= '0';
-	--wanted <= "0000";
+	-- query results
+	learn <= '0';
+	wanted <= "0000";
 
 	--conn_in <= "0000";
 	--calculate <= '1';
@@ -163,7 +157,7 @@ uut: entity work.Network(Behavioral) port map
 	--calculate <= '0';
 	--wait until ul_busy = '0';
 	--wait for period;
-	--assert conn_out = "00" report "Result incorrect for 11";
+	--assert conn_out(0) = '0' report "Result incorrect for 11";
 
 	--conn_in <= "0100";
 	--calculate <= '1';
@@ -171,7 +165,7 @@ uut: entity work.Network(Behavioral) port map
 	--calculate <= '0';
 	--wait until ul_busy = '0';
 	--wait for period;
-	--assert conn_out = "01" report "Result incorrect for 01";
+	--assert conn_out(0) = '1' report "Result incorrect for 01";
 
 	busy <= false;
 	wait;
