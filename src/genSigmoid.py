@@ -13,12 +13,18 @@ limit = 4.
 def float_sigmoid(x):
 	return eps + (factor - eps*2) * (1. / (1. + np.exp(-x)))
 
+def approximate(x):
+    return float(round(1024. * x) / 1024.0);
+
+
 def int_sigmoid(x):
-        result = round((factor - 2*eps) * 1. / (1. + math.exp(-x)) + eps)
-        # limit from edge
-        result = max(eps, min(result, factor-eps))
-        # print x, result
-        return int(result)
+	approx = approximate(x)
+	result = round((factor - 2*eps) * 1. / (1. + math.exp(-approx)) + eps)
+	print x, approx, result
+	# limit from edge
+	result = max(eps, min(result, factor-eps))
+	# print x, result
+	return int(approximate(result))
 
 if __name__ == '__main__':
 	output = list()
@@ -57,7 +63,7 @@ if __name__ == '__main__':
 
 
 
-	x = np.linspace(-limit, limit, 100)
+	x, step = np.linspace(-limit, limit, 160, endpoint=False, retstep=True)
 	y = float_sigmoid(x)
 	y2 = np.zeros_like(x)
 	r = np.zeros((2,))
@@ -87,7 +93,7 @@ if __name__ == '__main__':
 
 		print current
 		pp.plot([current[0], current[1]], [current[2], current[2]], 'b')
-		output.append('		elsif arg >= to_fixed_point(%d) and arg < to_fixed_point(%d) then' % (current[0], current[1]))
+		output.append('		elsif arg > to_fixed_point(%d) and arg <= to_fixed_point(%d) then' % (current[0], current[1]))
 		output.append('			ret <= to_fixed_point(%d);' % current[2])
 
 	#print y3

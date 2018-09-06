@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="20" Path="/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.xpr">
+<Project Version="7" Minor="20" Path="C:/Users/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="5a9e39aa9bc54c56a6c4387a14e691ec"/>
@@ -31,7 +31,7 @@
     <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSANumComputeUnits" Val="16"/>
-    <Option Name="WTXSimLaunchSim" Val="554"/>
+    <Option Name="WTXSimLaunchSim" Val="563"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -54,7 +54,7 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
       <Filter Type="Srcs"/>
-      <File Path="$PPRDIR/../../fpgamiddlewarelibs/UserLogicInterface/UserLogicInterface.vhd">
+      <File Path="$PPRDIR/../src/fpgamiddlewarelibs/UserLogicInterface/UserLogicInterface.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -92,14 +92,14 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../fpgamiddlewarelibs/UartInterface/uartInterface.vhd">
+      <File Path="$PPRDIR/../src/fpgamiddlewarelibs/UartInterface/uartInterface.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../fpgamiddlewarelibs/IcapInterface/icapInterface.vhdl">
+      <File Path="$PPRDIR/../src/fpgamiddlewarelibs/IcapInterface/icapInterface.vhdl">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -113,14 +113,14 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../fpgamiddlewarelibs/UartInterface/uart_rx.vhd">
+      <File Path="$PPRDIR/../src/fpgamiddlewarelibs/UartInterface/uart_rx.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../fpgamiddlewarelibs/UartInterface/uart_tx.vhd">
+      <File Path="$PPRDIR/../src/fpgamiddlewarelibs/UartInterface/uart_tx.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -350,7 +350,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../fpgamiddlewarelibs/SpiInterface/spi_master.vhd">
+      <File Path="$PPRDIR/../src/fpgamiddlewarelibs/SpiInterface/spi_master.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
           <Attr Name="AutoDisabled" Val="1"/>
@@ -358,7 +358,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd">
+      <File Path="$PPRDIR/../src/fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
           <Attr Name="AutoDisabled" Val="1"/>
@@ -446,7 +446,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../fpgamiddlewarelibs/Procedures.vhd">
+      <File Path="$PPRDIR/../src/fpgamiddlewarelibs/Procedures.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
           <Attr Name="AutoDisabled" Val="1"/>
@@ -933,23 +933,19 @@
     <Simulator Name="Questa">
       <Option Name="Description" Val="Questa Advanced Simulator"/>
     </Simulator>
-    <Simulator Name="IES">
-      <Option Name="Description" Val="Incisive Enterprise Simulator (IES)"/>
-    </Simulator>
-    <Simulator Name="VCS">
-      <Option Name="Description" Val="Verilog Compiler Simulator (VCS)"/>
-    </Simulator>
     <Simulator Name="Riviera">
       <Option Name="Description" Val="Riviera-PRO Simulator"/>
     </Simulator>
+    <Simulator Name="ActiveHDL">
+      <Option Name="Description" Val="Active-HDL Simulator"/>
+    </Simulator>
   </Simulators>
   <Runs Version="1" Minor="10">
-    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7s50ftgb196-2" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" State="current" Dir="$PRUNDIR/synth_1" IncludeInArchive="true">
+    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7s50ftgb196-2" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" State="current" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2017"/>
         <Step Id="synth_design"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>

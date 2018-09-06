@@ -20,28 +20,13 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use ieee.math_real.all;
-
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
 use IEEE.NUMERIC_STD.ALL;
--- use ieee.math_real.all;
 
 library neuralnetwork;
--- use DesignLab.ALL;
 use neuralnetwork.Common.ALL;
 
 library fpgamiddlewarelibs;
 use fpgamiddlewarelibs.userlogicinterface.all;
--- use neuralnetwork.Sigmoid.all;
-
---library ieee_proposed;
---use ieee_proposed.fixed_float_types.all;
---use ieee_proposed.fixed_pkg.all;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx primitives in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
 
 entity Neuron is
 	--generic	(
@@ -129,45 +114,26 @@ sig:
 					--calculate output values
 					tf := weighted_sum(weights_in, input_connections, first_hidden_layer) + bias_in;
 					tf_signal <= tf;
-					--output_connection_signal <= resize_fixed_point(real_to_fixed_point(1.0) / resize_fixed_point(1.0 + exp(resize_fixed_point(-tf))));
-					-- output_connection_signal <= sigmoid(tf);
 				end if;
 				
 				weights_out <= weights_in;
 			elsif n_feedback = 0 then
-				-- delta := resize_fixed_point(resize_fixed_point(output_connection_signal * (factor - (output_connection_signal))) * error_factor);
-				-- delta := multiply(multiply(output_connection_signal, factor - output_connection_signal), error_factor);
-
 				output_factor := multiply(output_previous, factor - output_previous);
 				-- TODO output_previous being set up with output, need to add earlier
-				--if output_neuron = '1' then
-					--delta := multiply(output_factor, input_errors(index)); -- input connection is output of previous cycle
-				--else
 				delta := multiply(output_factor, error_factor); -- input connection is output of previous cycle
-				--end if;
 				delta_signal <= delta;
+
 				bias := bias_in + delta;
 				bias_out <= bias;
-				-- bias := limit(bias);
 
 				-- correct weight
 				for i in 0 to weights_in'length - 1 loop 
-					-- weights(i) <= resize_fixed_point(delta * input_connections(i)) + weights(i);
 					output_errors(i) <= multiply(weights_in(i), delta);
-					
+				
 					weights :=  weights_in(i) + multiply(delta, input_connections(i));
-					-- TODO layer 0 connections_in incorrect
-					
-					-- weights := limit(weights);
-					
 					weights_out(i) <= weights;
 				end loop;
-			else
-				
-			--	weights_out <= weights_in;
 			end if;
-		else
-			-- weights_out <= weights_in;
 		end if;
 	end process;
 end Behavioral_Neuron;

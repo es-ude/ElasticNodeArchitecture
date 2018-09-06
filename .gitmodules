@@ -1,0 +1,3 @@
+[submodule "src/fpgamiddlewarelibs"]
+	path = src/fpgamiddlewarelibs
+	url = http://adf694g@bitbucket.es.uni-due.de:7990/scm/rhm/fpgamiddlewarelibs.git

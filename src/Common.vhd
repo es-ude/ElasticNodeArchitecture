@@ -66,7 +66,7 @@ type fixed_point_matrix_array is array (totalLayers-1 downto 0, maxWidth-1 downt
 function log2( i : natural) return integer;
 --function maximum_probability (signal probs_in : in fixed_point_vector) return fixed_point;
 function weighted_sum (signal weights : fixed_point_vector; signal connections : fixed_point_vector; firstHidden : in boolean) return fixed_point;
-function weighted_sum (signal weights : fixed_point_vector; signal connections : uintw_t; firstHidden : in boolean) return fixed_point;
+--function weighted_sum (signal weights : fixed_point_vector; signal connections : uintw_t; firstHidden : in boolean) return fixed_point;
 function sum (signal connections : fixed_point_vector) return fixed_point;
 --function scale (signal weights : fixed_point_vector; const : real) return fixed_point_vector;
 function "+" (A: in fixed_point_vector; B: in fixed_point_vector) return fixed_point_vector;
@@ -169,7 +169,7 @@ package body Common is
 	function weighted_sum (signal weights : fixed_point_vector; signal connections : fixed_point_vector; firstHidden : in boolean) return fixed_point is
 	variable sum : fixed_point := (others => '0');
 	begin
-		for i in 0 to maxWidth-1 loop
+		for i in 0 to inputWidth-1 loop
 			-- sum := resize_fixed_point(sum + resize_fixed_point(weights(i) * connections(i)));
 			-- scales to factor*factor
 			sum := sum + multiply(weights(i), connections(i));
@@ -184,27 +184,27 @@ package body Common is
         return sum;
 	end weighted_sum;
 	
-	function weighted_sum (signal weights : fixed_point_vector; signal connections : uintw_t; firstHidden : in boolean) return fixed_point is
-	variable sum : fixed_point := (others => '0');
-	begin
-		for i in 0 to inputWidth-1 loop
-			-- sum := resize_fixed_point(sum + resize_fixed_point(weights(i) * connections(i)));
-			-- scales to factor*factor
-			if (connections(i) = '1') then 
-				sum := sum + weights(i);
-			end if;
-		end loop;
-		-- do not add higher than the number of input layer neurons if first hidden layer
-		if firstHidden then
-			for i in inputWidth to maxWidth-1 loop
-				if (connections(i) = '1') then 
-					sum := sum + weights(i);
-				end if;
-			end loop;
-		end if;
---		return sum / factor;
-        return sum;
-	end weighted_sum;
+--	function weighted_sum (signal weights : fixed_point_vector; signal connections : uintw_t; firstHidden : in boolean) return fixed_point is
+--	variable sum : fixed_point := (others => '0');
+--	begin
+--		for i in 0 to inputWidth-1 loop
+--			-- sum := resize_fixed_point(sum + resize_fixed_point(weights(i) * connections(i)));
+--			-- scales to factor*factor
+--			if (connections(i) = '1') then 
+--				sum := sum + weights(i);
+--			end if;
+--		end loop;
+--		-- do not add higher than the number of input layer neurons if first hidden layer
+--		if firstHidden then
+--			for i in inputWidth to maxWidth-1 loop
+--				if (connections(i) = '1') then 
+--					sum := sum + weights(i);
+--				end if;
+--			end loop;
+--		end if;
+----		return sum / factor;
+--        return sum;
+--	end weighted_sum;
 
 	
 	
