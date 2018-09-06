@@ -172,8 +172,9 @@ begin
 				conn_in <= conn_rd_b;
 			end if;
 		-- new start
-		elsif n_feedback = 1 and current_layer = to_unsigned(0, current_layer'length) and current_neuron = to_unsigned(0, current_neuron'length) then
-				conn_in <= connections_in;
+		elsif dist_mode = waiting then
+		-- elsif n_feedback = 1 and current_layer = to_unsigned(0, current_layer'length) and current_neuron = to_unsigned(0, current_neuron'length) then
+			conn_in <= connections_in;
 		-- feedback
 		end if;
 	end if;

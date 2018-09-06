@@ -45,7 +45,7 @@ entity Layer is
 			current_neuron			:	in uint8_t;
 					
 			connections_in			:	in fixed_point_vector;
-			connections_out		:	out fixed_point_vector;
+			connections_out			:	out fixed_point_vector;
 			connections_out_prev	:	in fixed_point_vector;
 
 			errors_in				:	in fixed_point_vector;
@@ -66,9 +66,9 @@ architecture Behavioral of Layer is
 	-- signal errors_out, errors_in : fixed_point
 	component sumMux
 		port (
-			reset			:	in std_logic;
+			reset		:	in std_logic;
 			clk			:	in std_logic;
-			index			:	in integer range 0 to w-1;
+			index		:	in integer range 0 to w-1;
 			errors_in	:	in fixed_point_vector;
 			errors_out	: 	out fixed_point_vector
 			);
@@ -194,7 +194,8 @@ begin
 	begin
 		-- create default weight for writing to bram
 		if reset = '1' then
-			weights_out <= (others => (others => init_weight));
+			-- weights_out <= (others => (others => init_weight));
+			weights_out <= (others => init_weights);
 		else
 			if falling_edge(clk) then
 				weights_out(previous_neuron_int) <= weight_out;

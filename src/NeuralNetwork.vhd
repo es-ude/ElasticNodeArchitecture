@@ -76,21 +76,6 @@ component Network is
 end component;
 
 
-component FixedPoint_Logic is
-	Port (
-		fixed_point		:	in fixed_point_vector;
-		std_logic_vec	: 	out uintw_t;
-		clk			:	in std_logic
-	);
-end component;
-
-component Logic_FixedPoint is
-	Port (
-		fixed_point		:	out fixed_point_vector;
-		std_logic_vec	: 	in uintw_t;
-		clk			:	in std_logic
-	);
-end component;
 
 --signal enable           : std_logic;
 --signal learn            : std_logic;
@@ -100,9 +85,6 @@ end component;
 --signal connections_out  : std_logic_vector(w-1 downto 0);
 signal mode			         : uint8_t;
 
-signal connections_in_fp   : fixed_point_vector := (others => real_to_fixed_point(0.0));
-signal wanted_fp           : fixed_point_vector := (others => real_to_fixed_point(0.0));
-signal connections_out_fp  : fixed_point_vector;
 
 --signal clk_slow             : std_logic := '0';
 --signal wanted           : fixed_point_vector := (others => real_to_fixed_point(0.0));
@@ -111,7 +93,7 @@ begin
 
 --connections_in <= data_in(w-1 downto 0);
 --wanted <= data_in(2*w-1 downto w);
---learn <= data_in(2*w);
+--learn <= data_in(2*w);1
 --enable <= data_in(2*w + 1);
 --
 --data_out(w-1 downto 0) <= connections_in;
@@ -142,19 +124,5 @@ net: Network port map
 -- busy <= '0' when mode = to_unsigned(0, mode'length) else '1';
 --mode_out <= mode;
 
-fpl: FixedPoint_Logic port map
-(
-    connections_out_fp, connections_out, clk
-);
-
-lfp: Logic_FixedPoint port map
-(
-    connections_in_fp, connections_in, clk
-);
-
-lfpw: Logic_FixedPoint port map
-(
-    wanted_fp, wanted, clk
-);
 
 end Behavioral;
