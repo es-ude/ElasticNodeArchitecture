@@ -47,7 +47,7 @@ architecture Behavioral of SimulateNetwork is
 		connections_out			:	out fixed_point_vector;
 		
 		-- wanted				:	in fixed_point_vector
-		wanted					:	in fixed_point_vector
+		wanted					:	in fixed_point_vector;
 
 		weights_wr_en 			:	in std_logic;
 		weights_vector			:	buffer weights_vector;

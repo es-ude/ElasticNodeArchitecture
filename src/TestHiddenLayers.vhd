@@ -142,6 +142,7 @@ begin
 		wait for period *(l+2);
 		reset <= '0';
 		
+		-- train 11 times
 		for i in 0 to 10 loop
 			-- initial test
 			learn <= '1';
@@ -159,26 +160,26 @@ begin
 
 
 
-		-- read weights
-		for i in 0 to l loop
-			--weights <= (others => '0');
+		-- read weights (loop 4 times, every time out put whole layer.
+		for i in 0 to l-1 loop
 			current_layer_manual <= to_unsigned(i, current_layer_manual'length);
 			wait for period * 3;
 		end loop;
 
 		-- change weights
-		for i in 0 to l loop
+		for i in 0 to l-1 loop
 			weights <= (others => '0');
 			weights_wr_en <= '1';
 			current_layer_manual <= to_unsigned(i, current_layer_manual'length);
 			wait for period;
 			weights_wr_en <= '0';
-			weights <= (others => 'Z');
+			weights <= (others => 'Z');  -- set to 'Z' then we can read out.
 			wait for period * 2;
 		end loop;
 		weights <= (others => 'Z');
+		
 
-		-- secodn test
+		-- second test(bias need to be checked here)
 		learn <= '0';
 		calculate <= '1';
 		weights_wr_en <= '0';
@@ -197,24 +198,3 @@ begin
 		wait;
 	end process;
 end Behavioral;
-
--- n_feedback <= 'Z';
-		
---		conn_in(0) <= real_to_fixed_point(1.0);
---		conn_in(2) <= real_to_fixed_point(1.0);
-		
---		calculate <= '1';
---		-- n_feedback <= '0';
---		err_in(0) <= real_to_fixed_point(1.0);
---		err_in(2) <= real_to_fixed_point(1.0);
-
---		wait until data_rdy = '1';
---		calculate <= '0';
---		wait for period;
---		-- wait for period * (l + 2);
---		-- n_feedback <= '1';
---		learn <= '1';
---		calculate <= '1';
---		-- wait for period * (l + 2);
---		wait until data_rdy = '1';
---		wait for period;

@@ -5,16 +5,15 @@
 -- Create Date: 08/28/2018 04:03:38 PM
 -- Design Name: 
 -- Module Name: TestDistributor - Behavioral
--- Project Name: fpgamiddlewareproject
+-- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
--- Description: Test the function of Distributor
+-- Description: 
 -- 
 -- Dependencies: 
 -- 
 -- Revision:
 -- Revision 0.01 - File Created
--- Revision 0.02 - all logics has been tested, and passed.
 -- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
@@ -50,14 +49,14 @@ architecture Behavioral of TestDistributor is
         current_neuron	:	out uint8_t;
     
         data_rdy        :   out std_logic;
-        mode_out        :   out uint8_t
+        mode_out        :   out distributor_mode
     );
     end component;
     
     -- Clock and reset signal
     constant period : time := 100 ns;
     signal clk   : std_logic := '0';
-    signal reset : std_logic := '1';
+    signal reset : std_logic := '0';
     signal busy  : boolean   := true;
     
     signal learn : std_logic := '0';
@@ -69,7 +68,7 @@ architecture Behavioral of TestDistributor is
     signal current_neuron : uint8_t := (others => '0');
     
     signal data_rdy : std_logic := '0';
-    signal dist_mode : uint8_t := (others => '0');
+    signal dist_mode : distributor_mode;
     
 begin
 
@@ -88,7 +87,8 @@ begin
     (
         clk, reset, learn, calculate, n_feedback_bus, n_feedback, current_layer, current_neuron, data_rdy, dist_mode
     );
-   
+
+
     testing_process : process
     begin
         -- n_feedback_bus is not in use, so just check if it is equal to 'ZZZZZ'
@@ -105,12 +105,12 @@ begin
         calculate <= '0';
         wait for 40*period;   
         -- after  data_rdy is setted to '1', the calculation will stop, until next rising edge of calculate
-		-- End of testing clk, reset, calculate, n_feedback, current_layer, current_neuron, data_rdy, dist_mode
-		
-		 -- In backward mode (learn function is '1' => enable learning => backward)
-		 -- Start of testing clk, reset, learn, calculate, n_feedback, current_layer, current_neuron, data_rdy, dist_mode
-		learn <= '1'; -- enable the backward function
-
+        -- End of testing clk, reset, calculate, n_feedback, current_layer, current_neuron, data_rdy, dist_mode
+        
+        -- In backward mode (learn function is '1' => enable learning => backward)
+        -- Start of testing clk, reset, learn, calculate, n_feedback, current_layer, current_neuron, data_rdy, dist_mode
+        learn <= '1'; -- enable the backward function
+        
         calculate <= '1';
         wait for 1*period;
         calculate <= '0';
@@ -122,8 +122,9 @@ begin
         -- when mode changes from 5 to 4 layer_count and neuron_count are both setted as 'Uninitialized'
         -- mode is setted 0
         -- wait for changing of calculate signal 
-		 -- End of testing clk, reset, learn, calculate, n_feedback, current_layer, current_neuron, data_rdy, dist_mode
-		 
+        -- End of testing clk, reset, learn, calculate, n_feedback, current_layer, current_neuron, data_rdy, dist_mode
+
+		wait for period*1;
 		busy <= false;
 		report "Finished" severity warning;
 		wait;
