@@ -46,7 +46,7 @@ begin
 		variable fp : fixed_point;
 	begin
 		-- first dim (each outside neuron)
-		for j in 0 to w-1 loop
+		for j in 0 to maxWidth-1 loop
 			fp := conn(j);
 			-- vector
 			for k in 0 to b-1 loop

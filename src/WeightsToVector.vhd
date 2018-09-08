@@ -47,14 +47,14 @@ begin
 		variable fp : fixed_point;
 	begin
 		-- first dim (each outside neuron)
-		for i in 0 to w-1 loop
+		for i in 0 to maxWidth-1 loop
 			fpv := matrix(i);
 			-- second dim (each neuron)
-			for j in 0 to w-1 loop
+			for j in 0 to maxWidth-1 loop
 				fp := fpv(j);
 				-- vector
 				for k in 0 to b-1 loop
-					 vector(k + j * (b) + i * (b*w)) <= fp(k);
+					 vector(k + j * (b) + i * (b*maxWidth)) <= fp(k);
 				end loop;
 			end loop;
 		end loop;

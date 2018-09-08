@@ -68,7 +68,7 @@ architecture Behavioral of Network is
 		Port (
 			fixed_point		:	in fixed_point_vector;
 			std_logic_vec	: 	out uintw_t;
-			clk			:	in std_logic
+			clk				:	in std_logic
 		);
 	end component;
 
@@ -96,7 +96,7 @@ architecture Behavioral of Network is
 		reset			: 	in std_logic;
 		learn			:	in std_logic;
 		calculate    	:   in std_logic;
-		n_feedback_bus	:	out std_logic_vector(l downto 0) := (others => 'Z'); -- l layers + summation (at l)
+		n_feedback_bus	:	out std_logic_vector(totalLayers downto 0) := (others => 'Z'); -- l layers + summation (at l)
 
 
 		n_feedback		: 	out integer range 0 to 2;
@@ -120,16 +120,17 @@ architecture Behavioral of Network is
 --	signal err_matrix 		: fixed_point_array;
 	signal hidden_connections_out_fp : fixed_point_vector;
 	--signal connections_out_fp : fixed_point_vector;
-	signal err_out 			: fixed_point_vector;
-	signal data_rdy_s		: std_logic := '0';
-	signal mode_out_signal	: distributor_mode;
+	signal err_out 					: fixed_point_vector;
+	signal data_rdy_s				: std_logic := '0';
+	signal mode_out_signal			: distributor_mode;
+	signal mode_out_signal_delay	: distributor_mode;
 	
 	-- signal wanted_fp	: fixed_point_vector;
 	--signal conn_in_real	: fixed_point_vector;
 	--signal conn_out_real: fixed_point_vector;
 
 	--signal learn		: std_logic := '0';
-	signal n_feedback_bus 	: std_logic_vector(l downto 0) := (others => 'Z');
+	signal n_feedback_bus 	: std_logic_vector(totalLayers downto 0) := (others => 'Z');
 	signal n_feedback		 	: integer range 0 to 2;
 	signal n_feedback_buffered : integer range 0 to 2;
 	signal current_layer  	: uint8_t;
@@ -140,17 +141,34 @@ architecture Behavioral of Network is
 	signal wanted_fp           : fixed_point_vector := (others => real_to_fixed_point(0.0));
 	signal connections_out_fp  : fixed_point_vector;
 
+	signal error_out : fixed_point;
+	signal error_out_abs : fixed_point;
+
 begin
 	data_rdy <= data_rdy_s;
+
+	-- delay mode for fetching output connections on falling edge
+	process (reset, clk, mode_out_signal) is
+	begin
+		if reset = '1' then 
+			mode_out_signal_delay <= idle;
+		elsif rising_edge(clk) then
+			mode_out_signal_delay <= mode_out_signal;
+		end if;
+	end process;
+
 	-- set output connections when changing to learning
 	process (reset, clk, mode_out_signal) is
 	begin
 		if reset = '1' then
 			connections_out_fp <= (others => zero);
-		elsif rising_edge(clk) then
+		elsif falling_edge(clk) then
 			-- if learn = '0' then
-			if mode_out_signal = done then -- std_logic_vector(to_unsigned(4, mode_out_signal'length)) then
+			if mode_out_signal_delay = doneQuery or mode_out_signal_delay = intermediate then -- std_logic_vector(to_unsigned(4, mode_out_signal'length)) then
 				connections_out_fp <= hidden_connections_out_fp;
+				-- used to see when model is trained
+				error_out <= wanted_fp(0) - hidden_connections_out_fp(0);
+				error_out_abs <= abs(wanted_fp(0) - hidden_connections_out_fp(0));
 			else
 				connections_out_fp <= connections_out_fp;
 			end if;
