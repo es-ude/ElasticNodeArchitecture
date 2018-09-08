@@ -36,9 +36,9 @@ architecture Behavioral of SimulateNeuralNetwork is
 	signal clk_s : std_logic := '0';	
 	signal learn, data_rdy, calculate, ul_busy : std_logic := 'Z';
 	signal reset : std_logic := '1';
-	constant period : time := 40 ns;
-	constant repeat : integer := 10;
-	constant NUM_LOOPS : integer := 0;
+	constant period : time := 10 ps;
+	--constant repeat : integer := 10;
+	constant NUM_LOOPS : integer := 2500; -- (2x 1000)
 
 	signal wanted				: 	uintw_t := (others => '0');
 	signal conn_in, conn_out 	: 	uintw_t := (others => '0');
@@ -47,6 +47,7 @@ architecture Behavioral of SimulateNeuralNetwork is
 	signal weights : weights_vector;
 	
 	signal busy 	: boolean := true;
+	signal repeatCount : integer;
 	
 	signal debug : uint8_t;
 
@@ -86,7 +87,7 @@ uut: entity work.Network(Behavioral) port map
 	);
 
 	process 
-		variable I: integer range 0 to 1000;
+		--variable i: integer range 0 to 1000;
 	begin
 		wait for period * 16;
 		reset <= '0';
@@ -94,32 +95,6 @@ uut: entity work.Network(Behavioral) port map
 	learn <= '1';
 	-- train XOR (only using second output)
 	for i in 0 to NUM_LOOPS loop 
-		---- 01 01
-		--conn_in <= "0100";
-		--wanted <= "0001";
-		--calculate <= '1';
-		--wait for period;
-		--calculate <= '0';
-		--wait until ul_busy = '0';
-		--wait for period;
-
-		---- 00 00
-		--conn_in <= "0000";
-		--wanted <= "0000";
-		--calculate <= '1';
-		--wait for period;
-		--calculate <= '0';
-		--wait until ul_busy = '0';
-		--wait for period;
-
-		---- 10 01
-		--conn_in <= "1000";
-		--wanted <= "0001";
-		--calculate <= '1';
-		--wait for period;
-		--calculate <= '0';
-		--wait until ul_busy = '0';
-		--wait for period;
 
 		-- 11 00
 		conn_in <= "0011";
@@ -129,43 +104,76 @@ uut: entity work.Network(Behavioral) port map
 		calculate <= '0';
 		wait until ul_busy = '0';
 		wait for period;
+
+		-- 10 01
+		conn_in <= "0001";
+		wanted <= "0001";
+		calculate <= '1';
+		wait for period;
+		calculate <= '0';
+		wait until ul_busy = '0';
+		wait for period;
+
+		-- 01 01
+		conn_in <= "0010";
+		wanted <= "0001";
+		calculate <= '1';
+		wait for period;
+		calculate <= '0';
+		wait until ul_busy = '0';
+		wait for period;
+
+		-- 00 00
+		conn_in <= "0000";
+		wanted <= "0000";
+		calculate <= '1';
+		wait for period;
+		calculate <= '0';
+		wait until ul_busy = '0';
+		wait for period;
+
+		repeatCount <= i;
+		
 	end loop;
 
 	-- query results
 	learn <= '0';
+
+	conn_in <= "0000";
 	wanted <= "0000";
+	calculate <= '1';
+	wait for period;
+	calculate <= '0';
+	wait until ul_busy = '0';
+	wait for period;
+	assert conn_out = "00" report "Result incorrect for 00";
 
-	--conn_in <= "0000";
-	--calculate <= '1';
-	--wait for period;
-	--calculate <= '0';
-	--wait until ul_busy = '0';
-	--wait for period;
-	--assert conn_out = "00" report "Result incorrect for 00";
+	conn_in <= "0001";
+	wanted <= "0001";
+	calculate <= '1';
+	wait for period;
+	calculate <= '0';
+	wait until ul_busy = '0';
+	wait for period;
+	assert conn_out = "01" report "Result incorrect for 10";
 
-	--conn_in <= "1000";
-	--calculate <= '1';
-	--wait for period;
-	--calculate <= '0';
-	--wait until ul_busy = '0';
-	--wait for period;
-	--assert conn_out = "01" report "Result incorrect for 10";
+	conn_in <= "0011";
+	wanted <= "0000";
+	calculate <= '1';
+	wait for period;
+	calculate <= '0';
+	wait until ul_busy = '0';
+	wait for period;
+	assert conn_out(0) = '0' report "Result incorrect for 11";
 
-	--conn_in <= "1100";
-	--calculate <= '1';
-	--wait for period;
-	--calculate <= '0';
-	--wait until ul_busy = '0';
-	--wait for period;
-	--assert conn_out(0) = '0' report "Result incorrect for 11";
-
-	--conn_in <= "0100";
-	--calculate <= '1';
-	--wait for period;
-	--calculate <= '0';
-	--wait until ul_busy = '0';
-	--wait for period;
-	--assert conn_out(0) = '1' report "Result incorrect for 01";
+	conn_in <= "0010";
+	wanted <= "0001";
+	calculate <= '1';
+	wait for period;
+	calculate <= '0';
+	wait until ul_busy = '0';
+	wait for period;
+	assert conn_out(0) = '1' report "Result incorrect for 01";
 
 	busy <= false;
 	wait;

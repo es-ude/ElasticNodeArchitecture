@@ -31,7 +31,7 @@
     <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSANumComputeUnits" Val="16"/>
-    <Option Name="WTXSimLaunchSim" Val="563"/>
+    <Option Name="WTXSimLaunchSim" Val="821"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -346,7 +346,6 @@
         <FileInfo>
           <Attr Name="Library" Val="xil_defaultlib"/>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
@@ -915,9 +914,8 @@
         <Option Name="SrcSet" Val="sources_1"/>
         <Option Name="XSimWcfgFile" Val="$PPRDIR/../src/TestFirWishbone.wcfg"/>
         <Option Name="XSimWcfgFile" Val="$PPRDIR/../src/TestFirWishboneSkeleton.wcfg"/>
-        <Option Name="xsim.elaborate.mt_level" Val="8"/>
+        <Option Name="xsim.elaborate.mt_level" Val="16"/>
         <Option Name="xsim.simulate.runtime" Val="all"/>
-        <Option Name="xsim.simulate.log_all_signals" Val="true"/>
         <Option Name="NGOutputHDLFormat" Val="vhdl"/>
       </Config>
     </FileSet>

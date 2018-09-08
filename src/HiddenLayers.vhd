@@ -59,6 +59,7 @@ architecture Behavioral of HiddenLayers is
 
 -- signal weights : fixed_point_matrix_array := (others => (others => (others => init_weight))); -- weights for all the hidden layers
 -- signal weights : fixed_point_matrix := (others => (others => init_weight));
+signal errors_accrue_s : fixed_point_vector;
 signal weights_in, weights_out : fixed_point_matrix;
 signal conn_in, conn_out, conn_out_prev, err_in, err_out, bias_in, bias_out : fixed_point_vector;
 -- signal connections : fixed_point_array;
@@ -243,7 +244,7 @@ btv:
 					weights_wr_a <= '0';
 					
 					--current_neuron = maxWidth-1-1;
-					last_neuron := (current_neuron = maxWidth-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1)) or ((current_layer_sample = 0) and (current_neuron = inputWidth-1));
+					last_neuron := (current_neuron = maxWidth-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1)); -- or ((current_layer_sample = 0) and (current_neuron = inputWidth-1));
 					--last_neuron := current_neuron = maxWidth-1;
 					second_last_neuron := (current_neuron = maxWidth-1-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1-1)) or ((current_layer_sample = 0) and (current_neuron = inputWidth-1-1));
 							
@@ -252,13 +253,13 @@ btv:
 					if n_feedback = 1 then
 						if last_neuron and current_layer < totalLayers - 1 then -- dont load l+1 weights
 							-- used to load current_layer+1
-							weights_address_a <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
+							weights_address_a <= std_logic_vector(resize(current_layer+1, WEIGHTS_RAM_WIDTH));
 						end if;
 					-- when backward, load next 
 					elsif n_feedback = 0 then
 						if last_neuron then
 							-- used to load current_layer-1
-							weights_address_a <= std_logic_vector(resize(current_layer-2, WEIGHTS_RAM_WIDTH));
+							weights_address_a <= std_logic_vector(resize(current_layer-1, WEIGHTS_RAM_WIDTH));
 							-- if currently in hidden layer, queue write next cycle
 							-- if current_layer_sample > 0 and current_layer_sample < totalLayers-1 then
 							-- end if;
@@ -318,7 +319,7 @@ btv:
 		
 				current_layer_sample := to_integer(current_layer);
 
-				last_neuron := (current_neuron = maxWidth-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1)) or ((current_layer_sample = 0) and (current_neuron = inputWidth-1));
+				last_neuron := (current_neuron = maxWidth-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1)); -- or ((current_layer_sample = 0) and (current_neuron = inputWidth-1));
 				-- last_neuron := current_neuron = maxWidth-1;
 				
 				-- weights_wr <= '0';
@@ -331,7 +332,7 @@ btv:
 				-- weights_din_b <= weights_din_ann; -- load weights to be written to memory from the ann, not from outside
 
 				if last_neuron then
-					weights_address_b <= std_logic_vector(resize(current_layer-1, WEIGHTS_RAM_WIDTH));
+					weights_address_b <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
 					bias_wr_address <= std_logic_vector(resize(current_layer, BIAS_RAM_WIDTH));
 
 				end if;
@@ -354,7 +355,7 @@ btv:
 			-- weights_wr_address <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
 			
 			-- update conn ram reading address 
-			if (current_neuron = maxWidth-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1)) or ((current_layer_sample = 0) and (current_neuron = inputWidth-1)) then
+			if (current_neuron = maxWidth-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1)) then -- or ((current_layer_sample = 0) and (current_neuron = inputWidth-1)) then
 				-- when forward, load weights for next (clocks inverted)
 				if n_feedback = 1 then
 					conn_address_a <= std_logic_vector(resize(current_layer + 1, CONN_RAM_WIDTH));
@@ -385,8 +386,8 @@ btv:
 			
 				current_layer_sample := to_integer(current_layer);
 
-				last_neuron := (current_neuron = maxWidth-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1)) or ((current_layer_sample = 0) and (current_neuron = inputWidth-1));
-				second_last_neuron := (current_neuron = maxWidth-1-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1));
+				last_neuron := (current_neuron = maxWidth-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1)); -- or ((current_layer_sample = 0) and (current_neuron = inputWidth-1));
+				-- second_last_neuron := (current_neuron = maxWidth-1-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1));
 					
 				--last_neuron := current_neuron = maxWidth-1; 
 				--second_last_neuron := current_neuron = maxWidth-1-1; -- load new bias one clk early
@@ -394,12 +395,18 @@ btv:
 				-- assign address to read from 
 				if n_feedback = 1 then
 					if last_neuron then
-						bias_rd_address <= std_logic_vector(resize(current_layer + 1, BIAS_RAM_WIDTH));
+						-- just stay in final layer for intermediate
+						if current_layer < totalLayers-1 then
+							bias_rd_address <= std_logic_vector(resize(current_layer + 1, BIAS_RAM_WIDTH));
+						end if;
 					end if;
 				-- when backward, load next 
 				elsif n_feedback = 0 then
 					if last_neuron then
-						bias_rd_address <= std_logic_vector(resize(current_layer - 1, BIAS_RAM_WIDTH));
+						-- stay in first layer until next round of query
+						if current_layer > 0 then
+							bias_rd_address <= std_logic_vector(resize(current_layer - 1, BIAS_RAM_WIDTH));
+						end if;
 					end if;
 				-- between feedback and feedforward
 				elsif dist_mode = intermediate then
@@ -411,7 +418,8 @@ btv:
 	
 	-- error process
 	process(clk) is
-			variable current_layer_sample : integer range 0 to totalLayers;
+		variable current_layer_sample : integer range 0 to totalLayers;
+		variable errors_accrue : fixed_point_vector;
 	begin
 		if rising_edge(clk) then
 			current_layer_sample := to_integer(current_layer);
@@ -420,11 +428,17 @@ btv:
 				-- when in the last feed forward, preload the conn_out_prev
 				if dist_mode = intermediate then
 					err_in <= wanted - conn_out;
+					--errors_accrue := (others => zero);
 				-- between layers of feedback
 				elsif dist_mode = feedback then
-					err_in <= err_out; -- forward results of previous layer to next layer
+					err_in <= err_out; -- errors_accrue; -- forward results of previous layer to next layer
+					-- errors_accrue := (others => zero);
 				end if;
+			-- accrue errors for each neuron
+			--elsif n_feedback = 0 then
+			--	errors_accrue := errors_accrue + err_out;
 			end if;
+			--errors_accrue_s <= errors_accrue;
 		end if;	
 	end process;
 	

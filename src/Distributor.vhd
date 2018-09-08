@@ -103,7 +103,7 @@ begin
 							n_feedback_var := forward; -- reassert feedback after delay
 							neuron_counter := 0;
 						-- check for output layer
-						elsif ((layer_counter = 0) and (neuron_counter = inputWidth)) or ((layer_counter = totalLayers-1) and (neuron_counter = outputWidth)) or (neuron_counter = maxWidth) then
+						elsif ((layer_counter = totalLayers-1) and (neuron_counter = outputWidth)) or (neuron_counter = maxWidth) then -- ((layer_counter = 0) and (neuron_counter = inputWidth)) or 
 						--elsif neuron_counter = maxWidth then
 							-- go to next layer
 							neuron_counter := 0;
@@ -137,7 +137,7 @@ begin
 							n_feedback_var := idle; -- one cycle delay
 						
 							layer_counter := layer_counter - 1;
-							if layer_counter = 0 then
+							if layer_counter = -1 then
 								layer_counter := 0;
 								mode <= delay;
 								n_feedback_var := idle;

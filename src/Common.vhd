@@ -31,7 +31,7 @@ constant outputWidth		: 	natural := 1;
 constant maxWidth			: 	natural := max(max(inputWidth, hiddenWidth), outputWidth);
 
 constant numHiddenLayers	:	natural := 2;
-constant totalLayers		:	natural := numHiddenLayers + 2;
+constant totalLayers		:	natural := numHiddenLayers + 1;
 constant eps				:	natural := 10;
 constant factor				:	fixed_point := to_signed(1024, b);
 constant factor_shift		:	natural := 10;
@@ -39,6 +39,7 @@ constant factor_shift_2		:	natural := 5;
 constant factor_2   		:	fixed_point := to_signed(512, b);
 constant zero				:	fixed_point := (others => '0');
 constant one				:	fixed_point := factor;
+constant minValue			:	fixed_point := ('1', others => '0');
 constant maxValue			:	fixed_point := ('0', others => '1');
 constant init_weight		:	fixed_point := to_signed(128, b);
 --constant input_number		:	natural := 0;
@@ -67,7 +68,7 @@ function log2( i : natural) return integer;
 --function maximum_probability (signal probs_in : in fixed_point_vector) return fixed_point;
 function weighted_sum (signal weights : fixed_point_vector; signal connections : fixed_point_vector; firstHidden : in boolean) return fixed_point;
 --function weighted_sum (signal weights : fixed_point_vector; signal connections : uintw_t; firstHidden : in boolean) return fixed_point;
-function sum (signal connections : fixed_point_vector) return fixed_point;
+function sum (signal connections : fixed_point_vector; lastHidden : in boolean) return fixed_point;
 --function scale (signal weights : fixed_point_vector; const : real) return fixed_point_vector;
 function "+" (A: in fixed_point_vector; B: in fixed_point_vector) return fixed_point_vector;
 --function "+" (A: in fixed_point; B: in fixed_point) return fixed_point;
@@ -207,13 +208,17 @@ package body Common is
 --	end weighted_sum;
 
 	
-	
-	function sum (signal connections : fixed_point_vector) return fixed_point is
+	function sum (signal connections : fixed_point_vector; lastHidden : in boolean) return fixed_point is
 	variable sum_var : fixed_point := (others => '0');
 	begin
-		for i in 0 to connections'length - 1 loop
+		for i in 0 to outputWidth - 1 loop
 			sum_var := sum_var + connections(i);
 		end loop;
+		if not lastHidden then
+			for i in outputWidth to maxWidth - 1 loop
+				sum_var := sum_var + connections(i);
+			end loop;
+		end if;
 		return sum_var;
 	end sum;
 
@@ -378,17 +383,27 @@ package body Common is
     end resize_fixed_point;
 
 	function multiply(A : in fixed_point; B : in fixed_point) return fixed_point is
-	   variable TEMP : double_fixed_point;
-	   variable TEMP2 : fixed_point;
+		variable TEMP : double_fixed_point;
+		variable TEMP2 : fixed_point;
+		variable TEMP3 : signed(factor_shift-1 downto 0);
 		variable A_short, B_short : signed(fixed_point'length+1-factor_shift downto 0);
 	begin
 		--A_short := A(fixed_point'length+1-factor_shift_2 downto factor_shift_2);
 		--B_short := B(fixed_point'length+1-factor_shift_2 downto factor_shift_2);
-	    TEMP := A * B;
-	    --TEMP2 := TEMP(factor_shift+fixed_point'length-1 downto factor_shift);
-	   --return A_short * B_short;
-		return TEMP(factor_shift+fixed_point'length-1 downto factor_shift); -- take result and divide by factor ( >> 10 ) and cut off top
+		TEMP := A * B;
+		--TEMP2 := TEMP(factor_shift+fixed_point'length-1 downto factor_shift);
+		--return A_short * B_short;
+		TEMP2 := TEMP(factor_shift+fixed_point'length-1 downto factor_shift);
+		TEMP3 := TEMP(factor_shift-1 downto 0);
+		-- tend to infinity if negative result
+		-- add one if result is negative and there is a rest being thrown away
+		if TEMP2(fixed_point'length-1) = '1' and TEMP3 /= 0 then
+			TEMP2 := TEMP2 + 1;
+		end if;
+		--return TEMP(factor_shift+fixed_point'length-1 downto factor_shift); -- take result and divide by factor ( >> 10 ) and cut off top
+		return TEMP2;
 	end multiply;
+
     
 --	 function multiply(A : in fixed_point; B : in fixed_point) return fixed_point is
 --	   variable TEMP : double_fixed_point;

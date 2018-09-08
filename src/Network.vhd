@@ -141,6 +141,9 @@ architecture Behavioral of Network is
 	signal wanted_fp           : fixed_point_vector := (others => real_to_fixed_point(0.0));
 	signal connections_out_fp  : fixed_point_vector;
 
+	signal error_out : fixed_point;
+	signal error_out_abs : fixed_point;
+
 begin
 	data_rdy <= data_rdy_s;
 
@@ -163,6 +166,9 @@ begin
 			-- if learn = '0' then
 			if mode_out_signal_delay = doneQuery or mode_out_signal_delay = intermediate then -- std_logic_vector(to_unsigned(4, mode_out_signal'length)) then
 				connections_out_fp <= hidden_connections_out_fp;
+				-- used to see when model is trained
+				error_out <= wanted_fp(0) - hidden_connections_out_fp(0);
+				error_out_abs <= abs(wanted_fp(0) - hidden_connections_out_fp(0));
 			else
 				connections_out_fp <= connections_out_fp;
 			end if;
