@@ -31,14 +31,14 @@ library ieee_proposed;
 use ieee_proposed.fixed_float_types.all;
 
 -- Entity declaration
-entity chao_test_Neuron is
+entity test_Neuron is
 --  Port ( ); -- no ports needed for testbench
-end chao_test_Neuron;
+end test_Neuron;
 
 
 
 
-architecture neuron_simulation of chao_test_Neuron is
+architecture neuron_simulation of test_Neuron is
     constant period : time := 100 ns;
     signal   clock  : std_logic :='0';
     signal   reset  : std_logic :='0';
@@ -77,6 +77,7 @@ architecture neuron_simulation of chao_test_Neuron is
         
     signal o_conn     : fixed_point;
     signal i_prev_out : fixed_point;
+    signal i_prev_outs : fixed_point_vector := (others => real_to_fixed_point(0.0));
     signal o_errors   : fixed_point_vector;
 
     
@@ -138,54 +139,48 @@ begin
         i_errors(1) <= real_to_fixed_point(0.1);
         i_errors(2) <= real_to_fixed_point(1.0);
         i_errors(3) <= real_to_fixed_point(0.0);
-        i_errors(4) <= real_to_fixed_point(0.1);
-        i_errors(5) <= real_to_fixed_point(1.0);
-        i_errors(6) <= real_to_fixed_point(0.1);
-        i_errors(7) <= real_to_fixed_point(1.0);
+        
         
         i_conn(0) <= real_to_fixed_point(1.0);
         i_conn(1) <= real_to_fixed_point(1.0);
         i_conn(2) <= real_to_fixed_point(1.0);
         i_conn(3) <= real_to_fixed_point(0.0);
-        i_conn(4) <= real_to_fixed_point(0.0);
-        i_conn(5) <= real_to_fixed_point(0.0);
-        i_conn(6) <= real_to_fixed_point(0.1);
-        i_conn(7) <= real_to_fixed_point(0.1);
+       
         
         i_weights(0) <= real_to_fixed_point(0.0);
         i_weights(1) <= real_to_fixed_point(0.1);
         i_weights(2) <= real_to_fixed_point(1.0);
         i_weights(3) <= real_to_fixed_point(0.0);
-        i_weights(4) <= real_to_fixed_point(0.1);
-        i_weights(5) <= real_to_fixed_point(1.0);
-        i_weights(6) <= real_to_fixed_point(0.1);
-        i_weights(7) <= real_to_fixed_point(0.1);
+        
+        
         wait until rising_edge(clock);
         wait for period;
         
+        n_feedback <= 2; -- n_feedback is a integer 
+        wait until rising_edge(clock);
+        wait for period;
+                 
         -- Now we switch the Neuron to backward mode
         n_feedback <= 0; -- n_feedback is a integer 
-        i_index <= 2;
+        i_index <= 0;
         o_neuron <= '0';
-        i_prev_out <= to_fixed_point(123);
+        
+        i_prev_outs(0) <= real_to_fixed_point(0.0);
+        i_prev_outs(1) <= real_to_fixed_point(0.5);
+        i_prev_outs(2) <= real_to_fixed_point(1.0);
+        i_prev_outs(3) <= real_to_fixed_point(0.5);
         
         
-        
-        wait until rising_edge(clock);
-        wait for 5*period;
-        
-        
+        for I in 0 to w-1 loop
+            i_index <= w-1-I;
+            i_prev_out <= i_prev_outs(I);
+            wait until rising_edge(clock);
+            wait for period;
+        end loop;
         
         busy <= false;
         report "Finished" severity warning;    
     end process;
 
 end neuron_simulation;
-
-
-
-
--- i_errors() <= real_to_fixed_point();
--- i_conn() <= real_to_fixed_point();
--- i_weights <= real_to_fixed_point();
 ---------------------- File End -----------------------

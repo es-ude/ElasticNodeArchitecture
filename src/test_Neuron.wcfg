@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="test_Neuron_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="common" />
+            <top_module name="test_Neuron" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="110666667fs"></ZoomStartTime>
+      <ZoomEndTime time="646666668fs"></ZoomEndTime>
+      <Cursor1Time time="200000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="66"></NameColumnWidth>
+      <ValueColumnWidth column_width="66"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="16" />
+   <wvobject type="logic" fp_name="/test_Neuron/clock">
+      <obj_property name="ElementShortName">clock</obj_property>
+      <obj_property name="ObjectShortName">clock</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/test_Neuron/reset">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/test_Neuron/n_feedback">
+      <obj_property name="ElementShortName">n_feedback</obj_property>
+      <obj_property name="ObjectShortName">n_feedback</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/test_Neuron/o_neuron">
+      <obj_property name="ElementShortName">o_neuron</obj_property>
+      <obj_property name="ObjectShortName">o_neuron</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/test_Neuron/i_index">
+      <obj_property name="ElementShortName">i_index</obj_property>
+      <obj_property name="ObjectShortName">i_index</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test_Neuron/i_conn">
+      <obj_property name="ElementShortName">i_conn[3:0][15:0]</obj_property>
+      <obj_property name="ObjectShortName">i_conn[3:0][15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test_Neuron/i_errors">
+      <obj_property name="ElementShortName">i_errors[3:0][15:0]</obj_property>
+      <obj_property name="ObjectShortName">i_errors[3:0][15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test_Neuron/o_conn">
+      <obj_property name="ElementShortName">o_conn[15:0]</obj_property>
+      <obj_property name="ObjectShortName">o_conn[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test_Neuron/i_prev_out">
+      <obj_property name="ElementShortName">i_prev_out[15:0]</obj_property>
+      <obj_property name="ObjectShortName">i_prev_out[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test_Neuron/o_errors">
+      <obj_property name="ElementShortName">o_errors[3:0][15:0]</obj_property>
+      <obj_property name="ObjectShortName">o_errors[3:0][15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test_Neuron/i_weights">
+      <obj_property name="ElementShortName">i_weights[3:0][15:0]</obj_property>
+      <obj_property name="ObjectShortName">i_weights[3:0][15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test_Neuron/o_weights">
+      <obj_property name="ElementShortName">o_weights[3:0][15:0]</obj_property>
+      <obj_property name="ObjectShortName">o_weights[3:0][15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test_Neuron/i_bias">
+      <obj_property name="ElementShortName">i_bias[15:0]</obj_property>
+      <obj_property name="ObjectShortName">i_bias[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test_Neuron/o_bias">
+      <obj_property name="ElementShortName">o_bias[15:0]</obj_property>
+      <obj_property name="ObjectShortName">o_bias[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/test_Neuron/busy">
+      <obj_property name="ElementShortName">busy</obj_property>
+      <obj_property name="ObjectShortName">busy</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/test_Neuron/period">
+      <obj_property name="ElementShortName">period</obj_property>
+      <obj_property name="ObjectShortName">period</obj_property>
+   </wvobject>
+</wave_config>
