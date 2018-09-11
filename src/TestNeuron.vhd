@@ -31,14 +31,14 @@ library ieee_proposed;
 use ieee_proposed.fixed_float_types.all;
 
 -- Entity declaration
-entity test_Neuron is
+entity Test_Neuron is
 --  Port ( ); -- no ports needed for testbench
-end test_Neuron;
+end Test_Neuron;
 
 
 
 
-architecture neuron_simulation of test_Neuron is
+architecture behavior of Test_Neuron is
     constant period : time := 100 ns;
     signal   clock  : std_logic :='0';
     signal   reset  : std_logic :='0';
@@ -182,5 +182,5 @@ begin
         report "Finished" severity warning;    
     end process;
 
-end neuron_simulation;
+end behavior;
 ---------------------- File End -----------------------
