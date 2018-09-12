@@ -22,7 +22,7 @@ constant u_address : std_logic_vector(addressWidth-1 downto 0) := std_logic_vect
 constant y_address : std_logic_vector(addressWidth-1 downto 0) := std_logic_vector(to_unsigned(0, addressWidth));
 
 -- /* Filter length = number of taps = number of coefficients = order + 1 */
-constant b:signed_vector(0 to order):=(
+constant fir_coeff:signed_vector(0 to order):=(
 	x"0019",
 	x"0039",
 	x"0093",

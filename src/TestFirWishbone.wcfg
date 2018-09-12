@@ -6,457 +6,131 @@
       <db_ref path="TestFirWishBone_behav.wdb" id="1">
          <top_modules>
             <top_module name="TestFirWishBone" />
+            <top_module name="firpackage" />
             <top_module name="userlogicinterface" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="1000000001fs"></ZoomEndTime>
-      <Cursor1Time time="400000000fs"></Cursor1Time>
+      <ZoomEndTime time="810000001fs"></ZoomEndTime>
+      <Cursor1Time time="810000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="159"></NameColumnWidth>
-      <ValueColumnWidth column_width="66"></ValueColumnWidth>
+      <NameColumnWidth column_width="211"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="2" />
-   <wvobject type="group" fp_name="group26">
+   <wvobject fp_name="group73" type="group">
       <obj_property name="label">test</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject type="logic" fp_name="/TestFirWishBone/clk">
+      <wvobject fp_name="/TestFirWishBone/clk" type="logic">
          <obj_property name="ElementShortName">clk</obj_property>
          <obj_property name="ObjectShortName">clk</obj_property>
       </wvobject>
-      <wvobject type="logic" fp_name="/TestFirWishBone/reset">
+      <wvobject fp_name="/TestFirWishBone/reset" type="logic">
          <obj_property name="ElementShortName">reset</obj_property>
          <obj_property name="ObjectShortName">reset</obj_property>
       </wvobject>
-      <wvobject type="logic" fp_name="/TestFirWishBone/writeEnable">
+      <wvobject fp_name="/TestFirWishBone/writeEnable" type="logic">
          <obj_property name="ElementShortName">writeEnable</obj_property>
          <obj_property name="ObjectShortName">writeEnable</obj_property>
       </wvobject>
-      <wvobject type="logic" fp_name="/TestFirWishBone/stb">
+      <wvobject fp_name="/TestFirWishBone/stb" type="logic">
          <obj_property name="ElementShortName">stb</obj_property>
          <obj_property name="ObjectShortName">stb</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/TestFirWishBone/datain">
+      <wvobject fp_name="/TestFirWishBone/datain" type="array">
          <obj_property name="ElementShortName">datain[15:0]</obj_property>
          <obj_property name="ObjectShortName">datain[15:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/TestFirWishBone/dataout">
+      <wvobject fp_name="/TestFirWishBone/dataout" type="array">
          <obj_property name="ElementShortName">dataout[31:0]</obj_property>
          <obj_property name="ObjectShortName">dataout[31:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/TestFirWishBone/addressIn">
-         <obj_property name="ElementShortName">addressIn[1:0]</obj_property>
-         <obj_property name="ObjectShortName">addressIn[1:0]</obj_property>
+      <wvobject fp_name="/TestFirWishBone/addressIn" type="array">
+         <obj_property name="ElementShortName">addressIn[4:0]</obj_property>
+         <obj_property name="ObjectShortName">addressIn[4:0]</obj_property>
       </wvobject>
-      <wvobject type="other" fp_name="/TestFirWishBone/finish">
+      <wvobject fp_name="/TestFirWishBone/finish" type="other">
          <obj_property name="ElementShortName">finish</obj_property>
          <obj_property name="ObjectShortName">finish</obj_property>
       </wvobject>
-      <wvobject type="other" fp_name="/TestFirWishBone/cycle">
+      <wvobject fp_name="/TestFirWishBone/cycle" type="other">
          <obj_property name="ElementShortName">cycle</obj_property>
          <obj_property name="ObjectShortName">cycle</obj_property>
       </wvobject>
    </wvobject>
-   <wvobject type="group" fp_name="group27">
+   <wvobject fp_name="group90" type="group">
       <obj_property name="label">uut</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject type="logic" fp_name="/TestFirWishBone/uut/clk">
+      <wvobject fp_name="/TestFirWishBone/uut/clk" type="logic">
          <obj_property name="ElementShortName">clk</obj_property>
          <obj_property name="ObjectShortName">clk</obj_property>
       </wvobject>
-      <wvobject type="logic" fp_name="/TestFirWishBone/uut/reset">
+      <wvobject fp_name="/TestFirWishBone/uut/reset" type="logic">
          <obj_property name="ElementShortName">reset</obj_property>
          <obj_property name="ObjectShortName">reset</obj_property>
       </wvobject>
-      <wvobject type="logic" fp_name="/TestFirWishBone/uut/writeEnable">
+      <wvobject fp_name="/TestFirWishBone/uut/writeEnable" type="logic">
          <obj_property name="ElementShortName">writeEnable</obj_property>
          <obj_property name="ObjectShortName">writeEnable</obj_property>
       </wvobject>
-      <wvobject type="logic" fp_name="/TestFirWishBone/uut/stb">
+      <wvobject fp_name="/TestFirWishBone/uut/stb" type="logic">
          <obj_property name="ElementShortName">stb</obj_property>
          <obj_property name="ObjectShortName">stb</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/TestFirWishBone/uut/addressIn">
-         <obj_property name="ElementShortName">addressIn[1:0]</obj_property>
-         <obj_property name="ObjectShortName">addressIn[1:0]</obj_property>
+      <wvobject fp_name="/TestFirWishBone/uut/addressIn" type="array">
+         <obj_property name="ElementShortName">addressIn[4:0]</obj_property>
+         <obj_property name="ObjectShortName">addressIn[4:0]</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/TestFirWishBone/uut/dataIn">
+      <wvobject fp_name="/TestFirWishBone/uut/dataIn" type="array">
          <obj_property name="ElementShortName">dataIn[15:0]</obj_property>
          <obj_property name="ObjectShortName">dataIn[15:0]</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/TestFirWishBone/uut/dataOut">
+      <wvobject fp_name="/TestFirWishBone/uut/dataOut" type="array">
          <obj_property name="ElementShortName">dataOut[31:0]</obj_property>
          <obj_property name="ObjectShortName">dataOut[31:0]</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/TestFirWishBone/uut/dataOutSignal">
+      <wvobject fp_name="/TestFirWishBone/uut/dataOutSignal" type="array">
          <obj_property name="ElementShortName">dataOutSignal[31:0]</obj_property>
          <obj_property name="ObjectShortName">dataOutSignal[31:0]</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/TestFirWishBone/uut/u">
+      <wvobject fp_name="/TestFirWishBone/uut/u" type="array">
          <obj_property name="ElementShortName">u[15:0]</obj_property>
          <obj_property name="ObjectShortName">u[15:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         <obj_property name="isExpanded"></obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/TestFirWishBone/uut/y">
+      <wvobject fp_name="/TestFirWishBone/uut/y" type="array">
          <obj_property name="ElementShortName">y[31:0]</obj_property>
          <obj_property name="ObjectShortName">y[31:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
          <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
          <obj_property name="CellHeight">100</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/TestFirWishBone/uut/q">
+      <wvobject fp_name="/TestFirWishBone/uut/q" type="array">
          <obj_property name="ElementShortName">q[15:0]</obj_property>
          <obj_property name="ObjectShortName">q[15:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/TestFirWishBone/uut/y0">
+      <wvobject fp_name="/TestFirWishBone/uut/y0" type="array">
          <obj_property name="ElementShortName">y0[31:0]</obj_property>
          <obj_property name="ObjectShortName">y0[31:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe">
-         <obj_property name="ElementShortName">u_pipe[0:30][15:0]</obj_property>
-         <obj_property name="ObjectShortName">u_pipe[0:30][15:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[0]">
-            <obj_property name="ElementShortName">[0][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[1]">
-            <obj_property name="ElementShortName">[1][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[2]">
-            <obj_property name="ElementShortName">[2][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[3]">
-            <obj_property name="ElementShortName">[3][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[4]">
-            <obj_property name="ElementShortName">[4][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[4][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[5]">
-            <obj_property name="ElementShortName">[5][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[5][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[6]">
-            <obj_property name="ElementShortName">[6][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[6][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[7]">
-            <obj_property name="ElementShortName">[7][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[7][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[8]">
-            <obj_property name="ElementShortName">[8][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[8][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[9]">
-            <obj_property name="ElementShortName">[9][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[9][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[10]">
-            <obj_property name="ElementShortName">[10][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[10][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[11]">
-            <obj_property name="ElementShortName">[11][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[11][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[12]">
-            <obj_property name="ElementShortName">[12][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[12][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[13]">
-            <obj_property name="ElementShortName">[13][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[13][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[14]">
-            <obj_property name="ElementShortName">[14][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[14][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[15]">
-            <obj_property name="ElementShortName">[15][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[15][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[16]">
-            <obj_property name="ElementShortName">[16][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[16][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[17]">
-            <obj_property name="ElementShortName">[17][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[17][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[18]">
-            <obj_property name="ElementShortName">[18][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[18][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[19]">
-            <obj_property name="ElementShortName">[19][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[19][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[20]">
-            <obj_property name="ElementShortName">[20][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[20][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[21]">
-            <obj_property name="ElementShortName">[21][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[21][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[22]">
-            <obj_property name="ElementShortName">[22][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[22][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[23]">
-            <obj_property name="ElementShortName">[23][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[23][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[24]">
-            <obj_property name="ElementShortName">[24][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[24][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[25]">
-            <obj_property name="ElementShortName">[25][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[25][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[26]">
-            <obj_property name="ElementShortName">[26][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[26][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[27]">
-            <obj_property name="ElementShortName">[27][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[27][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[28]">
-            <obj_property name="ElementShortName">[28][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[28][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[29]">
-            <obj_property name="ElementShortName">[29][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[29][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/u_pipe[30]">
-            <obj_property name="ElementShortName">[30][15:0]</obj_property>
-            <obj_property name="ObjectShortName">[30][15:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/u_pipe" type="array">
+         <obj_property name="ElementShortName">u_pipe[0:16][15:0]</obj_property>
+         <obj_property name="ObjectShortName">u_pipe[0:16][15:0]</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe">
-         <obj_property name="ElementShortName">y_pipe[0:30][31:0]</obj_property>
-         <obj_property name="ObjectShortName">y_pipe[0:30][31:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[0]">
-            <obj_property name="ElementShortName">[0][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[0][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[1]">
-            <obj_property name="ElementShortName">[1][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[1][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[2]">
-            <obj_property name="ElementShortName">[2][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[2][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[3]">
-            <obj_property name="ElementShortName">[3][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[3][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[4]">
-            <obj_property name="ElementShortName">[4][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[4][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[5]">
-            <obj_property name="ElementShortName">[5][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[5][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[6]">
-            <obj_property name="ElementShortName">[6][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[6][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[7]">
-            <obj_property name="ElementShortName">[7][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[7][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[8]">
-            <obj_property name="ElementShortName">[8][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[8][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[9]">
-            <obj_property name="ElementShortName">[9][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[9][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[10]">
-            <obj_property name="ElementShortName">[10][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[10][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[11]">
-            <obj_property name="ElementShortName">[11][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[11][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[12]">
-            <obj_property name="ElementShortName">[12][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[12][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[13]">
-            <obj_property name="ElementShortName">[13][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[13][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[14]">
-            <obj_property name="ElementShortName">[14][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[14][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[15]">
-            <obj_property name="ElementShortName">[15][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[15][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[16]">
-            <obj_property name="ElementShortName">[16][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[16][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[17]">
-            <obj_property name="ElementShortName">[17][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[17][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[18]">
-            <obj_property name="ElementShortName">[18][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[18][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[19]">
-            <obj_property name="ElementShortName">[19][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[19][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[20]">
-            <obj_property name="ElementShortName">[20][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[20][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[21]">
-            <obj_property name="ElementShortName">[21][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[21][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[22]">
-            <obj_property name="ElementShortName">[22][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[22][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[23]">
-            <obj_property name="ElementShortName">[23][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[23][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[24]">
-            <obj_property name="ElementShortName">[24][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[24][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[25]">
-            <obj_property name="ElementShortName">[25][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[25][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[26]">
-            <obj_property name="ElementShortName">[26][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[26][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[27]">
-            <obj_property name="ElementShortName">[27][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[27][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[28]">
-            <obj_property name="ElementShortName">[28][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[28][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[29]">
-            <obj_property name="ElementShortName">[29][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[29][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/TestFirWishBone/uut/y_pipe[30]">
-            <obj_property name="ElementShortName">[30][31:0]</obj_property>
-            <obj_property name="ObjectShortName">[30][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-         </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/y_pipe" type="array">
+         <obj_property name="ElementShortName">y_pipe[0:16][31:0]</obj_property>
+         <obj_property name="ObjectShortName">y_pipe[0:16][31:0]</obj_property>
       </wvobject>
-      <wvobject type="logic" fp_name="/TestFirWishBone/uut/filterClock">
+      <wvobject fp_name="/TestFirWishBone/uut/filterClock" type="logic">
          <obj_property name="ElementShortName">filterClock</obj_property>
          <obj_property name="ObjectShortName">filterClock</obj_property>
       </wvobject>
-      <wvobject type="other" fp_name="/TestFirWishBone/uut/order">
-         <obj_property name="ElementShortName">order</obj_property>
-         <obj_property name="ObjectShortName">order</obj_property>
-      </wvobject>
-      <wvobject type="other" fp_name="/TestFirWishBone/uut/uWidth">
-         <obj_property name="ElementShortName">uWidth</obj_property>
-         <obj_property name="ObjectShortName">uWidth</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/TestFirWishBone/uut/b">
-         <obj_property name="ElementShortName">b[0:30][15:0]</obj_property>
-         <obj_property name="ObjectShortName">b[0:30][15:0]</obj_property>
+      <wvobject fp_name="/TestFirWishBone/uut/b_signal" type="array">
+         <obj_property name="ElementShortName">b_signal[0:16][15:0]</obj_property>
+         <obj_property name="ObjectShortName">b_signal[0:16][15:0]</obj_property>
       </wvobject>
    </wvobject>
 </wave_config>
