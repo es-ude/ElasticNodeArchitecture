@@ -1,0 +1,1820 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="TestSignedANN_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="TestSignedANN" />
+            <top_module name="common" />
+            <top_module name="userlogicinterface" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="2702125001fs"></ZoomEndTime>
+      <Cursor1Time time="2702125000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="212"></NameColumnWidth>
+      <ValueColumnWidth column_width="268"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="7" />
+   <wvobject fp_name="group275" type="group">
+      <obj_property name="label">test</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/TestSignedANN/clk_s" type="logic">
+         <obj_property name="ElementShortName">clk_s</obj_property>
+         <obj_property name="ObjectShortName">clk_s</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/learn" type="logic">
+         <obj_property name="ElementShortName">learn</obj_property>
+         <obj_property name="ObjectShortName">learn</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/data_rdy" type="logic">
+         <obj_property name="ElementShortName">data_rdy</obj_property>
+         <obj_property name="ObjectShortName">data_rdy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/calculate" type="logic">
+         <obj_property name="ElementShortName">calculate</obj_property>
+         <obj_property name="ObjectShortName">calculate</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/ul_busy" type="logic">
+         <obj_property name="ElementShortName">ul_busy</obj_property>
+         <obj_property name="ObjectShortName">ul_busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/wanted" type="array">
+         <obj_property name="ElementShortName">wanted[3:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/conn_in" type="array">
+         <obj_property name="ElementShortName">conn_in[3:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_in[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/conn_out" type="array">
+         <obj_property name="ElementShortName">conn_out[3:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_out[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/weights_wr" type="logic">
+         <obj_property name="ElementShortName">weights_wr</obj_property>
+         <obj_property name="ObjectShortName">weights_wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/weights" type="array">
+         <obj_property name="ElementShortName">weights[255:0]</obj_property>
+         <obj_property name="ObjectShortName">weights[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/busy" type="other">
+         <obj_property name="ElementShortName">busy</obj_property>
+         <obj_property name="ObjectShortName">busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/repeatCount" type="other">
+         <obj_property name="ElementShortName">repeatCount</obj_property>
+         <obj_property name="ObjectShortName">repeatCount</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/debug" type="array">
+         <obj_property name="ElementShortName">debug[7:0]</obj_property>
+         <obj_property name="ObjectShortName">debug[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/period" type="other">
+         <obj_property name="ElementShortName">period</obj_property>
+         <obj_property name="ObjectShortName">period</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/NUM_LOOPS" type="other">
+         <obj_property name="ElementShortName">NUM_LOOPS</obj_property>
+         <obj_property name="ObjectShortName">NUM_LOOPS</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group303" type="group">
+      <obj_property name="label">uut</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestSignedANN/uut/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/learn" type="logic">
+         <obj_property name="ElementShortName">learn</obj_property>
+         <obj_property name="ObjectShortName">learn</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/data_rdy" type="logic">
+         <obj_property name="ElementShortName">data_rdy</obj_property>
+         <obj_property name="ObjectShortName">data_rdy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/busy" type="logic">
+         <obj_property name="ElementShortName">busy</obj_property>
+         <obj_property name="ObjectShortName">busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/calculate" type="logic">
+         <obj_property name="ElementShortName">calculate</obj_property>
+         <obj_property name="ObjectShortName">calculate</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/connections_in" type="array">
+         <obj_property name="ElementShortName">connections_in[3:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in[3:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/connections_out" type="array">
+         <obj_property name="ElementShortName">connections_out[3:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out[3:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/wanted" type="array">
+         <obj_property name="ElementShortName">wanted[3:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted[3:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/weights_wr_en" type="logic">
+         <obj_property name="ElementShortName">weights_wr_en</obj_property>
+         <obj_property name="ObjectShortName">weights_wr_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/weights" type="array">
+         <obj_property name="ElementShortName">weights[255:0]</obj_property>
+         <obj_property name="ObjectShortName">weights[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/debug" type="array">
+         <obj_property name="ElementShortName">debug[7:0]</obj_property>
+         <obj_property name="ObjectShortName">debug[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/hidden_connections_out_fp" type="array">
+         <obj_property name="ElementShortName">hidden_connections_out_fp[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">hidden_connections_out_fp[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/err_out" type="array">
+         <obj_property name="ElementShortName">err_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">err_out[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/data_rdy_s" type="logic">
+         <obj_property name="ElementShortName">data_rdy_s</obj_property>
+         <obj_property name="ObjectShortName">data_rdy_s</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/mode_out_signal" type="other">
+         <obj_property name="ElementShortName">mode_out_signal</obj_property>
+         <obj_property name="ObjectShortName">mode_out_signal</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/mode_out_signal_delay" type="other">
+         <obj_property name="ElementShortName">mode_out_signal_delay</obj_property>
+         <obj_property name="ObjectShortName">mode_out_signal_delay</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/n_feedback_bus" type="array">
+         <obj_property name="ElementShortName">n_feedback_bus[3:0]</obj_property>
+         <obj_property name="ObjectShortName">n_feedback_bus[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/n_feedback" type="other">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/n_feedback_buffered" type="other">
+         <obj_property name="ElementShortName">n_feedback_buffered</obj_property>
+         <obj_property name="ObjectShortName">n_feedback_buffered</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/current_layer" type="array">
+         <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/current_neuron" type="array">
+         <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/connections_in_fp" type="array">
+         <obj_property name="ElementShortName">connections_in_fp[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in_fp[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/wanted_fp" type="array">
+         <obj_property name="ElementShortName">wanted_fp[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted_fp[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/connections_out_fp" type="array">
+         <obj_property name="ElementShortName">connections_out_fp[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out_fp[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/error_out" type="array">
+         <obj_property name="ElementShortName">error_out[15:0]</obj_property>
+         <obj_property name="ObjectShortName">error_out[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/error_out_abs" type="array">
+         <obj_property name="ElementShortName">error_out_abs[15:0]</obj_property>
+         <obj_property name="ObjectShortName">error_out_abs[15:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group328" type="group">
+      <obj_property name="label">ann</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">10</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestSignedANN/uut/ann/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/learn" type="logic">
+         <obj_property name="ElementShortName">learn</obj_property>
+         <obj_property name="ObjectShortName">learn</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/data_rdy" type="logic">
+         <obj_property name="ElementShortName">data_rdy</obj_property>
+         <obj_property name="ObjectShortName">data_rdy</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/busy" type="logic">
+         <obj_property name="ElementShortName">busy</obj_property>
+         <obj_property name="ObjectShortName">busy</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/calculate" type="logic">
+         <obj_property name="ElementShortName">calculate</obj_property>
+         <obj_property name="ObjectShortName">calculate</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/connections_in_fp" type="array">
+         <obj_property name="ElementShortName">connections_in_fp[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in_fp[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/TestSignedANN/uut/ann/connections_in_fp[3]" type="array">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/connections_in_fp[2]" type="array">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/connections_in_fp[1]" type="array">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/connections_in_fp[0]" type="array">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/connections_out_fp" type="array">
+         <obj_property name="ElementShortName">connections_out_fp[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out_fp[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/TestSignedANN/uut/ann/connections_out_fp[3]" type="array">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/connections_out_fp[2]" type="array">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/connections_out_fp[1]" type="array">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/connections_out_fp[0]" type="array">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/wanted_fp" type="array">
+         <obj_property name="ElementShortName">wanted_fp[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted_fp[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/TestSignedANN/uut/ann/wanted_fp[3]" type="array">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/wanted_fp[2]" type="array">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/wanted_fp[1]" type="array">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/wanted_fp[0]" type="array">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/weights_wr_en" type="logic">
+         <obj_property name="ElementShortName">weights_wr_en</obj_property>
+         <obj_property name="ObjectShortName">weights_wr_en</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/weights" type="array">
+         <obj_property name="ElementShortName">weights[255:0]</obj_property>
+         <obj_property name="ObjectShortName">weights[255:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/debug" type="array">
+         <obj_property name="ElementShortName">debug[7:0]</obj_property>
+         <obj_property name="ObjectShortName">debug[7:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_connections_out_fp" type="array">
+         <obj_property name="ElementShortName">hidden_connections_out_fp[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">hidden_connections_out_fp[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_connections_out_fp[3]" type="array">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_connections_out_fp[2]" type="array">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_connections_out_fp[1]" type="array">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_connections_out_fp[0]" type="array">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/data_rdy_s" type="logic">
+         <obj_property name="ElementShortName">data_rdy_s</obj_property>
+         <obj_property name="ObjectShortName">data_rdy_s</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/mode_out_signal" type="other">
+         <obj_property name="ElementShortName">mode_out_signal</obj_property>
+         <obj_property name="ObjectShortName">mode_out_signal</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/mode_out_signal_delay" type="other">
+         <obj_property name="ElementShortName">mode_out_signal_delay</obj_property>
+         <obj_property name="ObjectShortName">mode_out_signal_delay</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/n_feedback_bus" type="array">
+         <obj_property name="ElementShortName">n_feedback_bus[3:0]</obj_property>
+         <obj_property name="ObjectShortName">n_feedback_bus[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/n_feedback" type="other">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/n_feedback_buffered" type="other">
+         <obj_property name="ElementShortName">n_feedback_buffered</obj_property>
+         <obj_property name="ObjectShortName">n_feedback_buffered</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/current_layer" type="array">
+         <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/current_neuron" type="array">
+         <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/error_out" type="array">
+         <obj_property name="ElementShortName">error_out[15:0]</obj_property>
+         <obj_property name="ObjectShortName">error_out[15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+         <obj_property name="CellHeight">100</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_FIXED</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">1.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/error_out_abs" type="array">
+         <obj_property name="ElementShortName">error_out_abs[15:0]</obj_property>
+         <obj_property name="ObjectShortName">error_out_abs[15:0]</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+         <obj_property name="CellHeight">100</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_FIXED</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">1.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group661" type="group">
+      <obj_property name="label">hidden</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/n_feedback" type="other">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/current_layer" type="array">
+         <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/current_neuron" type="array">
+         <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/dist_mode" type="other">
+         <obj_property name="ElementShortName">dist_mode</obj_property>
+         <obj_property name="ObjectShortName">dist_mode</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/connections_in" type="array">
+         <obj_property name="ElementShortName">connections_in[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in[3:0][15:0]</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/connections_out" type="array">
+         <obj_property name="ElementShortName">connections_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out[3:0][15:0]</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/wanted" type="array">
+         <obj_property name="ElementShortName">wanted[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted[3:0][15:0]</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/weights_wr_en" type="logic">
+         <obj_property name="ElementShortName">weights_wr_en</obj_property>
+         <obj_property name="ObjectShortName">weights_wr_en</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/errors_accrue_s" type="array">
+         <obj_property name="ElementShortName">errors_accrue_s[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">errors_accrue_s[3:0][15:0]</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/err_in" type="array">
+         <obj_property name="ElementShortName">err_in[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">err_in[3:0][15:0]</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/err_out" type="array">
+         <obj_property name="ElementShortName">err_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">err_out[3:0][15:0]</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/n_feedback_s" type="other">
+         <obj_property name="ElementShortName">n_feedback_s</obj_property>
+         <obj_property name="ObjectShortName">n_feedback_s</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="group699" type="group">
+         <obj_property name="label">weight</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/weights_wr_a" type="logic">
+            <obj_property name="ElementShortName">weights_wr_a</obj_property>
+            <obj_property name="ObjectShortName">weights_wr_a</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/weights_wr_b" type="logic">
+            <obj_property name="ElementShortName">weights_wr_b</obj_property>
+            <obj_property name="ObjectShortName">weights_wr_b</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/weights_wr_ext" type="logic">
+            <obj_property name="ElementShortName">weights_wr_ext</obj_property>
+            <obj_property name="ObjectShortName">weights_wr_ext</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/weights_address_a" type="array">
+            <obj_property name="ElementShortName">weights_address_a[1:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_address_a[1:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/weights_address_b" type="array">
+            <obj_property name="ElementShortName">weights_address_b[1:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_address_b[1:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/weights_din_a" type="array">
+            <obj_property name="ElementShortName">weights_din_a[255:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_din_a[255:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/weights_din_b" type="array">
+            <obj_property name="ElementShortName">weights_din_b[255:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_din_b[255:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/weights_din_ann" type="array">
+            <obj_property name="ElementShortName">weights_din_ann[255:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_din_ann[255:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/weights_din_ext" type="array">
+            <obj_property name="ElementShortName">weights_din_ext[255:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_din_ext[255:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/weights_dout_a" type="array">
+            <obj_property name="ElementShortName">weights_dout_a[255:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_dout_a[255:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/weights_dout_b" type="array">
+            <obj_property name="ElementShortName">weights_dout_b[255:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_dout_b[255:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/weights_in" type="array">
+            <obj_property name="ElementShortName">weights_in[3:0][3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_in[3:0][3:0][15:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/weights_out" type="array">
+            <obj_property name="ElementShortName">weights_out[3:0][3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">weights_out[3:0][3:0][15:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/weights" type="array">
+            <obj_property name="ElementShortName">weights[255:0]</obj_property>
+            <obj_property name="ObjectShortName">weights[255:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/invert_clk" type="logic">
+         <obj_property name="ElementShortName">invert_clk</obj_property>
+         <obj_property name="ObjectShortName">invert_clk</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/reset_counter" type="array">
+         <obj_property name="ElementShortName">reset_counter[1:0]</obj_property>
+         <obj_property name="ObjectShortName">reset_counter[1:0]</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="group697" type="group">
+         <obj_property name="label">conn</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/conn_wr" type="logic">
+            <obj_property name="ElementShortName">conn_wr</obj_property>
+            <obj_property name="ObjectShortName">conn_wr</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/conn_address_a" type="array">
+            <obj_property name="ElementShortName">conn_address_a[1:0]</obj_property>
+            <obj_property name="ObjectShortName">conn_address_a[1:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/conn_address_b" type="array">
+            <obj_property name="ElementShortName">conn_address_b[1:0]</obj_property>
+            <obj_property name="ObjectShortName">conn_address_b[1:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/conn_wr_din" type="array">
+            <obj_property name="ElementShortName">conn_wr_din[63:0]</obj_property>
+            <obj_property name="ObjectShortName">conn_wr_din[63:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/conn_rd_dout_a" type="array">
+            <obj_property name="ElementShortName">conn_rd_dout_a[63:0]</obj_property>
+            <obj_property name="ObjectShortName">conn_rd_dout_a[63:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/conn_rd_dout_b" type="array">
+            <obj_property name="ElementShortName">conn_rd_dout_b[63:0]</obj_property>
+            <obj_property name="ObjectShortName">conn_rd_dout_b[63:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/conn_write" type="array">
+            <obj_property name="ElementShortName">conn_write[3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">conn_write[3:0][15:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/conn_rd_b" type="array">
+            <obj_property name="ElementShortName">conn_rd_b[3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">conn_rd_b[3:0][15:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/conn_feedback" type="array">
+            <obj_property name="ElementShortName">conn_feedback[3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">conn_feedback[3:0][15:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/conn_in" type="array">
+            <obj_property name="ElementShortName">conn_in[3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">conn_in[3:0][15:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/conn_out" type="array">
+            <obj_property name="ElementShortName">conn_out[3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">conn_out[3:0][15:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/conn_out_prev" type="array">
+            <obj_property name="ElementShortName">conn_out_prev[3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">conn_out_prev[3:0][15:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group698" type="group">
+         <obj_property name="label">bias</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/bias_wr" type="logic">
+            <obj_property name="ElementShortName">bias_wr</obj_property>
+            <obj_property name="ObjectShortName">bias_wr</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/bias_rd_address" type="array">
+            <obj_property name="ElementShortName">bias_rd_address[1:0]</obj_property>
+            <obj_property name="ObjectShortName">bias_rd_address[1:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/bias_wr_address" type="array">
+            <obj_property name="ElementShortName">bias_wr_address[1:0]</obj_property>
+            <obj_property name="ObjectShortName">bias_wr_address[1:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/bias_din" type="array">
+            <obj_property name="ElementShortName">bias_din[63:0]</obj_property>
+            <obj_property name="ObjectShortName">bias_din[63:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/bias_dout" type="array">
+            <obj_property name="ElementShortName">bias_dout[63:0]</obj_property>
+            <obj_property name="ObjectShortName">bias_dout[63:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/biases_in" type="array">
+            <obj_property name="ElementShortName">biases_in[3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">biases_in[3:0][15:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/biases_out" type="array">
+            <obj_property name="ElementShortName">biases_out[3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">biases_out[3:0][15:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/bias_in" type="array">
+            <obj_property name="ElementShortName">bias_in[3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">bias_in[3:0][15:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/bias_out" type="array">
+            <obj_property name="ElementShortName">bias_out[3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">bias_out[3:0][15:0]</obj_property>
+            <obj_property name="Reversed">false</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/current_layer_sample_signal" type="array">
+         <obj_property name="ElementShortName">current_layer_sample_signal[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer_sample_signal[7:0]</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/current_neuron_sample_signal" type="array">
+         <obj_property name="ElementShortName">current_neuron_sample_signal[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_neuron_sample_signal[7:0]</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/WEIGHTS_RAM_WIDTH" type="other">
+         <obj_property name="ElementShortName">WEIGHTS_RAM_WIDTH</obj_property>
+         <obj_property name="ObjectShortName">WEIGHTS_RAM_WIDTH</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/CONN_RAM_WIDTH" type="other">
+         <obj_property name="ElementShortName">CONN_RAM_WIDTH</obj_property>
+         <obj_property name="ObjectShortName">CONN_RAM_WIDTH</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/BIAS_RAM_WIDTH" type="other">
+         <obj_property name="ElementShortName">BIAS_RAM_WIDTH</obj_property>
+         <obj_property name="ObjectShortName">BIAS_RAM_WIDTH</obj_property>
+         <obj_property name="Reversed">false</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group1245" type="group">
+      <obj_property name="label">dist</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestSignedANN/uut/ann/distr/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/distr/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/distr/learn" type="logic">
+         <obj_property name="ElementShortName">learn</obj_property>
+         <obj_property name="ObjectShortName">learn</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/distr/calculate" type="logic">
+         <obj_property name="ElementShortName">calculate</obj_property>
+         <obj_property name="ObjectShortName">calculate</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/distr/n_feedback_bus" type="array">
+         <obj_property name="ElementShortName">n_feedback_bus[3:0]</obj_property>
+         <obj_property name="ObjectShortName">n_feedback_bus[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/distr/n_feedback" type="other">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/distr/current_layer" type="array">
+         <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/distr/current_neuron" type="array">
+         <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/distr/data_rdy" type="logic">
+         <obj_property name="ElementShortName">data_rdy</obj_property>
+         <obj_property name="ObjectShortName">data_rdy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/distr/mode_out" type="other">
+         <obj_property name="ElementShortName">mode_out</obj_property>
+         <obj_property name="ObjectShortName">mode_out</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/distr/mode" type="other">
+         <obj_property name="ElementShortName">mode</obj_property>
+         <obj_property name="ObjectShortName">mode</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group696" type="group">
+      <obj_property name="label">layer</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/n_feedback" type="other">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/dist_mode" type="other">
+         <obj_property name="ElementShortName">dist_mode</obj_property>
+         <obj_property name="ObjectShortName">dist_mode</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/current_layer" type="array">
+         <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/current_neuron" type="array">
+         <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/connections_in" type="array">
+         <obj_property name="ElementShortName">connections_in[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/connections_in[3]" type="array">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/connections_in[2]" type="array">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/connections_in[1]" type="array">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/connections_in[0]" type="array">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/connections_out" type="array">
+         <obj_property name="ElementShortName">connections_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/connections_out[3]" type="array">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/connections_out[2]" type="array">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/connections_out[1]" type="array">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/connections_out[0]" type="array">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/connections_out_prev" type="array">
+         <obj_property name="ElementShortName">connections_out_prev[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out_prev[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/connections_out_prev[3]" type="array">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/connections_out_prev[2]" type="array">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/connections_out_prev[1]" type="array">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/connections_out_prev[0]" type="array">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/errors_in" type="array">
+         <obj_property name="ElementShortName">errors_in[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">errors_in[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/errors_in[3]" type="array">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/errors_in[2]" type="array">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/errors_in[1]" type="array">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/errors_in[0]" type="array">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/errors_out" type="array">
+         <obj_property name="ElementShortName">errors_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">errors_out[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/errors_out[3]" type="array">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/errors_out[2]" type="array">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/errors_out[1]" type="array">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/errors_out[0]" type="array">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/weights_in" type="array">
+         <obj_property name="ElementShortName">weights_in[3:0][3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_in[3:0][3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/weights_in[3]" type="array">
+            <obj_property name="ElementShortName">[3][3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][3:0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/weights_in[2]" type="array">
+            <obj_property name="ElementShortName">[2][3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][3:0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/weights_in[1]" type="array">
+            <obj_property name="ElementShortName">[1][3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][3:0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/weights_in[0]" type="array">
+            <obj_property name="ElementShortName">[0][3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][3:0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/weights_out" type="array">
+         <obj_property name="ElementShortName">weights_out[3:0][3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_out[3:0][3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/weights_out[3]" type="array">
+            <obj_property name="ElementShortName">[3][3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][3:0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/weights_out[2]" type="array">
+            <obj_property name="ElementShortName">[2][3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][3:0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/weights_out[1]" type="array">
+            <obj_property name="ElementShortName">[1][3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][3:0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/weights_out[0]" type="array">
+            <obj_property name="ElementShortName">[0][3:0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][3:0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/biases_in" type="array">
+         <obj_property name="ElementShortName">biases_in[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">biases_in[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/biases_in[3]" type="array">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/biases_in[2]" type="array">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/biases_in[1]" type="array">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/biases_in[0]" type="array">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/biases_out" type="array">
+         <obj_property name="ElementShortName">biases_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">biases_out[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/biases_out[3]" type="array">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/biases_out[2]" type="array">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/biases_out[1]" type="array">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/biases_out[0]" type="array">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/reset_mux" type="logic">
+         <obj_property name="ElementShortName">reset_mux</obj_property>
+         <obj_property name="ObjectShortName">reset_mux</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neuron_clk" type="logic">
+         <obj_property name="ElementShortName">neuron_clk</obj_property>
+         <obj_property name="ObjectShortName">neuron_clk</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/mux_clk" type="logic">
+         <obj_property name="ElementShortName">mux_clk</obj_property>
+         <obj_property name="ObjectShortName">mux_clk</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/muxEn" type="logic">
+         <obj_property name="ElementShortName">muxEn</obj_property>
+         <obj_property name="ObjectShortName">muxEn</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/conn_in" type="array">
+         <obj_property name="ElementShortName">conn_in[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_in[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/error_out" type="array">
+         <obj_property name="ElementShortName">error_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">error_out[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/weight_in" type="array">
+         <obj_property name="ElementShortName">weight_in[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">weight_in[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/weight_out" type="array">
+         <obj_property name="ElementShortName">weight_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">weight_out[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/conn_out" type="array">
+         <obj_property name="ElementShortName">conn_out[15:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_out[15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/error_in" type="array">
+         <obj_property name="ElementShortName">error_in[15:0]</obj_property>
+         <obj_property name="ObjectShortName">error_in[15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/conn_out_prev" type="array">
+         <obj_property name="ElementShortName">conn_out_prev[15:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_out_prev[15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/current_neuron_int" type="other">
+         <obj_property name="ElementShortName">current_neuron_int</obj_property>
+         <obj_property name="ObjectShortName">current_neuron_int</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/next_neuron_int" type="other">
+         <obj_property name="ElementShortName">next_neuron_int</obj_property>
+         <obj_property name="ObjectShortName">next_neuron_int</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/previous_neuron_int" type="other">
+         <obj_property name="ElementShortName">previous_neuron_int</obj_property>
+         <obj_property name="ObjectShortName">previous_neuron_int</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/bias_in" type="array">
+         <obj_property name="ElementShortName">bias_in[15:0]</obj_property>
+         <obj_property name="ObjectShortName">bias_in[15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/bias_out" type="array">
+         <obj_property name="ElementShortName">bias_out[15:0]</obj_property>
+         <obj_property name="ObjectShortName">bias_out[15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/next_neuron" type="array">
+         <obj_property name="ElementShortName">next_neuron[7:0]</obj_property>
+         <obj_property name="ObjectShortName">next_neuron[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/output_previous_buffer" type="array">
+         <obj_property name="ElementShortName">output_previous_buffer[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">output_previous_buffer[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/errors_out_seq" type="array">
+         <obj_property name="ElementShortName">errors_out_seq[15:0]</obj_property>
+         <obj_property name="ObjectShortName">errors_out_seq[15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group725" type="group">
+      <obj_property name="label">neuron</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/n_feedback" type="other">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/current_layer" type="array">
+         <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/current_neuron" type="array">
+         <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/input_connections" type="array">
+         <obj_property name="ElementShortName">input_connections[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">input_connections[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/input_error" type="array">
+         <obj_property name="ElementShortName">input_error[15:0]</obj_property>
+         <obj_property name="ObjectShortName">input_error[15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/output_errors" type="array">
+         <obj_property name="ElementShortName">output_errors[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">output_errors[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/output_connection" type="array">
+         <obj_property name="ElementShortName">output_connection[15:0]</obj_property>
+         <obj_property name="ObjectShortName">output_connection[15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/output_previous" type="array">
+         <obj_property name="ElementShortName">output_previous[15:0]</obj_property>
+         <obj_property name="ObjectShortName">output_previous[15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/weights_in" type="array">
+         <obj_property name="ElementShortName">weights_in[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_in[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/weights_out" type="array">
+         <obj_property name="ElementShortName">weights_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_out[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/bias_in" type="array">
+         <obj_property name="ElementShortName">bias_in[15:0]</obj_property>
+         <obj_property name="ObjectShortName">bias_in[15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/bias_out" type="array">
+         <obj_property name="ElementShortName">bias_out[15:0]</obj_property>
+         <obj_property name="ObjectShortName">bias_out[15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/delta_signal" type="array">
+         <obj_property name="ElementShortName">delta_signal[15:0]</obj_property>
+         <obj_property name="ObjectShortName">delta_signal[15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/output_factor_s" type="array">
+         <obj_property name="ElementShortName">output_factor_s[15:0]</obj_property>
+         <obj_property name="ObjectShortName">output_factor_s[15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/lastHidden_s" type="other">
+         <obj_property name="ElementShortName">lastHidden_s</obj_property>
+         <obj_property name="ObjectShortName">lastHidden_s</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/tf_signal" type="array">
+         <obj_property name="ElementShortName">tf_signal[15:0]</obj_property>
+         <obj_property name="ObjectShortName">tf_signal[15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/output_connection_signal" type="array">
+         <obj_property name="ElementShortName">output_connection_signal[15:0]</obj_property>
+         <obj_property name="ObjectShortName">output_connection_signal[15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/output_layer" type="logic">
+         <obj_property name="ElementShortName">output_layer</obj_property>
+         <obj_property name="ObjectShortName">output_layer</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/index" type="other">
+         <obj_property name="ElementShortName">index</obj_property>
+         <obj_property name="ObjectShortName">index</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/first_hidden_layer_s" type="other">
+         <obj_property name="ElementShortName">first_hidden_layer_s</obj_property>
+         <obj_property name="ObjectShortName">first_hidden_layer_s</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/TEMP" type="array">
+         <obj_property name="ElementShortName">TEMP[31:0]</obj_property>
+         <obj_property name="ObjectShortName">TEMP[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/TEMP2" type="array">
+         <obj_property name="ElementShortName">TEMP2[15:0]</obj_property>
+         <obj_property name="ObjectShortName">TEMP2[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANN/uut/ann/hidden_layers/lay/neur/TEMP3" type="array">
+         <obj_property name="ElementShortName">TEMP3[9:0]</obj_property>
+         <obj_property name="ObjectShortName">TEMP3[9:0]</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

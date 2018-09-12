@@ -197,9 +197,9 @@ mw: entity work.middleware(Behavioral)
 	-- ul: entity vectordotproduct.VectorDotproductSkeleton(Behavioral) port map
 	-- ul: entity matrixmultiplication.MatrixMultiplicationSkeleton(Behavioral) port map
 	-- ul: entity neuralnetwork.NeuralNetworkSkeleton(Behavioral) generic map (1) port map
-	-- ul: entity neuralnetwork.NetworkSkeleton(Behavioral) generic map (1) port map
+	ul: entity neuralnetwork.SignedANNSkeleton(Behavioral) port map
 	-- ul: entity work.KeyboardSkeleton(Behavioral) port map
-	ul: entity work.FirWishboneSkeleton(Behavioral) port map
+	--ul: entity work.FirWishboneSkeleton(Behavioral) port map
 		(
 			invert_clk, userlogic_reset, userlogic_busy_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out --, calculate, debug --, kb_leds
 		);

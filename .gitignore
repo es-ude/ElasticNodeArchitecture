@@ -151,6 +151,7 @@ _xmsgs/
 #########
 #Constraint files
 #########
+*/synth_1/*
 #Do NOT ignore *.xdc files
 !*.xdc
 #########

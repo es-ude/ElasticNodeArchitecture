@@ -44,6 +44,10 @@ if __name__ == '__main__':
 	output.append('library work;')
 	output.append('use work.Common.all;')
 
+	output.append('library fpgamiddlewarelibs;')
+	output.append('use fpgamiddlewarelibs.userlogicinterface.all;')
+
+
 	output.append('')
 	output.append('entity Sigmoid is')
 	output.append('port (')

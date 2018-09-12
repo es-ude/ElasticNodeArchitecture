@@ -21,8 +21,11 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use ieee.numeric_std.all;
 
+
+library fpgamiddlewarelibs;
+use fpgamiddlewarelibs.userlogicinterface.all;
+
 library neuralnetwork;
---use DesignLab.all;
 use neuralnetwork.Common.all;
 -- important: each neuron assigns its errors to one vector in the matrix,
 -- therefore the output to a certain neuron needs to be a combination of all vectors 

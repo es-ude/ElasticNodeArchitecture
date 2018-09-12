@@ -64,16 +64,16 @@ architecture Behavioral of Layer is
 	signal reset_mux : std_logic;
 	
 	-- signal errors_out, errors_in : fixed_point
-	component sumMux
-		port (
-			reset		:	in std_logic;
-			clk			:	in std_logic;
-			en 			:	in std_logic;
-			index		:	in integer range 0 to maxWidth-1;
-			errors_in	:	in fixed_point_vector;
-			errors_out	: 	out fixed_point_vector
-			);
-	end component;
+	--component sumMux
+	--	port (
+	--		reset		:	in std_logic;
+	--		clk			:	in std_logic;
+	--		en 			:	in std_logic;
+	--		index		:	in integer range 0 to maxWidth-1;
+	--		errors_in	:	in fixed_point_vector;
+	--		errors_out	: 	out fixed_point_vector
+	--		);
+	--end component;
 
 	--component Neuron
 	--	-- generic ( 
@@ -253,7 +253,8 @@ begin
 --		end if;
 --	end process;
 	
-	mux : sumMux port map
+mux : 
+	entity neuralnetwork.sumMux(Behavioral) port map
 	(
 		reset => reset_mux,
 		clk => clk,
@@ -274,7 +275,7 @@ begin
 --		index => i
 --	)
 neur:
-	entity work.Neuron(Behavioral)
+	entity neuralnetwork.Neuron(Behavioral)
 	port map 
 	(
 		clk => neuron_clk, 

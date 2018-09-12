@@ -1,0 +1,730 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="TestSignedANNSkeleton_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="TestSignedANNSkeleton" />
+            <top_module name="common" />
+            <top_module name="procedures" />
+            <top_module name="userlogicinterface" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="100000000000001fs"></ZoomEndTime>
+      <Cursor1Time time="29000980000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="212"></NameColumnWidth>
+      <ValueColumnWidth column_width="264"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="5" />
+   <wvobject fp_name="group778" type="group">
+      <obj_property name="label">test</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestSignedANNSkeleton/clock" type="logic">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/ready" type="logic">
+         <obj_property name="ElementShortName">ready</obj_property>
+         <obj_property name="ObjectShortName">ready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/busy" type="logic">
+         <obj_property name="ElementShortName">busy</obj_property>
+         <obj_property name="ObjectShortName">busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/rd" type="logic">
+         <obj_property name="ElementShortName">rd</obj_property>
+         <obj_property name="ObjectShortName">rd</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/wr" type="logic">
+         <obj_property name="ElementShortName">wr</obj_property>
+         <obj_property name="ObjectShortName">wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/address_in" type="array">
+         <obj_property name="ElementShortName">address_in[15:0]</obj_property>
+         <obj_property name="ObjectShortName">address_in[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/data_in" type="array">
+         <obj_property name="ElementShortName">data_in[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_in[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/data_out" type="array">
+         <obj_property name="ElementShortName">data_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_out[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/sim_busy" type="other">
+         <obj_property name="ElementShortName">sim_busy</obj_property>
+         <obj_property name="ObjectShortName">sim_busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/clock_period" type="other">
+         <obj_property name="ElementShortName">clock_period</obj_property>
+         <obj_property name="ObjectShortName">clock_period</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group801" type="group">
+      <obj_property name="label">uut</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/clock" type="logic">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/busy" type="logic">
+         <obj_property name="ElementShortName">busy</obj_property>
+         <obj_property name="ObjectShortName">busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/rd" type="logic">
+         <obj_property name="ElementShortName">rd</obj_property>
+         <obj_property name="ObjectShortName">rd</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/wr" type="logic">
+         <obj_property name="ElementShortName">wr</obj_property>
+         <obj_property name="ObjectShortName">wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/data_in" type="array">
+         <obj_property name="ElementShortName">data_in[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_in[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/address_in" type="array">
+         <obj_property name="ElementShortName">address_in[15:0]</obj_property>
+         <obj_property name="ObjectShortName">address_in[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/data_out" type="array">
+         <obj_property name="ElementShortName">data_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_out[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/calculate_out" type="logic">
+         <obj_property name="ElementShortName">calculate_out</obj_property>
+         <obj_property name="ObjectShortName">calculate_out</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/debug" type="array">
+         <obj_property name="ElementShortName">debug[7:0]</obj_property>
+         <obj_property name="ObjectShortName">debug[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/learn" type="logic">
+         <obj_property name="ElementShortName">learn</obj_property>
+         <obj_property name="ObjectShortName">learn</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/data_rdy" type="logic">
+         <obj_property name="ElementShortName">data_rdy</obj_property>
+         <obj_property name="ObjectShortName">data_rdy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/calculate" type="logic">
+         <obj_property name="ElementShortName">calculate</obj_property>
+         <obj_property name="ObjectShortName">calculate</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/connections_in" type="array">
+         <obj_property name="ElementShortName">connections_in[3:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/wanted" type="array">
+         <obj_property name="ElementShortName">wanted[3:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/connections_out" type="array">
+         <obj_property name="ElementShortName">connections_out[3:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/run_counter" type="array">
+         <obj_property name="ElementShortName">run_counter[15:0]</obj_property>
+         <obj_property name="ObjectShortName">run_counter[15:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/half_clock" type="logic">
+         <obj_property name="ElementShortName">half_clock</obj_property>
+         <obj_property name="ObjectShortName">half_clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/busy_signal" type="logic">
+         <obj_property name="ElementShortName">busy_signal</obj_property>
+         <obj_property name="ObjectShortName">busy_signal</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/weights" type="array">
+         <obj_property name="ElementShortName">weights[255:0]</obj_property>
+         <obj_property name="ObjectShortName">weights[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/weights_wr" type="logic">
+         <obj_property name="ElementShortName">weights_wr</obj_property>
+         <obj_property name="ObjectShortName">weights_wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/clk_divider" type="other">
+         <obj_property name="ElementShortName">clk_divider</obj_property>
+         <obj_property name="ObjectShortName">clk_divider</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group830" type="group">
+      <obj_property name="label">nn</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/learn" type="logic">
+         <obj_property name="ElementShortName">learn</obj_property>
+         <obj_property name="ObjectShortName">learn</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/data_rdy" type="logic">
+         <obj_property name="ElementShortName">data_rdy</obj_property>
+         <obj_property name="ObjectShortName">data_rdy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/busy" type="logic">
+         <obj_property name="ElementShortName">busy</obj_property>
+         <obj_property name="ObjectShortName">busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/calculate" type="logic">
+         <obj_property name="ElementShortName">calculate</obj_property>
+         <obj_property name="ObjectShortName">calculate</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/connections_in" type="array">
+         <obj_property name="ElementShortName">connections_in[3:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/connections_out" type="array">
+         <obj_property name="ElementShortName">connections_out[3:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/wanted" type="array">
+         <obj_property name="ElementShortName">wanted[3:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/weights_wr_en" type="logic">
+         <obj_property name="ElementShortName">weights_wr_en</obj_property>
+         <obj_property name="ObjectShortName">weights_wr_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/weights" type="array">
+         <obj_property name="ElementShortName">weights[255:0]</obj_property>
+         <obj_property name="ObjectShortName">weights[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/debug" type="array">
+         <obj_property name="ElementShortName">debug[7:0]</obj_property>
+         <obj_property name="ObjectShortName">debug[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/hidden_connections_out_fp" type="array">
+         <obj_property name="ElementShortName">hidden_connections_out_fp[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">hidden_connections_out_fp[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/err_out" type="array">
+         <obj_property name="ElementShortName">err_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">err_out[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/data_rdy_s" type="logic">
+         <obj_property name="ElementShortName">data_rdy_s</obj_property>
+         <obj_property name="ObjectShortName">data_rdy_s</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/n_feedback_bus" type="array">
+         <obj_property name="ElementShortName">n_feedback_bus[3:0]</obj_property>
+         <obj_property name="ObjectShortName">n_feedback_bus[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/n_feedback" type="other">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/n_feedback_buffered" type="other">
+         <obj_property name="ElementShortName">n_feedback_buffered</obj_property>
+         <obj_property name="ObjectShortName">n_feedback_buffered</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/current_layer" type="array">
+         <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/current_neuron" type="array">
+         <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/connections_in_fp" type="array">
+         <obj_property name="ElementShortName">connections_in_fp[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in_fp[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/wanted_fp" type="array">
+         <obj_property name="ElementShortName">wanted_fp[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted_fp[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/connections_out_fp" type="array">
+         <obj_property name="ElementShortName">connections_out_fp[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out_fp[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/weights_signal" type="array">
+         <obj_property name="ElementShortName">weights_signal[255:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_signal[255:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group857" type="group">
+      <obj_property name="label">ann</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/learn" type="logic">
+         <obj_property name="ElementShortName">learn</obj_property>
+         <obj_property name="ObjectShortName">learn</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/data_rdy" type="logic">
+         <obj_property name="ElementShortName">data_rdy</obj_property>
+         <obj_property name="ObjectShortName">data_rdy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/busy" type="logic">
+         <obj_property name="ElementShortName">busy</obj_property>
+         <obj_property name="ObjectShortName">busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/calculate" type="logic">
+         <obj_property name="ElementShortName">calculate</obj_property>
+         <obj_property name="ObjectShortName">calculate</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/connections_in_fp" type="array">
+         <obj_property name="ElementShortName">connections_in_fp[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in_fp[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/connections_in_fp[3]" type="array">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/connections_in_fp[2]" type="array">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/connections_in_fp[1]" type="array">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/connections_in_fp[0]" type="array">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/connections_out_fp" type="array">
+         <obj_property name="ElementShortName">connections_out_fp[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out_fp[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/connections_out_fp[3]" type="array">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/connections_out_fp[2]" type="array">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/connections_out_fp[1]" type="array">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/connections_out_fp[0]" type="array">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/wanted_fp" type="array">
+         <obj_property name="ElementShortName">wanted_fp[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted_fp[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/wanted_fp[3]" type="array">
+            <obj_property name="ElementShortName">[3][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/wanted_fp[2]" type="array">
+            <obj_property name="ElementShortName">[2][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/wanted_fp[1]" type="array">
+            <obj_property name="ElementShortName">[1][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/wanted_fp[0]" type="array">
+            <obj_property name="ElementShortName">[0][15:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">10</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/weights_wr_en" type="logic">
+         <obj_property name="ElementShortName">weights_wr_en</obj_property>
+         <obj_property name="ObjectShortName">weights_wr_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/weights" type="array">
+         <obj_property name="ElementShortName">weights[255:0]</obj_property>
+         <obj_property name="ObjectShortName">weights[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/debug" type="array">
+         <obj_property name="ElementShortName">debug[7:0]</obj_property>
+         <obj_property name="ObjectShortName">debug[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_connections_out_fp" type="array">
+         <obj_property name="ElementShortName">hidden_connections_out_fp[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">hidden_connections_out_fp[3:0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/err_out" type="array">
+         <obj_property name="ElementShortName">err_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">err_out[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/data_rdy_s" type="logic">
+         <obj_property name="ElementShortName">data_rdy_s</obj_property>
+         <obj_property name="ObjectShortName">data_rdy_s</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/mode_out_signal" type="other">
+         <obj_property name="ElementShortName">mode_out_signal</obj_property>
+         <obj_property name="ObjectShortName">mode_out_signal</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/mode_out_signal_delay" type="other">
+         <obj_property name="ElementShortName">mode_out_signal_delay</obj_property>
+         <obj_property name="ObjectShortName">mode_out_signal_delay</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/n_feedback_bus" type="array">
+         <obj_property name="ElementShortName">n_feedback_bus[3:0]</obj_property>
+         <obj_property name="ObjectShortName">n_feedback_bus[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/n_feedback" type="other">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/n_feedback_buffered" type="other">
+         <obj_property name="ElementShortName">n_feedback_buffered</obj_property>
+         <obj_property name="ObjectShortName">n_feedback_buffered</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/current_layer" type="array">
+         <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/current_neuron" type="array">
+         <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/error_out" type="array">
+         <obj_property name="ElementShortName">error_out[15:0]</obj_property>
+         <obj_property name="ObjectShortName">error_out[15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+         <obj_property name="CellHeight">100</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/error_out_abs" type="array">
+         <obj_property name="ElementShortName">error_out_abs[15:0]</obj_property>
+         <obj_property name="ObjectShortName">error_out_abs[15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+         <obj_property name="CellHeight">100</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/weights_signal" type="array">
+         <obj_property name="ElementShortName">weights_signal[255:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_signal[255:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group942" type="group">
+      <obj_property name="label">hidden</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/n_feedback" type="other">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/current_layer" type="array">
+         <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/current_neuron" type="array">
+         <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/dist_mode" type="other">
+         <obj_property name="ElementShortName">dist_mode</obj_property>
+         <obj_property name="ObjectShortName">dist_mode</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/connections_in" type="array">
+         <obj_property name="ElementShortName">connections_in[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/connections_out" type="array">
+         <obj_property name="ElementShortName">connections_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/wanted" type="array">
+         <obj_property name="ElementShortName">wanted[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_wr_en" type="logic">
+         <obj_property name="ElementShortName">weights_wr_en</obj_property>
+         <obj_property name="ObjectShortName">weights_wr_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights" type="array">
+         <obj_property name="ElementShortName">weights[255:0]</obj_property>
+         <obj_property name="ObjectShortName">weights[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/errors_accrue_s" type="array">
+         <obj_property name="ElementShortName">errors_accrue_s[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">errors_accrue_s[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_in" type="array">
+         <obj_property name="ElementShortName">weights_in[3:0][3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_in[3:0][3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_out" type="array">
+         <obj_property name="ElementShortName">weights_out[3:0][3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_out[3:0][3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_in" type="array">
+         <obj_property name="ElementShortName">conn_in[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_in[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_out" type="array">
+         <obj_property name="ElementShortName">conn_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_out[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_out_prev" type="array">
+         <obj_property name="ElementShortName">conn_out_prev[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_out_prev[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/err_in" type="array">
+         <obj_property name="ElementShortName">err_in[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">err_in[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/err_out" type="array">
+         <obj_property name="ElementShortName">err_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">err_out[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/bias_in" type="array">
+         <obj_property name="ElementShortName">bias_in[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">bias_in[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/bias_out" type="array">
+         <obj_property name="ElementShortName">bias_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">bias_out[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/n_feedback_s" type="other">
+         <obj_property name="ElementShortName">n_feedback_s</obj_property>
+         <obj_property name="ObjectShortName">n_feedback_s</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_wr_a" type="logic">
+         <obj_property name="ElementShortName">weights_wr_a</obj_property>
+         <obj_property name="ObjectShortName">weights_wr_a</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_wr_b" type="logic">
+         <obj_property name="ElementShortName">weights_wr_b</obj_property>
+         <obj_property name="ObjectShortName">weights_wr_b</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_wr_ext" type="logic">
+         <obj_property name="ElementShortName">weights_wr_ext</obj_property>
+         <obj_property name="ObjectShortName">weights_wr_ext</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_address_a" type="array">
+         <obj_property name="ElementShortName">weights_address_a[1:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_address_a[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_address_b" type="array">
+         <obj_property name="ElementShortName">weights_address_b[1:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_address_b[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_din_a" type="array">
+         <obj_property name="ElementShortName">weights_din_a[255:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_din_a[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_din_b" type="array">
+         <obj_property name="ElementShortName">weights_din_b[255:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_din_b[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_din_ann" type="array">
+         <obj_property name="ElementShortName">weights_din_ann[255:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_din_ann[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_din_ext" type="array">
+         <obj_property name="ElementShortName">weights_din_ext[255:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_din_ext[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_dout_a" type="array">
+         <obj_property name="ElementShortName">weights_dout_a[255:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_dout_a[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_dout_b" type="array">
+         <obj_property name="ElementShortName">weights_dout_b[255:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_dout_b[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/invert_clk" type="logic">
+         <obj_property name="ElementShortName">invert_clk</obj_property>
+         <obj_property name="ObjectShortName">invert_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/reset_counter" type="array">
+         <obj_property name="ElementShortName">reset_counter[1:0]</obj_property>
+         <obj_property name="ObjectShortName">reset_counter[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_wr" type="logic">
+         <obj_property name="ElementShortName">conn_wr</obj_property>
+         <obj_property name="ObjectShortName">conn_wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_address_a" type="array">
+         <obj_property name="ElementShortName">conn_address_a[1:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_address_a[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_address_b" type="array">
+         <obj_property name="ElementShortName">conn_address_b[1:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_address_b[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_wr_din" type="array">
+         <obj_property name="ElementShortName">conn_wr_din[63:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_wr_din[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_rd_dout_a" type="array">
+         <obj_property name="ElementShortName">conn_rd_dout_a[63:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_rd_dout_a[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_rd_dout_b" type="array">
+         <obj_property name="ElementShortName">conn_rd_dout_b[63:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_rd_dout_b[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_write" type="array">
+         <obj_property name="ElementShortName">conn_write[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_write[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_rd_b" type="array">
+         <obj_property name="ElementShortName">conn_rd_b[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_rd_b[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_feedback" type="array">
+         <obj_property name="ElementShortName">conn_feedback[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_feedback[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/bias_wr" type="logic">
+         <obj_property name="ElementShortName">bias_wr</obj_property>
+         <obj_property name="ObjectShortName">bias_wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/bias_rd_address" type="array">
+         <obj_property name="ElementShortName">bias_rd_address[1:0]</obj_property>
+         <obj_property name="ObjectShortName">bias_rd_address[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/bias_wr_address" type="array">
+         <obj_property name="ElementShortName">bias_wr_address[1:0]</obj_property>
+         <obj_property name="ObjectShortName">bias_wr_address[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/bias_din" type="array">
+         <obj_property name="ElementShortName">bias_din[63:0]</obj_property>
+         <obj_property name="ObjectShortName">bias_din[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/bias_dout" type="array">
+         <obj_property name="ElementShortName">bias_dout[63:0]</obj_property>
+         <obj_property name="ObjectShortName">bias_dout[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/biases_in" type="array">
+         <obj_property name="ElementShortName">biases_in[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">biases_in[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/biases_out" type="array">
+         <obj_property name="ElementShortName">biases_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">biases_out[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/current_layer_sample_signal" type="array">
+         <obj_property name="ElementShortName">current_layer_sample_signal[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer_sample_signal[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/current_neuron_sample_signal" type="array">
+         <obj_property name="ElementShortName">current_neuron_sample_signal[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_neuron_sample_signal[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/WEIGHTS_RAM_WIDTH" type="other">
+         <obj_property name="ElementShortName">WEIGHTS_RAM_WIDTH</obj_property>
+         <obj_property name="ObjectShortName">WEIGHTS_RAM_WIDTH</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/CONN_RAM_WIDTH" type="other">
+         <obj_property name="ElementShortName">CONN_RAM_WIDTH</obj_property>
+         <obj_property name="ObjectShortName">CONN_RAM_WIDTH</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/BIAS_RAM_WIDTH" type="other">
+         <obj_property name="ElementShortName">BIAS_RAM_WIDTH</obj_property>
+         <obj_property name="ObjectShortName">BIAS_RAM_WIDTH</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

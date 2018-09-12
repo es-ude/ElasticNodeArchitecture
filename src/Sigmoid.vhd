@@ -4,6 +4,10 @@ use ieee.numeric_std.all;
 library work;
 use work.Common.all;
 
+library fpgamiddlewarelibs;
+use fpgamiddlewarelibs.userlogicinterface.all;
+
+
 entity Sigmoid is
 port (
 	arg 	: in fixed_point;

@@ -411,6 +411,8 @@ btv:
 				-- between feedback and feedforward
 				elsif dist_mode = intermediate then
 					bias_rd_address <= std_logic_vector(to_unsigned(totalLayers-1, BIAS_RAM_WIDTH));
+				elsif dist_mode = idle then
+					bias_rd_address <= (others => '0');
 				end if;
 			end if;
 		end if;

@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2017.2 (64-bit)
+# SW Build 1909853 on Thu Jun 15 18:39:09 MDT 2017
+# IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+# Start of session at: Mon Sep 10 16:45:02 2018
+# Process ID: 23996
+# Current directory: C:/Users/alwynster/git/fpgamiddlewareproject/src/synth_1
+# Command line: vivado.exe -log genericProject.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source genericProject.tcl
+# Log file: C:/Users/alwynster/git/fpgamiddlewareproject/src/synth_1/genericProject.vds
+# Journal file: C:/Users/alwynster/git/fpgamiddlewareproject/src/synth_1\vivado.jou
+#-----------------------------------------------------------
+source genericProject.tcl -notrace

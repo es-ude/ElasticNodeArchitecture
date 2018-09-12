@@ -30,10 +30,10 @@ library neuralnetwork;
 use neuralnetwork.all;
 use neuralnetwork.Common.all;
 
-entity TestSignedANN is
-end TestSignedANN;
+entity TestFixedPointANN is
+end TestFixedPointANN;
 
-architecture Behavioral of TestSignedANN is
+architecture Behavioral of TestFixedPointANN is
 	signal clk_s : std_logic := '0';	
 	signal learn, data_rdy, calculate, ul_busy : std_logic := 'Z';
 	signal reset : std_logic := '1';
@@ -41,8 +41,8 @@ architecture Behavioral of TestSignedANN is
 	--constant repeat : integer := 10;
 	constant NUM_LOOPS : integer := 2500; -- (2x 1000)
 
-	signal wanted				: 	uintw_t := (others => '0');
-	signal conn_in, conn_out 	: 	uintw_t := (others => '0');
+	signal wanted				: 	fixed_point_vector;
+	signal conn_in, conn_out 	: 	fixed_point_vector;
 
 	signal weights_wr : std_logic := '0';
 	signal weights : weights_vector;
@@ -71,7 +71,7 @@ begin
 		end if;
 	end process;
 
-uut: entity neuralnetwork.SignedANN(Behavioral) port map 
+uut: entity neuralnetwork.FixedPointANN(Behavioral) port map 
 	(
 		clk => clk_s, 
 		reset => reset, 
@@ -79,9 +79,9 @@ uut: entity neuralnetwork.SignedANN(Behavioral) port map
 		data_rdy => data_rdy, 
 		busy => ul_busy, 
 		calculate => calculate, 
-		connections_in => conn_in, 
-		connections_out => conn_out, 
-		wanted => wanted, 
+		connections_in_fp => conn_in, 
+		connections_out_fp => conn_out, 
+		wanted_fp => wanted, 
 		weights_wr_en => weights_wr,
 		weights => weights,
 		debug => debug
@@ -98,8 +98,8 @@ uut: entity neuralnetwork.SignedANN(Behavioral) port map
 	for i in 0 to NUM_LOOPS loop 
 
 		-- 11 00
-		conn_in <= "0011";
-		wanted <= "0000";
+		conn_in <= (zero, zero, factor, factor);
+		wanted <= (others => zero);
 		calculate <= '1';
 		wait for period;
 		calculate <= '0';
@@ -107,8 +107,8 @@ uut: entity neuralnetwork.SignedANN(Behavioral) port map
 		wait for period;
 
 		-- 10 01
-		conn_in <= "0001";
-		wanted <= "0001";
+		conn_in <= (zero, zero, zero, factor);
+		wanted <= (zero, zero, zero, factor);
 		calculate <= '1';
 		wait for period;
 		calculate <= '0';
@@ -116,8 +116,8 @@ uut: entity neuralnetwork.SignedANN(Behavioral) port map
 		wait for period;
 
 		-- 01 01
-		conn_in <= "0010";
-		wanted <= "0001";
+		conn_in <= (zero, zero, factor, zero);
+		wanted <= (zero, zero, zero, factor);
 		calculate <= '1';
 		wait for period;
 		calculate <= '0';
@@ -125,8 +125,8 @@ uut: entity neuralnetwork.SignedANN(Behavioral) port map
 		wait for period;
 
 		-- 00 00
-		conn_in <= "0000";
-		wanted <= "0000";
+		conn_in <= (others => zero);
+		wanted <= (others => zero);
 		calculate <= '1';
 		wait for period;
 		calculate <= '0';
@@ -140,59 +140,59 @@ uut: entity neuralnetwork.SignedANN(Behavioral) port map
 	-- query results
 	learn <= '0';
 
-	conn_in <= "0001";
-	wanted <= "0001";
+	conn_in <= (zero, zero, zero, factor);
+	wanted <= (zero, zero, zero, factor);
 	calculate <= '1';
 	wait for period;
 	calculate <= '0';
 	wait until ul_busy = '0';
 	wait for period;
-	assert conn_out = "01" report "Result incorrect for 10";
+	assert conn_out(0) > factor_2 report "Result incorrect for 10";
 
-	conn_in <= "0001";
-	wanted <= "0001";
+	conn_in <= (zero, zero, zero, factor);
+	wanted <= (zero, zero, zero, factor);
 	calculate <= '1';
 	wait for period;
 	calculate <= '0';
 	wait until ul_busy = '0';
 	wait for period;
-	assert conn_out = "01" report "Result incorrect for 10";
+	assert conn_out(0) > factor_2 report "Result incorrect for 10";
 
-	conn_in <= "0000";
-	wanted <= "0000";
+	conn_in <= (others => zero);
+	wanted <= (others => zero);
 	calculate <= '1';
 	wait for period;
 	calculate <= '0';
 	wait until ul_busy = '0';
 	wait for period;
-	assert conn_out = "00" report "Result incorrect for 00";
+	assert conn_out(0) < factor_2 report "Result incorrect for 00";
 
-	conn_in <= "0011";
-	wanted <= "0000";
+	conn_in <= (zero, zero, factor, factor);
+	wanted <= (others => zero);
 	calculate <= '1';
 	wait for period;
 	calculate <= '0';
 	wait until ul_busy = '0';
 	wait for period;
-	assert conn_out(0) = '0' report "Result incorrect for 11";
+	assert conn_out(0) < factor_2 report "Result incorrect for 11";
 
-	conn_in <= "0010";
-	wanted <= "0001";
+	conn_in <= (zero, zero, factor, zero);
+	wanted <= (zero, zero, zero, factor);
 	calculate <= '1';
 	wait for period;
 	calculate <= '0';
 	wait until ul_busy = '0';
 	wait for period;
-	assert conn_out(0) = '1' report "Result incorrect for 01";
+	assert conn_out(0) > factor_2 report "Result incorrect for 01";
 
-	conn_in <= "0001";
-	wanted <= "0001";
+	conn_in <= (zero, zero, zero, factor);
+	wanted <= (zero, zero, zero, factor);
 	calculate <= '1';
 	wait for period;
 	calculate <= '0';
 	wait until ul_busy = '0';
 	wait for period;
-	assert conn_out = "01" report "Result incorrect for 10";
+	assert conn_out(0) < factor_2 report "Result incorrect for 10";
 
 	wait for period * 4;
 	busy <= false;
