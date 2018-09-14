@@ -171,9 +171,9 @@ nn: entity neuralnetwork.Network(Behavioral)
 						case to_integer(address_in) is
 						
 						when 0 =>
-							connections_in_uintw(w-1 downto 0) <= data_in(w-1 downto 0);
+							connections_in_uintw(maxWidth-1 downto 0) <= data_in(maxWidth-1 downto 0);
 						when 1 =>
-							wanted_uintw(w-1 downto 0) <= data_in(w-1 downto 0);
+							wanted_uintw(maxWidth-1 downto 0) <= data_in(maxWidth-1 downto 0);
 						when 2 => 
 							learn <= data_in(0);
 						-- when 107 =>
@@ -189,9 +189,9 @@ nn: entity neuralnetwork.Network(Behavioral)
 						-- inputA
 						-- row 1
 						when 0 =>
-							data_out(w-1 downto 0) <= connections_in_uintw(w-1 downto 0);
+							data_out(maxWidth-1 downto 0) <= connections_in_uintw(maxWidth-1 downto 0);
 						when 1 =>
-							data_out(w-1 downto 0) <= wanted_uintw(w-1 downto 0);
+							data_out(maxWidth-1 downto 0) <= wanted_uintw(maxWidth-1 downto 0);
 						when 2 => 
 							data_out <= (others => '0');
 							data_out(0) <= learn;
@@ -200,7 +200,7 @@ nn: entity neuralnetwork.Network(Behavioral)
 							data_out(3) <= calculate;
 							data_out(4) <= half_clock;
 						when 3 =>
-							data_out(w-1 downto 0) <= connections_out_uintw(w-1 downto 0);
+							data_out(maxWidth-1 downto 0) <= connections_out_uintw(maxWidth-1 downto 0);
 	
 						when 200 => 
 							data_out <= run_counter;

@@ -19,13 +19,13 @@
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 library neuralnetwork;
 use neuralnetwork.common.all;
 
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
-use IEEE.NUMERIC_STD.ALL;
+library fpgamiddlewarelibs;
+use fpgamiddlewarelibs.userlogicinterface.all;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
@@ -51,7 +51,7 @@ begin
 			conn <= (others => zero);
 		else
 			-- first dim (each neuron)
-			for j in 0 to w-1 loop
+			for j in 0 to maxWidth-1 loop
 				index := j * (b);
 				conn(j) <= signed(vector(index+b-1 downto index));
 			end loop;

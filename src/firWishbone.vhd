@@ -65,8 +65,8 @@ architecture Behavioral of firWishbone is
 
 	-- /* Pipes and delay chains. */
 	signal y0:signed(u'length*2-1 downto 0);
-	signal u_pipe:signed_vector(b'range):=(others=>(others=>'0'));
-	signal y_pipe:signedx2_vector(b'range):=(others=>(others=>'0'));
+	signal u_pipe:signed_vector(fir_coeff'range):=(others=>(others=>'0'));
+	signal y_pipe:signedx2_vector(fir_coeff'range):=(others=>(others=>'0'));
 	
 	signal filterClock : std_logic := '0';
 	signal b_signal : signed_vector(0 to order);
@@ -80,7 +80,7 @@ dataInProcess: process (reset, clk, stb, writeEnable) is
 	begin
 		if reset = '1' then
 			u <= (others => '0');
-			b_signal <= b;
+			b_signal <= fir_coeff;
 			index := 0;
 		elsif rising_edge(clk) then
 			if stb = '1' and writeEnable = '1' then
@@ -129,7 +129,7 @@ dataOutProcess: process (reset, clk, stb, writeEnable) is
 		end process delayChain;
 	end generate u_dlyChain;
 	
-	y_pipe(0)<=b(0)*u;
+	y_pipe(0)<=fir_coeff(0)*u;
 	y_dlyChain: for i in 1 to y_pipe'high generate
 		y_pipe(i)<=b_signal(i)*u_pipe(i) + y_pipe(i-1);
 	end generate y_dlyChain;

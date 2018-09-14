@@ -23,6 +23,9 @@ use IEEE.STD_LOGIC_1164.ALL;
 library neuralnetwork;
 use neuralnetwork.common.all;
 
+library fpgamiddlewarelibs;
+use fpgamiddlewarelibs.userlogicinterface.all;
+
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 use IEEE.NUMERIC_STD.ALL;
@@ -49,13 +52,13 @@ begin
 		variable index : integer range 0 to vector'length;
 	begin
 		
-		for i in 0 to w-1 loop
+		for i in 0 to maxWidth-1 loop
 			-- first dim (each neuron)
-			for j in 0 to w-1 loop
+			for j in 0 to maxWidth-1 loop
 				-- fp := fpv(j);
 				-- vector
 				-- for k in 0 to b-1 loop
-				index := i * (b*w) + j * (b);
+				index := i * (b*maxWidth) + j * (b);
 				weights(i)(j) <= signed(vector(index+b-1 downto index));
 					-- vector(k + j * (b) + i * (b*w)) <= fp(k);
 			end loop;

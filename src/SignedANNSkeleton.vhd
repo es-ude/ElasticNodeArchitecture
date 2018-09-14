@@ -1,4 +1,4 @@
-ø----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
 -- Company: 
 -- Engineer: 
 -- 
@@ -37,7 +37,7 @@ use neuralnetwork.all;
 use neuralnetwork.common.all;
 
 
-entity NeuralNetworkSkeleton is
+entity SignedANNSkeleton is
 	generic (
 		clk_divider : integer := 5000000
 		);
@@ -49,56 +49,73 @@ entity NeuralNetworkSkeleton is
 				
 		-- indicate new data or request
 		rd					: in std_logic;	-- request a variable
-		wr 				: in std_logic; 	-- request changing a variable
+		wr 					: in std_logic; 	-- request changing a variable
 		
 		-- data interface
-		data_in			: in uint8_t; -- std_logic_vector(31 downto 0);
-		address_in		: in uint16_t;
-		data_out			: out uint8_t; -- std_logic_vector(31 downto 0)
+		data_in				: in uint8_t; -- std_logic_vector(31 downto 0);
+		address_in			: in uint16_t;
+		data_out			: out uint8_t -- std_logic_vector(31 downto 0)
 		
-		calculate_out	: out std_logic;
-		debug				: out uint8_t
+		--calculate_out		: out std_logic;
+		--debug				: out uint8_t
 	);
-end NeuralNetworkSkeleton;
+end SignedANNSkeleton;
 
-architecture Behavioral of NeuralNetworkSkeleton is
+architecture Behavioral of SignedANNSkeleton is
 
 	signal learn			:  std_logic;
 	signal data_rdy			:  std_logic;
 	signal calculate		:  std_logic;
 	
 	signal connections_in	:  uintw_t;
-	signal wanted				:  uintw_t;
+	signal wanted			:  uintw_t;
 	signal connections_out	:  uintw_t;
-	signal run_counter		:  uint8_t;
+	signal run_counter		:  uint16_t;
 	
-	signal half_clock			: std_logic := '0';
+	signal half_clock		: std_logic := '0';
 	signal busy_signal		: std_logic;
+
+	signal weights 			: weights_vector;
+	signal weights_wr		: std_logic := '0';
 begin
-	calculate_out <= calculate;
+	--calculate_out <= calculate;
 	
 -- half the clock
 process (reset, clock) is
 	variable val : std_logic := '0';
 	variable counter : integer range 0 to clk_divider := 0;-- slow down to 5 Hz from 50 MHz: 50M/2 /5 = 5M
 begin
-	if reset = '1' then
-		val := '0';
-		half_clock <= '0';
-		counter := 0;
-	elsif rising_edge(clock) then
-		counter := counter + 1;
-		if counter = clk_divider then
+	--if reset = '1' then
+	--	val := '0';
+	--	half_clock <= '0';
+	--	counter := 0;
+	if rising_edge(clock) then
+		--counter := counter + 1;
+		--if counter = clk_divider then
 			counter := 0;
 			val := not val;
 			half_clock <= val;
-		end if;
+		--end if;
 	end if;
 end process;
 			
 
-nn: entity neuralnetwork.Network(Behavioral)
-	port map (half_clock, reset, learn, data_rdy, busy_signal, calculate, connections_in, wanted, connections_out, debug); -- done wired to busy
+nn: entity neuralnetwork.SignedANN(Behavioral)
+	port map 
+	(
+		clk => half_clock, 
+		reset => reset, 
+		learn => learn, 
+		data_rdy => data_rdy, 
+		busy => busy_signal, 
+		calculate => calculate, 
+		connections_in => connections_in, 
+		connections_out => connections_out, 
+		wanted => wanted,
+		weights_wr_en => weights_wr,
+		weights => weights,
+		debug => open
+	);
 	busy <= busy_signal;
 
 	-- process data receive 
@@ -124,9 +141,9 @@ nn: entity neuralnetwork.Network(Behavioral)
 						case to_integer(address_in) is
 						
 						when 0 =>
-							connections_in(w-1 downto 0) <= data_in(w-1 downto 0);
+							connections_in(maxWidth-1 downto 0) <= data_in(maxWidth-1 downto 0);
 						when 1 =>
-							wanted(w-1 downto 0) <= data_in(w-1 downto 0);
+							wanted(maxWidth-1 downto 0) <= data_in(maxWidth-1 downto 0);
 						when 2 => 
 							learn <= data_in(0);
 						-- when 107 =>
@@ -142,9 +159,9 @@ nn: entity neuralnetwork.Network(Behavioral)
 						-- inputA
 						-- row 1
 						when 0 =>
-							data_out(w-1 downto 0) <= connections_in(w-1 downto 0);
+							data_out(maxWidth-1 downto 0) <= connections_in(maxWidth-1 downto 0);
 						when 1 =>
-							data_out(w-1 downto 0) <= wanted(w-1 downto 0);
+							data_out(maxWidth-1 downto 0) <= wanted(maxWidth-1 downto 0);
 						when 2 => 
 							data_out <= (others => '0');
 							data_out(0) <= learn;
@@ -153,10 +170,12 @@ nn: entity neuralnetwork.Network(Behavioral)
 							data_out(3) <= calculate;
 							data_out(4) <= half_clock;
 						when 3 =>
-							data_out(w-1 downto 0) <= connections_out(w-1 downto 0);
+							data_out(maxWidth-1 downto 0) <= connections_out(maxWidth-1 downto 0);
 	
 						when 200 => 
-							data_out <= run_counter;
+							data_out <= run_counter(7 downto 0);
+						when 201 =>
+							data_out <= run_counter(15 downto 8);
 						when 255 =>
 							data_out <= address_in(15 downto 8);
 						when others =>

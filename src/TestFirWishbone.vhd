@@ -4,6 +4,9 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 
+library work;
+use work.all;
+use work.firPackage.all;
 
 library fpgamiddlewarelibs;
 use fpgamiddlewarelibs.UserLogicInterface.all;
@@ -16,7 +19,7 @@ ARCHITECTURE behavior OF TestFirWishBone IS
 	signal clk, reset, writeEnable, stb : std_logic := '0';
 	signal datain : int16_t;
 	signal dataout : int32_t;
-	signal addressIn : std_logic_vector(3 downto 0);
+	signal addressIn : std_logic_vector(addressWidth-1 downto 0);
 	signal finish : boolean := false;
 	constant cycle : time := 10ns;
 
@@ -52,7 +55,7 @@ tb : PROCESS
 		wait for cycle/2;
 		-- input 0
 		datain <= to_signed(0, datain'length);
-		addressIn <= "00";
+		addressIn <= (others => '0');
 		writeEnable <= '1';
 		stb <= '1';
 		wait for cycle;

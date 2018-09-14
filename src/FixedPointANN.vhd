@@ -39,7 +39,7 @@ use IEEE.NUMERIC_STD.ALL;
 library UNISIM;
 use UNISIM.VComponents.all;
 
-entity Network is
+entity FixedPointANN is
 	port (
 			clk					: 	in std_logic;
 			reset				:	in std_logic;
@@ -49,36 +49,21 @@ entity Network is
 			busy				:  	out std_logic;
         	calculate      		:   in std_logic;
             
-			connections_in		:	in uintw_t;
-			connections_out		:	out uintw_t := (others => '0');
+			connections_in_fp	:	in fixed_point_vector;
+			connections_out_fp	:	out fixed_point_vector := (others => zero);
 
-			--errors_in			:	in fixed_point_vector;
-			wanted				:	in uintw_t;
+			wanted_fp			:	in fixed_point_vector;
+			error_out 			:	out fixed_point;
 
 			weights_wr_en 		:	in std_logic;
 			weights 			:	inout weights_vector;
 
          	debug		      	:  	out uint8_t
 		);
-end Network;
+end FixedPointANN;
 
-architecture Behavioral of Network is
+architecture Behavioral of FixedPointANN is
 
-	component FixedPoint_Logic is
-		Port (
-			fixed_point		:	in fixed_point_vector;
-			std_logic_vec	: 	out uintw_t;
-			clk			:	in std_logic
-		);
-	end component;
-
-	component Logic_FixedPoint is
-		Port (
-			fixed_point		:	out fixed_point_vector;
-			std_logic_vec	: 	in uintw_t;
-			clk				:	in std_logic
-		);
-	end component;
 
 	component Diff is
 		port 
@@ -96,7 +81,7 @@ architecture Behavioral of Network is
 		reset			: 	in std_logic;
 		learn			:	in std_logic;
 		calculate    	:   in std_logic;
-		n_feedback_bus	:	out std_logic_vector(l downto 0) := (others => 'Z'); -- l layers + summation (at l)
+		n_feedback_bus	:	out std_logic_vector(totalLayers downto 0) := (others => 'Z'); -- l layers + summation (at l)
 
 
 		n_feedback		: 	out integer range 0 to 2;
@@ -108,62 +93,73 @@ architecture Behavioral of Network is
 	);
 	end component;
 	
-	--component Logic_FixedPoint is
-	--	Port (
-	--		fixed_point		:	out fixed_point_vector;
-	--		std_logic_vec	: 	in uintw_t;
-	--		clk				:	in std_logic
-	--	);
-	--end component;
-
---	signal conn_matrix 		: fixed_point_array;
---	signal err_matrix 		: fixed_point_array;
 	signal hidden_connections_out_fp : fixed_point_vector;
-	--signal connections_out_fp : fixed_point_vector;
-	signal err_out 			: fixed_point_vector;
-	signal data_rdy_s		: std_logic := '0';
-	signal mode_out_signal	: distributor_mode;
+	signal err_out 					: fixed_point_vector;
+	signal data_rdy_s				: std_logic := '0';
+	signal mode_out_signal			: distributor_mode;
+	signal mode_out_signal_delay	: distributor_mode;
 	
-	-- signal wanted_fp	: fixed_point_vector;
-	--signal conn_in_real	: fixed_point_vector;
-	--signal conn_out_real: fixed_point_vector;
-
-	--signal learn		: std_logic := '0';
-	signal n_feedback_bus 	: std_logic_vector(l downto 0) := (others => 'Z');
+	signal n_feedback_bus 	: std_logic_vector(totalLayers downto 0) := (others => 'Z');
 	signal n_feedback		 	: integer range 0 to 2;
 	signal n_feedback_buffered : integer range 0 to 2;
 	signal current_layer  	: uint8_t;
 	signal current_neuron	: uint8_t;
 	
-	
-	signal connections_in_fp   : fixed_point_vector := (others => real_to_fixed_point(0.0));
-	signal wanted_fp           : fixed_point_vector := (others => real_to_fixed_point(0.0));
-	signal connections_out_fp  : fixed_point_vector;
+	--signal error_out_signal: fixed_point;
+	signal error_out_abs : fixed_point;
+
+	signal weights_signal : weights_vector;
 
 begin
 	data_rdy <= data_rdy_s;
+
+	-- delay mode for fetching output connections on falling edge
+	process (reset, clk, mode_out_signal) is
+	begin
+		if reset = '1' then 
+			mode_out_signal_delay <= idle;
+		elsif rising_edge(clk) then
+			mode_out_signal_delay <= mode_out_signal;
+		end if;
+	end process;
+
 	-- set output connections when changing to learning
 	process (reset, clk, mode_out_signal) is
 	begin
 		if reset = '1' then
 			connections_out_fp <= (others => zero);
-		elsif rising_edge(clk) then
+		elsif falling_edge(clk) then
 			-- if learn = '0' then
-			if mode_out_signal = done then -- std_logic_vector(to_unsigned(4, mode_out_signal'length)) then
+			--if data_rdy_s = '1' then
+			if mode_out_signal_delay = doneQuery or mode_out_signal_delay = intermediate then -- std_logic_vector(to_unsigned(4, mode_out_signal'length)) then
 				connections_out_fp <= hidden_connections_out_fp;
-			else
-				connections_out_fp <= connections_out_fp;
+				
+			--else
+			--	connections_out_fp <= connections_out_fp;
 			end if;
 		end if;
 
 	end process;
 	
+	-- set errors once connections out are ready
+	process (reset, clk, data_rdy_s)
+	begin
+		if reset = '1' then 
+			error_out <= (others => '1');
+			error_out_abs <= (others => '1');
+		elsif rising_edge(clk) then
+			-- used to see when model is trained
+			if mode_out_signal_delay = doneQuery or mode_out_signal_delay = intermediate then -- std_logic_vector(to_unsigned(4, mode_out_signal'length)) then
+
+				error_out <= wanted_fp(0) - hidden_connections_out_fp(0);
+				error_out_abs <= abs(wanted_fp(0) - hidden_connections_out_fp(0));
+			end if;
+		end if;
+	end process;
 	-- connections_out <= connections_out_fp;
 
 	busy <= '0' when mode_out_signal = idle else '1';
 
-
-	
 hidden_layers: entity work.HiddenLayers(Behavioral) port map 
 	(
 		clk => clk, 
@@ -176,34 +172,16 @@ hidden_layers: entity work.HiddenLayers(Behavioral) port map
 		connections_out => hidden_connections_out_fp,
 		wanted => wanted_fp, 
 		weights_wr_en => weights_wr_en, 
-		weights => weights
+		weights => weights_signal
 	);
 
+	weights_signal <= weights when weights_wr_en = '1' else (others => 'Z');
 
 	distr: Distributor port map
 	(
 		clk, reset, learn, calculate, n_feedback_bus, n_feedback, current_layer, current_neuron, data_rdy_s, mode_out_signal
 	);
 
-	fpl: FixedPoint_Logic port map
-	(
-	    connections_out_fp, connections_out, clk
-	);
-
-	lfp: Logic_FixedPoint port map
-	(
-	    connections_in_fp, connections_in, clk
-	);
-
-	lfpw: Logic_FixedPoint port map
-	(
-	    wanted_fp, wanted, clk
-	);
-
---	buff: BUFG port map
---	(
---		O=>n_feedback_buffered, I=>n_feedback
---	);
 	debug(2 downto 0) <= to_unsigned(distributor_mode'POS(mode_out_signal), 3);
 	debug(3) <= '1' when n_feedback = 1 else '0';
 	debug(7 downto 4) <= current_layer(3 downto 0);

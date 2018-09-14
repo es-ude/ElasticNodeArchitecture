@@ -39,12 +39,12 @@ entity NeuralNetwork is
             clk             :  in std_logic;
             data_in         :  in std_logic_vector(3*w+2 downto 0);
             data_out         :  out std_logic_vector(3*w+2 downto 0)
---            connections_in  :  in std_logic_vector(w-1 downto 0);
---            wanted          :  in std_logic_vector(w-1 downto 0);
+--            connections_in  :  in std_logic_vector(maxWidth-1 downto 0);
+--            wanted          :  in std_logic_vector(maxWidth-1 downto 0);
 --            learn           :  in std_logic;
 --            data_rdy        :  out std_logic;
 --            enable          :  in std_logic;
---            connections_out :  out std_logic_vector(w-1 downto 0);
+--            connections_out :  out std_logic_vector(maxWidth-1 downto 0);
 --    		mode_out        :  out std_logic_vector(2 downto 0)
         );
 end NeuralNetwork;
@@ -70,7 +70,7 @@ end component;
 component FixedPoint_Logic is
 	Port (
 		fixed_point		:	in fixed_point_vector;
-		std_logic_vec	: 	out std_logic_vector(w-1 downto 0);
+		std_logic_vec	: 	out std_logic_vector(maxWidth-1 downto 0);
 		clk			:	in std_logic
 	);
 end component;
@@ -78,7 +78,7 @@ end component;
 component Logic_FixedPoint is
 	Port (
 		fixed_point		:	out fixed_point_vector;
-		std_logic_vec	: 	in std_logic_vector(w-1 downto 0);
+		std_logic_vec	: 	in std_logic_vector(maxWidth-1 downto 0);
 		clk			:	in std_logic
 	);
 end component;
@@ -86,9 +86,9 @@ end component;
 signal enable           : std_logic;
 signal learn            : std_logic;
 signal data_rdy         : std_logic;
-signal wanted           : std_logic_vector(w-1 downto 0);
-signal connections_in   : std_logic_vector(w-1 downto 0);
-signal connections_out  : std_logic_vector(w-1 downto 0);
+signal wanted           : std_logic_vector(maxWidth-1 downto 0);
+signal connections_in   : std_logic_vector(maxWidth-1 downto 0);
+signal connections_out  : std_logic_vector(maxWidth-1 downto 0);
 signal mode_out         : std_logic_vector(2 downto 0);
 
 signal connections_in_fp   : fixed_point_vector := (others => real_to_fixed_point(0.0));
@@ -100,13 +100,13 @@ signal connections_out_fp  : fixed_point_vector;
 
 begin
 
-connections_in <= data_in(w-1 downto 0);
-wanted <= data_in(2*w-1 downto w);
+connections_in <= data_in(maxWidth-1 downto 0);
+wanted <= data_in(2*maxWidth-1 downto w);
 learn <= data_in(2*w);
 enable <= data_in(2*w + 1);
 
-data_out(w-1 downto 0) <= connections_in;
-data_out(2*w-1 downto w) <= wanted;
+data_out(maxWidth-1 downto 0) <= connections_in;
+data_out(2*maxWidth-1 downto w) <= wanted;
 data_out(2*w) <= learn;
 data_out(2*w+1) <= enable;
 data_out(2*w+2) <= data_rdy;

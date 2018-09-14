@@ -1,0 +1,33 @@
+#-----------------------------------------------------------
+# Vivado v2017.2 (64-bit)
+# SW Build 1909853 on Thu Jun 15 18:39:09 MDT 2017
+# IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+# Start of session at: Thu Sep  6 10:05:44 2018
+# Process ID: 5680
+# Current directory: C:/Users/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent1968 C:\Users\alwynster\git\fpgamiddlewareproject\fpgamiddlewareproject\fpgamiddlewareproject.xpr
+# Log file: C:/Users/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/vivado.log
+# Journal file: C:/Users/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.xpr
+update_compile_order -fileset sources_1
+1
+launch_simulation
+update_files -from_files C:/Users/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/Procedures.vhd -to_files C:/Users/alwynster/git/fpgamiddlewarelibs/Procedures.vhd -filesets [get_filesets *]
+update_files -from_files C:/Users/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd -to_files C:/Users/alwynster/git/fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd -filesets [get_filesets *]
+update_files -from_files C:/Users/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/UserLogicInterface/UserLogicInterface.vhd -to_files C:/Users/alwynster/git/fpgamiddlewarelibs/UserLogicInterface/UserLogicInterface.vhd -filesets [get_filesets *]
+update_compile_order -fileset sources_1
+update_files -from_files C:/Users/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/spi_master.vhd -to_files C:/Users/alwynster/git/fpgamiddlewarelibs/SpiInterface/spi_master.vhd -filesets [get_filesets *]
+update_files -from_files C:/Users/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/UartInterface/uartInterface.vhd -to_files C:/Users/alwynster/git/fpgamiddlewarelibs/UartInterface/uartInterface.vhd -filesets [get_filesets *]
+update_files -from_files C:/Users/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/UartInterface/uart_rx.vhd -to_files C:/Users/alwynster/git/fpgamiddlewarelibs/UartInterface/uart_rx.vhd -filesets [get_filesets *]
+update_files -from_files C:/Users/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/UartInterface/uart_tx.vhd -to_files C:/Users/alwynster/git/fpgamiddlewarelibs/UartInterface/uart_tx.vhd -filesets [get_filesets *]
+update_compile_order -fileset sources_1
+update_files -from_files C:/Users/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/IcapInterface/icapInterface.vhdl -to_files C:/Users/alwynster/git/fpgamiddlewarelibs/IcapInterface/icapInterface.vhdl -filesets [get_filesets *]
+update_compile_order -fileset sources_1
+update_files -from_files C:/Users/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/UartInterface/uart_tx.vhd -to_files C:/Users/alwynster/git/fpgamiddlewarelibs/UartInterface/uart_tx.vhd -filesets [get_filesets *]
+launch_simulation
+open_wave_config C:/Users/alwynster/git/fpgamiddlewareproject/src/SimulateNeuralNetwork.wcfg
+source SimulateNeuralNetwork.tcl
+config_webtalk -user on
+close_sim

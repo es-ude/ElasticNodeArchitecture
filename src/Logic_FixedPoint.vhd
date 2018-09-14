@@ -25,6 +25,9 @@ use IEEE.STD_LOGIC_1164.ALL;
 library neuralnetwork;
 use neuralnetwork.Common.all;
 
+library fpgamiddlewarelibs;
+use fpgamiddlewarelibs.userlogicinterface.all;
+
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 --use IEEE.NUMERIC_STD.ALL;
@@ -48,7 +51,7 @@ begin
 	process(clk, std_logic_vec)
 	begin
 		--if rising_edge(clk) then
-			for i in 0 to w-1 loop
+			for i in 0 to maxWidth-1 loop
 				fixed_point(i) <= logic_to_fixed_point(std_logic_vec(i));
 			end loop;
 		--end if;

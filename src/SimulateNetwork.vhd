@@ -86,8 +86,8 @@ begin
 	TMP3 <= TMP * TMP2;
 	multiply_test <= TMP3(15 downto 0);
 
---	data_in(w-1 downto 0) <= conn_in;
---	data_in(2*w-1 downto w) <= wanted;
+--	data_in(maxWidth-1 downto 0) <= conn_in;
+--	data_in(2*maxWidth-1 downto w) <= wanted;
 --	data_in(2*w) <= learn;
 --	data_in(2*w + 1) <= enable;
 --

@@ -25,6 +25,9 @@ use IEEE.STD_LOGIC_1164.ALL;
 library neuralnetwork;
 use neuralnetwork.Common.all;
 
+library fpgamiddlewarelibs;
+use fpgamiddlewarelibs.userlogicinterface.all;
+
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 --use IEEE.NUMERIC_STD.ALL;
@@ -47,11 +50,11 @@ architecture Behavioral of FixedPoint_Logic is
 begin
 	process(clk, fixed_point)
 	begin
-		if rising_edge(clk) then
-			for i in 0 to w-1 loop
+		--if rising_edge(clk) then
+			for i in 0 to maxWidth-1 loop
 				std_logic_vec(i) <= round(fixed_point(i));
 			end loop;
-		end if;
+		--end if;
 	end process;
 
 end Behavioral;
