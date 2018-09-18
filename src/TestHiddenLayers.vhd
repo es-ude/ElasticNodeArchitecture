@@ -137,12 +137,17 @@ begin
 	current_layer <= current_layer_manual when dist_mode = idle else current_layer_dist;
 
 	process begin
+	
+	   -- weights and bias init when reset should be checked here.
 		reset <= '1';
 		weights <= (others => 'Z');
 		wait for period *(l+2);
 		reset <= '0';
 		
+		
 		-- train 11 times
+		-- bias and weights write and read should be checked here.
+		-- connections and error back propagation should be checked here too.
 		for i in 0 to 10 loop
 			-- initial test
 			learn <= '1';
@@ -157,29 +162,26 @@ begin
 
 			wait until dist_mode = idle;
 		end loop;
+		
+		-- Change weights, weights write and read width has been changed,
+		-- now the ram can be change at one clock cycle.
+        weights <= (others => '1'); -- set all bits to '1'
+        weights_wr_en <= '1';
+        wait for period;
+        weights_wr_en <= '0';
+        weights <= (others => 'Z');  -- set to 'Z' then we can read out.
+        wait for period * 2;
+        
+        weights <= (others => '0');  -- set all bits to '0'
+        weights_wr_en <= '1';
+        wait for period;
+        weights_wr_en <= '0';
+        weights <= (others => 'Z');  -- set to 'Z' then we can read out.
+        wait for period * 2;
 
-
-
-		-- read weights (loop 4 times, every time out put whole layer.
-		for i in 0 to l-1 loop
-			current_layer_manual <= to_unsigned(i, current_layer_manual'length);
-			wait for period * 3;
-		end loop;
-
-		-- change weights
-		for i in 0 to l-1 loop
-			weights <= (others => '0');
-			weights_wr_en <= '1';
-			current_layer_manual <= to_unsigned(i, current_layer_manual'length);
-			wait for period;
-			weights_wr_en <= '0';
-			weights <= (others => 'Z');  -- set to 'Z' then we can read out.
-			wait for period * 2;
-		end loop;
-		weights <= (others => 'Z');
 		
 
-		-- second test(bias need to be checked here)
+		-- second test
 		learn <= '0';
 		calculate <= '1';
 		weights_wr_en <= '0';
@@ -187,12 +189,13 @@ begin
 		conn_in(1) <= factor;
 		wanted <= (others => zero);
 		wanted(0) <= factor;
-
+        
 		wait for period*4;
 		calculate <= '0';
 
 		wait until dist_mode = idle;
-
+        -- bias process check passed
+        
 		busy <= false;
 		report "Finished" severity warning;
 		wait;

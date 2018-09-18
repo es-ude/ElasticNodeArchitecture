@@ -40,7 +40,7 @@ architecture Behavioral of TestLayer is
             reset                   :    in std_logic;
             
             n_feedback              :    in integer range 0 to 2;
-            dist_mode               :    in uint8_t;
+            dist_mode               :    in distributor_mode;
             output_layer            :    in std_logic; -- tell each to only consider own error
             current_neuron          :    in uint8_t;
             
@@ -67,7 +67,7 @@ architecture Behavioral of TestLayer is
     
     -- Neuron control signal
     signal feedback            : integer;
-    signal dist_mode          : uint8_t;
+    signal dist_mode          : distributor_mode;
     signal output_layer      : std_logic := '0';
     signal current_neuron   : uint8_t;
     
@@ -124,7 +124,7 @@ utt: Layer port map(
             biases_out  => bias_out
     );
 testing_process:process
-     variable dist_mode_value : uint8_t :=TO_UNSIGNED(0, 8);
+     variable dist_mode_value : distributor_mode := idle;
      variable current_neuron_value : uint8_t :=TO_UNSIGNED(0, 8);
 begin
     wait until reset='1';
@@ -136,50 +136,45 @@ begin
     conn_out_prev(1) <= real_to_fixed_point(0.1);
     conn_out_prev(2) <= real_to_fixed_point(1.0);
     conn_out_prev(3) <= real_to_fixed_point(0.0);
-    conn_out_prev(4) <= real_to_fixed_point(0.1);
-    conn_out_prev(5) <= real_to_fixed_point(1.0);
-    conn_out_prev(6) <= real_to_fixed_point(1.0);
-    conn_out_prev(7) <= real_to_fixed_point(0.1);
+    current_neuron_value :=  TO_UNSIGNED(0, 8);
     wait for period;
+    dist_mode_value := idle;  
     
-    for I in 0 to 7 loop
+    for I in 0 to w-1 loop
             current_neuron <= current_neuron_value;
             dist_mode <= dist_mode_value;
             wait for period;
             current_neuron_value := current_neuron_value + 1;
-            dist_mode_value := dist_mode_value + 1;  
     end loop;
+    
     -- second times test
     current_neuron_value :=  TO_UNSIGNED(0, 8);
-    dist_mode_value := TO_UNSIGNED(0, 8);  
+    dist_mode_value := idle;  
     wait for period;
-    for I in 0 to 7 loop
+    for I in 0 to w-1 loop
         current_neuron <= current_neuron_value;
         dist_mode <= dist_mode_value;
         wait for period;
         current_neuron_value := current_neuron_value + 1;
-        dist_mode_value := dist_mode_value + 1;  
+        --dist_mode_value := dist_mode_value + 1;  
     end loop;
     -- preloading of next neuron and connections_out_prev signal has been tested. (dist_mode also)
     
     -- Start of testing bias_in and bias_out logic
     feedback <= 0;  -- switch to backward function (must!)
-    current_neuron <= TO_UNSIGNED(7, 8);
-    dist_mode <= TO_UNSIGNED(0, 8);  
+    current_neuron <= TO_UNSIGNED(w-1, 8);
+    dist_mode_value := idle;  
     wait for period;
     current_neuron_value :=  TO_UNSIGNED(0, 8);
     current_neuron <= current_neuron_value;
-    wait for 3*period;
+    wait for (w-1)*period;
     bias_in(0) <= real_to_fixed_point(0.0);
     bias_in(1) <= real_to_fixed_point(0.1);
     bias_in(2) <= real_to_fixed_point(0.0);
     bias_in(3) <= real_to_fixed_point(0.1);
-    bias_in(4) <= real_to_fixed_point(0.0);
-    bias_in(5) <= real_to_fixed_point(0.1);
-    bias_in(6) <= real_to_fixed_point(0.0);
-    bias_in(7) <= real_to_fixed_point(0.1);
+
     wait for period;
-    for I in 0 to 7 loop
+    for I in 0 to w-1 loop
         current_neuron <= current_neuron_value;
         wait for period;
         current_neuron_value := current_neuron_value + 1;
@@ -193,24 +188,16 @@ begin
     conn_in(1) <= real_to_fixed_point(0.0);
     conn_in(2) <= real_to_fixed_point(0.0);
     conn_in(3) <= real_to_fixed_point(0.0);
-    conn_in(4) <= real_to_fixed_point(0.1);
-    conn_in(5) <= real_to_fixed_point(0.1);
-    conn_in(6) <= real_to_fixed_point(0.1);
-    conn_in(7) <= real_to_fixed_point(0.1);
     
     weights_in(0)(0) <= real_to_fixed_point(0.1);
     weights_in(0)(1) <= real_to_fixed_point(0.0);
     weights_in(0)(2) <= real_to_fixed_point(0.1);
     weights_in(0)(3) <= real_to_fixed_point(0.0);
-    weights_in(0)(4) <= real_to_fixed_point(0.1);
-    weights_in(0)(5) <= real_to_fixed_point(0.0);
-    weights_in(0)(6) <= real_to_fixed_point(0.1);
-    weights_in(0)(7) <= real_to_fixed_point(0.0);
 
-    current_neuron <= TO_UNSIGNED(7, 8); -- init state, otherwise a we will get fault result
+    current_neuron <= TO_UNSIGNED(w-1, 8); -- init state, otherwise a we will get fault result
     wait for period;
     current_neuron_value :=  TO_UNSIGNED(0, 8);
-    for I in 0 to 7 loop
+    for I in 0 to w-1 loop
         current_neuron <= current_neuron_value;
         wait for period;  
         current_neuron_value := current_neuron_value + 1;
@@ -219,29 +206,22 @@ begin
 
     -- Start of testing mux function
     feedback <= 0;
-    current_neuron <= TO_UNSIGNED(7, 8); -- init state, otherwise a we will get fault result
-    dist_mode <= TO_UNSIGNED(0, 8);
+    current_neuron <= TO_UNSIGNED(w-1, 8); -- init state, otherwise a we will get fault result
+    dist_mode <= idle;
     bias_in <= (others => (others => '0'));
     conn_out_prev(0) <= real_to_fixed_point(1.0);
     conn_out_prev(1) <= real_to_fixed_point(0.1);
     conn_out_prev(2) <= real_to_fixed_point(1.0);
     conn_out_prev(3) <= real_to_fixed_point(0.0);
-    conn_out_prev(4) <= real_to_fixed_point(0.1);
-    conn_out_prev(5) <= real_to_fixed_point(1.0);
-    conn_out_prev(6) <= real_to_fixed_point(1.0);
-    conn_out_prev(7) <= real_to_fixed_point(0.1);
+
     errors_in(0) <= real_to_fixed_point(0.1);
     errors_in(1) <= real_to_fixed_point(0.1);
     errors_in(2) <= real_to_fixed_point(0.1);
     errors_in(3) <= real_to_fixed_point(0.1);
-    errors_in(4) <= real_to_fixed_point(0.1);
-    errors_in(5) <= real_to_fixed_point(0.1);
-    errors_in(6) <= real_to_fixed_point(0.1);
-    errors_in(7) <= real_to_fixed_point(0.1);
-    
+
     wait for period;
     current_neuron_value :=  TO_UNSIGNED(0, 8);
-    for I in 0 to 7 loop
+    for I in 0 to w-1 loop
         current_neuron <= current_neuron_value;
         wait for period;
         current_neuron_value := current_neuron_value + 1;
