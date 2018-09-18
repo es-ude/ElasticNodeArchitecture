@@ -115,8 +115,8 @@ nn: entity neuralnetwork.FixedPointANN(Behavioral)
 		connections_out_fp => connections_out, 
 		wanted_fp => wanted,
 		error_out => error_out,
-		weights_wr_en => weights_wr,
-		weights => weights,
+		--weights_wr_en => weights_wr,
+		--weights => weights,
 		debug => open
 	);
 	busy <= busy_signal;
@@ -130,6 +130,8 @@ nn: entity neuralnetwork.FixedPointANN(Behavioral)
 			data_out <= (others => '0');
 			calculate <= '0';
 			run_counter <= (others => '0');
+			wanted <= (others => zero);
+			connections_in <= (others => zero);
 			-- done <= '0';
 		else
 		-- beginning/end

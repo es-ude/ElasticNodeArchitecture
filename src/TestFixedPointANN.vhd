@@ -82,8 +82,8 @@ uut: entity neuralnetwork.FixedPointANN(Behavioral) port map
 		connections_in_fp => conn_in, 
 		connections_out_fp => conn_out, 
 		wanted_fp => wanted, 
-		weights_wr_en => weights_wr,
-		weights => weights,
+		--weights_wr_en => weights_wr,
+		--weights => weights,
 		debug => debug
 	);
 

@@ -48,10 +48,10 @@ entity HiddenLayers is
 			connections_in			:	in fixed_point_vector;
 			connections_out			:	out fixed_point_vector;
 
-			wanted					:	in fixed_point_vector;
+			wanted					:	in fixed_point_vector
 
-			weights_wr_en 			:	in std_logic;
-			weights 				:	inout weights_vector := (others => 'Z')
+			--weights_wr_en 			:	in std_logic;
+			--weights 				:	inout weights_vector := (others => 'Z')
 		);
 end HiddenLayers;
 
@@ -112,11 +112,12 @@ weights_bram:
 	);
 -- simple writing logic
 -- write when resetting, or after each feedback layer, or after last feedback layer, or when weights are being set from outside
-weights_wr_b <= '1' when reset = '1' or (n_feedback = 2 and dist_mode = feedback) or (dist_mode = delay) or (weights_wr_ext = '1')
+weights_wr_b <= '1' when reset = '1' or (n_feedback = 2 and dist_mode = feedback) or (dist_mode = delay) -- or (weights_wr_ext = '1')
 	else '0';
 -- output weights to buffer when not being written
-weights <= (others => 'Z') when weights_wr_en = '1' else weights_dout_b; -- (others => '1'); -- when weights_wr_en = '0' else (others => 'Z'); -- weights_dout_b
-weights_din_b <= weights_din_ext when weights_wr_ext = '1' else weights_din_ann;
+--weights <= (others => 'Z') when weights_wr_en = '1' else weights_dout_b; -- (others => '1'); -- when weights_wr_en = '0' else (others => 'Z'); -- weights_dout_b
+--weights_din_b <= weights_din_ext when weights_wr_ext = '1' else weights_din_ann;
+--weights_din_b <= weights_din_ann;
 
 	n_feedback_s <= n_feedback when (current_layer > 0 and current_layer < totalLayers-1) else 2;
 -- convert between ram vectors and weights
@@ -128,7 +129,7 @@ vtw:
 wtv:
 	entity neuralnetwork.weightstovector(Behavioral) port map
 	(
-		weights_out, weights_din_ann
+		weights_out, weights_din_b
 	);
 	
 connections:
@@ -302,13 +303,13 @@ btv:
 					--weights_address_b <= (others => '0');
 				--end if;
 				
-			-- weights being set from outside
-			elsif weights_wr_en = '1' then
-				-- sample incoming weights
-				--weights_din_b <= weights;
-				weights_wr_ext <= '1';
-				weights_din_ext <= weights;
-				weights_address_b <= std_logic_vector(resize(current_layer, weights_address_b'length));
+			---- weights being set from outside
+			--elsif weights_wr_en = '1' then
+			--	-- sample incoming weights
+			--	--weights_din_b <= weights;
+			--	weights_wr_ext <= '1';
+			--	weights_din_ext <= weights;
+			--	weights_address_b <= std_logic_vector(resize(current_layer, weights_address_b'length));
 			-- generic read for external read
 			elsif dist_mode = intermediate then -- used to be idle?
 				weights_wr_ext <= '0';

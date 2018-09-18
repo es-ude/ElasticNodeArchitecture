@@ -55,8 +55,8 @@ entity SignedANN is
 			--errors_in			:	in fixed_point_vector;
 			wanted				:	in uintw_t;
 
-			weights_wr_en 		:	in std_logic;
-			weights 			:	inout weights_vector;
+			--weights_wr_en 		:	in std_logic;
+			--weights 			:	inout weights_vector;
 
          	debug		      	:  	out uint8_t
 		);
@@ -123,13 +123,13 @@ begin
 
 		wanted_fp => wanted_fp,
 
-		weights_wr_en => weights_wr_en,
-		weights => weights_signal,
+		--weights_wr_en => weights_wr_en,
+		--weights => weights_signal,
 
      	debug => debug
 	);
 
-	weights_signal <= weights when weights_wr_en = '1' else (others => 'Z');
+	--weights_signal <= weights when weights_wr_en = '1' else (others => 'Z');
 
 	fpl: entity work.FixedPoint_Logic(Behavioral) port map
 	(

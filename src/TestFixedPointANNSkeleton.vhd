@@ -67,7 +67,7 @@
 			
 			reset <= '0';
 			
-			for i in 0 to 4000 loop
+			for i in 0 to 0 loop
 				wait for clock_period * 2; -- wait until global set/reset completes
 				
 				-- inputs

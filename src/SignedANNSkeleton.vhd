@@ -112,8 +112,8 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 		connections_in => connections_in, 
 		connections_out => connections_out, 
 		wanted => wanted,
-		weights_wr_en => weights_wr,
-		weights => weights,
+		--weights_wr_en => weights_wr,
+		--weights => weights,
 		debug => open
 	);
 	busy <= busy_signal;

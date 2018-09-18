@@ -55,8 +55,8 @@ entity FixedPointANN is
 			wanted_fp			:	in fixed_point_vector;
 			error_out 			:	out fixed_point;
 
-			weights_wr_en 		:	in std_logic;
-			weights 			:	inout weights_vector;
+			--weights_wr_en 		:	in std_logic;
+			--weights 			:	inout weights_vector;
 
          	debug		      	:  	out uint8_t
 		);
@@ -170,12 +170,12 @@ hidden_layers: entity work.HiddenLayers(Behavioral) port map
 		dist_mode => mode_out_signal, 
 		connections_in => connections_in_fp, 
 		connections_out => hidden_connections_out_fp,
-		wanted => wanted_fp, 
-		weights_wr_en => weights_wr_en, 
-		weights => weights_signal
+		wanted => wanted_fp 
+		--weights_wr_en => weights_wr_en, 
+		--weights => weights_signal
 	);
 
-	weights_signal <= weights when weights_wr_en = '1' else (others => 'Z');
+	--weights_signal <= weights when weights_wr_en = '1' else (others => 'Z');
 
 	distr: Distributor port map
 	(

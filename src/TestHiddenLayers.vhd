@@ -54,10 +54,10 @@ architecture Behavioral of TestHiddenLayers is
 		connections_in	:	in fixed_point_vector;
 		connections_out	:	out fixed_point_vector;
 
-		wanted 			: 	in fixed_point_vector;
+		wanted 			: 	in fixed_point_vector
 
-		weights_wr_en	: 	in std_logic;
-		weights 		: 	inout weights_vector
+		--weights_wr_en	: 	in std_logic;
+		--weights 		: 	inout weights_vector
 	);
 	end component;
 	
@@ -69,7 +69,7 @@ architecture Behavioral of TestHiddenLayers is
 		reset			: 	in std_logic;
 		learn			:	in std_logic;
 		calculate       :   in std_logic;
-		n_feedback_bus	:	out std_logic_vector(l downto 0) := (others => 'Z'); -- l layers + summation (at l)
+		n_feedback_bus	:	out std_logic_vector(totalLayers downto 0) := (others => 'Z'); -- l layers + summation (at l)
 		
 		n_feedback		: 	out integer range 0 to 2;
 		current_layer	:	out uint8_t;
@@ -105,7 +105,7 @@ architecture Behavioral of TestHiddenLayers is
 	
 	-- Signals for Distribute module
 	signal learn, calculate, data_rdy : std_logic := '0';
-	signal n_feedback_bus : std_logic_vector(l downto 0);
+	signal n_feedback_bus : std_logic_vector(totalLayers downto 0);
 
     --signal err_in, err_out : fixed_point_vector := (others => (others => '0'));
     --signal errors_in		:	fixed_point_vector;
@@ -132,7 +132,7 @@ begin
 	
 	uut : HiddenLayers port map 
 		(
-			clk, reset, n_feedback, current_layer, current_neuron, dist_mode, conn_in, conn_out, wanted, weights_wr_en, weights
+			clk, reset, n_feedback, current_layer, current_neuron, dist_mode, conn_in, conn_out, wanted -- , weights_wr_en, weights
 		);
 	current_layer <= current_layer_manual when dist_mode = idle else current_layer_dist;
 
@@ -141,7 +141,7 @@ begin
 	   -- weights and bias init when reset should be checked here.
 		reset <= '1';
 		weights <= (others => 'Z');
-		wait for period *(l+2);
+		wait for period *(totalLayers+2);
 		reset <= '0';
 		
 		

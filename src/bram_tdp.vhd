@@ -33,8 +33,8 @@ architecture rtl of bram_tdp is
     -- Shared memory
     type mem_type is array ( (2**ADDR)-1 downto 0 ) of std_logic_vector(DATA-1 downto 0);
     shared variable mem : mem_type;
-    signal mem_s : mem_type;
-    signal mem_w : fixed_point_matrix;
+    --signal mem_s : mem_type;
+    --signal mem_w : fixed_point_matrix;
 begin
 
 -- Port A
@@ -57,7 +57,7 @@ begin
         end if;
         b_dout <= mem(conv_integer(b_addr));
 
-        mem_s <= mem;
+        --mem_s <= mem;
     end if;
 end process;
  

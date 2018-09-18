@@ -139,6 +139,7 @@ sig:
 				--end if;
 				
 				weights_out <= weights_in;
+				output_errors <= (others => zero);
 			elsif n_feedback = 0 then
 				output_factor := multiply(output_previous, factor - output_previous);
 				output_factor_s <= output_factor;
@@ -175,6 +176,14 @@ sig:
 					weights := weights_in(i) + multiply(delta, input_connections(i));
 					weights_out(i) <= weights;
 				end loop;
+
+				-- zero the other weights for correctness sake 
+				for i in weights_in'length to maxWidth-1 loop
+					output_errors(i) <= zero;
+				
+					--weights := weights_in(i) + multiply(delta, input_connections(i));
+					weights_out(i) <= zero;
+				end loop;	
 			end if;
 		end if;
 	end process;

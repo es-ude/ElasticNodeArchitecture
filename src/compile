@@ -1,0 +1,6 @@
+#!/bin/bash
+source /opt/Xilinx/14.7/ISE_DS/settings64.sh
+xst -intstyle ise -ifn "/home/alwynster/git/fpgamiddlewareproject/genericProject.xst" -ofn "/home/alwynster/git/fpgamiddlewareproject/genericProject.syr"
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc src/mapping_fix.ucf -uc elasticNode.ucf -bm src/xessdemo.bmm -p xc6slx9-tqg144-2 genericProject.ngc genericProject.ngd
+map -intstyle ise -p xc6slx9-tqg144-2 -w -logic_opt on -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt 2 -detail -ir off -ignore_keep_hierarchy -pr off -lc auto -bp -power off -o genericProject_map.ncd genericProject.ngd genericProject.pcf
+
