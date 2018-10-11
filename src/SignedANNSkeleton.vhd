@@ -54,8 +54,14 @@ entity SignedANNSkeleton is
 		-- data interface
 		data_in				: in uint8_t; -- std_logic_vector(31 downto 0);
 		address_in			: in uint16_t;
-		data_out			: out uint8_t -- std_logic_vector(31 downto 0)
+		data_out			: out uint8_t; -- std_logic_vector(31 downto 0)
 		
+		-- spi interface
+		flash_available		: in std_logic;
+		spi_cs				: out std_logic;
+		spi_clk				: out std_logic;
+		spi_mosi			: out std_logic;
+		spi_miso			: in std_logic
 		--calculate_out		: out std_logic;
 		--debug				: out uint8_t
 	);
@@ -77,6 +83,9 @@ architecture Behavioral of SignedANNSkeleton is
 
 	signal weights 			: weights_vector;
 	signal weights_wr		: std_logic := '0';
+
+	signal flash_address	: uint24_t;
+	signal load_weights, store_weights, store_weights_delayed, flash_ready : std_logic;
 begin
 	--calculate_out <= calculate;
 	
@@ -112,6 +121,17 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 		connections_in => connections_in, 
 		connections_out => connections_out, 
 		wanted => wanted,
+
+		flash_address => flash_address,
+		load_weights => load_weights,
+		store_weights => store_weights_delayed,
+		flash_ready => flash_ready,
+
+		spi_cs => spi_cs,
+		spi_clk => spi_clk,
+		spi_mosi => spi_mosi,
+		spi_miso => spi_miso,
+		
 		--weights_wr_en => weights_wr,
 		--weights => weights,
 		debug => open
@@ -126,6 +146,8 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 			data_out <= (others => '0');
 			calculate <= '0';
 			run_counter <= (others => '0');
+			load_weights <= '0';
+			store_weights <= '0';
 			-- done <= '0';
 		else
 		-- beginning/end
@@ -151,6 +173,15 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 							run_counter <= run_counter + to_unsigned(1, run_counter'length);
 						when 3 =>
 							calculate <= '0'; -- starts calculation
+						when 4 =>
+							flash_address(7 downto 0) <= data_in;
+						when 5 =>
+							flash_address(15 downto 8) <= data_in;
+						when 6 =>
+							flash_address(23 downto 16) <= data_in;
+						when 7 => 
+							load_weights <= data_in(0);
+							store_weights <= data_in(1);
 						when others =>
 						end case;
 					elsif rd = '0' then
@@ -171,7 +202,18 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 							data_out(4) <= half_clock;
 						when 3 =>
 							data_out(maxWidth-1 downto 0) <= connections_out(maxWidth-1 downto 0);
-	
+						when 4 =>
+							data_out <= flash_address(7 downto 0);
+						when 5 =>
+							data_out <= flash_address(15 downto 8);
+						when 6 =>
+							data_out <= flash_address(23 downto 16);
+						when 7 =>
+							data_out <= (others => '0');
+							data_out(0) <= load_weights;
+							data_out(1) <= store_weights;
+							data_out(2) <= flash_ready;
+							data_out(3) <= store_weights_delayed;
 						when 200 => 
 							data_out <= run_counter(7 downto 0);
 						when 201 =>
@@ -189,146 +231,25 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 		end if;
 		-- intermediate_result_out <= intermediate_result;
 	end process;
---	-- process data receive 
---	process (clock, enable, data_in.ready, current_receive_state)
---		variable column2 	: integer range 0 to numcols2 - 1 := 0;
---		variable row2		: integer range 0 to numrows2 - 1 := 0;
---		variable column1 	: integer range 0 to numcols1 - 1 := 0;
---		variable row1		: integer range 0 to numrows1 - 1 := 0;
---	
---		-- variable intermediate_result : MatrixMultiplicationPackage.outputMatrix := (others => (others => (others => '0')));
---		variable inputA : inputMatrix1 := (others => (others => (others => '0')));
---		variable inputB : inputMatrix2 := (others => (others => (others => '0')));
---		
---		variable first : boolean := false;
---		variable sendSize : boolean := false;
---	begin
---		if enable = '1' then
---			-- beginning/end
---			-- if run = '1' then
---				if rising_edge(clock) then
---					if current_receive_state = idle then
---						-- initiate all required variables
---						current_receive_state <= receiveA; -- begin operation
---						ready <= '1';
---						data_out.ready <= '0';
---						data_out.data <= (others => '0');
---						-- intermediate_result := (others => (others => (others => '0')));
---						done <= '0';
---						column2 := 0;
---						row2 := 0;
---						
---						column1 := 0;
---						row1 := 0;
---						
---					elsif current_receive_state = receiveDone then
---						data_out.ready <= '0';
---						if data_out_done = '1' then
---							current_receive_state <= idle;
---						end if;
---					-- perform the required calculations
---					elsif current_receive_state = calculating then
---						mm_enable <= '1';
---						
---						if mm_done = '1' then
---							intermediate_result_s <= output_s;
---							current_receive_state <= sendResult;
---							sendSize := true;
---							done <= '1';
---							row1 := 0;
---							column2 := 0;
---						end if;
---					-- respond to incoming data
---					elsif data_in.ready = '1' then
---						case current_receive_state is
---							when receiveA =>
---								ready <= '0';
---								done <= '0';
---							
---								inputA(row1)(column1) := data_in.data(15 downto 0);
---								
---								-- check if next row
---								if column1 < numcols1 - 1 then
---									column1 := column1 + 1;
---								else
---									column1 := 0;
---									
---									if row1 < numrows1 - 1 then
---										row1 := row1 + 1;
---									else
---										current_receive_state <= receiveB;
---										row1 := 0;
---										column1 := 0;
---									end if;
---								end if;								
---							when receiveB =>
---								inputB(row2)(column2) := data_in.data(15 downto 0);
---								
---								if column2 < numcols2 - 1 then
---									column2 := column2 + 1;
---								-- check if next row
---								else
---									column2 := 0;
---									if row2 < numrows2 - 1 then
---										row2 := row2 + 1;
---									else
---										current_receive_state <= calculating;
---										row2 := 0;
---										column2 := 0;
---										row1 := 0;
---									end if;
---								end if;												
---							when others => 
---								current_receive_state <= idle;
---						end case;
---					elsif current_receive_state = sendResult then
---						if sendSize then
---							sendSize := false;
---							data_out.data <= OUTPUT_SIZE;
---							data_out.ready <= '1';
---							-- first := true; -- ensure first datapoint is sent
---							
---						elsif data_out_done = '1' or first then
---							first := false;
---							
---							data_out.data <= intermediate_result_s(row1)(column2);
---							data_out.ready <= '1';
---							
---							-- find next datapoint
---							if column2 < numcols2 - 1 then
---								column2 := column2 + 1;
---							else
---									column2 := 0;
---									if row1 < numrows1 - 1 then
---										row1 := row1 + 1;
---									else
---										current_receive_state <= idle;
---										data_out.ready <= '0';
---										row1 := 0;
---										column2 := 0;
---									end if;
---							end if;
-----						else
-----							data_out_rdy <= '0';
---						end if;
---					end if;
---				-- end if;
---			end if;
---		else
---			data_out.ready <= '0';
---			data_out.data <= (others => '0');
---			done <= '0';
---			ready <= '0';
---			current_receive_state <= idle;
---			
---			mm_enable <= '0';
---		end if;
---		-- intermediate_result_s <= intermediate_result;
---		inputA_s <= inputA;
---		inputB_s <= inputB;
---	end process;
-	
-	-- ready <= '1' when enable = '1' and current_receive_state = receiveN else '0';
-	-- calculate <= '1' when current_receive_state = calculating else '0';
+
+	-- delay store_weights until flash is available
+	process (reset, clock, store_weights, flash_available)
+	begin
+		if reset = '1' then
+			store_weights_delayed <= '0';
+		elsif rising_edge(clock) then
+			-- not storing weights
+			if store_weights = '0' then
+				store_weights_delayed <= '0';
+			-- storing weights and flash is available
+			elsif flash_available = '1' then
+				store_weights_delayed <= '1';
+			-- storing weights but flash is not available
+			else
+				store_weights_delayed <= store_weights_delayed; -- leave store_weights high after flash not available
+			end if;
+		end if;
+	end process;
+
 end Behavioral;
 

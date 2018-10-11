@@ -31,8 +31,8 @@ library fpgamiddlewarelibs;
 use fpgamiddlewarelibs.all;
 use fpgamiddlewarelibs.userlogicinterface.all;
 
-library work;
-use work.MatrixMultiplication;
+library matrixmultiplication;
+use matrixmultiplication.MatrixMultiplication;
  
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values

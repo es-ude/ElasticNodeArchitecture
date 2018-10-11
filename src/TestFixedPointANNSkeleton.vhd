@@ -38,11 +38,15 @@
 
 		signal results			: fixed_point_vector;
 		signal errors			: fixed_point;
+
+		signal flash_available	: std_logic;
+		signal spi_cs, spi_clk, spi_mosi, spi_miso : std_logic;
 	BEGIN
 
 		-- Component Instantiation
 		uut: entity neuralnetwork.FixedPointANNSkeleton(Behavioral)
-			generic map (1) port map (clock, reset, busy, rd, wr, data_in, address_in, data_out);
+				
+			generic map (1) port map (clock, reset, busy, rd, wr, data_in, address_in, data_out, flash_available, spi_cs, spi_clk, spi_mosi, spi_miso);
 		
 		clock_process : process
 		begin

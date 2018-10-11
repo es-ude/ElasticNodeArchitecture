@@ -10,10 +10,19 @@ NET CLK_32		LOC="P94" | PERIOD=31.25ns;
 #TIMESPEC TS_<top_level_port> = PERIOD tnm_<top_level_port> 10ns;
 
 # FLASH
-NET "flash_ce" LOC="P38";
-NET "flash_si" LOC="P64"; # MCU_AD<4>
+# NET "flash_ce" LOC="P38";
+# NET "flash_si" LOC="P64"; # MCU_AD<4>
 # flash_sck CCLK
 # flash_so MCU_AD<7>
+# flash_wp MCU_AD<6>
+# flash_hold MCU_AD<5>
+
+# SPI
+NET FLASH_CS LOC="P38";
+NET FLASH_MOSI LOC="P64"; # MCU_AD<4>
+NET CCLK_FLASH_CLK LOC="P70";
+NET FLASH_AVAILABLE LOC="P39";
+# SPI_MISO MCU_AD<7>
 # flash_wp MCU_AD<6>
 # flash_hold MCU_AD<5>
 
@@ -35,7 +44,7 @@ NET "leds<0>"	LOC="P105";
 #NET "selectmap<7>" LOC="P48";
 
 # CONFIG
-NET CCLK LOC="P70";
+# NET CCLK LOC="P70";
 
 # GPIO
 NET "gpio<0>" LOC="P1";

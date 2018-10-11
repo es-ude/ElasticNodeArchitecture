@@ -1,0 +1,70 @@
+#-----------------------------------------------------------
+# Vivado v2017.2 (64-bit)
+# SW Build 1909853 on Thu Jun 15 18:39:10 MDT 2017
+# IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+# Start of session at: Tue Sep 18 16:03:06 2018
+# Process ID: 14023
+# Current directory: /home/alwynster/git/fpgamiddlewareproject
+# Command line: vivado
+# Log file: /home/alwynster/git/fpgamiddlewareproject/vivado.log
+# Journal file: /home/alwynster/git/fpgamiddlewareproject/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.xpr
+update_compile_order -fileset sources_1
+add_files -norecurse {/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/FlashInterface.vhd /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/TestFlashInterface.vhd /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/spi_master.vhd /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/TestSpiInterface.vhd}
+set_property library fpgamiddlewarelibs [get_files -of_objects [get_filesets sources_1] {/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/FlashInterface.vhd /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/TestFlashInterface.vhd /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/TestSpiInterface.vhd}]
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top TestFlashInterface [get_filesets sim_1]
+set_property top_lib fpgamiddlewarelibs [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sim_1
+set_property used_in_synthesis false [get_files -of_objects [get_filesets sources_1] {/home/alwynster/git/fpgamiddlewareproject/src/TestFirWishbone.vhd /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/TestFlashInterface.vhd}]
+launch_simulation
+set_property is_enabled true [get_files  /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd]
+update_compile_order -fileset sources_1
+launch_simulation
+set_property is_enabled true [get_files  /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/spi_master.vhd]
+update_compile_order -fileset sources_1
+launch_simulation
+open_wave_config /home/alwynster/git/fpgamiddlewareproject/src/TestFixedPointANNSkeleton.wcfg
+source TestFlashInterface.tcl
+close_sim
+set_property is_enabled false [get_files  /home/alwynster/git/fpgamiddlewareproject/src/TestFixedPointANNSkeleton.wcfg]
+launch_simulation
+source TestFlashInterface.tcl
+save_wave_config {/home/alwynster/git/fpgamiddlewareproject/src/TestFlashInterface.wcfg}
+restart
+run all
+update_compile_order -fileset sources_1
+relaunch_sim
+save_wave_config {/home/alwynster/git/fpgamiddlewareproject/src/TestFlashInterface.wcfg}
+close_sim
+set_property is_enabled true [get_files -of_objects [get_filesets sources_1] /home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd]
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top TestHiddenLayers [get_filesets sim_1]
+set_property top_lib work [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+launch_simulation
+launch_simulation
+set_property used_in_synthesis false [get_files -of_objects [get_filesets sources_1] /home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd]
+set_property library neuralNetwork [get_files -of_objects [get_filesets sim_1] /home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd]
+launch_simulation
+set_property used_in_synthesis false [get_files -of_objects [get_filesets sim_1] /home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd]
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top_lib neuralNetwork [get_filesets sim_1]
+set_property top_arch Behavioral [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+launch_simulation

@@ -55,6 +55,16 @@ entity SignedANN is
 			--errors_in			:	in fixed_point_vector;
 			wanted				:	in uintw_t;
 
+			flash_address		:	in uint24_t;
+			load_weights		:	in std_logic;
+			store_weights		:	in std_logic;
+			flash_ready			:	out std_logic;
+
+			spi_cs				:	out std_logic;
+			spi_clk				:	out std_logic;
+			spi_mosi			:	out std_logic;
+			spi_miso			:	in std_logic;
+
 			--weights_wr_en 		:	in std_logic;
 			--weights 			:	inout weights_vector;
 
@@ -123,6 +133,16 @@ begin
 
 		wanted_fp => wanted_fp,
 
+		flash_address => flash_address,
+		load_weights => load_weights,
+		store_weights => store_weights,
+		flash_ready => flash_ready,
+
+		spi_cs => spi_cs,
+		spi_clk => spi_clk,
+		spi_mosi => spi_mosi,
+		spi_miso => spi_miso,
+		
 		--weights_wr_en => weights_wr_en,
 		--weights => weights_signal,
 

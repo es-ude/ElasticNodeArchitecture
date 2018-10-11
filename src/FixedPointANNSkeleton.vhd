@@ -54,8 +54,14 @@ entity FixedPointANNSkeleton is
 		-- data interface
 		data_in				: in uint8_t; -- std_logic_vector(31 downto 0);
 		address_in			: in uint16_t;
-		data_out			: out uint8_t -- std_logic_vector(31 downto 0)
+		data_out			: out uint8_t; -- std_logic_vector(31 downto 0)
 		
+		-- spi
+		flash_available		: 	in std_logic;
+		spi_cs				:	out std_logic;
+		spi_clk				:	out std_logic;
+		spi_mosi			:	out std_logic;
+		spi_miso			:	in std_logic
 		--calculate_out		: out std_logic;
 		--debug				: out uint8_t
 	);
@@ -78,6 +84,10 @@ architecture Behavioral of FixedPointANNSkeleton is
 
 	signal weights 			: weights_vector;
 	signal weights_wr		: std_logic := '0';
+
+	signal flash_address	: uint24_t;
+	signal load_weights, store_weights, store_weights_delayed, flash_ready : std_logic;
+ 
 
 begin
 	--calculate_out <= calculate;
@@ -115,6 +125,16 @@ nn: entity neuralnetwork.FixedPointANN(Behavioral)
 		connections_out_fp => connections_out, 
 		wanted_fp => wanted,
 		error_out => error_out,
+
+		flash_address => flash_address,
+		load_weights => load_weights,
+		store_weights => store_weights_delayed,
+		flash_ready => flash_ready,
+
+		spi_cs => spi_cs,
+		spi_clk => spi_clk,
+		spi_mosi => spi_mosi,
+		spi_miso => spi_miso,
 		--weights_wr_en => weights_wr,
 		--weights => weights,
 		debug => open
@@ -215,5 +235,25 @@ nn: entity neuralnetwork.FixedPointANN(Behavioral)
 		end if;
 		-- intermediate_result_out <= intermediate_result;
 	end process;
+
+	-- delay store_weights until flash is available
+	process (reset, clock, store_weights, flash_available)
+	begin
+		if reset = '1' then
+			store_weights_delayed <= '0';
+		elsif rising_edge(clock) then
+			-- not storing weights
+			if store_weights = '0' then
+				store_weights_delayed <= '0';
+			-- storing weights and flash is available
+			elsif flash_available = '1' then
+				store_weights_delayed <= '1';
+			-- storing weights but flash is not available
+			else
+				store_weights_delayed <= '0';
+			end if;
+		end if;
+	end process;
+
 end Behavioral;
 

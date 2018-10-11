@@ -32,10 +32,10 @@ entity middleware is
 		interface_leds	: out std_logic_vector(3 downto 0);
 		
 		-- uart
-		rx					: in std_logic;
+		rx				: in std_logic;
 		tx 				: out std_logic;
 		
-		flash_ce			: out std_logic;
+		mcu_cs			: out std_logic;
 		
 		-- sram
 		sram_address 	: in uint16_t;
@@ -70,7 +70,7 @@ begin
 		 uart_tx => uart_tx,
 		 uart_tx_done => uart_tx_done,
 		 uart_rx => uart_rx,
-		 flash_ce => flash_ce,
+		 mcu_cs => mcu_cs,
 		 sram_address => sram_address,
 		 sram_data_out => sram_data_out,
 		 sram_data_in => sram_data_in,

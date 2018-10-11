@@ -32,8 +32,8 @@ use IEEE.NUMERIC_STD.ALL;
 library fpgamiddlewarelibs;
 use fpgamiddlewarelibs.UserLogicInterface.all;
 
-library work;
-use work.MatrixMultiplicationPackage;
+library matrixmultiplication;
+use matrixmultiplication.MatrixMultiplicationPackage;
 
 
 entity MatrixMultiplication is

@@ -41,7 +41,8 @@ architecture Behavioral of TestFixedPointANN is
 	--constant repeat : integer := 10;
 	constant NUM_LOOPS : integer := 2500; -- (2x 1000)
 
-	signal wanted				: 	fixed_point_vector;
+	signal wanted 				: 	fixed_point_vector;
+	signal error_fp				: 	fixed_point;
 	signal conn_in, conn_out 	: 	fixed_point_vector;
 
 	signal weights_wr : std_logic := '0';
@@ -51,6 +52,10 @@ architecture Behavioral of TestFixedPointANN is
 	signal repeatCount : integer;
 	
 	signal debug : uint8_t;
+
+	signal flash_address : uint24_t;
+	signal load_weights, store_weights, flash_ready : std_logic;
+	signal spi_cs, spi_clk, spi_mosi, spi_miso : std_logic;
 
 begin
 --	data_in(maxWidth-1 downto 0) <= conn_in;
@@ -82,6 +87,18 @@ uut: entity neuralnetwork.FixedPointANN(Behavioral) port map
 		connections_in_fp => conn_in, 
 		connections_out_fp => conn_out, 
 		wanted_fp => wanted, 
+		error_out => error_fp,
+
+		flash_address => flash_address,
+		load_weights => load_weights,
+		store_weights => store_weights,
+		flash_ready => flash_ready,
+
+		spi_cs => spi_cs,
+		spi_clk => spi_clk,
+		spi_mosi => spi_mosi,
+		spi_miso => spi_miso,
+
 		--weights_wr_en => weights_wr,
 		--weights => weights,
 		debug => debug

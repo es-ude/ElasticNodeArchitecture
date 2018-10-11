@@ -14,7 +14,7 @@ entity InterfaceStateMachine is
 	);
 	port(
 		clk					: in std_logic;							-- clock
-		reset					: in std_logic;							-- reset everything
+		reset				: in std_logic;							-- reset everything
 		
 		-- icap interface
 		icap_address		: out uint24_t_interface;
@@ -25,7 +25,7 @@ entity InterfaceStateMachine is
 		uart_rx				: in uint8_t_interface;
 		
 		-- flash interface
-		flash_ce				: out std_logic := '1';
+		mcu_cs			: out std_logic := '1';
 		
 		-- sram interface
 		sram_address		: in uint16_t;
@@ -35,15 +35,15 @@ entity InterfaceStateMachine is
 		sram_wr				: in std_logic;
 		
 		-- userlogic interface
-		userlogic_reset	: out std_logic;
-		userlogic_busy 	: in std_logic;
+		userlogic_reset		: out std_logic;
+		userlogic_busy 		: in std_logic;
 		userlogic_data_in	: out uint8_t;
 		userlogic_address	: out uint16_t;
-		userlogic_data_out: in uint8_t;
+		userlogic_data_out	: in uint8_t;
 		userlogic_rd		: out std_logic;
 		userlogic_wr		: out std_logic;
 		
-		leds 					: out std_logic_vector(3 downto 0)
+		leds 				: out std_logic_vector(3 downto 0)
 	);
 end InterfaceStateMachine;
 
@@ -85,9 +85,10 @@ begin
 			led_signal <= (others => '0');
 			-- sram_data_out <= (others => '0');
 			userlogic_reset_signal <= '1';
+			mcu_cs <= '1';
 			-- userlogic_rd <= '1';
 			-- userlogic_wr <= '1';
-			flash_ce <= '1';
+			--flash_ce <= '1';
 			middleware_data_out <= (others => '0');
 		else
 			if rising_edge(clk) then
@@ -118,7 +119,7 @@ begin
 								userlogic_reset_signal <= data_var(0);
 							when FLASH_CONTROL =>
 								data_var := std_logic_vector(sram_data_in);
-								flash_ce <= data_var(0);
+								mcu_cs <= data_var(0);
 							when others =>
 							end case;
 						-- data region

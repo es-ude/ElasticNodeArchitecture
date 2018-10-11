@@ -48,7 +48,18 @@ entity HiddenLayers is
 			connections_in			:	in fixed_point_vector;
 			connections_out			:	out fixed_point_vector;
 
-			wanted					:	in fixed_point_vector
+			wanted					:	in fixed_point_vector;
+
+			flash_address			:	in uint24_t;
+			load_weights			:	in std_logic;
+			store_weights			:	in std_logic;
+			flash_ready				:	out std_logic;
+
+			spi_cs					:	out std_logic;
+			spi_clk					:	out std_logic;
+			spi_mosi				:	out std_logic;
+			spi_miso				:	in std_logic
+
 
 			--weights_wr_en 			:	in std_logic;
 			--weights 				:	inout weights_vector := (others => 'Z')
@@ -68,7 +79,7 @@ signal n_feedback_s : integer range 0 to 2;
 -- weights ram interface
 constant WEIGHTS_RAM_WIDTH							: integer := log2(totalLayers);
 signal weights_wr_a, weights_wr_b, weights_wr_ext	: std_logic := '0';
-signal weights_address_a,weights_address_b			: std_logic_vector(WEIGHTS_RAM_WIDTH-1 downto 0);
+signal weights_address_a,weights_address_b,weights_address_ann,weights_address_flash			: std_logic_vector(WEIGHTS_RAM_WIDTH-1 downto 0);
 signal weights_din_a, weights_din_b, weights_din_ann, weights_din_ext, weights_dout_a, weights_dout_b 	: weights_vector; -- read entire layer's weights at a time 
 signal invert_clk									: std_logic;
 signal reset_counter 								: unsigned(WEIGHTS_RAM_WIDTH-1 downto 0) := (others => '0'); -- l+1 means it's done
@@ -91,6 +102,20 @@ signal biases_in, biases_out				: fixed_point_vector;
 signal current_layer_sample_signal : uint8_t;
 signal current_neuron_sample_signal : uint8_t;
 
+ --flash interface
+--signal flashAddress : uint16_t;
+signal flashWrRequest, flashRdRequest, flashDataInRequest, flashDataOutAvail, flashDone : std_logic;
+signal flashNumBytes : integer range 0 to 256;
+signal flashDataIn, flashDataOut : uint8_t;
+
+signal weights_wr_flash, weights_rd_flash : std_logic;
+signal weights_din_flash : weights_vector;
+type flashStateType is (idle, requestLoadWeights, loadingWeights, waitingLoadingWeights, requestStoreWeights, storingWeights, waitingStoringWeights, finished);
+signal flashState : flashStateType;
+
+-- debug
+signal layerIndex_s, index_s : integer;
+
 begin
 
 lay: 
@@ -98,6 +123,166 @@ lay:
 	(
 		clk, reset, n_feedback, dist_mode, current_layer, current_neuron, conn_in, conn_out, conn_out_prev, err_in, err_out, weights_in, weights_out, biases_in, biases_out
 	);
+
+-- flash loading
+flash:
+	entity fpgamiddlewarelibs.FlashInterface(Behavioral) generic map
+	(
+		prescaler => 2
+	)
+	port map
+	(
+		clk => clk,
+		reset => reset,
+
+		addressIn => flash_address,
+		writeRequest => flashWrRequest,
+		readRequest => flashRdRequest,
+		numBytes => flashNumBytes,
+		dataIn => flashDataIn,
+		dataInRequest => flashDataInRequest,
+		dataOut => flashDataOut,
+		dataOutAvailable => flashDataOutAvail,
+		done => flashDone,
+
+		spi_cs => spi_cs,
+		spi_clk => spi_clk,
+		spi_mosi => spi_mosi,
+		spi_miso => spi_miso
+	);
+
+flash_process: -- todo bias store/load
+process (clk, reset, load_weights, flashDataOutAvail) is
+	variable index : integer range 0 to totalLayers+1;
+	constant bytesPerLayer : integer := b*maxWidth*maxWidth/8;
+	variable layerIndex : integer range 0 to bytesPerLayer + 1;
+	variable currentByte : uint8_t;
+begin
+	if reset = '1' then
+		weights_din_flash <= (others => '0');
+		weights_address_flash <= (others => '0');
+		flashRdRequest <= '0';
+		flashWrRequest <= '0';
+	elsif rising_edge(clk) then
+		case flashState is
+		
+		when idle =>
+			if load_weights = '1' then
+				flashState <= requestLoadWeights;
+			elsif store_weights = '1' then
+				flashState <= requestStoreWeights;
+			end if;
+			weights_wr_flash <= '0';
+			weights_rd_flash <= '1';
+			index := 0;
+			layerIndex := 0;
+		when requestLoadWeights =>
+			--flashAddress <= x"A50F";
+			flashRdRequest <= '1';
+			flashNumBytes <= bytesPerLayer * totalLayers;
+			weights_address_flash <= (others => '0');
+
+			flashState <= waitingLoadingWeights;
+		when loadingWeights =>
+			flashRdRequest <= '0';
+
+			weights_din_flash((layerIndex+1)*8-1 downto layerIndex*8) <= std_logic_vector(currentByte);
+			
+			if layerIndex < bytesPerLayer - 1 then
+				
+				layerIndex := layerIndex + 1;
+				flashState <= waitingLoadingWeights;
+
+			else 
+				layerIndex := 0;
+				weights_address_flash <= std_logic_vector(to_unsigned(index, weights_address_flash'length));
+				weights_wr_flash <= '1';
+				index := index + 1;
+				-- done
+				if index = totalLayers then
+					flashState <= finished;
+				else
+					flashState <= waitingLoadingWeights;
+				end if;
+			end if;
+		when waitingLoadingWeights =>
+			weights_wr_flash <= '0';
+			-- wait for next byte to be available from the flash
+			if flashDataOutAvail = '1' then
+				flashState <= loadingWeights;
+				currentByte := flashDataOut;
+			end if;
+		when requestStoreWeights =>
+			--flashAddress <= x"A50F";
+			flashNumBytes <= bytesPerLayer * totalLayers;
+			weights_address_flash <= (others => '0');
+			weights_rd_flash <= '1';
+			flashWrRequest <= '1';
+			layerIndex := 0;
+
+
+			-- assert first data
+			flashState <= waitingStoringWeights;
+			flashDataIn <= unsigned(weights_dout_b((layerIndex+1)*8-1 downto layerIndex*8));
+
+		when storingWeights =>
+			if layerIndex < bytesPerLayer - 2 then				
+				layerIndex := layerIndex + 1;
+				flashState <= waitingStoringWeights;
+
+			-- read normally but queue read of next layer
+			elsif layerIndex = bytesPerLayer - 2 then
+				layerIndex := layerIndex + 1;
+				flashState <= waitingStoringWeights;				
+
+				-- read either next layer or end 
+				--if index = totalLayers - 1 then
+				--	flashState <= finished;
+				index := index + 1;
+				flashState <= waitingStoringWeights;
+				
+				if index /= totalLayers - 1 then
+					weights_address_flash <= std_logic_vector(to_unsigned(index, weights_address_flash'length));
+				end if;
+			else
+				-- write first of next layer
+				layerIndex := 0;
+				flashState <= waitingStoringWeights;
+				
+				if index = totalLayers then
+					index := 0;
+					flashState <= finished;
+				end if;
+				--weights_wr_flash <= '1';
+				-- done
+			end if;
+
+			-- first time layerIndex will be 1 here
+			flashDataIn <= unsigned(weights_dout_b((layerIndex+1)*8-1 downto layerIndex*8));
+			
+		when waitingStoringWeights =>
+			flashWrRequest <= '0';
+
+			--weights_wr_flash <= '0';
+			-- wait for next byte to be available from the flash
+			if flashDataInRequest = '1' then
+				flashState <= storingWeights;
+				currentByte := flashDataOut;
+			end if;
+		when finished =>
+			if load_weights = '0' and store_weights = '0' then
+				flashState <= idle;
+			end if;
+		when others =>
+
+		end case;
+
+		layerIndex_s <= layerIndex;
+		index_s <= index;
+	end if;
+end process;
+flash_ready <= '1' when flashState = finished else '0';
+
 
 -- memory
 invert_clk <= not clk;
@@ -112,11 +297,12 @@ weights_bram:
 	);
 -- simple writing logic
 -- write when resetting, or after each feedback layer, or after last feedback layer, or when weights are being set from outside
-weights_wr_b <= '1' when reset = '1' or (n_feedback = 2 and dist_mode = feedback) or (dist_mode = delay) -- or (weights_wr_ext = '1')
+weights_wr_b <= '1' when reset = '1' or (n_feedback = 2 and dist_mode = feedback) or (dist_mode = delay) or (weights_wr_flash = '1') -- or (weights_wr_ext = '1')
 	else '0';
 -- output weights to buffer when not being written
 --weights <= (others => 'Z') when weights_wr_en = '1' else weights_dout_b; -- (others => '1'); -- when weights_wr_en = '0' else (others => 'Z'); -- weights_dout_b
---weights_din_b <= weights_din_ext when weights_wr_ext = '1' else weights_din_ann;
+weights_din_b <= weights_din_flash when weights_wr_flash = '1' else weights_din_ann;
+weights_address_b <= weights_address_flash when weights_wr_flash = '1' or weights_rd_flash = '1' else weights_address_ann;
 --weights_din_b <= weights_din_ann;
 
 	n_feedback_s <= n_feedback when (current_layer > 0 and current_layer < totalLayers-1) else 2;
@@ -129,7 +315,7 @@ vtw:
 wtv:
 	entity neuralnetwork.weightstovector(Behavioral) port map
 	(
-		weights_out, weights_din_b
+		weights_out, weights_din_ann
 	);
 	
 connections:
@@ -293,7 +479,7 @@ btv:
 				-- reset all weights in memory
 				--if reset_counter < totalLayers+1 then
 					-- data is being set by Layer.vhd
-					weights_address_b <= std_logic_vector(resize(current_layer, weights_address_b'length));
+					weights_address_ann <= std_logic_vector(resize(current_layer, weights_address_ann'length));
 					--weights_din_b <= weights_din_ann; -- retrieve defaults from Layer
 					bias_wr_address <= std_logic_vector(resize(current_layer, weights_address_b'length));
 					--reset_counter <= reset_counter + to_unsigned(1, reset_counter'length);
@@ -313,7 +499,7 @@ btv:
 			-- generic read for external read
 			elsif dist_mode = intermediate then -- used to be idle?
 				weights_wr_ext <= '0';
-				weights_address_b <= std_logic_vector(to_unsigned(numHiddenLayers, WEIGHTS_RAM_WIDTH));
+				weights_address_ann <= std_logic_vector(to_unsigned(numHiddenLayers, WEIGHTS_RAM_WIDTH));
 			else
 				weights_wr_ext <= '0';
 				reset_counter <= (others => '0');
@@ -333,7 +519,7 @@ btv:
 				-- weights_din_b <= weights_din_ann; -- load weights to be written to memory from the ann, not from outside
 
 				if last_neuron then
-					weights_address_b <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
+					weights_address_ann <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
 					bias_wr_address <= std_logic_vector(resize(current_layer, BIAS_RAM_WIDTH));
 
 				end if;

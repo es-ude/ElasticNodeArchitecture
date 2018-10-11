@@ -54,7 +54,17 @@ architecture Behavioral of TestHiddenLayers is
 		connections_in	:	in fixed_point_vector;
 		connections_out	:	out fixed_point_vector;
 
-		wanted 			: 	in fixed_point_vector
+		wanted 			: 	in fixed_point_vector;
+
+		flash_address	:	in uint24_t;
+		load_weights	:	in std_logic;
+		store_weights	:	in std_logic;
+		flash_ready		:	out std_logic;
+
+		spi_cs			:	out std_logic;
+		spi_clk			:	out std_logic;
+		spi_mosi		:	out std_logic;
+		spi_miso		:	in std_logic
 
 		--weights_wr_en	: 	in std_logic;
 		--weights 		: 	inout weights_vector
@@ -75,18 +85,26 @@ architecture Behavioral of TestHiddenLayers is
 		current_layer	:	out uint8_t;
 		current_neuron	:	out uint8_t;
 
-		data_rdy       :  out std_logic;
-		mode_out       :  out distributor_mode
+		data_rdy       	:  out std_logic;
+		mode_out       	:  out distributor_mode
 	);
 	end component;
 
-    -- Clock and reset signal
-    constant period : time := 100 ns;
+    
+	
+	
+	-- Clock and reset signal
+    constant period : time := 10 ps;
     signal clk : std_logic := '0';
     signal reset : std_logic:='1';
     signal busy 	: boolean := true;
     
-    -- Common signals
+    -- spi interface
+    signal spi_cs, spi_clk, spi_mosi, spi_miso : std_logic := '1';
+
+    -- flash signals
+    signal flash_address : uint24_t;
+    signal load_weights, store_weights, flash_ready : std_logic := '0';
     
     -- Signals for Layer module
 	signal conn_in, conn_out : fixed_point_vector := (others => (others => '0'));
@@ -131,19 +149,35 @@ begin
 	);
 	
 	uut : HiddenLayers port map 
-		(
-			clk, reset, n_feedback, current_layer, current_neuron, dist_mode, conn_in, conn_out, wanted -- , weights_wr_en, weights
-		);
-	current_layer <= current_layer_manual when dist_mode = idle else current_layer_dist;
+	(
+		clk, reset, n_feedback, current_layer_dist, current_neuron, dist_mode, conn_in, conn_out, wanted, flash_address, load_weights, store_weights, flash_ready, spi_cs, spi_clk, spi_mosi, spi_miso -- , weights_wr_en, weights
+	);
+	--current_layer <= current_layer_manual when dist_mode = idle else current_layer_dist;
 
 	process begin
 	
 	   -- weights and bias init when reset should be checked here.
 		reset <= '1';
 		weights <= (others => 'Z');
-		wait for period *(totalLayers+2);
+		wait for period *(totalLayers+2)*100;
 		reset <= '0';
 		
+		-- store weights from the spi
+		wait for period * 4;
+		flash_address <= x"ABCDEF";
+		store_weights <= '1';
+		wait until flash_ready = '1';
+		store_weights <= '0';
+		wait for period * 16;
+
+		-- load weights from the spi
+		wait for period * 32;
+		load_weights <= '1';
+		--wait for period * (totalLayers + 2);
+		wait until flash_ready = '1';
+		load_weights <= '0';
+
+
 		
 		-- train 11 times
 		-- bias and weights write and read should be checked here.
