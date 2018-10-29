@@ -50,6 +50,7 @@ entity HiddenLayers is
 
 			wanted					:	in fixed_point_vector;
 
+			reset_weights 			:	in std_logic;
 			flash_address			:	in uint24_t;
 			load_weights			:	in std_logic;
 			store_weights			:	in std_logic;
@@ -81,6 +82,7 @@ constant WEIGHTS_RAM_WIDTH							: integer := log2(totalLayers);
 signal weights_wr_a, weights_wr_b, weights_wr_ext	: std_logic := '0';
 signal weights_address_a,weights_address_b,weights_address_ann,weights_address_flash			: std_logic_vector(WEIGHTS_RAM_WIDTH-1 downto 0);
 signal weights_din_a, weights_din_b, weights_din_ann, weights_din_ext, weights_dout_a, weights_dout_b 	: weights_vector; -- read entire layer's weights at a time 
+signal resetWeightsOscillate 						: boolean; -- indicates when weights should be written
 signal invert_clk									: std_logic;
 signal reset_counter 								: unsigned(WEIGHTS_RAM_WIDTH-1 downto 0) := (others => '0'); -- l+1 means it's done
 
@@ -94,8 +96,8 @@ signal conn_feedback							: fixed_point_vector;
 
 -- bias ram interface
 constant BIAS_RAM_WIDTH						: integer := log2(totalLayers);
-signal bias_wr									: std_logic := '0';
-signal bias_rd_address,bias_wr_address	: std_logic_vector(BIAS_RAM_WIDTH-1 downto 0);
+signal bias_wr								: std_logic := '0';
+signal bias_rd_address,bias_wr_address,bias_rd_address_ann,bias_rd_address_flash : std_logic_vector(BIAS_RAM_WIDTH-1 downto 0);
 signal bias_din, bias_dout					: conn_vector;
 signal biases_in, biases_out				: fixed_point_vector;
 
@@ -108,9 +110,9 @@ signal flashWrRequest, flashRdRequest, flashDataInRequest, flashDataOutAvail, fl
 signal flashNumBytes : integer range 0 to 256;
 signal flashDataIn, flashDataOut : uint8_t;
 
-signal weights_wr_flash, weights_rd_flash : std_logic;
+signal weights_wr_flash, weights_rd_flash, bias_wr_flash, bias_rd_flash : std_logic;
 signal weights_din_flash : weights_vector;
-type flashStateType is (idle, requestLoadWeights, loadingWeights, waitingLoadingWeights, requestStoreWeights, storingWeights, waitingStoringWeights, finished);
+type flashStateType is (idle, waitResetWeights, requestLoadWeights, loadingWeights, waitingLoadingWeights, requestStoreWeights, storingWeights, waitingStoringWeights, storingBias, waitingStoringBias, finished);
 signal flashState : flashStateType;
 
 -- debug
@@ -151,11 +153,33 @@ flash:
 		spi_miso => spi_miso
 	);
 
-flash_process: -- todo bias store/load
-process (clk, reset, load_weights, flashDataOutAvail) is
+-- half speed clock to only write memory every second cycle
+resetWeightsOscillate_process:
+process(clk, reset, reset_weights)
+begin
+	if reset = '1' then
+		resetWeightsOscillate <= true;
+
+	elsif falling_edge(clk) then
+		if dist_mode = resetWeights then
+			if resetWeightsOscillate then
+				resetWeightsOscillate <= false;
+			else
+				resetWeightsOscillate <= true;
+			end if;
+		else
+			resetWeightsOscillate <= false;
+		end if;
+	end if;
+end process;
+
+
+flash_process:
+process (clk, reset, reset_weights, load_weights, flashDataOutAvail) is
 	variable index : integer range 0 to totalLayers+1;
-	constant bytesPerLayer : integer := b*maxWidth*maxWidth/8;
-	variable layerIndex : integer range 0 to bytesPerLayer + 1;
+	constant bytesPerLayerWeights : integer := b*maxWidth*maxWidth/8;
+	constant bytesPerLayerBias : integer := b*maxWidth/8;
+	variable layerIndex : integer range 0 to bytesPerLayerWeights + 1;
 	variable currentByte : uint8_t;
 begin
 	if reset = '1' then
@@ -171,15 +195,29 @@ begin
 				flashState <= requestLoadWeights;
 			elsif store_weights = '1' then
 				flashState <= requestStoreWeights;
+			elsif reset_weights = '1' then
+				flashState <= waitResetWeights;
 			end if;
+			-- current state flags
 			weights_wr_flash <= '0';
-			weights_rd_flash <= '1';
+			weights_rd_flash <= '0';
+			bias_wr_flash <= '0';
+			bias_rd_flash <= '0';
 			index := 0;
 			layerIndex := 0;
+
+		-- reset weights
+		when waitResetWeights =>
+			-- stay here until weights have been reset
+			if dist_mode = resetWeightsDone then 
+				flashState <= finished;
+			end if;
+
+		-- load weights from flash
 		when requestLoadWeights =>
 			--flashAddress <= x"A50F";
 			flashRdRequest <= '1';
-			flashNumBytes <= bytesPerLayer * totalLayers;
+			flashNumBytes <= bytesPerLayerWeights * totalLayers + bytesPerLayerBias * totalLayers;
 			weights_address_flash <= (others => '0');
 
 			flashState <= waitingLoadingWeights;
@@ -188,7 +226,7 @@ begin
 
 			weights_din_flash((layerIndex+1)*8-1 downto layerIndex*8) <= std_logic_vector(currentByte);
 			
-			if layerIndex < bytesPerLayer - 1 then
+			if layerIndex < bytesPerLayerWeights - 1 then
 				
 				layerIndex := layerIndex + 1;
 				flashState <= waitingLoadingWeights;
@@ -212,10 +250,14 @@ begin
 				flashState <= loadingWeights;
 				currentByte := flashDataOut;
 			end if;
+
+		-- storing weights to flash
 		when requestStoreWeights =>
 			--flashAddress <= x"A50F";
-			flashNumBytes <= bytesPerLayer * totalLayers;
+			flashNumBytes <= bytesPerLayerWeights * totalLayers + bytesPerLayerBias * totalLayers;
+			assert flashNumBytes < 256 report "writing too many bytes to flash" severity failure;
 			weights_address_flash <= (others => '0');
+			bias_rd_address_flash <= (others => '0');
 			weights_rd_flash <= '1';
 			flashWrRequest <= '1';
 			layerIndex := 0;
@@ -226,12 +268,14 @@ begin
 			flashDataIn <= unsigned(weights_dout_b((layerIndex+1)*8-1 downto layerIndex*8));
 
 		when storingWeights =>
-			if layerIndex < bytesPerLayer - 2 then				
+			if layerIndex < bytesPerLayerWeights - 2 then				
 				layerIndex := layerIndex + 1;
 				flashState <= waitingStoringWeights;
+				-- first time layerIndex will be 1 here
+				flashDataIn <= unsigned(weights_dout_b((layerIndex+1)*8-1 downto layerIndex*8));
 
 			-- read normally but queue read of next layer
-			elsif layerIndex = bytesPerLayer - 2 then
+			elsif layerIndex = bytesPerLayerWeights - 2 then
 				layerIndex := layerIndex + 1;
 				flashState <= waitingStoringWeights;				
 
@@ -241,9 +285,13 @@ begin
 				index := index + 1;
 				flashState <= waitingStoringWeights;
 				
-				if index /= totalLayers - 1 then
+				if index /= totalLayers then
 					weights_address_flash <= std_logic_vector(to_unsigned(index, weights_address_flash'length));
 				end if;
+
+				-- first time layerIndex will be 1 here
+				flashDataIn <= unsigned(weights_dout_b((layerIndex+1)*8-1 downto layerIndex*8));
+
 			else
 				-- write first of next layer
 				layerIndex := 0;
@@ -251,14 +299,21 @@ begin
 				
 				if index = totalLayers then
 					index := 0;
-					flashState <= finished;
-				end if;
+					-- set up first bias
+					weights_rd_flash <= '0';
+					bias_rd_flash <= '1';
+
+					flashState <= waitingStoringBias;
+					flashDataIn <= unsigned(bias_dout((layerIndex+1)*8-1 downto layerIndex*8));
+				--end if;
 				--weights_wr_flash <= '1';
 				-- done
+				else
+					-- first time layerIndex will be 1 here
+					flashDataIn <= unsigned(weights_dout_b((layerIndex+1)*8-1 downto layerIndex*8));
+				end if;
 			end if;
 
-			-- first time layerIndex will be 1 here
-			flashDataIn <= unsigned(weights_dout_b((layerIndex+1)*8-1 downto layerIndex*8));
 			
 		when waitingStoringWeights =>
 			flashWrRequest <= '0';
@@ -269,8 +324,56 @@ begin
 				flashState <= storingWeights;
 				currentByte := flashDataOut;
 			end if;
+
+		-- storing bias to flash
+		when storingBias =>
+			if layerIndex < bytesPerLayerBias - 2 then				
+				layerIndex := layerIndex + 1;
+				flashState <= waitingStoringBias;
+
+			-- read normally but queue read of next layer
+			elsif layerIndex = bytesPerLayerBias - 2 then
+				layerIndex := layerIndex + 1;
+				flashState <= waitingStoringBias;				
+
+				-- read either next layer or end 
+				--if index = totalLayers - 1 then
+				--	flashState <= finished;
+				index := index + 1;
+				flashState <= waitingStoringBias;
+				
+				if index /= totalLayers then
+					bias_rd_address_flash <= std_logic_vector(to_unsigned(index, bias_rd_address_flash'length));
+				end if;
+			else
+				-- write first of next layer
+				layerIndex := 0;
+				flashState <= waitingStoringBias;
+				
+				if index = totalLayers then
+					index := 0;
+					bias_rd_flash <= '0';
+					flashState <= finished;
+				end if;
+				--weights_wr_flash <= '1';
+				-- done
+			end if;
+
+			-- first time layerIndex will be 1 here
+			flashDataIn <= unsigned(bias_dout((layerIndex+1)*8-1 downto layerIndex*8));
+			
+		when waitingStoringBias =>
+
+			--weights_wr_flash <= '0';
+			-- wait for next byte to be available from the flash
+			if flashDataInRequest = '1' then
+				flashState <= storingBias;
+				currentByte := flashDataOut;
+			end if;
+
+		-- done 
 		when finished =>
-			if load_weights = '0' and store_weights = '0' then
+			if load_weights = '0' and store_weights = '0' and reset_weights = '0' then
 				flashState <= idle;
 			end if;
 		when others =>
@@ -297,7 +400,7 @@ weights_bram:
 	);
 -- simple writing logic
 -- write when resetting, or after each feedback layer, or after last feedback layer, or when weights are being set from outside
-weights_wr_b <= '1' when reset = '1' or (n_feedback = 2 and dist_mode = feedback) or (dist_mode = delay) or (weights_wr_flash = '1') -- or (weights_wr_ext = '1')
+weights_wr_b <= '1' when (reset_weights = '1' and resetWeightsOscillate) or (n_feedback = 2 and dist_mode = feedback) or (dist_mode = delay) or (weights_wr_flash = '1') -- or (weights_wr_ext = '1') reset = '1' or 
 	else '0';
 -- output weights to buffer when not being written
 --weights <= (others => 'Z') when weights_wr_en = '1' else weights_dout_b; -- (others => '1'); -- when weights_wr_en = '0' else (others => 'Z'); -- weights_dout_b
@@ -393,7 +496,8 @@ bias:
 	( -- read port A, write port B
 		invert_clk, '0', bias_rd_address, (others => '0'), bias_dout, clk, bias_wr, bias_wr_address, bias_din, open
 	);
-bias_wr <= '1' when reset = '1' or (n_feedback = 2 and dist_mode = feedback) or (dist_mode = delay)
+bias_rd_address <= bias_rd_address_flash when bias_rd_flash = '1' else bias_rd_address_ann;
+bias_wr <= '1' when (reset_weights = '1' and resetWeightsOscillate) or (n_feedback = 2 and dist_mode = feedback) or (dist_mode = delay)
 	else '0';
 vtb:
 	entity neuralnetwork.vectortoconn(Behavioral) port map
@@ -474,29 +578,9 @@ btv:
 		if rising_edge(clk) then
 			if reset = '1' then
 				weights_wr_ext <= '0';
-
-				--reset_counter <= current_layer_sample;
-				-- reset all weights in memory
-				--if reset_counter < totalLayers+1 then
-					-- data is being set by Layer.vhd
-					weights_address_ann <= std_logic_vector(resize(current_layer, weights_address_ann'length));
-					--weights_din_b <= weights_din_ann; -- retrieve defaults from Layer
-					bias_wr_address <= std_logic_vector(resize(current_layer, weights_address_b'length));
-					--reset_counter <= reset_counter + to_unsigned(1, reset_counter'length);
-					--weights_wr <= '1';
-				--else 
-					--weights_wr <= '0';
-					--weights_address_b <= (others => '0');
-				--end if;
-				
-			---- weights being set from outside
-			--elsif weights_wr_en = '1' then
-			--	-- sample incoming weights
-			--	--weights_din_b <= weights;
-			--	weights_wr_ext <= '1';
-			--	weights_din_ext <= weights;
-			--	weights_address_b <= std_logic_vector(resize(current_layer, weights_address_b'length));
-			-- generic read for external read
+			elsif dist_mode = resetWeights then
+				weights_address_ann <= std_logic_vector(resize(current_layer, weights_address_ann'length));
+				bias_wr_address <= std_logic_vector(resize(current_layer, weights_address_b'length));
 			elsif dist_mode = intermediate then -- used to be idle?
 				weights_wr_ext <= '0';
 				weights_address_ann <= std_logic_vector(to_unsigned(numHiddenLayers, WEIGHTS_RAM_WIDTH));
@@ -507,16 +591,6 @@ btv:
 				current_layer_sample := to_integer(current_layer);
 
 				last_neuron := (current_neuron = maxWidth-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1)); -- or ((current_layer_sample = 0) and (current_neuron = inputWidth-1));
-				-- last_neuron := current_neuron = maxWidth-1;
-				
-				-- weights_wr <= '0';
-				--if n_feedback = '0' and last_neuron then 
-				--	weights_wr <= '1';		
-				--else
-				--	weights_wr <= '0';
-				--end if;
-				
-				-- weights_din_b <= weights_din_ann; -- load weights to be written to memory from the ann, not from outside
 
 				if last_neuron then
 					weights_address_ann <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
@@ -566,7 +640,7 @@ btv:
 	begin
 		if reset = '1' then
 			-- bias_wr <= '1'; -- address done in weights write process
-			bias_rd_address <= (others => '0');
+			bias_rd_address_ann <= (others => '0');
 
 		else
 			if rising_edge(clk) then
@@ -575,16 +649,13 @@ btv:
 
 				last_neuron := (current_neuron = maxWidth-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1)); -- or ((current_layer_sample = 0) and (current_neuron = inputWidth-1));
 				-- second_last_neuron := (current_neuron = maxWidth-1-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1));
-					
-				--last_neuron := current_neuron = maxWidth-1; 
-				--second_last_neuron := current_neuron = maxWidth-1-1; -- load new bias one clk early
-
+				
 				-- assign address to read from 
 				if n_feedback = 1 then
 					if last_neuron then
 						-- just stay in final layer for intermediate
 						if current_layer < totalLayers-1 then
-							bias_rd_address <= std_logic_vector(resize(current_layer + 1, BIAS_RAM_WIDTH));
+							bias_rd_address_ann <= std_logic_vector(resize(current_layer + 1, BIAS_RAM_WIDTH));
 						end if;
 					end if;
 				-- when backward, load next 
@@ -592,14 +663,14 @@ btv:
 					if last_neuron then
 						-- stay in first layer until next round of query
 						if current_layer > 0 then
-							bias_rd_address <= std_logic_vector(resize(current_layer - 1, BIAS_RAM_WIDTH));
+							bias_rd_address_ann <= std_logic_vector(resize(current_layer - 1, BIAS_RAM_WIDTH));
 						end if;
 					end if;
 				-- between feedback and feedforward
 				elsif dist_mode = intermediate then
-					bias_rd_address <= std_logic_vector(to_unsigned(totalLayers-1, BIAS_RAM_WIDTH));
+					bias_rd_address_ann <= std_logic_vector(to_unsigned(totalLayers-1, BIAS_RAM_WIDTH));
 				elsif dist_mode = idle then
-					bias_rd_address <= (others => '0');
+					bias_rd_address_ann <= (others => '0');
 				end if;
 			end if;
 		end if;

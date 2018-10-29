@@ -186,6 +186,8 @@ begin
 	begin
 		if reset = '1' then
 			biases_out <= (others => zero);
+		elsif dist_mode = resetWeights then
+			biases_out <= (others => zero);
 		else
 			if falling_edge(clk) then
 				biases_out(previous_neuron_int) <= bias_out;
@@ -211,6 +213,8 @@ begin
 	begin
 		-- create default weight for writing to bram
 		if reset = '1' then
+			weights_out <= (others => (others => zero));
+		elsif dist_mode = resetWeights then
 			-- weights_out <= (others => (others => init_weight));
 			if current_layer = 0 then
 				weights_out <= (others => init_input_weights);

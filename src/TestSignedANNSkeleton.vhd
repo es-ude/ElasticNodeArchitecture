@@ -57,26 +57,42 @@
 			variable data : uint8_t;
 		BEGIN
 			reset <= '1';
+			flash_available <= '0';
 
 			wait for clock_period * 20; -- wait until global set/reset completes
 			
 			reset <= '0';
+
+			wait for clock_period * 10;
+			write_uint8_t(16, x"0007", address_in, data_in, wr); -- connections in
+			wait for clock_period * 10;
+			write_uint8_t(0, x"0007", address_in, data_in, wr); -- connections in
+			wait for clock_period * 10;
+
 			
 			wait for clock_period * 20;
 
 			-- request storing of weights
 			write_uint24_t(123456, x"0004", address_in, data_in, wr); -- connections in
 			write_uint8_t(2, x"0007", address_in, data_in, wr); -- connections in
+
+			wait for clock_period * 16;
+			flash_available <= '1';
+
+			wait for 350 us;
 			--write_uint8_t(0, x"0007", address_in, data_in, wr); -- connections in
 
-			wait for clock_period * 100000;
+			--wait for clock_period * 3000;
+			flash_available <= '0';
 
 
 			read_uint8_t(x"0007", address_in, rd, data_out, data);
 
 			write_uint8_t(0, x"0007", address_in, data_in, wr); -- connections in
 
-			wait for clock_period * 10000;
+			write_uint8_t(0, x"0007", address_in, data_in, wr); -- connections in
+
+			wait for clock_period * 16;
 
 			--for i in 0 to 4000 loop
 			--	wait for clock_period * 2; -- wait until global set/reset completes

@@ -41,6 +41,7 @@ entity Distributor is
 		reset			: 	in std_logic;
 		learn			:	in std_logic;
 		calculate      	:  in std_logic;
+		reset_weights	:	in std_logic;
 		n_feedback_bus	:	out std_logic_vector(totalLayers downto 0) := (others => 'Z'); -- l layers + summation (at l)
 		
 		n_feedback		: 	out integer range 0 to 2; -- 0 is back, 1 forward, 2 inbetween
@@ -60,6 +61,7 @@ begin
 	variable n_feedback_var : FeedbackType := idle;
 	variable layer_counter : integer range -1 to totalLayers := 0;
 	variable neuron_counter : integer range 0 to maxWidth := 0;
+	variable delayReset : boolean; -- used to delay the reset to two cycles per layer
 	begin
 
 		-- set up before the clock cycle for hidden layers to sample current_layer
@@ -71,15 +73,8 @@ begin
 				mode <= idle;
 				n_feedback_bus <= (others => 'Z');
 				data_rdy <= '0';
-
-				-- set current_layer so all layers are reset correctly
-				if layer_counter < totalLayers-1 and layer_counter >= 0 then
-					layer_counter := layer_counter + 1;
-				else
-					layer_counter := 0;
-				end if;
-				
-				current_layer <= to_unsigned(layer_counter, current_layer'length);
+				layer_counter := 0;
+				delayReset := true;
 			else
 				--if learn = '1' then 
 					-- start learning
@@ -94,6 +89,9 @@ begin
 							mode <= waiting;
 							n_feedback_var := forward;
 							data_rdy <= '0';
+						elsif reset_weights = '1' then
+							delayReset := true;
+							mode <= resetWeights;
 						end if;
 	--					data_rdy <= '0';
 					when feedforward => -- feedforward
@@ -168,16 +166,37 @@ begin
 						elsif calculate = '0' then
 							mode <= feedforward;
 						end if;
+					-- clear all weights to defaults
+					when resetWeights =>
+						-- use delay to stay at each layer for 2 cycles
+						if delayReset then
+							delayReset := false;
+						else
+							delayReset := true;
+							-- set current_layer so all layers are reset correctly
+							if layer_counter < totalLayers-1 then
+								layer_counter := layer_counter + 1;
+							else
+								layer_counter := 0;
+								mode <= resetWeightsDone;
+							end if;
+						end if;
+					when resetWeightsDone =>
+						-- return to idle once reset_weights goes low
+						-- to avoid continuously rewriting 
+						if reset_weights = '0' then
+							mode <= idle;
+						end if;
 					when others =>
 				end case;
 				
-				if (n_feedback_var = back or n_feedback_var = forward) then
+				--if (n_feedback_var = back or n_feedback_var = forward) or mode = resetWeights then
 					current_layer <= to_unsigned(layer_counter, current_layer'length);
 					current_neuron <= to_unsigned(neuron_counter, current_neuron'length);
-				else
-					current_layer <= (others => 'U');
-					current_neuron <= (others => 'U');
-				end if;
+				--else
+				--	current_layer <= (others => 'U');
+				--	current_neuron <= (others => 'U');
+				--end if;
 					
 				--else
 				--	counter := 0;
@@ -186,11 +205,11 @@ begin
 				-- n_feedback_bus <= (others => 'Z');
 				-- n_feedback_bus(layer_counter) <= n_feedback_var;
 				if n_feedback_var = forward then
-					n_feedback <= 	1;
+					n_feedback <= 1;
 				elsif n_feedback_var = back then
-					n_feedback <= 	0;
+					n_feedback <= 0;
 				else
-					n_feedback <= 	2;
+					n_feedback <= 2;
 				end if; -- n_feedback <= n_feedback_var;
 			end if;
 		end if;

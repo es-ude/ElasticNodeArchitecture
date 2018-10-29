@@ -7,20 +7,21 @@
          <top_modules>
             <top_module name="TestHiddenLayers" />
             <top_module name="common" />
+            <top_module name="constants" />
             <top_module name="userlogicinterface" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="33846052fs"></ZoomStartTime>
-      <ZoomEndTime time="43366053fs"></ZoomEndTime>
-      <Cursor1Time time="38595000fs"></Cursor1Time>
+      <ZoomStartTime time="74541666fs"></ZoomStartTime>
+      <ZoomEndTime time="84181667fs"></ZoomEndTime>
+      <Cursor1Time time="82575000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="204"></NameColumnWidth>
-      <ValueColumnWidth column_width="72"></ValueColumnWidth>
+      <NameColumnWidth column_width="198"></NameColumnWidth>
+      <ValueColumnWidth column_width="66"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="14" />
+   <WVObjectSize size="16" />
    <wvobject type="logic" fp_name="/TestHiddenLayers/clk">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -36,6 +37,10 @@
    <wvobject type="logic" fp_name="/TestHiddenLayers/calculate">
       <obj_property name="ElementShortName">calculate</obj_property>
       <obj_property name="ObjectShortName">calculate</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestHiddenLayers/reset_weights">
+      <obj_property name="ElementShortName">reset_weights</obj_property>
+      <obj_property name="ObjectShortName">reset_weights</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/TestHiddenLayers/uut/load_weights">
       <obj_property name="ElementShortName">load_weights</obj_property>
@@ -65,6 +70,14 @@
          <obj_property name="ElementShortName">weights_rd_flash</obj_property>
          <obj_property name="ObjectShortName">weights_rd_flash</obj_property>
       </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/bias_rd_flash">
+         <obj_property name="ElementShortName">bias_rd_flash</obj_property>
+         <obj_property name="ObjectShortName">bias_rd_flash</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/bias_wr_flash">
+         <obj_property name="ElementShortName">bias_wr_flash</obj_property>
+         <obj_property name="ObjectShortName">bias_wr_flash</obj_property>
+      </wvobject>
       <wvobject type="other" fp_name="/TestHiddenLayers/uut/index_s">
          <obj_property name="ElementShortName">index_s</obj_property>
          <obj_property name="ObjectShortName">index_s</obj_property>
@@ -84,6 +97,11 @@
       <wvobject type="array" fp_name="/TestHiddenLayers/uut/weights_din_flash">
          <obj_property name="ElementShortName">weights_din_flash[255:0]</obj_property>
          <obj_property name="ObjectShortName">weights_din_flash[255:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/bias_rd_address_flash">
+         <obj_property name="ElementShortName">bias_rd_address_flash[1:0]</obj_property>
+         <obj_property name="ObjectShortName">bias_rd_address_flash[1:0]</obj_property>
       </wvobject>
       <wvobject type="logic" fp_name="/TestHiddenLayers/uut/load_weights">
          <obj_property name="ElementShortName">load_weights</obj_property>
@@ -234,6 +252,14 @@
          <obj_property name="ElementShortName">n_feedback</obj_property>
          <obj_property name="ObjectShortName">n_feedback</obj_property>
       </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/weights_rd_flash">
+         <obj_property name="ElementShortName">weights_rd_flash</obj_property>
+         <obj_property name="ObjectShortName">weights_rd_flash</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/weights_wr_flash">
+         <obj_property name="ElementShortName">weights_wr_flash</obj_property>
+         <obj_property name="ObjectShortName">weights_wr_flash</obj_property>
+      </wvobject>
       <wvobject type="other" fp_name="/TestHiddenLayers/uut/dist_mode">
          <obj_property name="ElementShortName">dist_mode</obj_property>
          <obj_property name="ObjectShortName">dist_mode</obj_property>
@@ -266,13 +292,13 @@
          <obj_property name="ElementShortName">weights_address_flash[1:0]</obj_property>
          <obj_property name="ObjectShortName">weights_address_flash[1:0]</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/TestHiddenLayers/uut/weights_bram/b_addr">
-         <obj_property name="ElementShortName">b_addr[1:0]</obj_property>
-         <obj_property name="ObjectShortName">b_addr[1:0]</obj_property>
-      </wvobject>
       <wvobject type="logic" fp_name="/TestHiddenLayers/uut/weights_bram/b_wr">
          <obj_property name="ElementShortName">b_wr</obj_property>
          <obj_property name="ObjectShortName">b_wr</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/weights_bram/b_addr">
+         <obj_property name="ElementShortName">b_addr[1:0]</obj_property>
+         <obj_property name="ObjectShortName">b_addr[1:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/TestHiddenLayers/uut/weights_bram/b_din">
          <obj_property name="ElementShortName">b_din[255:0]</obj_property>
@@ -294,9 +320,18 @@
    <wvobject type="group" fp_name="group187">
       <obj_property name="label">bias</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject type="other" fp_name="/TestHiddenLayers/uut/dist_mode">
          <obj_property name="ElementShortName">dist_mode</obj_property>
          <obj_property name="ObjectShortName">dist_mode</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/bias_rd_flash">
+         <obj_property name="ElementShortName">bias_rd_flash</obj_property>
+         <obj_property name="ObjectShortName">bias_rd_flash</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/bias_wr_flash">
+         <obj_property name="ElementShortName">bias_wr_flash</obj_property>
+         <obj_property name="ObjectShortName">bias_wr_flash</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/TestHiddenLayers/uut/current_layer">
          <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
@@ -468,5 +503,58 @@
    <wvobject type="array" fp_name="/TestHiddenLayers/uut/lay/weights_out">
       <obj_property name="ElementShortName">weights_out[3:0][3:0][15:0]</obj_property>
       <obj_property name="ObjectShortName">weights_out[3:0][3:0][15:0]</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group3540">
+      <obj_property name="label">distr</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/distr/clk">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/distr/reset">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/distr/learn">
+         <obj_property name="ElementShortName">learn</obj_property>
+         <obj_property name="ObjectShortName">learn</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/distr/calculate">
+         <obj_property name="ElementShortName">calculate</obj_property>
+         <obj_property name="ObjectShortName">calculate</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/distr/reset_weights">
+         <obj_property name="ElementShortName">reset_weights</obj_property>
+         <obj_property name="ObjectShortName">reset_weights</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/distr/n_feedback_bus">
+         <obj_property name="ElementShortName">n_feedback_bus[3:0]</obj_property>
+         <obj_property name="ObjectShortName">n_feedback_bus[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/distr/n_feedback">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/distr/current_layer">
+         <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/distr/current_neuron">
+         <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/distr/data_rdy">
+         <obj_property name="ElementShortName">data_rdy</obj_property>
+         <obj_property name="ObjectShortName">data_rdy</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/distr/mode_out">
+         <obj_property name="ElementShortName">mode_out</obj_property>
+         <obj_property name="ObjectShortName">mode_out</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/distr/mode">
+         <obj_property name="ElementShortName">mode</obj_property>
+         <obj_property name="ObjectShortName">mode</obj_property>
+      </wvobject>
    </wvobject>
 </wave_config>

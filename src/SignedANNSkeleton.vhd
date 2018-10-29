@@ -85,7 +85,7 @@ architecture Behavioral of SignedANNSkeleton is
 	signal weights_wr		: std_logic := '0';
 
 	signal flash_address	: uint24_t;
-	signal load_weights, store_weights, store_weights_delayed, flash_ready : std_logic;
+	signal load_weights, load_weights_delayed, store_weights, store_weights_delayed, flash_ready, reset_weights : std_logic;
 begin
 	--calculate_out <= calculate;
 	
@@ -122,8 +122,9 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 		connections_out => connections_out, 
 		wanted => wanted,
 
+		reset_weights => reset_weights,
 		flash_address => flash_address,
-		load_weights => load_weights,
+		load_weights => load_weights_delayed,
 		store_weights => store_weights_delayed,
 		flash_ready => flash_ready,
 
@@ -148,6 +149,7 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 			run_counter <= (others => '0');
 			load_weights <= '0';
 			store_weights <= '0';
+			reset_weights <= '0';
 			-- done <= '0';
 		else
 		-- beginning/end
@@ -182,6 +184,7 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 						when 7 => 
 							load_weights <= data_in(0);
 							store_weights <= data_in(1);
+							reset_weights <= data_in(4);
 						when others =>
 						end case;
 					elsif rd = '0' then
@@ -214,6 +217,8 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 							data_out(1) <= store_weights;
 							data_out(2) <= flash_ready;
 							data_out(3) <= store_weights_delayed;
+							data_out(4) <= reset_weights;
+							data_out(5) <= load_weights_delayed;
 						when 200 => 
 							data_out <= run_counter(7 downto 0);
 						when 201 =>
@@ -233,11 +238,23 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 	end process;
 
 	-- delay store_weights until flash is available
-	process (reset, clock, store_weights, flash_available)
+	process (reset, clock, store_weights, load_weights, flash_available)
 	begin
 		if reset = '1' then
 			store_weights_delayed <= '0';
+			load_weights_delayed <= '0';
 		elsif rising_edge(clock) then
+			-- not loading weights
+			if load_weights = '0' then
+				load_weights_delayed <= '0';
+			-- flash is available now and want to load
+			elsif flash_available = '1' then
+				load_weights_delayed <= '1';
+			-- waiting for flash
+			else 
+				load_weights_delayed <= load_weights_delayed;
+			end if;
+
 			-- not storing weights
 			if store_weights = '0' then
 				store_weights_delayed <= '0';

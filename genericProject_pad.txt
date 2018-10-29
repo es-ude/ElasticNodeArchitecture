@@ -1,7 +1,7 @@
 Release 14.7 - par P.20131013 (lin64)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-Thu Oct 11 18:36:45 2018
+Mon Oct 29 17:19:40 2018
 
 
 INFO: The IO information is provided in three file formats as part of the Place and Route (PAR) process.  These formats are:
@@ -9,8 +9,8 @@ INFO: The IO information is provided in three file formats as part of the Place 
 2. The <design namd>_pad.csv file for use with spreadsheet programs such as MS Excel. This file can also be read by PACE to communicate post PAR IO information.
 3. The <design name>.pad file designed for parsing by customers.  It uses the "|" as a data field separator.
 
-INPUT FILE:       /home/alwynster/git/fpgamiddlewareproject/genericProject_map.ncd
-OUTPUT FILE:      /home/alwynster/git/fpgamiddlewareproject/genericProject_pad.txt
+INPUT FILE:       genericProject_map.ncd
+OUTPUT FILE:      genericProject_pad.txt
 PART TYPE:        xc6slx9
 SPEED GRADE:      -2
 PACKAGE:          tqg144

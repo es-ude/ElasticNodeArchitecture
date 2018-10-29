@@ -46,6 +46,7 @@ architecture Behavioral of TestSignedANN is
 
 	signal weights_wr : std_logic := '0';
 	signal weights : weights_vector;
+	signal reset_weights : std_logic;
 	
 	signal busy 	: boolean := true;
 	signal repeatCount : integer;
@@ -82,6 +83,7 @@ uut: entity neuralnetwork.SignedANN(Behavioral) port map
 		connections_in => conn_in, 
 		connections_out => conn_out, 
 		wanted => wanted, 
+		reset_weights => reset_weights, 
 		weights_wr_en => weights_wr,
 		weights => weights,
 		debug => debug
@@ -93,20 +95,56 @@ uut: entity neuralnetwork.SignedANN(Behavioral) port map
 		wait for period * 16;
 		reset <= '0';
 
-	learn <= '1';
-	-- train XOR (only using second output)
-	for i in 0 to NUM_LOOPS loop 
 
-		-- 11 00
-		conn_in <= "0011";
-		wanted <= "0000";
-		calculate <= '1';
-		wait for period;
-		calculate <= '0';
-		wait until ul_busy = '0';
-		wait for period;
 
-		-- 10 01
+
+		learn <= '1';
+		-- train XOR (only using second output)
+		for i in 0 to NUM_LOOPS loop 
+
+			-- 11 00
+			conn_in <= "0011";
+			wanted <= "0000";
+			calculate <= '1';
+			wait for period;
+			calculate <= '0';
+			wait until ul_busy = '0';
+			wait for period;
+
+			-- 10 01
+			conn_in <= "0001";
+			wanted <= "0001";
+			calculate <= '1';
+			wait for period;
+			calculate <= '0';
+			wait until ul_busy = '0';
+			wait for period;
+
+			-- 01 01
+			conn_in <= "0010";
+			wanted <= "0001";
+			calculate <= '1';
+			wait for period;
+			calculate <= '0';
+			wait until ul_busy = '0';
+			wait for period;
+
+			-- 00 00
+			conn_in <= "0000";
+			wanted <= "0000";
+			calculate <= '1';
+			wait for period;
+			calculate <= '0';
+			wait until ul_busy = '0';
+			wait for period;
+
+			repeatCount <= i;
+			
+		end loop;
+
+		-- query results
+		learn <= '0';
+
 		conn_in <= "0001";
 		wanted <= "0001";
 		calculate <= '1';
@@ -114,17 +152,17 @@ uut: entity neuralnetwork.SignedANN(Behavioral) port map
 		calculate <= '0';
 		wait until ul_busy = '0';
 		wait for period;
+		assert conn_out = "01" report "Result incorrect for 10";
 
-		-- 01 01
-		conn_in <= "0010";
+		conn_in <= "0001";
 		wanted <= "0001";
 		calculate <= '1';
 		wait for period;
 		calculate <= '0';
 		wait until ul_busy = '0';
 		wait for period;
+		assert conn_out = "01" report "Result incorrect for 10";
 
-		-- 00 00
 		conn_in <= "0000";
 		wanted <= "0000";
 		calculate <= '1';
@@ -132,71 +170,38 @@ uut: entity neuralnetwork.SignedANN(Behavioral) port map
 		calculate <= '0';
 		wait until ul_busy = '0';
 		wait for period;
+		assert conn_out = "00" report "Result incorrect for 00";
 
-		repeatCount <= i;
-		
-	end loop;
+		conn_in <= "0011";
+		wanted <= "0000";
+		calculate <= '1';
+		wait for period;
+		calculate <= '0';
+		wait until ul_busy = '0';
+		wait for period;
+		assert conn_out(0) = '0' report "Result incorrect for 11";
 
-	-- query results
-	learn <= '0';
+		conn_in <= "0010";
+		wanted <= "0001";
+		calculate <= '1';
+		wait for period;
+		calculate <= '0';
+		wait until ul_busy = '0';
+		wait for period;
+		assert conn_out(0) = '1' report "Result incorrect for 01";
 
-	conn_in <= "0001";
-	wanted <= "0001";
-	calculate <= '1';
-	wait for period;
-	calculate <= '0';
-	wait until ul_busy = '0';
-	wait for period;
-	assert conn_out = "01" report "Result incorrect for 10";
+		conn_in <= "0001";
+		wanted <= "0001";
+		calculate <= '1';
+		wait for period;
+		calculate <= '0';
+		wait until ul_busy = '0';
+		wait for period;
+		assert conn_out = "01" report "Result incorrect for 10";
 
-	conn_in <= "0001";
-	wanted <= "0001";
-	calculate <= '1';
-	wait for period;
-	calculate <= '0';
-	wait until ul_busy = '0';
-	wait for period;
-	assert conn_out = "01" report "Result incorrect for 10";
-
-	conn_in <= "0000";
-	wanted <= "0000";
-	calculate <= '1';
-	wait for period;
-	calculate <= '0';
-	wait until ul_busy = '0';
-	wait for period;
-	assert conn_out = "00" report "Result incorrect for 00";
-
-	conn_in <= "0011";
-	wanted <= "0000";
-	calculate <= '1';
-	wait for period;
-	calculate <= '0';
-	wait until ul_busy = '0';
-	wait for period;
-	assert conn_out(0) = '0' report "Result incorrect for 11";
-
-	conn_in <= "0010";
-	wanted <= "0001";
-	calculate <= '1';
-	wait for period;
-	calculate <= '0';
-	wait until ul_busy = '0';
-	wait for period;
-	assert conn_out(0) = '1' report "Result incorrect for 01";
-
-	conn_in <= "0001";
-	wanted <= "0001";
-	calculate <= '1';
-	wait for period;
-	calculate <= '0';
-	wait until ul_busy = '0';
-	wait for period;
-	assert conn_out = "01" report "Result incorrect for 10";
-
-	wait for period * 4;
-	busy <= false;
-	wait;
+		wait for period * 4;
+		busy <= false;
+		wait;
 
 
 --L: loop

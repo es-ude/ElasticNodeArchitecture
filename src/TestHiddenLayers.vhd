@@ -56,6 +56,7 @@ architecture Behavioral of TestHiddenLayers is
 
 		wanted 			: 	in fixed_point_vector;
 
+		reset_weights 	:	in std_logic;
 		flash_address	:	in uint24_t;
 		load_weights	:	in std_logic;
 		store_weights	:	in std_logic;
@@ -79,6 +80,7 @@ architecture Behavioral of TestHiddenLayers is
 		reset			: 	in std_logic;
 		learn			:	in std_logic;
 		calculate       :   in std_logic;
+		reset_weights	:	in std_logic;
 		n_feedback_bus	:	out std_logic_vector(totalLayers downto 0) := (others => 'Z'); -- l layers + summation (at l)
 		
 		n_feedback		: 	out integer range 0 to 2;
@@ -119,7 +121,7 @@ architecture Behavioral of TestHiddenLayers is
 	signal weights_wr_en : std_logic;
 	signal weights : weights_vector := (others => 'Z');
 	signal wanted : fixed_point_vector := (others => (others => '0'));
-
+	signal reset_weights : std_logic;
 	
 	-- Signals for Distribute module
 	signal learn, calculate, data_rdy : std_logic := '0';
@@ -145,12 +147,12 @@ begin
     -- need to be corrected
 	distr: Distributor port map
 	(
-		clk, reset, learn, calculate, n_feedback_bus, n_feedback, current_layer_dist, current_neuron, data_rdy, dist_mode
+		clk, reset, learn, calculate, reset_weights, n_feedback_bus, n_feedback, current_layer_dist, current_neuron, data_rdy, dist_mode
 	);
 	
 	uut : HiddenLayers port map 
 	(
-		clk, reset, n_feedback, current_layer_dist, current_neuron, dist_mode, conn_in, conn_out, wanted, flash_address, load_weights, store_weights, flash_ready, spi_cs, spi_clk, spi_mosi, spi_miso -- , weights_wr_en, weights
+		clk, reset, n_feedback, current_layer_dist, current_neuron, dist_mode, conn_in, conn_out, wanted, reset_weights, flash_address, load_weights, store_weights, flash_ready, spi_cs, spi_clk, spi_mosi, spi_miso -- , weights_wr_en, weights
 	);
 	--current_layer <= current_layer_manual when dist_mode = idle else current_layer_dist;
 
@@ -158,15 +160,34 @@ begin
 	
 	   -- weights and bias init when reset should be checked here.
 		reset <= '1';
+		reset_weights <= '0';
 		weights <= (others => 'Z');
 		wait for period *(totalLayers+2)*100;
 		reset <= '0';
 		
-		-- store weights from the spi
+		wait for period * 10;
+		reset_weights <= '1';
+		wait until flash_ready <= '1';
+		wait for period * 16;
+		reset_weights <= '0';
+		wait for period * 16;
+
+
+		-- store weights to the spi
 		wait for period * 4;
 		flash_address <= x"ABCDEF";
 		store_weights <= '1';
 		wait until flash_ready = '1';
+		wait for period * 128;
+		store_weights <= '0';
+		wait for period * 16;
+
+		-- store weights to the spi
+		wait for period * 4;
+		flash_address <= x"ABCDEF";
+		store_weights <= '1';
+		wait until flash_ready = '1';
+		wait for period * 128;
 		store_weights <= '0';
 		wait for period * 16;
 
@@ -175,7 +196,9 @@ begin
 		load_weights <= '1';
 		--wait for period * (totalLayers + 2);
 		wait until flash_ready = '1';
+		wait for period * 32;
 		load_weights <= '0';
+		wait for period * 32;
 
 
 		

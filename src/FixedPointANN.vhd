@@ -55,6 +55,7 @@ entity FixedPointANN is
 			wanted_fp			:	in fixed_point_vector;
 			error_out 			:	out fixed_point;
 
+			reset_weights		:	in std_logic;
 			flash_address		:	in uint24_t;
 			load_weights		:	in std_logic;
 			store_weights		:	in std_logic;
@@ -91,8 +92,8 @@ architecture Behavioral of FixedPointANN is
 		reset			: 	in std_logic;
 		learn			:	in std_logic;
 		calculate    	:   in std_logic;
+		reset_weights	: 	in std_logic;
 		n_feedback_bus	:	out std_logic_vector(totalLayers downto 0) := (others => 'Z'); -- l layers + summation (at l)
-
 
 		n_feedback		: 	out integer range 0 to 2;
 		current_layer	:	out uint8_t;
@@ -182,6 +183,7 @@ hidden_layers: entity work.HiddenLayers(Behavioral) port map
 		connections_out => hidden_connections_out_fp,
 		wanted => wanted_fp,
 
+		reset_weights => reset_weights,
 		flash_address => flash_address,
 		load_weights => load_weights,
 		store_weights => store_weights,
@@ -199,7 +201,7 @@ hidden_layers: entity work.HiddenLayers(Behavioral) port map
 
 	distr: Distributor port map
 	(
-		clk, reset, learn, calculate, n_feedback_bus, n_feedback, current_layer, current_neuron, data_rdy_s, mode_out_signal
+		clk, reset, learn, calculate, reset_weights, n_feedback_bus, n_feedback, current_layer, current_neuron, data_rdy_s, mode_out_signal
 	);
 
 	debug(2 downto 0) <= to_unsigned(distributor_mode'POS(mode_out_signal), 3);

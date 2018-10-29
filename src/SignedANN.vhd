@@ -55,6 +55,7 @@ entity SignedANN is
 			--errors_in			:	in fixed_point_vector;
 			wanted				:	in uintw_t;
 
+			reset_weights 		:	in std_logic;
 			flash_address		:	in uint24_t;
 			load_weights		:	in std_logic;
 			store_weights		:	in std_logic;
@@ -133,6 +134,7 @@ begin
 
 		wanted_fp => wanted_fp,
 
+		reset_weights => reset_weights,
 		flash_address => flash_address,
 		load_weights => load_weights,
 		store_weights => store_weights,
