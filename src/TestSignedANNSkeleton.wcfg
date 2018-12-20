@@ -14,13 +14,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="65593333334fs"></ZoomStartTime>
-      <ZoomEndTime time="825593333335fs"></ZoomEndTime>
-      <Cursor1Time time="338180000000fs"></Cursor1Time>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="86100000001fs"></ZoomEndTime>
+      <Cursor1Time time="3540000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="212"></NameColumnWidth>
-      <ValueColumnWidth column_width="256"></ValueColumnWidth>
+      <ValueColumnWidth column_width="155"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="5" />
    <wvobject type="group" fp_name="group778">
@@ -431,6 +431,10 @@
          <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
          <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
       </wvobject>
+      <wvobject type="logic" fp_name="/TestSignedANNSkeleton/uut/flash_available">
+         <obj_property name="ElementShortName">flash_available</obj_property>
+         <obj_property name="ObjectShortName">flash_available</obj_property>
+      </wvobject>
       <wvobject type="logic" fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/load_weights">
          <obj_property name="ElementShortName">load_weights</obj_property>
          <obj_property name="ObjectShortName">load_weights</obj_property>
@@ -446,6 +450,10 @@
       <wvobject type="other" fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/dist_mode">
          <obj_property name="ElementShortName">dist_mode</obj_property>
          <obj_property name="ObjectShortName">dist_mode</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/flash_ready">
+         <obj_property name="ElementShortName">flash_ready</obj_property>
+         <obj_property name="ObjectShortName">flash_ready</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/connections_in">
          <obj_property name="ElementShortName">connections_in[3:0][15:0]</obj_property>
@@ -523,14 +531,6 @@
          <obj_property name="ElementShortName">weights_address_b[1:0]</obj_property>
          <obj_property name="ObjectShortName">weights_address_b[1:0]</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_din_a">
-         <obj_property name="ElementShortName">weights_din_a[255:0]</obj_property>
-         <obj_property name="ObjectShortName">weights_din_a[255:0]</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_din_b">
-         <obj_property name="ElementShortName">weights_din_b[255:0]</obj_property>
-         <obj_property name="ObjectShortName">weights_din_b[255:0]</obj_property>
-      </wvobject>
       <wvobject type="array" fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_din_ann">
          <obj_property name="ElementShortName">weights_din_ann[255:0]</obj_property>
          <obj_property name="ObjectShortName">weights_din_ann[255:0]</obj_property>
@@ -539,9 +539,17 @@
          <obj_property name="ElementShortName">weights_din_ext[255:0]</obj_property>
          <obj_property name="ObjectShortName">weights_din_ext[255:0]</obj_property>
       </wvobject>
+      <wvobject type="array" fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_din_a">
+         <obj_property name="ElementShortName">weights_din_a[255:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_din_a[255:0]</obj_property>
+      </wvobject>
       <wvobject type="array" fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_dout_a">
          <obj_property name="ElementShortName">weights_dout_a[255:0]</obj_property>
          <obj_property name="ObjectShortName">weights_dout_a[255:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_din_b">
+         <obj_property name="ElementShortName">weights_din_b[255:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_din_b[255:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_dout_b">
          <obj_property name="ElementShortName">weights_dout_b[255:0]</obj_property>

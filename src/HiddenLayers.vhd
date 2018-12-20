@@ -59,15 +59,17 @@ entity HiddenLayers is
 			spi_cs					:	out std_logic;
 			spi_clk					:	out std_logic;
 			spi_mosi				:	out std_logic;
-			spi_miso				:	in std_logic
+			spi_miso				:	in std_logic;
 
-
+			debug					: 	out uint8_t
 			--weights_wr_en 			:	in std_logic;
 			--weights 				:	inout weights_vector := (others => 'Z')
 		);
 end HiddenLayers;
 
 architecture Behavioral of HiddenLayers is
+
+constant finishedDelay : integer := 320000;
 
 -- signal weights : fixed_point_matrix_array := (others => (others => (others => init_weight))); -- weights for all the hidden layers
 -- signal weights : fixed_point_matrix := (others => (others => init_weight));
@@ -112,7 +114,6 @@ signal flashDataIn, flashDataOut : uint8_t;
 
 signal weights_wr_flash, weights_rd_flash, bias_wr_flash, bias_rd_flash : std_logic;
 signal weights_din_flash : weights_vector;
-type flashStateType is (idle, waitResetWeights, requestLoadWeights, loadingWeights, waitingLoadingWeights, requestStoreWeights, storingWeights, waitingStoringWeights, storingBias, waitingStoringBias, finished);
 signal flashState : flashStateType;
 
 -- debug
@@ -173,7 +174,7 @@ begin
 	end if;
 end process;
 
-
+-- process for reading/writing flash chip
 flash_process:
 process (clk, reset, reset_weights, load_weights, flashDataOutAvail) is
 	variable index : integer range 0 to totalLayers+1;
@@ -181,12 +182,17 @@ process (clk, reset, reset_weights, load_weights, flashDataOutAvail) is
 	constant bytesPerLayerBias : integer := b*maxWidth/8;
 	variable layerIndex : integer range 0 to bytesPerLayerWeights + 1;
 	variable currentByte : uint8_t;
+	variable waitIndex : integer range 0 to finishedDelay + 1;
+	variable firstByte : boolean;
 begin
 	if reset = '1' then
+		flashState <= idle;
 		weights_din_flash <= (others => '0');
 		weights_address_flash <= (others => '0');
 		flashRdRequest <= '0';
 		flashWrRequest <= '0';
+		waitIndex := 0;
+		firstByte := false;
 	elsif rising_edge(clk) then
 		case flashState is
 		
@@ -211,6 +217,7 @@ begin
 			-- stay here until weights have been reset
 			if dist_mode = resetWeightsDone then 
 				flashState <= finished;
+				waitIndex := 0;
 			end if;
 
 		-- load weights from flash
@@ -221,6 +228,7 @@ begin
 			weights_address_flash <= (others => '0');
 
 			flashState <= waitingLoadingWeights;
+			firstByte := true; -- to ignore 
 		when loadingWeights =>
 			flashRdRequest <= '0';
 
@@ -239,6 +247,7 @@ begin
 				-- done
 				if index = totalLayers then
 					flashState <= finished;
+					waitIndex := 0;
 				else
 					flashState <= waitingLoadingWeights;
 				end if;
@@ -247,15 +256,19 @@ begin
 			weights_wr_flash <= '0';
 			-- wait for next byte to be available from the flash
 			if flashDataOutAvail = '1' then
-				flashState <= loadingWeights;
-				currentByte := flashDataOut;
+				if firstByte then
+					firstByte := false;
+				else
+					flashState <= loadingWeights;
+					currentByte := flashDataOut;
+				end if;
 			end if;
 
 		-- storing weights to flash
 		when requestStoreWeights =>
 			--flashAddress <= x"A50F";
 			flashNumBytes <= bytesPerLayerWeights * totalLayers + bytesPerLayerBias * totalLayers;
-			assert flashNumBytes < 256 report "writing too many bytes to flash" severity failure;
+			--assert flashNumBytes < 256 report "writing too many bytes to flash" severity failure;
 			weights_address_flash <= (others => '0');
 			bias_rd_address_flash <= (others => '0');
 			weights_rd_flash <= '1';
@@ -354,6 +367,8 @@ begin
 					index := 0;
 					bias_rd_flash <= '0';
 					flashState <= finished;
+					waitIndex := 0;
+
 				end if;
 				--weights_wr_flash <= '1';
 				-- done
@@ -374,7 +389,15 @@ begin
 		-- done 
 		when finished =>
 			if load_weights = '0' and store_weights = '0' and reset_weights = '0' then
-				flashState <= idle;
+
+				if waitIndex = finishedDelay then
+					flashState <= idle;
+					waitIndex := 0;
+				else 
+					waitIndex := waitIndex + 1;
+				end if;
+			else
+				waitIndex := 0;
 			end if;
 		when others =>
 
@@ -385,7 +408,7 @@ begin
 	end if;
 end process;
 flash_ready <= '1' when flashState = finished else '0';
-
+debug <= to_unsigned(flashStateType'POS(flashState), 8);
 
 -- memory
 invert_clk <= not clk;

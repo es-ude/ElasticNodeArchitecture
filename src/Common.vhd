@@ -23,12 +23,12 @@ package Common is
 
 function max (A : in natural; B : in natural) return natural;
 
-constant inputWidth			:	natural := 2;
+constant inputWidth			:	natural := 4;
 constant hiddenWidth		: 	natural := 4;
-constant outputWidth		: 	natural := 1;
+constant outputWidth		: 	natural := 4;
 constant maxWidth			: 	natural := max(max(inputWidth, hiddenWidth), outputWidth);
 
-constant numHiddenLayers	:	natural := 2;
+constant numHiddenLayers	:	natural := 4;
 constant totalLayers		:	natural := numHiddenLayers + 1;
 constant init_weight		:	fixed_point := to_signed(128, b);
 --constant input_number		:	natural := 0;
@@ -43,6 +43,8 @@ subtype conn_vector is std_logic_vector(b*maxWidth-1 downto 0);-- used for readi
 
 -- 0 idle 1 feedforward 2 feedback 3 feedback->feedforward 4 done 5 delay 7 waiting 6 intermediate (between forward and back)
 type distributor_mode is (idle, feedforward, feedback, doneQuery, doneLearn, delay, waiting, intermediate, resetWeights, resetWeightsDone);
+type flashStateType is (idle, waitResetWeights, requestLoadWeights, loadingWeights, waitingLoadingWeights, requestStoreWeights, storingWeights, waitingStoringWeights, storingBias, waitingStoringBias, finished);
+-- 						0.      1                      2 				3 			4								5					6			7						8				9				10			
 
 -- subtype fixed_point is integer range -10000 to 10000;
 type fixed_point_vector is array (maxWidth-1 downto 0) of fixed_point;

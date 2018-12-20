@@ -86,6 +86,8 @@ architecture Behavioral of SignedANNSkeleton is
 
 	signal flash_address	: uint24_t;
 	signal load_weights, load_weights_delayed, store_weights, store_weights_delayed, flash_ready, reset_weights : std_logic;
+
+	signal debug			: uint8_t;
 begin
 	--calculate_out <= calculate;
 	
@@ -135,7 +137,7 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 		
 		--weights_wr_en => weights_wr,
 		--weights => weights,
-		debug => open
+		debug => debug
 	);
 	busy <= busy_signal;
 
@@ -172,9 +174,9 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 							learn <= data_in(0);
 						-- when 107 =>
 							calculate  <= '1'; -- queue calculate to happen
-							run_counter <= run_counter + to_unsigned(1, run_counter'length);
 						when 3 =>
 							calculate <= '0'; -- starts calculation
+							run_counter <= run_counter + to_unsigned(1, run_counter'length);
 						when 4 =>
 							flash_address(7 downto 0) <= data_in;
 						when 5 =>
@@ -219,6 +221,8 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 							data_out(3) <= store_weights_delayed;
 							data_out(4) <= reset_weights;
 							data_out(5) <= load_weights_delayed;
+						when 8 =>
+							data_out <= debug;
 						when 200 => 
 							data_out <= run_counter(7 downto 0);
 						when 201 =>

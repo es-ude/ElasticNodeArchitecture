@@ -192,7 +192,9 @@ hidden_layers: entity work.HiddenLayers(Behavioral) port map
 		spi_cs => spi_cs,
 		spi_clk => spi_clk,
 		spi_mosi => spi_mosi,
-		spi_miso => spi_miso
+		spi_miso => spi_miso,
+
+		debug => debug
 		--weights_wr_en => weights_wr_en, 
 		--weights => weights_signal
 	);
@@ -204,9 +206,9 @@ hidden_layers: entity work.HiddenLayers(Behavioral) port map
 		clk, reset, learn, calculate, reset_weights, n_feedback_bus, n_feedback, current_layer, current_neuron, data_rdy_s, mode_out_signal
 	);
 
-	debug(2 downto 0) <= to_unsigned(distributor_mode'POS(mode_out_signal), 3);
-	debug(3) <= '1' when n_feedback = 1 else '0';
-	debug(7 downto 4) <= current_layer(3 downto 0);
+	--debug(2 downto 0) <= to_unsigned(distributor_mode'POS(mode_out_signal), 3);
+	--debug(3) <= '1' when n_feedback = 1 else '0';
+	--debug(7 downto 4) <= current_layer(3 downto 0);
 
 end Behavioral;
 

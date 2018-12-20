@@ -58,23 +58,27 @@
 		BEGIN
 			reset <= '1';
 			flash_available <= '0';
+			spi_miso <= '1';
 
-			wait for clock_period * 20; -- wait until global set/reset completes
-			
+			--wait for clock_period * 32; -- wait until global set/reset completes
+
+			--wait until flash_ready = '1';
+			wait for clock_period * 8;
+
 			reset <= '0';
 
-			wait for clock_period * 10;
-			write_uint8_t(16, x"0007", address_in, data_in, wr); -- connections in
-			wait for clock_period * 10;
-			write_uint8_t(0, x"0007", address_in, data_in, wr); -- connections in
-			wait for clock_period * 10;
+			--wait for clock_period * 10;
+			--write_uint8_t(16, x"0007", address_in, data_in, wr); -- connections in
+			--wait for clock_period * 32;
+			--write_uint8_t(0, x"0007", address_in, data_in, wr); -- connections in
+			--wait for clock_period * 10;
 
 			
 			wait for clock_period * 20;
 
 			-- request storing of weights
 			write_uint24_t(123456, x"0004", address_in, data_in, wr); -- connections in
-			write_uint8_t(2, x"0007", address_in, data_in, wr); -- connections in
+			write_uint8_t(1, x"0007", address_in, data_in, wr); -- connections in
 
 			wait for clock_period * 16;
 			flash_available <= '1';
