@@ -52,12 +52,12 @@ entity MatrixMultiplicationSkeleton is
 		-- data interface 
 		data_in			: in uint8_t; -- std_logic_vector(31 downto 0); 
 		address_in		: in uint16_t; 
-		data_out			: out uint8_t; -- std_logic_vector(31 downto 0) 
+		data_out			: out uint8_t -- ; -- std_logic_vector(31 downto 0) 
 		
 		-- trigger a calculation 
-		calculate_out	: out std_logic; 
+		--calculate_out	: out std_logic -- ; 
 		
-		debug				: out uint8_t 
+		--debug				: out uint8_t 
 	); 
 end MatrixMultiplicationSkeleton; 
  
@@ -84,7 +84,7 @@ mm: entity work.MatrixMultiplication(Behavioral)
 	port map (clock, reset, calculate, busy_s, inputA, inputB, result); 
 	
 	busy <= busy_s; 
-	calculate_out <= calculate; 
+	--calculate_out <= calculate; 
 	
 	-- process data receive  
 	process (clock, rd, wr, reset) 

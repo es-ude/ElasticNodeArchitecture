@@ -14,12 +14,12 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="2467417952fs"></ZoomEndTime>
-      <Cursor1Time time="560000000fs"></Cursor1Time>
+      <ZoomEndTime time="51640000001fs"></ZoomEndTime>
+      <Cursor1Time time="6925481000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="170"></NameColumnWidth>
-      <ValueColumnWidth column_width="93"></ValueColumnWidth>
+      <ValueColumnWidth column_width="89"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="4" />
    <wvobject type="group" fp_name="group1743">
@@ -41,10 +41,6 @@
       <wvobject type="logic" fp_name="/TestFirWishboneSkeleton/ready">
          <obj_property name="ElementShortName">ready</obj_property>
          <obj_property name="ObjectShortName">ready</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/TestFirWishboneSkeleton/done">
-         <obj_property name="ElementShortName">done</obj_property>
-         <obj_property name="ObjectShortName">done</obj_property>
       </wvobject>
       <wvobject type="logic" fp_name="/TestFirWishboneSkeleton/rd">
          <obj_property name="ElementShortName">rd</obj_property>
@@ -132,12 +128,12 @@
          <obj_property name="ObjectShortName">writeEnable</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/TestFirWishboneSkeleton/uut/hwfAddress">
-         <obj_property name="ElementShortName">hwfAddress[1:0]</obj_property>
-         <obj_property name="ObjectShortName">hwfAddress[1:0]</obj_property>
+         <obj_property name="ElementShortName">hwfAddress[3:0]</obj_property>
+         <obj_property name="ObjectShortName">hwfAddress[3:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/TestFirWishboneSkeleton/uut/hwfAddressIn">
-         <obj_property name="ElementShortName">hwfAddressIn[1:0]</obj_property>
-         <obj_property name="ObjectShortName">hwfAddressIn[1:0]</obj_property>
+         <obj_property name="ElementShortName">hwfAddressIn[3:0]</obj_property>
+         <obj_property name="ObjectShortName">hwfAddressIn[3:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/TestFirWishboneSkeleton/uut/hwfDataIn">
          <obj_property name="ElementShortName">hwfDataIn[15:0]</obj_property>
@@ -150,6 +146,12 @@
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
          <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
          <obj_property name="CellHeight">100</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
       </wvobject>
    </wvobject>
    <wvobject type="group" fp_name="group1779">
@@ -173,8 +175,8 @@
          <obj_property name="ObjectShortName">stb</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/TestFirWishboneSkeleton/uut/hwf/addressIn">
-         <obj_property name="ElementShortName">addressIn[1:0]</obj_property>
-         <obj_property name="ObjectShortName">addressIn[1:0]</obj_property>
+         <obj_property name="ElementShortName">addressIn[3:0]</obj_property>
+         <obj_property name="ObjectShortName">addressIn[3:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/TestFirWishboneSkeleton/uut/hwf/dataIn">
@@ -193,8 +195,8 @@
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/TestFirWishboneSkeleton/uut/hwf/b_signal">
-         <obj_property name="ElementShortName">b_signal[0:36][15:0]</obj_property>
-         <obj_property name="ObjectShortName">b_signal[0:36][15:0]</obj_property>
+         <obj_property name="ElementShortName">b_signal[0:15][15:0]</obj_property>
+         <obj_property name="ObjectShortName">b_signal[0:15][15:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/TestFirWishboneSkeleton/uut/hwf/u">
          <obj_property name="ElementShortName">u[15:0]</obj_property>
@@ -207,6 +209,12 @@
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
          <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
          <obj_property name="CellHeight">100</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/TestFirWishboneSkeleton/uut/hwf/q">
          <obj_property name="ElementShortName">q[15:0]</obj_property>
@@ -219,13 +227,13 @@
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/TestFirWishboneSkeleton/uut/hwf/u_pipe">
-         <obj_property name="ElementShortName">u_pipe[0:36][15:0]</obj_property>
-         <obj_property name="ObjectShortName">u_pipe[0:36][15:0]</obj_property>
+         <obj_property name="ElementShortName">u_pipe[0:15][15:0]</obj_property>
+         <obj_property name="ObjectShortName">u_pipe[0:15][15:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/TestFirWishboneSkeleton/uut/hwf/y_pipe">
-         <obj_property name="ElementShortName">y_pipe[0:36][31:0]</obj_property>
-         <obj_property name="ObjectShortName">y_pipe[0:36][31:0]</obj_property>
+         <obj_property name="ElementShortName">y_pipe[0:15][31:0]</obj_property>
+         <obj_property name="ObjectShortName">y_pipe[0:15][31:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject type="logic" fp_name="/TestFirWishboneSkeleton/uut/hwf/filterClock">

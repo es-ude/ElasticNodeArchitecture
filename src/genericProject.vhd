@@ -105,7 +105,7 @@ invert_clk <= not clk;
 
 clk <= clk_32;
 
-leds <= (others => '1') when (reset = '1' or flash_available = '1') else mw_leds;
+leds <= (others => '1') when (reset = '1' or flash_available = '0') else mw_leds;
 --leds(0) <= calculate;
 --leds(1) <= reset;
 --leds(2) <= userlogic_reset;
@@ -156,6 +156,8 @@ mw: entity work.middleware(Behavioral)
 		-- uart
 		rx,
 		tx,
+
+		flash_available,
 		
 		-- flash
 		mcu_cs,
@@ -189,14 +191,14 @@ mw: entity work.middleware(Behavioral)
 	-- initialise user logic
 	-- ul: entity work.Dummy(Behavioral) port map
 	-- ul: entity vectordotproduct.VectorDotproductSkeleton(Behavioral) port map
-	-- ul: entity matrixmultiplication.MatrixMultiplicationSkeleton(Behavioral) port map
+	ul: entity matrixmultiplication.MatrixMultiplicationSkeleton(Behavioral) port map
 	-- ul: entity neuralnetwork.NeuralNetworkSkeleton(Behavioral) generic map (1) port map
-	--ul: entity neuralnetwork.FixedPointANNSkeleton(Behavioral) port map
-	ul: entity neuralnetwork.SignedANNSkeleton(Behavioral) port map
+	-- ul: entity neuralnetwork.FixedPointANNSkeleton(Behavioral) port map
+	-- ul: entity neuralnetwork.SignedANNSkeleton(Behavioral) port map
 	-- ul: entity work.KeyboardSkeleton(Behavioral) port map
-	--ul: entity work.FirWishboneSkeleton(Behavioral) port map
+	-- ul: entity work.FirWishboneSkeleton(Behavioral) port map
 		(
-			invert_clk, userlogic_reset, userlogic_busy_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out, flash_available, spi_cs, spi_clk, spi_mosi, spi_miso --, calculate, debug --, kb_leds
+			invert_clk, userlogic_reset, userlogic_busy_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out -- , flash_available, spi_cs, spi_clk, spi_mosi, spi_miso --, calculate, debug --, kb_leds
 		);
 	--userlogic_busy <= userlogic_busy_s;
 	--userlogic_sleep <= userlogic_reset;

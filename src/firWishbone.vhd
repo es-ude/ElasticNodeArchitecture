@@ -88,9 +88,9 @@ dataInProcess: process (reset, clk, stb, writeEnable) is
 				if addressIn = u_address then
 					u <= dataIn;
 					filterClock <= '1';
-				else
-					index := to_integer(unsigned(addressIn)) - 1;
-					b_signal(index) <= dataIn;
+				--else
+				--	index := to_integer(unsigned(addressIn)) - 1;
+				--	b_signal(index) <= dataIn;
 				end if;
 			else
 				filterClock <= '0';
@@ -120,8 +120,10 @@ dataOutProcess: process (reset, clk, stb, writeEnable) is
 	-- filter part
 	u_pipe(0)<=u;
 	u_dlyChain: for i in 1 to u_pipe'high generate
-		delayChain: process(clk, filterClock) is begin
-			if rising_edge(clk) then
+		delayChain: process(clk, filterClock, reset) is begin
+			if reset = '1' then
+				u_pipe(i) <= (others => '0');
+			elsif rising_edge(clk) then
 				if filterClock = '1' then
 					u_pipe(i)<=u_pipe(i-1); 
 				end if;

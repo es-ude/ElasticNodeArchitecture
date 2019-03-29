@@ -1,7 +1,9 @@
-#!/usr/bin/env python2
+# !/usr/bin/env python2
+# -*- coding: utf-8 -*-
 
 test = False
 unit = True
+predef_coeff = True
 
 import sys
 if test:
@@ -46,7 +48,7 @@ constant y_address : std_logic_vector(addressWidth-1 downto 0) := std_logic_vect
 
 signed_vectorDef = "\
 -- /* Filter length = number of taps = number of coefficients = order + 1 */\n\
-constant b:signed_vector(0 to order):=(\n"
+constant fir_coeff:signed_vector(0 to order):=(\n"
 
 post = "\
 \
@@ -57,14 +59,14 @@ end package;"
 if __name__ == "__main__":
 	# check arguments
 	if len(sys.argv) < 2:
-		print "Usage: ./genFirPackage.py ORDER"
-		print "Assuming ORDER=32"
+		print ("Usage: ./genFirPackage.py ORDER")
+		print ("Assuming ORDER=16")
 		# sys.exit(1)
 		order = 16
 	else:
 		order = int(sys.argv[1])
 
-	print "Generating FIR filter with order", order
+	print ("Generating FIR filter with order", order)
 
 	# create package file
 	outputFile = open("firPackage.vhd", "w")
@@ -78,54 +80,60 @@ if __name__ == "__main__":
 	outputFile.write(signed_vectorDef)
 	# print signed_vectorDef;
 
-	# create the filter coeffs
-	fs = 1000
-	t = np.arange(0, 1, 1.0/fs)
-	s = np.sin(2*math.pi*50*t)+np.sin(2*math.pi*200*t)+np.sin(2*math.pi*300*t)+0.8*np.random.randn(len(t))
-	gt = np.sin(2*math.pi*50*t)
+	if predef_coeff:
+		lpf = np.array([0.00533285, -0.02111187,  0.04466487, -0.03372319, -0.0547435, 0.17851653, -0.21703974, 0.09887411, 0.09887411, -0.21703974,  0.17851653, -0.0547435,
+ -0.03372319, 0.04466487, -0.02111187, 0.00533285]) * scalingFactor
+		print lpf
 
-	lpf = sp.firwin(order+1, 50, fs=fs, scale=100) * scalingFactor	
-	sout = sp.lfilter(lpf, 1, s)
+	else:
+		# create the filter coeffs
+		fs = 1000
+		t = np.arange(0, 1, 1.0/fs)
+		s = np.sin(2*math.pi*50*t)+np.sin(2*math.pi*200*t)+np.sin(2*math.pi*300*t)+0.8*np.random.randn(len(t))
+		gt = np.sin(2*math.pi*50*t)
 
-	firStr = ["0xFFEF",
-		"0xFFED",
-		"0xFFE8",
-		"0xFFE6",
-		"0xFFEB",
-		"0x0000",
-		"0x002C",
-		"0x0075",
-		"0x00DC",
-		"0x015F",
-		"0x01F4",
-		"0x028E",
-		"0x031F",
-		"0x0394",
-		"0x03E1",
-		"0x03FC",
-		"0x03E1",
-		"0x0394",
-		"0x031F",
-		"0x028E",
-		"0x01F4",
-		"0x015F",
-		"0x00DC",
-		"0x0075",
-		"0x002C",
-		"0x0000",
-		"0xFFEB",
-		"0xFFE6",
-		"0xFFE8",
-		"0xFFED",
-		"0xFFEF"]
-	fir = list()
-	for firStrSingle in firStr:
-		val = int(firStrSingle, 0)
-		if val > 0x7FFF:
-			val -= 0x10000
-		fir.append(val)
-	sout2 = sp.lfilter(fir, 1, s)
-	print lpf
+		lpf = sp.firwin(order+1, 50, fs=fs, scale=100) * scalingFactor	
+		sout = sp.lfilter(lpf, 1, s)
+
+		firStr = ["0xFFEF",
+			"0xFFED",
+			"0xFFE8",
+			"0xFFE6",
+			"0xFFEB",
+			"0x0000",
+			"0x002C",
+			"0x0075",
+			"0x00DC",
+			"0x015F",
+			"0x01F4",
+			"0x028E",
+			"0x031F",
+			"0x0394",
+			"0x03E1",
+			"0x03FC",
+			"0x03E1",
+			"0x0394",
+			"0x031F",
+			"0x028E",
+			"0x01F4",
+			"0x015F",
+			"0x00DC",
+			"0x0075",
+			"0x002C",
+			"0x0000",
+			"0xFFEB",
+			"0xFFE6",
+			"0xFFE8",
+			"0xFFED",
+			"0xFFEF"]
+		fir = list()
+		for firStrSingle in firStr:
+			val = int(firStrSingle, 0)
+			if val > 0x7FFF:
+				val -= 0x10000
+			fir.append(val)
+		sout2 = sp.lfilter(fir, 1, s)
+		print (lpf)
 
 	if test:
 		if unit:

@@ -34,7 +34,7 @@
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSAVendor" Val="xilinx"/>
     <Option Name="DSANumComputeUnits" Val="16"/>
-    <Option Name="WTXSimLaunchSim" Val="1542"/>
+    <Option Name="WTXSimLaunchSim" Val="1558"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -314,6 +314,7 @@
       </File>
       <File Path="$PPRDIR/../src/localFIFO.vhd">
         <FileInfo>
+          <Attr Name="Library" Val="work"/>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -389,7 +390,7 @@
       <File Path="$PPRDIR/../src/FirWishboneSkeleton.vhd">
         <FileInfo>
           <Attr Name="Library" Val="work"/>
-          <Attr Name="UserDisabled" Val="1"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -623,7 +624,7 @@
       </File>
       <File Path="$PPRDIR/../src/TestFirWishboneSkeleton.vhd">
         <FileInfo>
-          <Attr Name="UserDisabled" Val="1"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -911,6 +912,7 @@
       <File Path="$PSRCDIR/sim_1/imports/fpgamiddlewarelibs/simulationConstants.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="ImportPath" Val="$PPRDIR/../src/fpgamiddlewarelibs/simulationConstants.vhd"/>
           <Attr Name="ImportTime" Val="1539246591"/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -920,6 +922,7 @@
       <File Path="$PPRDIR/../src/TestSignedANNSkeleton.vhd">
         <FileInfo>
           <Attr Name="Library" Val="neuralnetwork"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -1306,7 +1309,6 @@
       </File>
       <File Path="$PPRDIR/../src/TestFirWishboneSkeleton.wcfg">
         <FileInfo>
-          <Attr Name="UserDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
@@ -1324,6 +1326,7 @@
       </File>
       <File Path="$PPRDIR/../src/TestSignedANNSkeleton.wcfg">
         <FileInfo>
+          <Attr Name="UserDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
@@ -1341,9 +1344,8 @@
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="TestSignedANNSkeleton"/>
+        <Option Name="TopModule" Val="TestFirWishboneSkeleton"/>
         <Option Name="TopLib" Val="neuralnetwork"/>
-        <Option Name="TopArchitecture" Val="behavior"/>
         <Option Name="TransportPathDelay" Val="0"/>
         <Option Name="TransportIntDelay" Val="0"/>
         <Option Name="SrcSet" Val="sources_1"/>

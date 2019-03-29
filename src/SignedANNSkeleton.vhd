@@ -68,7 +68,7 @@ entity SignedANNSkeleton is
 end SignedANNSkeleton;
 
 architecture Behavioral of SignedANNSkeleton is
-
+	constant ANN_ID 		: uint8_t := x"AA";
 	signal learn			:  std_logic;
 	signal data_rdy			:  std_logic;
 	signal calculate		:  std_logic;
@@ -228,7 +228,7 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 						when 201 =>
 							data_out <= run_counter(15 downto 8);
 						when 255 =>
-							data_out <= address_in(15 downto 8);
+							data_out <= ANN_ID;
 						when others =>
 							data_out <= address_in(7 downto 0);
 						end case;

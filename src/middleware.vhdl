@@ -34,6 +34,8 @@ entity middleware is
 		-- uart
 		rx				: in std_logic;
 		tx 				: out std_logic;
+
+		flash_available	: in std_logic;
 		
 		mcu_cs			: out std_logic;
 		
@@ -50,12 +52,12 @@ end middleware;
 architecture Behavioral of middleware is
 
 signal clk_icap 				: std_logic := '0';
-signal icap_address			: uint24_t_interface;
+signal icap_address				: uint24_t_interface;
 
 -- uart variables
-signal uart_en						: std_logic := '0';
-signal uart_rx						: uint8_t_interface; -- std_logic_vector(7 downto 0);
-signal uart_tx						: uint8_t_interface; -- std_logic_vector(7 downto 0);
+signal uart_en					: std_logic := '0';
+signal uart_rx					: uint8_t_interface; -- std_logic_vector(7 downto 0);
+signal uart_tx					: uint8_t_interface; -- std_logic_vector(7 downto 0);
 signal uart_tx_done				: std_logic;
 signal uart_tx_active			: std_logic;
 
@@ -114,7 +116,7 @@ begin
 		end if;
 	end process;
 	
-	ic : entity fpgamiddlewarelibs.icapInterface(Behavioral) generic map (goldenboot_address => (others => '0')) port map (clk => clk_icap, reset => reset, enable => icap_address.ready, status_running => open, multiboot_address => std_logic_vector(icap_address.data));
+	ic : entity fpgamiddlewarelibs.icapInterface(Behavioral) generic map (goldenboot_address => (others => '0')) port map (clk => clk_icap, reset => reset, enable => icap_address.ready, flash_available => flash_available, status_running => open, multiboot_address => std_logic_vector(icap_address.data));
 
 	
 	

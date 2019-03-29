@@ -14,32 +14,31 @@ type signed_vector is array(natural range <>) of signed(firWidth-1 downto 0);
 type signedx2_vector is array(natural range<>) of signed(firWidth*2-1 downto 0);
 
 -- filter order
-constant order : natural := 16;
+constant order : natural := 15;
 
 -- addresses
-constant addressWidth : integer := 5; -- ceil(log2(1 + order))
+constant addressWidth : integer := 4; -- ceil(log2(1 + order))
 constant u_address : std_logic_vector(addressWidth-1 downto 0) := std_logic_vector(to_unsigned(0, addressWidth));
 constant y_address : std_logic_vector(addressWidth-1 downto 0) := std_logic_vector(to_unsigned(0, addressWidth));
 
 -- /* Filter length = number of taps = number of coefficients = order + 1 */
 constant fir_coeff:signed_vector(0 to order):=(
-	x"0019",
-	x"0039",
-	x"0093",
-	x"013A",
-	x"022A",
-	x"0342",
-	x"044A",
-	x"0508",
-	x"054D",
-	x"0508",
-	x"044A",
-	x"0342",
-	x"022A",
-	x"013A",
-	x"0093",
-	x"0039",
-	x"0019"
+	x"0035",
+	x"FF2C",
+	x"01BE",
+	x"FEAE",
+	x"FDDC",
+	x"06F9",
+	x"F785",
+	x"03DC",
+	x"03DC",
+	x"F785",
+	x"06F9",
+	x"FDDC",
+	x"FEAE",
+	x"01BE",
+	x"FF2C",
+	x"0035"
 );
 
 end package;
