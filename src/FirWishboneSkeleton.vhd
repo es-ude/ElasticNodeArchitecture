@@ -48,14 +48,14 @@ entity FirWishboneSkeleton is
 		-- data interface 
 		data_in				: in uint8_t;
 		address_in			: in uint16_t; 
-		data_out			: out uint8_t;
+		data_out			: out uint8_t
 
-		-- unused spi interface
-		flash_available		: 	in std_logic;
-		spi_cs				:	out std_logic := '1';
-		spi_clk				:	out std_logic := '0';
-		spi_mosi			:	out std_logic := '0';
-		spi_miso			:	in std_logic
+		-- -- unused spi interface
+		-- flash_available		: 	in std_logic;
+		-- spi_cs				:	out std_logic := '1';
+		-- spi_clk				:	out std_logic := '0';
+		-- spi_mosi			:	out std_logic := '0';
+		-- spi_miso			:	in std_logic
 	);
 	end FirWishboneSkeleton;
 
@@ -66,7 +66,7 @@ constant FIR_ID 		: uint8_t := x"BB";
 
 -- convert 
 signal addressVector : std_logic_vector(address_in'length-1 downto 0);
-signal invertClock, half_clock : std_logic;
+signal invertClock : std_logic; -- , half_clock
 -- 16-bit interface
 signal hwfStb, stb, writeEnable : std_logic;
 signal hwfAddressIn, hwfAddress : std_logic_vector(addressWidth-1 downto 0);
@@ -85,15 +85,15 @@ signal fifoCount : integer range 0 to fifoDepth;
 signal fifoCountVector : uint8_t := (others => '0');
 
 begin
-	-- half the clock
-process (reset, clock) is
-	variable val : std_logic := '0';
-begin
-	if rising_edge(clock) then
-		val := not val;
-		half_clock <= val;
-	end if;
-end process;
+-- 	-- half the clock
+-- process (reset, clock) is
+-- 	variable val : std_logic := '0';
+-- begin
+-- 	if rising_edge(clock) then
+-- 		val := not val;
+-- 		half_clock <= val;
+-- 	end if;
+-- end process;
 			
 
 	hwf: entity work.firWishbone PORT MAP(
@@ -102,7 +102,7 @@ end process;
 	hwfAddress <= fifoAddress when fifoDataRequest = '1' else hwfAddressIn;
 	stb <= hwfStb or fifoStb;
 
-	invertClock <= not half_clock;
+	invertClock <= not clock;
 
 	-- allocate static relays to hwf interface
 	addressVector <= std_logic_vector(address_in);
@@ -186,7 +186,7 @@ end process;
 	end process; 
 	
 	-- fifo process
-	process (reset, half_clock, hwfStb) is
+	process (reset, clock, hwfStb) is
 		variable delayStb : std_logic;
 	begin
 		if reset = '1' then
@@ -196,7 +196,7 @@ end process;
 			fifoDataValid <= '0';
 
 			-- fifoDataRequest <= '0';
-		elsif (rising_edge(half_clock)) then
+		elsif (rising_edge(clock)) then
 			case fifoState is 
 
 			when idle =>
@@ -236,7 +236,7 @@ fifo: entity work.localFIFO(Behavioral)
 	)
 	port MAP
 	(
-		half_clock, reset, fifoDataIn, fifoDataValid, fifoDataOut, fifoDataRequest, fifoEmpty, fifoFull, fifoCount
+		clock, reset, fifoDataIn, fifoDataValid, fifoDataOut, fifoDataRequest, fifoEmpty, fifoFull, fifoCount
 	);
 	fifoDataIn <= std_logic_vector(hwfDataOut);
 	fifoCountVector <= to_unsigned(fifoCount, fifoCountVector'length);

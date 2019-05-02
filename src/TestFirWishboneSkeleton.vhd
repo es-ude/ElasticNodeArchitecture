@@ -37,7 +37,7 @@
 
 		-- Component Instantiation
 		uut: entity work.firWishboneSkeleton(Behavioral)
-			port map (clock, reset, busy, rd, wr, data_in, address_in, data_out, '1', open, open, open, '0' );
+			port map (clock, reset, busy, rd, wr, data_in, address_in, data_out); -- , '1', open, open, open, '0' );
 		
 		clock_process : process
 		begin
@@ -56,7 +56,7 @@
 		BEGIN
 			reset <= '1';
 
-			wait for clock_period * 2; -- wait until global set/reset completes
+			wait for clock_period * 10; -- wait until global set/reset completes
 			
 			reset <= '0';
 			

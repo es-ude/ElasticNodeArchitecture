@@ -1,3 +1,5 @@
+src/wdsp/
+fpgamiddlewareproject/fpgamiddlewareproject.cache/
 *.swp
 *.save*
 .DS_Store
@@ -94,10 +96,10 @@ _xmsgs/
 #########
 #Exclude all
 #########
-*
-!*/
-!src/
-!src/*
+#*
+#!*/
+#!src/
+#!src/*
 !.gitignore
 ###########################################################################
 ##	VIVADO

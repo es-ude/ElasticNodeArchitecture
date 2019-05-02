@@ -1,3 +1,4 @@
+-- generated 2019-04-10 17:10:19.073240
 library IEEE;
 use IEEE.NUMERIC_STD.ALL;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -14,7 +15,7 @@ type signed_vector is array(natural range <>) of signed(firWidth-1 downto 0);
 type signedx2_vector is array(natural range<>) of signed(firWidth*2-1 downto 0);
 
 -- filter order
-constant order : natural := 15;
+constant order : natural := 8;
 
 -- addresses
 constant addressWidth : integer := 4; -- ceil(log2(1 + order))
@@ -23,22 +24,15 @@ constant y_address : std_logic_vector(addressWidth-1 downto 0) := std_logic_vect
 
 -- /* Filter length = number of taps = number of coefficients = order + 1 */
 constant fir_coeff:signed_vector(0 to order):=(
-	x"0035",
-	x"FF2C",
-	x"01BE",
-	x"FEAE",
-	x"FDDC",
-	x"06F9",
-	x"F785",
-	x"03DC",
-	x"03DC",
-	x"F785",
-	x"06F9",
-	x"FDDC",
-	x"FEAE",
-	x"01BE",
-	x"FF2C",
-	x"0035"
+	x"003B",
+	x"00B3",
+	x"01EC",
+	x"033D",
+	x"03CE",
+	x"033D",
+	x"01EC",
+	x"00B3",
+	x"003B"
 );
 
 end package;

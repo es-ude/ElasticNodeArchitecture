@@ -118,12 +118,21 @@ dataOutProcess: process (reset, clk, stb, writeEnable) is
 	end process;
 
 	-- filter part
-	u_pipe(0)<=u;
+	uChain: process(clk, filterClock, reset) is begin
+		if reset = '1' then
+			u_pipe(0) <= (others => '0');
+		elsif falling_edge(clk) then
+			if filterClock = '1' then
+				u_pipe(0)<=u; 
+			end if;
+		end if;
+	end process;
+	-- u_pipe(0)<=u;
 	u_dlyChain: for i in 1 to u_pipe'high generate
 		delayChain: process(clk, filterClock, reset) is begin
 			if reset = '1' then
 				u_pipe(i) <= (others => '0');
-			elsif rising_edge(clk) then
+			elsif falling_edge(clk) then
 				if filterClock = '1' then
 					u_pipe(i)<=u_pipe(i-1); 
 				end if;
@@ -131,7 +140,8 @@ dataOutProcess: process (reset, clk, stb, writeEnable) is
 		end process delayChain;
 	end generate u_dlyChain;
 	
-	y_pipe(0)<=fir_coeff(0)*u;
+	-- first u in pipe is not used for calculation
+	y_pipe(0)<=fir_coeff(0)*u_pipe(0);
 	y_dlyChain: for i in 1 to y_pipe'high generate
 		y_pipe(i)<=b_signal(i)*u_pipe(i) + y_pipe(i-1);
 	end generate y_dlyChain;

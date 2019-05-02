@@ -97,6 +97,7 @@ signal debug					: uint8_t;
 -- compatibility signals for mojo
 signal rx, tx, ard_reset		: std_logic;
 
+signal half_clk					: std_logic;
 begin
 
 ARD_RESET <= '0';
@@ -104,6 +105,19 @@ ARD_RESET <= '0';
 invert_clk <= not clk;
 
 clk <= clk_32;
+
+-- half the clock
+clk_process: process (clk_50, reset) is
+	variable val : std_logic := '0';
+begin
+	if reset = '1' then
+		half_clk <= '0';
+		val := '0';
+	elsif rising_edge(clk_50) then
+		val := not val;
+		half_clk <= val;
+	end if;
+end process;
 
 leds <= (others => '1') when (reset = '1' or flash_available = '0') else mw_leds;
 --leds(0) <= calculate;
@@ -190,7 +204,7 @@ mw: entity work.middleware(Behavioral)
 	
 	-- initialise user logic
 	-- ul: entity work.Dummy(Behavioral) port map
-	-- ul: entity vectordotproduct.VectorDotproductSkeleton(Behavioral) port map
+	-- ul: entity vectorDotProduct.vectorDotproductSkeleton(Behavioral) port map
 	ul: entity matrixmultiplication.MatrixMultiplicationSkeleton(Behavioral) port map
 	-- ul: entity neuralnetwork.NeuralNetworkSkeleton(Behavioral) generic map (1) port map
 	-- ul: entity neuralnetwork.FixedPointANNSkeleton(Behavioral) port map
