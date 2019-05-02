@@ -44,14 +44,16 @@ entity prime is
 
 		outputValue	:	out int16_t;
 		outputReady	:	out std_logic;
-		outputAck	: 	in std_logic
+		outputAck	: 	in std_logic;
+
+		done		:	out std_logic
 	);
 end prime;
 
 architecture Behavioral of prime is
 	type processState is (idle, processing, finished);
 	signal curState : processState := idle;
-	signal done : std_logic;
+	signal doneSignal : std_logic;
 	signal curValueSignal : int16_t;
 begin
 	-- main state machine
@@ -66,7 +68,7 @@ begin
 							curState <= processing;
 						end if;
 					when processing =>
-						if done = '1' then
+						if doneSignal = '1' then
 							curState <= finished;
 						end if;
 					when finished =>
@@ -84,27 +86,28 @@ begin
 			if reset = '1' then
 				curValue := (others => '0');
 				curQuery := (others => '0');
-				done <= '0';
+				doneSignal <= '0';
 			elsif rising_edge(clock) then
 				case curState is
 					when idle =>
 						curValue := to_signed(2, 16);
 						curQuery := inputQuery;
-						done <= '0';
+						doneSignal <= '0';
 					when processing =>
 						if curValue < curQuery - to_signed(1, 16) then
 							-- current value divisible into query?
 							if (curQuery mod curValue) = to_signed(0, 16) then
 								outputValue <= to_signed(0, 16);
-								done <= '1';
+								doneSignal <= '1';
 							else
 								curValue := curValue + to_signed(1, 16);
 							end if;
 						else
-							done <= '1';
+							outputValue <= curQuery;
+							doneSignal <= '1';
 						end if;
 					when finished =>
-						done <= '0';
+						doneSignal <= '0';
 				end case;
 				curValueSignal <= curValue;
 			end if;
@@ -115,4 +118,6 @@ begin
 				'0';
 	inputWaiting <= '1' when curState = idle else
 				'0';
+
+	done <= doneSignal;
 end Behavioral;
