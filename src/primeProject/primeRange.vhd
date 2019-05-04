@@ -54,7 +54,7 @@ entity primeRange is
 end primeRange;
 
 architecture Behavioral of primeRange is
-	constant fifodepth : integer := 2;
+	constant fifodepth : integer := 16;
 
 	constant zero : int16_t := (others => '0');
 
