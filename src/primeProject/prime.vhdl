@@ -54,7 +54,8 @@ architecture Behavioral of prime is
 	type processState is (idle, processing, finished);
 	signal curState : processState := idle;
 	signal doneSignal : std_logic;
-	signal curValueSignal : int16_t;
+	-- signal curValueSignal : int16_t;
+	signal curValue, curQuery : int16_t;
 begin
 	-- main state machine
 	process (clock, reset) is
@@ -81,26 +82,26 @@ begin
 
 	-- calculation process
 	process (clock, reset, curState) is
-		variable curValue, curQuery : int16_t;
+		-- variable curValue, curQuery : int16_t;
 		begin
 			if reset = '1' then
-				curValue := (others => '0');
-				curQuery := (others => '0');
+				curValue <= zero;
+				curQuery <= zero;
 				doneSignal <= '0';
 			elsif rising_edge(clock) then
 				case curState is
 					when idle =>
-						curValue := to_signed(2, 16);
-						curQuery := inputQuery;
+						curValue <= to_signed(2, 16);
+						curQuery <= inputQuery;
 						doneSignal <= '0';
 					when processing =>
 						if curValue < curQuery - to_signed(1, 16) then
 							-- current value divisible into query?
-							if (curQuery mod curValue) = to_signed(0, 16) then
+							if (curQuery rem curValue) = to_signed(0, 16) then
 								outputValue <= to_signed(0, 16);
 								doneSignal <= '1';
 							else
-								curValue := curValue + to_signed(1, 16);
+								curValue <= curValue + to_signed(1, 16);
 							end if;
 						else
 							outputValue <= curQuery;
@@ -109,7 +110,7 @@ begin
 					when finished =>
 						doneSignal <= '0';
 				end case;
-				curValueSignal <= curValue;
+				-- curValueSignal <= curValue;
 			end if;
 	end process;
 
