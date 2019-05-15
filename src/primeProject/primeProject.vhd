@@ -14,6 +14,8 @@ use fpgamiddlewarelibs.Constants.all;
 library matrixMultiplication;
 --library vectordotproduct;
 library neuralnetwork;
+library prime;
+use prime.all;
 
 --!
 --! @brief      Main class for connecting all the components involved in the
@@ -134,8 +136,8 @@ leds <= (others => '1') when (reset = '1' or flash_available = '0') else mw_leds
 
 gpio(19 downto 14) <= (others => '0');
 
-mcu_a_s(14 downto 8) <= mcu_a;
-mcu_a_s(15) <= '0';
+mcu_a_s(15 downto 8) <= mcu_a;
+-- mcu_a_s(15) <= '0';
 
 -- flash_xx pins connected to physical flash, spi connected to internal module
 flash_cs <= '0' when (spi_cs = '0' or mcu_cs = '0') else '1'; -- there is a pullup resistor
@@ -204,7 +206,7 @@ mw: entity work.middleware(Behavioral)
 	end process;
 	
 	-- initialise user logic
-	ul: entity work.PrimeSkeleton(Behavioral) port map
+	ul: entity prime.PrimeSkeleton(Behavioral) port map
 		(
 			invert_clk, userlogic_reset, userlogic_busy_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out
 		);
