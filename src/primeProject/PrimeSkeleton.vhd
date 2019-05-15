@@ -32,9 +32,7 @@ use IEEE.NUMERIC_STD.ALL;
  
 library fpgamiddlewarelibs; 
 use fpgamiddlewarelibs.UserLogicInterface.all; 
- 
-library work; 
-use work.MatrixMultiplicationPackage.all; 
+
  
  
 entity PrimeSkeleton is 
@@ -58,15 +56,17 @@ end PrimeSkeleton;
  
 architecture Behavioral of PrimeSkeleton is 
 
+	signal startQuery, endQuery, outputValue : int16_t;
+	signal inputReady, outputReady, outputAck, done : std_logic;
 
 	constant PR_ID : uint8_t := x"CA";
 begin 
  
 	
 prime: entity work.PrimeRange(Behavioral) 
-	port map (clock, reset, startQuery, endQuery, inputQuery, outputValue, outputReady, outputAck); 
+	port map (clock, reset, startQuery, endQuery, inputReady, outputValue, outputReady, outputAck, done); 
 	
-	busy <= busy_s; 
+	-- busy <= busy_s; 
 	--calculate_out <= calculate; 
 	
 	-- process data receive  
@@ -75,6 +75,8 @@ prime: entity work.PrimeRange(Behavioral)
 		
 		if reset = '1' then 
 			data_out <= (others => '0'); 
+			outputAck <= '0';
+
 			-- done <= '0'; 
 		else 
 		-- beginning/end 
@@ -86,39 +88,39 @@ prime: entity work.PrimeRange(Behavioral)
 					if wr = '0' then 
 						case to_integer(address_in) is
  						when 0 =>
-							startQuery(7 downto 0) <= data_in;
+							startQuery(7 downto 0) <= signed(data_in);
 						when 1 =>
-							startQuery(15 downto 8) <= data_in;
+							startQuery(15 downto 8) <= signed(data_in);
  						when 2 =>
-							endQuery(7 downto 0) <= data_in;
+							endQuery(7 downto 0) <= signed(data_in);
 						when 3 =>
-							endQuery(15 downto 8) <= data_in;
+							endQuery(15 downto 8) <= signed(data_in);
 						when 4 =>
 							inputReady <= data_in(0);
 							-- inputReady <= data_in(1);
-							outputAck <= data_in(3);
+							-- outputAck <= data_in(3);
 						when 107 =>
 						when others =>
 						end case;
 					elsif rd = '0' then
-						calculate <= '0';
 						case to_integer(address_in) is
 						when 0 =>
-							data_out <= startQuery(7 downto 0);
+							data_out <= unsigned(startQuery(7 downto 0));
 						when 1 =>
-							data_out <= startQuery(15 downto 8);
+							data_out <= unsigned(startQuery(15 downto 8));
 						when 2 =>
-							data_out <= endQuery(7 downto 0);
+							data_out <= unsigned(endQuery(7 downto 0));
 						when 3 =>
-							data_out <= endQuery(15 downto 8);
+							data_out <= unsigned(endQuery(15 downto 8));
 						when 4 =>
 							data_out(0) <= inputReady;
 							data_out(1) <= outputReady;
 							data_out(2) <= done;
 						when 5 =>
-							data_out <= outputValue(7 downto 0);
-						when 3 =>
-							data_out <= outputValue(15 downto 8); 
+							data_out <= unsigned(outputValue(7 downto 0));
+						when 6 =>
+							data_out <= unsigned(outputValue(15 downto 8)); 
+							outputAck <= '1';
 						when 255 =>
 							data_out <= PR_ID;
 						when others =>
@@ -126,6 +128,8 @@ prime: entity work.PrimeRange(Behavioral)
 						end case; 
 					else 
 					end if; 
+				else
+					outputAck <= '0';
 				end if; 
 			end if; 
 		end if; 

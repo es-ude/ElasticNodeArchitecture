@@ -54,7 +54,11 @@ entity primeRange is
 end primeRange;
 
 architecture Behavioral of primeRange is
-	constant NUM_KERNELS : integer := 2;
+	constant fifodepth : integer := 16;
+
+	constant zero : int16_t := (others => '0');
+
+	constant NUM_KERNELS : integer := 21;
 	type arrayInt16 is array(1 to NUM_KERNELS) of int16_t;
 	signal inputQueries : arrayInt16;
 	signal outputValues : arrayInt16;
