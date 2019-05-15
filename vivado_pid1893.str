@@ -1,0 +1,923 @@
+/*
+
+Xilinx Vivado v2018.3 (64-bit) [Major: 2018, Minor: 3]
+SW Build: 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build: 2404404 on Fri Dec  7 01:43:56 MST 2018
+
+Process ID (PID): 1893
+License: Customer
+
+Current time: 	Thu May 02 22:06:21 CEST 2019
+Time zone: 	Central European Standard Time (Europe/Berlin)
+
+OS: Ubuntu
+OS Version: 4.4.0-119-generic
+OS Architecture: amd64
+Available processors (cores): 8
+
+Display: :3
+Screen size: 1920x1200
+Screen resolution (DPI): 96
+Available screens: 1
+Available disk space: 3 GB
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+
+Java version: 	9.0.4 64-bit
+Java home: 	/opt/Xilinx/Vivado/2018.3/tps/lnx64/jre9.0.4
+Java executable location: 	/opt/Xilinx/Vivado/2018.3/tps/lnx64/jre9.0.4/bin/java
+Java initial memory (-Xms): 	128 MB
+Java maximum memory (-Xmx):	 3 GB
+
+
+User name: 	alwynster
+User home directory: /home/alwynster
+User working directory: /home/alwynster/git/fpgamiddlewareproject
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI_BASEROOT: /opt/Xilinx/Vivado
+HDI_APPROOT: /opt/Xilinx/Vivado/2018.3
+RDI_DATADIR: /opt/Xilinx/Vivado/2018.3/data
+RDI_BINDIR: /opt/Xilinx/Vivado/2018.3/bin
+
+Vivado preferences file location: /home/alwynster/.Xilinx/Vivado/2018.3/vivado.xml
+Vivado preferences directory: /home/alwynster/.Xilinx/Vivado/2018.3/
+Vivado layouts directory: /home/alwynster/.Xilinx/Vivado/2018.3/layouts
+PlanAhead jar file location: 	/opt/Xilinx/Vivado/2018.3/lib/classes/planAhead.jar
+Vivado log file location: 	/home/alwynster/git/fpgamiddlewareproject/vivado.log
+Vivado journal file location: 	/home/alwynster/git/fpgamiddlewareproject/vivado.jou
+Engine tmp dir: 	./.Xil/Vivado-1893-es-lab
+
+Xilinx Environment Variables
+----------------------------
+XILINX: /opt/Xilinx/Vivado/2018.3/ids_lite/ISE
+XILINX_DSP: /opt/Xilinx/Vivado/2018.3/ids_lite/ISE
+XILINX_PLANAHEAD: /opt/Xilinx/Vivado/2018.3
+XILINX_VIVADO: /opt/Xilinx/Vivado/2018.3
+XILINX_VIVADO_HLS: /opt/Xilinx/Vivado/2018.3
+
+
+GUI allocated memory:	154 MB
+GUI max memory:		3,072 MB
+Engine allocated memory: 5,044 MB
+
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: Sourcing tcl script '/home/alwynster/.Xilinx/Vivado/Vivado_init.tcl' 
+// Tcl Message: start_gui 
+// HMemoryUtils.trashcanNow. Engine heap size: 5,046 MB. GUI used memory: 41 MB. Current time: 5/2/19, 10:06:23 PM CEST
+selectList(PAResourceQtoS.SyntheticaGettingStartedView_RECENT_PROJECTS, "/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.xpr", 0); // q (Q, cp)
+// bx (cp):  Open Project : addNotify
+// Opening Vivado Project: /home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.xpr. Version: Vivado v2018.3 
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_CURRENT
+// TclEventType: PROJECT_DASHBOARD_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// Tcl Message: open_project /home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.xpr 
+// TclEventType: PROJECT_NEW
+// Tcl Message: open_project /home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.xpr 
+// Tcl Message: INFO: [Project 1-313] Project file moved from 'C:/Users/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject' since last save. 
+// Tcl Message: Scanning sources... Finished scanning sources 
+// TclEventType: PROJECT_NEW
+// [GUI Memory]: 93 MB (+94750kb) [00:00:14]
+// [Engine Memory]: 5,105 MB (+5201410kb) [00:00:14]
+// WARNING: HEventQueue.dispatchEvent() is taking  1958 ms.
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2018.3/data/ip'. 
+// Project name: fpgamiddlewareproject; location: /home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject; part: xc7s50ftgb196-2
+dismissDialog("Open Project"); // bx (cp)
+// a (cp): Critical Messages: addNotify
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_compile_order -fileset sources_1 
+// [GUI Memory]: 108 MB (+10897kb) [00:00:23]
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (a)
+dismissDialog("Critical Messages"); // a (cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources]", 12, true); // B (D, cp) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources]", 12, true, false, false, false, false, true); // B (D, cp) - Double Click - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1]", 13, true); // B (D, cp) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd)]", 15, true, false, false, false, false, true); // B (D, cp) - Double Click - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd)]", 15, true); // B (D, cp) - Node
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 46 MB. Current time: 5/2/19, 10:36:24 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/2/19, 11:06:24 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/2/19, 11:36:24 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 12:06:24 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 12:36:24 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 1:06:24 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 1:36:24 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 2:06:24 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 2:36:24 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 3:06:24 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 3:36:24 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 4:06:24 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 4:36:24 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 5:06:24 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 5:36:24 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 6:06:25 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 6:36:25 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 7:06:25 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 7:36:25 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 8:06:25 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 8:36:25 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 9:06:25 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 9:36:25 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 10:06:25 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 10:36:25 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 11:06:25 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 11:36:25 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 12:06:25 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 12:36:26 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 1:06:25 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 1:36:26 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 2:06:26 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 2:36:26 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 3:06:26 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 3:36:26 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 4:06:26 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 4:36:26 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 5:06:26 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 5:36:26 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 6:06:26 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 6:36:26 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 7:06:26 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 7:36:26 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 8:06:26 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 8:36:27 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 9:06:27 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 9:36:27 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 10:06:27 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 10:36:27 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 11:06:27 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/3/19, 11:36:27 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 12:06:27 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 12:36:27 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 1:06:27 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 1:36:27 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 2:06:27 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 2:36:27 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 3:06:27 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 3:36:27 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 4:06:27 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 4:36:28 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 5:06:28 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 5:36:28 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 6:06:28 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 6:36:28 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 7:06:28 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 7:36:28 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 8:06:28 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 8:36:28 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 9:06:28 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 9:36:28 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 10:06:28 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 10:36:28 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 11:06:28 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 11:36:29 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 12:06:29 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 12:36:29 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 1:06:29 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 1:36:29 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 2:06:29 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 2:36:29 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 3:06:29 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 3:36:29 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 4:06:29 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 4:36:29 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 5:06:29 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 5:36:29 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 6:06:29 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 6:36:30 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 7:06:30 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 7:36:30 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 8:06:30 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 8:36:30 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 9:06:30 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 9:36:30 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 10:06:30 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 10:36:30 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 11:06:30 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/4/19, 11:36:30 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 12:06:30 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 12:36:30 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 1:06:30 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 1:36:30 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 2:06:31 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 2:36:31 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 3:06:31 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 3:36:31 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 4:06:31 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 4:36:31 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 5:06:31 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 5:36:31 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 6:06:31 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 6:36:31 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 7:06:31 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 7:36:31 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 8:06:31 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 8:36:31 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 9:06:31 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 9:36:32 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 10:06:32 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 10:36:32 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 11:06:32 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 11:36:32 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 12:06:32 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 12:36:32 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 1:06:32 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 1:36:32 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 2:06:32 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 2:36:32 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 3:06:32 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 3:36:32 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 4:06:32 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 4:36:32 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 5:06:33 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 5:36:33 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 6:06:33 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 6:36:33 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 7:06:33 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 7:36:33 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 8:06:33 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 8:36:33 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 9:06:33 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 9:36:33 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 10:06:33 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 10:36:33 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 11:06:33 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/5/19, 11:36:33 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 12:06:33 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 12:36:33 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 1:06:34 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 1:36:34 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 2:06:34 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 2:36:34 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 3:06:34 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 3:36:34 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 4:06:34 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 4:36:34 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 5:06:34 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 5:36:34 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 6:06:34 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 42 MB. Current time: 5/6/19, 6:36:34 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 7:06:34 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 7:36:34 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 8:06:35 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 8:36:35 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 9:06:35 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 9:36:35 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 10:06:35 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 10:36:35 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 11:06:35 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 11:36:35 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 12:06:35 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 12:36:35 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 1:06:35 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 1:36:35 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 2:06:35 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 2:36:35 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 3:06:35 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 3:36:36 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 4:06:36 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 4:36:36 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 5:06:36 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 5:36:36 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 6:06:36 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 6:36:36 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 7:06:36 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 7:36:36 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 8:06:36 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 8:36:36 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 9:06:36 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 9:36:36 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 10:06:36 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 10:36:36 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 11:06:37 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/6/19, 11:36:37 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 12:06:37 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 12:36:37 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 1:06:37 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 1:36:37 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 2:06:37 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 2:36:37 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 3:06:37 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 3:36:37 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 4:06:37 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 4:36:37 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 5:06:37 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 5:36:37 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 6:06:37 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 6:36:38 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 7:06:38 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 7:36:38 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 8:06:38 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 8:36:38 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 9:06:38 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 9:36:38 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 10:06:38 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 10:36:38 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 11:06:38 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 11:36:38 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 12:06:38 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 12:36:38 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 1:06:38 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 1:36:38 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 2:06:39 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 2:36:39 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 3:06:39 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 3:36:39 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 4:06:39 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 4:36:39 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 5:06:39 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 5:36:39 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 6:06:39 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 6:36:39 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 7:06:39 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 7:36:39 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 8:06:39 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 8:36:39 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 9:06:39 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 9:36:40 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 10:06:40 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 10:36:40 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/7/19, 11:06:40 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 42 MB. Current time: 5/7/19, 11:36:40 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 12:06:40 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 12:36:40 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 1:06:40 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 1:36:40 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 2:06:40 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 2:36:40 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 3:06:40 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 3:36:40 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 4:06:40 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 4:36:40 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 5:06:41 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 5:36:41 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 6:06:41 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 6:36:41 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 7:06:41 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 7:36:41 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 8:06:41 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 8:36:41 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 9:06:41 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 9:36:41 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 10:06:41 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 10:36:41 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 11:06:41 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 11:36:41 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 12:06:42 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 12:36:42 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 1:06:42 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 1:36:42 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 2:06:42 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 2:36:42 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 3:06:42 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 3:36:42 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 4:06:42 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 4:36:42 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 5:06:42 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 5:36:42 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 6:06:42 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 6:36:42 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 7:06:42 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 7:36:43 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 8:06:43 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 8:36:43 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 9:06:43 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 9:36:43 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 10:06:43 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 10:36:43 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 11:06:43 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/8/19, 11:36:43 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 12:06:43 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 12:36:43 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 1:06:43 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 1:36:43 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 2:06:43 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 2:36:43 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 3:06:43 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 3:36:44 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 4:06:44 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 4:36:44 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 5:06:44 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 5:36:44 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 6:06:44 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 6:36:44 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 7:06:44 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 7:36:44 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 8:06:44 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 8:36:44 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 9:06:44 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 9:36:44 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 10:06:44 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 10:36:44 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 11:06:45 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 11:36:45 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 12:06:45 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 12:36:45 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 1:06:45 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 1:36:45 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 2:06:45 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 2:36:45 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 3:06:45 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 3:36:45 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 4:06:45 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 4:36:45 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 5:06:45 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 5:36:45 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 6:06:45 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 6:36:46 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 7:06:46 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 7:36:46 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 8:06:46 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 8:36:46 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 9:06:46 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 9:36:46 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 10:06:46 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 10:36:46 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 42 MB. Current time: 5/9/19, 11:06:46 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/9/19, 11:36:46 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 12:06:46 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 12:36:46 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 1:06:46 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 1:36:46 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 2:06:47 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 2:36:47 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 3:06:47 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 3:36:47 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 4:06:47 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 4:36:47 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 5:06:47 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 5:36:47 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 6:06:47 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 6:36:47 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 7:06:47 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 7:36:47 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 8:06:47 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 8:36:47 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 9:06:48 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 9:36:48 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 10:06:48 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 10:36:48 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 11:06:48 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 11:36:48 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 12:06:48 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 12:36:48 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 1:06:48 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 1:36:48 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 2:06:48 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 2:36:48 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 3:06:48 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 3:36:48 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 4:06:48 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 4:36:48 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 5:06:49 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 5:36:49 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 6:06:49 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 6:36:49 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 7:06:49 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 7:36:49 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 8:06:49 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 8:36:49 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 9:06:49 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 9:36:49 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 10:06:49 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 10:36:49 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 11:06:49 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/10/19, 11:36:49 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 12:06:49 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 12:36:50 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 1:06:50 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 78 MB. Current time: 5/11/19, 1:36:50 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 2:06:50 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 2:36:50 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 3:06:50 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 3:36:50 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 4:06:50 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 4:36:50 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 5:06:50 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 5:36:50 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 6:06:50 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 6:36:50 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 7:06:50 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 7:36:51 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 8:06:51 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 8:36:51 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 9:06:51 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 9:36:51 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 10:06:51 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 10:36:51 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 11:06:51 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 11:36:51 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 12:06:51 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 12:36:51 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 1:06:51 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 1:36:51 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 2:06:51 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 2:36:51 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 3:06:52 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 3:36:52 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 4:06:52 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 4:36:52 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 5:06:52 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 5:36:52 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 6:06:52 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 6:36:52 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 7:06:52 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 7:36:52 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 8:06:52 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 8:36:52 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 9:06:52 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 9:36:52 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 10:06:52 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 10:36:52 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 11:06:53 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/11/19, 11:36:53 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 12:06:53 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 12:36:53 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 1:06:53 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 1:36:53 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 2:06:53 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 2:36:53 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 3:06:53 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 3:36:53 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 4:06:53 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 4:36:53 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 5:06:53 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 5:36:53 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 6:06:53 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 6:36:54 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 7:06:54 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 7:36:54 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 8:06:54 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 8:36:54 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 9:06:54 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 9:36:54 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 10:06:54 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 10:36:54 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 11:06:54 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 11:36:54 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 12:06:54 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 12:36:54 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 1:06:54 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 1:36:55 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 2:06:55 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 2:36:55 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 3:06:55 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 3:36:55 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 4:06:55 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 4:36:55 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 5:06:55 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 5:36:55 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 6:06:55 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 6:36:55 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 7:06:55 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 7:36:55 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 8:06:55 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 8:36:55 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 9:06:56 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 9:36:56 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 10:06:56 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 10:36:56 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 11:06:56 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/12/19, 11:36:56 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 12:06:56 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 12:36:56 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 1:06:56 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 1:36:56 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 2:06:56 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 2:36:56 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 3:06:56 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 3:36:56 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 4:06:56 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 4:36:56 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 5:06:57 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 5:36:57 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 6:06:57 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 6:36:57 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 7:06:57 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 7:36:57 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 8:06:57 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 8:36:57 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 9:06:57 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 9:36:57 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 10:06:57 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 10:36:57 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 11:06:57 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 11:36:57 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 12:06:57 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 12:36:57 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 1:06:58 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 1:36:58 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 2:06:58 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 2:36:58 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 3:06:58 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 3:36:58 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 4:06:58 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 4:36:58 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 5:06:58 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 5:36:58 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 6:06:58 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 6:36:58 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 7:06:58 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 7:36:58 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 8:06:59 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 8:36:59 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 9:06:59 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 9:36:59 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 10:06:59 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 10:36:59 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 11:06:59 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/13/19, 11:36:59 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 12:06:59 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 12:36:59 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 1:06:59 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 1:36:59 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 2:06:59 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 2:36:59 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 3:06:59 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 3:37:00 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 4:07:00 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 4:37:00 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 5:07:00 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 5:37:00 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 6:07:00 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 6:37:00 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 7:07:00 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 7:37:00 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 8:07:00 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 8:37:00 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 9:07:00 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 9:37:00 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 10:07:00 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 10:37:00 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 11:07:01 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 11:37:01 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 12:07:01 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 12:37:01 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 1:07:01 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 1:37:01 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 2:07:01 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 2:37:01 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 3:07:01 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 3:37:01 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 4:07:01 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 4:37:01 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 5:07:01 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 5:37:01 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 6:07:01 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 6:37:01 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 7:07:02 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 7:37:02 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 8:07:02 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 8:37:02 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 9:07:02 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 9:37:02 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 10:07:02 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 10:37:02 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 11:07:02 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/14/19, 11:37:02 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 12:07:02 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 12:37:02 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 1:07:02 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 1:37:02 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 2:07:02 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 2:37:03 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 3:07:03 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 3:37:03 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 4:07:03 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 4:37:03 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 5:07:03 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 5:37:03 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 6:07:03 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 6:37:03 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 7:07:03 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 7:37:03 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 8:07:03 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 8:37:03 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 9:07:03 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 9:37:03 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 10:07:04 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 10:37:04 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 5,186 MB. GUI used memory: 41 MB. Current time: 5/15/19, 11:07:04 AM CEST
+// Elapsed time: 1084078 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd)]", 15); // B (D, cp)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd), uut : primeRange(Behavioral) (primeRange.vhd)]", 16); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd), uut : primeRange(Behavioral) (primeRange.vhd)]", 16, true); // B (D, cp) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd), uut : primeRange(Behavioral) (primeRange.vhd)]", 16, true, false, false, false, false, true); // B (D, cp) - Double Click - Node
+// HMemoryUtils.trashcanNow. Engine heap size: 5,229 MB. GUI used memory: 49 MB. Current time: 5/15/19, 11:14:49 AM CEST
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd)]", 15, true); // B (D, cp) - Node
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Simulation, Run Simulation]", 10, false); // u (Q, cp)
+selectMenuItem(PAResourceCommand.PACommandNames_SIMULATION_RUN_BEHAVIORAL, "Run Behavioral Simulation"); // af (al, cp)
+// Run Command: PAResourceCommand.PACommandNames_SIMULATION_RUN_BEHAVIORAL
+// e (cp):  Run Simulation : addNotify
+// TclEventType: LAUNCH_SIM
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// Tcl Message: launch_simulation 
+// Tcl Message: INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xsim' INFO: [SIM-utils-51] Simulation object is 'sim_1' INFO: [SIM-utils-54] Inspecting design source files for 'TestPrimeRange' in fileset 'sim_1'... INFO: [USF-XSim-97] Finding global include files... INFO: [USF-XSim-98] Fetching design files from 'sim_1'... INFO: [USF-XSim-2] XSim::Compile design INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xsim' 
+// Tcl Message: INFO: [USF-XSim-69] 'compile' step finished in '1' seconds INFO: [USF-XSim-99] Step results log file:'/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xsim/xvhdl.log' 
+// Tcl Message: ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xsim/xvhdl.log' file for more information. ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation. 
+// Tcl Message: ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors. 
+// CommandFailedException: ERROR: [Common 17-69] Command failed: ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.  
+// HOptionPane Error: 'ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.  (Run Simulation)'
+selectButton("RDIResource.ProgressDialog_ERROR_ENCOUNTERED_PLEASE_SEE_TCL_OK", "OK"); // JButton (C, I)
+// a (cp): Critical Messages: addNotify
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (a)
+dismissDialog("Critical Messages"); // a (cp)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 5,263 MB. GUI used memory: 49 MB. Current time: 5/15/19, 11:16:14 AM CEST
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed time: 87 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd), uut : primeRange(Behavioral) (primeRange.vhd)]", 17, true); // B (D, cp) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd), uut : primeRange(Behavioral) (primeRange.vhd), genKernels[1].kernel : prime(Behavioral) (prime.vhdl)]", 18, false, false, false, false, false, true); // B (D, cp) - Double Click
+selectButton(PAResourceAtoD.AbstractFileView_RELOAD, "Reload"); // h (cQ, cp)
+// Elapsed time: 16 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, Syntax Error Files]", 14); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, Syntax Error Files, primeRange.vhd]", 15, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, Syntax Error Files, primeRange.vhd]", 15, false, false, false, false, false, true); // B (D, cp) - Double Click
+// k (cp): Text Changed: addNotify
+closeView(PAResourceOtoP.PAViews_CODE, "Code"); // B (k, cp)
+selectButton(RDIResource.ConfirmSaveTextEditsDialog_NO, "No"); // a (k)
+dismissDialog("Text Changed"); // k (cp)
+selectButton(PAResourceCommand.PACommandNames_RUN_IMPLEMENTATION, "Run Implementation"); // d (c, cp)
+// Run Command: PAResourceCommand.PACommandNames_RUN_IMPLEMENTATION
+selectButton("PAResourceQtoS.RunImplementation_THERE_NO_NETLIST_AVAILABLE_OK_Cancel", "Cancel"); // JButton (C, I)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, Syntax Error Files, primeRange.vhd]", 15, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, Syntax Error Files, primeRange.vhd]", 15, false, false, false, false, false, true); // B (D, cp) - Double Click
+// Elapsed time: 11 seconds
+selectCodeEditor("primeRange.vhd", 112, 168); // cl (w, cp)
+selectTab(PAResourceEtoH.FileSetView_TABBED_PANE, (HResource) null, "Libraries", 1); // i (N, cp)
+// Elapsed time: 10 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, neuralNetwork, VectorToConn.vhd]", 13, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, fpgamiddlewarelibs]", 3, true); // B (D, cp) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, fpgamiddlewarelibs, Unreferenced]", 4, true); // B (D, cp) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, fpgamiddlewarelibs, Unreferenced, UserLogicInterface.vhd]", 5, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, fpgamiddlewarelibs, Unreferenced, UserLogicInterface.vhd]", 5, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, fpgamiddlewarelibs, Unreferenced, UserLogicInterface.vhd]", 5, false, false, false, false, false, true); // B (D, cp) - Double Click
+// ad (cp): Unable to Open File: addNotify
+selectButton(PAResourceOtoP.OpenFileAction_OK, "OK"); // a (ad)
+dismissDialog("Unable to Open File"); // ad (cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, fpgamiddlewarelibs, Unreferenced, UserLogicInterface.vhd]", 5, false, false, false, false, true, false); // B (D, cp) - Popup Trigger
+selectMenuItem(PAResourceCommand.PACommandNames_SRC_REPLACE_FILE, "Replace File..."); // af (al, cp)
+// Run Command: PAResourceCommand.PACommandNames_SRC_REPLACE_FILE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_compile_order -fileset sources_1 
+// HMemoryUtils.trashcanNow. Engine heap size: 5,305 MB. GUI used memory: 55 MB. Current time: 5/15/19, 11:22:39 AM CEST
+// Elapsed time: 312 seconds
+dismissFileChooser();
+// 'dI' command handler elapsed time: 312 seconds
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, fpgamiddlewarelibs]", 2); // B (D, cp)
+selectTab(PAResourceEtoH.FileSetView_TABBED_PANE, (HResource) null, "Hierarchy", 0); // i (N, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, Syntax Error Files, primeRange.vhd]", 15, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, Syntax Error Files, primeRange.vhd]", 15, false, false, false, false, false, true); // B (D, cp) - Double Click
+// [GUI Memory]: 114 MB (+1261kb) [301:16:31]
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Simulation, Run Simulation]", 10, false); // u (Q, cp)
+selectMenuItem(PAResourceCommand.PACommandNames_SIMULATION_RUN_BEHAVIORAL, "Run Behavioral Simulation"); // af (al, cp)
+// Run Command: PAResourceCommand.PACommandNames_SIMULATION_RUN_BEHAVIORAL
+// e (cp):  Run Simulation : addNotify
+// TclEventType: LAUNCH_SIM
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// Tcl Message: launch_simulation 
+// Tcl Message: INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xsim' INFO: [SIM-utils-51] Simulation object is 'sim_1' INFO: [SIM-utils-54] Inspecting design source files for 'TestPrimeRange' in fileset 'sim_1'... INFO: [USF-XSim-97] Finding global include files... INFO: [USF-XSim-98] Fetching design files from 'sim_1'... INFO: [USF-XSim-2] XSim::Compile design INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xsim' 
+// Tcl Message: INFO: [USF-XSim-69] 'compile' step finished in '1' seconds INFO: [USF-XSim-99] Step results log file:'/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xsim/xvhdl.log' 
+// Tcl Message: ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xsim/xvhdl.log' file for more information. ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation. 
+// Tcl Message: ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors. 
+// CommandFailedException: ERROR: [Common 17-69] Command failed: ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.  
+// HOptionPane Error: 'ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.  (Run Simulation)'
+// 'd' command handler elapsed time: 3 seconds
+selectButton("RDIResource.ProgressDialog_ERROR_ENCOUNTERED_PLEASE_SEE_TCL_OK", "OK"); // JButton (C, I)
+// a (cp): Critical Messages: addNotify
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (a)
+dismissDialog("Critical Messages"); // a (cp)
+selectTab((HResource) null, (HResource) null, "Tcl Console", 0); // aI (aF, cp)
+// Elapsed time: 17 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, Syntax Error Files, primeRange.vhd]", 15, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, Syntax Error Files, primeRange.vhd]", 15, false, false, false, false, false, true); // B (D, cp) - Double Click
+selectCodeEditor("primeRange.vhd", 183, 172); // cl (w, cp)
+selectTab(PAResourceEtoH.FileSetView_TABBED_PANE, (HResource) null, "Libraries", 1); // i (N, cp)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, fpgamiddlewarelibs]", 2); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, fpgamiddlewarelibs, UserLogicInterface.vhd]", 3, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, fpgamiddlewarelibs, UserLogicInterface.vhd]", 3, false, false, false, false, false, true); // B (D, cp) - Double Click
+closeView(PAResourceOtoP.PAViews_CODE, "Code"); // B
+selectTab(PAResourceEtoH.FileSetView_TABBED_PANE, (HResource) null, "Hierarchy", 0); // i (N, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, Syntax Error Files, primeRange.vhd]", 15, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, Syntax Error Files, primeRange.vhd]", 15, false, false, false, false, true, false); // B (D, cp) - Popup Trigger
+selectMenu(PAResourceCommand.PACommandNames_AUTO_UPDATE_HIER, "Hierarchy Update"); // ac (al, cp)
+selectMenuItem(PAResourceQtoS.SrcMenu_REFRESH_HIERARCHY, "Refresh Hierarchy"); // af (al, cp)
+// HMemoryUtils.trashcanNow. Engine heap size: 5,331 MB. GUI used memory: 51 MB. Current time: 5/15/19, 11:23:29 AM CEST
+// Elapsed time: 85 seconds
+selectCodeEditor("primeRange.vhd", 192, 232); // cl (w, cp)
+selectCodeEditor("primeRange.vhd", 219, 172); // cl (w, cp)
+selectCodeEditor("primeRange.vhd", 219, 172, false, false, false, false, true); // cl (w, cp) - Double Click
+selectCodeEditor("primeRange.vhd", 219, 172); // cl (w, cp)
+selectTab(PAResourceEtoH.FileSetView_TABBED_PANE, (HResource) null, "Libraries", 1); // i (N, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, fpgamiddlewarelibs, UserLogicInterface.vhd]", 3, false); // B (D, cp)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, fpgamiddlewarelibs, Unreferenced]", 7); // B (D, cp)
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, fpgamiddlewarelibs, Unreferenced]", 7); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, fpgamiddlewarelibs, UserLogicInterface.vhd]", 3, false); // B (D, cp)
+selectTab(PAResourceEtoH.FileSetView_TABBED_PANE, (HResource) null, "Compile Order", 2); // i (N, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, UserLogicInterface.vhd]", 1, false, false, false, false, true, false); // B (D, cp) - Popup Trigger
+selectTab(PAResourceEtoH.FileSetView_TABBED_PANE, (HResource) null, "Hierarchy", 0); // i (N, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd)]", 17, true, false, false, false, true, false); // B (D, cp) - Popup Trigger - Node
+selectMenu(PAResourceCommand.PACommandNames_AUTO_UPDATE_HIER, "Hierarchy Update"); // ac (al, cp)
+selectMenuItem(PAResourceQtoS.SrcMenu_REFRESH_HIERARCHY, "Refresh Hierarchy"); // af (al, cp)
+// Elapsed time: 12 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Simulation, Run Simulation]", 10, false); // u (Q, cp)
+selectMenuItem(PAResourceCommand.PACommandNames_SIMULATION_RUN_BEHAVIORAL, "Run Behavioral Simulation"); // af (al, cp)
+// Run Command: PAResourceCommand.PACommandNames_SIMULATION_RUN_BEHAVIORAL
+// e (cp):  Run Simulation : addNotify
+// TclEventType: LAUNCH_SIM
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// Tcl Message: launch_simulation 
+// Tcl Message: INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xsim' INFO: [SIM-utils-51] Simulation object is 'sim_1' INFO: [SIM-utils-54] Inspecting design source files for 'TestPrimeRange' in fileset 'sim_1'... INFO: [USF-XSim-97] Finding global include files... INFO: [USF-XSim-98] Fetching design files from 'sim_1'... INFO: [USF-XSim-2] XSim::Compile design INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xsim' 
+// Tcl Message: INFO: [USF-XSim-69] 'compile' step finished in '1' seconds INFO: [USF-XSim-99] Step results log file:'/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xsim/xvhdl.log' 
+// Tcl Message: ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xsim/xvhdl.log' file for more information. ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation. 
+// Tcl Message: ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors. 
+// CommandFailedException: ERROR: [Common 17-69] Command failed: ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.  
+// HOptionPane Error: 'ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.  (Run Simulation)'
+// 'd' command handler elapsed time: 26 seconds
+// Elapsed time: 26 seconds
+selectButton("RDIResource.ProgressDialog_ERROR_ENCOUNTERED_PLEASE_SEE_TCL_OK", "OK"); // JButton (C, I)
+// a (cp): Critical Messages: addNotify
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (a)
+dismissDialog("Critical Messages"); // a (cp)
+selectCodeEditor("primeRange.vhd", 207, 130); // cl (w, cp)
+selectTab(PAResourceEtoH.FileSetView_TABBED_PANE, (HResource) null, "Libraries", 1); // i (N, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, fpgamiddlewarelibs, UserLogicInterface.vhd]", 3, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, fpgamiddlewarelibs, UserLogicInterface.vhd]", 3, false, false, false, false, false, true); // B (D, cp) - Double Click
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "primeRange.vhd", 1); // k (j, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, neuralNetwork]", 8, true, false, false, false, true, false); // B (D, cp) - Popup Trigger - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, fpgamiddlewarelibs, spi_master.vhd]", 4, false, false, false, false, true, false); // B (D, cp) - Popup Trigger
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, VHDL, neuralNetwork]", 8, true); // B (D, cp) - Node
+selectTab(PAResourceEtoH.FileSetView_TABBED_PANE, (HResource) null, "Hierarchy", 0); // i (N, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd)]", 17, true, false, false, false, true, false); // B (D, cp) - Popup Trigger - Node
+selectMenu(PAResourceQtoS.SrcMenu_IP_HIERARCHY, "IP Hierarchy"); // ac (al, cp)
+selectMenu(PAResourceCommand.PACommandNames_AUTO_UPDATE_HIER, "Hierarchy Update"); // ac (al, cp)
+selectMenuItem(PAResourceOtoP.Project_AUTOMATIC_UPDATE_MANUAL_COMPILE_ORDER, "Automatic Update, Manual Compile Order"); // T (cp)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: SRC_MGMT_MODE_CHANGE
+// Tcl Message: set_property source_mgmt_mode DisplayOnly [current_project] 
+// HMemoryUtils.trashcanNow. Engine heap size: 5,381 MB. GUI used memory: 52 MB. Current time: 5/15/19, 11:26:19 AM CEST
+// [Engine Memory]: 5,381 MB (+21351kb) [301:20:05]
+selectTab(PAResourceEtoH.FileSetView_TABBED_PANE, (HResource) null, "Compile Order", 2); // i (N, cp)
+selectTab(PAResourceEtoH.FileSetView_TABBED_PANE, (HResource) null, "Hierarchy", 0); // i (N, cp)
+selectTab(PAResourceEtoH.FileSetView_TABBED_PANE, (HResource) null, "Compile Order", 2); // i (N, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, UserLogicInterface.vhd]", 1, false, false, false, false, true, false); // B (D, cp) - Popup Trigger
+selectMenuItem(PAResourceQtoS.SrcMenu_SET_LIBRARY, "Set Library..."); // af (al, cp)
+// Z (cp): Set Library: addNotify
+selectComboBox(PAResourceQtoS.SpecifyLibraryDialog_LIBRARY_NAME, "fpgamiddlewarelibs", 1); // F (Q, Z)
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (Z)
+dismissDialog("Set Library"); // Z (cp)
+selectTab(PAResourceEtoH.FileSetView_TABBED_PANE, (HResource) null, "Hierarchy", 0); // i (N, cp)
+selectButton(PAResourceEtoH.FileSetPanel_MESSAGES, "1"); // h (f, cp)
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Analysis Results, sim_1, [HDL 9-806] Syntax error near :=. [/home/alwynster/git/fpgamiddlewareproject/src/primeProject/primeRange.vhd:117]. ]", 3, false); // ah (Q, cp)
+messagesViewCrossProbe(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "src;-;/home/alwynster/git/fpgamiddlewareproject/src/primeProject/primeRange.vhd;-;;-;16;-;line;-;117;-;;-;16;-;"); // ah (Q, cp)
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Analysis Results, sim_1, [HDL 9-806] Syntax error near :=. [/home/alwynster/git/fpgamiddlewareproject/src/primeProject/primeRange.vhd:117]. ]", 3, false, false, false, false, false, true); // ah (Q, cp) - Double Click
+selectCodeEditor("primeRange.vhd", 352, 293); // cl (w, cp)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed time: 84 seconds
+selectCodeEditor("primeRange.vhd", 182, 172); // cl (w, cp)
+selectButton(PAResourceAtoD.AbstractFileView_RELOAD, "Reload"); // h (cQ, cp)
+// HMemoryUtils.trashcanNow. Engine heap size: 5,381 MB. GUI used memory: 52 MB. Current time: 5/15/19, 11:56:19 AM CEST
+// Elapsed time: 3213 seconds
+selectCodeEditor("primeRange.vhd", 379, 339); // cl (w, cp)
+// HMemoryUtils.trashcanNow. Engine heap size: 5,381 MB. GUI used memory: 51 MB. Current time: 5/15/19, 12:26:19 PM CEST
+// Elapsed time: 333 seconds
+closeView(PAResourceOtoP.PAViews_CODE, "Code"); // B
+// Elapsed time: 57 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, FixedPointANNSkeleton(Behavioral) (FixedPointANNSkeleton.vhd)]", 2, true); // B (D, cp) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd), uut : primeRange(Behavioral) (primeRange.vhd)]", 16, true); // B (D, cp) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd), uut : primeRange(Behavioral) (primeRange.vhd)]", 16, true); // B (D, cp) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd), uut : primeRange(Behavioral) (primeRange.vhd)]", 16, true, false, false, false, false, true); // B (D, cp) - Double Click - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd)]", 15, true); // B (D, cp) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd)]", 15, true); // B (D, cp) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd)]", 15, true, false, false, false, false, true); // B (D, cp) - Double Click - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd)]", 15, true); // B (D, cp) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, TestPrimeRange(behavior) (TestPrimeRange.vhd)]", 15, true, false, false, false, false, true); // B (D, cp) - Double Click - Node
+selectCodeEditor("TestPrimeRange.vhd", 374, 331); // cl (w, cp)
+// Elapsed time: 75 seconds
+selectCodeEditor("TestPrimeRange.vhd", 855, 286); // cl (w, cp)

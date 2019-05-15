@@ -9,8 +9,4 @@
 # Log file: /home/alwynster/git/fpgamiddlewareproject/vivado.log
 # Journal file: /home/alwynster/git/fpgamiddlewareproject/vivado.jou
 #-----------------------------------------------------------
-ERROR: [Common 17-356] Failed to install all user apps.
-Sourcing tcl script '/home/alwynster/.Xilinx/Vivado/Vivado_init.tcl'
 start_gui
-exit
-INFO: [Common 17-206] Exiting Vivado at Mon Jan  7 16:52:16 2019...

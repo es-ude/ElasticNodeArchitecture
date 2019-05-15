@@ -31,7 +31,7 @@ use fpgamiddlewarelibs.UserLogicInterface.all;
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
 --library UNISIM;
---use UNISIM.VComponents.all;\
+--use UNISIM.VComponents.all;
 library prime;
 use prime.Prime;
 
@@ -54,11 +54,7 @@ entity primeRange is
 end primeRange;
 
 architecture Behavioral of primeRange is
-	constant fifodepth : integer := 2;
-
-	constant zero : int16_t := (others => '0');
-
-	constant NUM_KERNELS : integer := 21;
+	constant NUM_KERNELS : integer := 2;
 	type arrayInt16 is array(1 to NUM_KERNELS) of int16_t;
 	signal inputQueries : arrayInt16;
 	signal outputValues : arrayInt16;
@@ -66,35 +62,18 @@ architecture Behavioral of primeRange is
 	signal inputWaiting : std_logic_vector(1 to NUM_KERNELS);
 	signal outputReadies : std_logic_vector(1 to NUM_KERNELS);
 	signal outputAcks : std_logic_vector(1 to NUM_KERNELS);
-	signal dones : std_logic_vector(1 to NUM_KERNELS);
-	constant all_done : std_logic_vector(1 to NUM_KERNELS) := (others => '1');
 
-	-- signal fifoCount : integer;
-	signal fifoEmpty, fifoFull, fifoDataInValid, fifoDataOutRequest : std_logic; 
-	signal fifoDataIn, fifoDataOut : std_logic_vector(15 downto 0);
+	signal fifoCount : integer; 
 	signal processDone : std_logic; 
-
-	signal currentSignal : int16_t;
 	
 	type stateType is (idle, active, finished);
 	signal curState : stateType;
-
-	signal invert_clock : std_logic;
 begin
-	invert_clock <= not clock;
-	outputReady <= not fifoEmpty;
-	fifoDataOutRequest <= outputAck;
-	outputValue <= signed(fifoDataOut);
-
 	genKernels: for i in 1 to NUM_KERNELS generate
 		kernel:
 			entity prime.Prime(Behavioral) port map
-			(invert_clock, reset, inputQueries(i), inputReadies(i), inputWaiting(i), outputValues(i), outputReadies(i), outputAcks(i), dones(i));
+			(clock, reset, inputQueries(i), inputReadies(i), inputWaiting(i), outputValues(i), outputReadies(i), outputAcks(i));
 		end generate;
-
-fifo: entity work.localFIFO(behavioral)
-		generic map (16, fifodepth)
-		port map (invert_clock, reset, fifoDataIn, fifoDataInValid, fifoDataOut, fifoDataOutRequest, fifoEmpty, fifoFull);
 
 	-- arbitration process
 	process (clock, reset) is
@@ -107,7 +86,6 @@ fifo: entity work.localFIFO(behavioral)
 				startQ := (others => '0');
 				endQ := (others => '0');
 				processDone <= '0';
-				fifoDataIn <= (others => '0');
 			elsif rising_edge(clock) then
 				case curState is 
 					when idle =>
@@ -125,57 +103,28 @@ fifo: entity work.localFIFO(behavioral)
 							-- do not assign if all have been assigned
 							if processDone = '0' then
 								if inputWaiting(i) = '1' then
-									if current < endQ then 
-										-- kernel available
-										inputQueries(i) <= current;
-										current := current + to_signed(1, 16);
-										inputReadies(i) <= '1';
-										-- outputAcks(i) <= '0';
-									end if;
+									-- kernel available
+									inputQueries(i) <= current;
+									current := current + to_signed(1, 16);
+									inputReadies(i) <= '1';
 								else
 									inputReadies(i) <= '0';
-								end if;
-							else
-								inputReadies(i) <= '0';
-							end if;
-							
-							
-							-- check if output is ready
-							if not saving then
-								-- result is ready
-								if (outputReadies(i) = '1') then 
-									if (outputValues(i) /= zero) then
-										-- space in fifo?
-										if fifoFull /= '1' then
-											fifoDataInValid <= '1';
-											fifoDataIn <= std_logic_vector(outputValues(i));
+									-- check if output is ready
+									if not saving then
+										if outputReadies(i) = '1' then -- result is ready
+											fifoStore <= '1';
+											fifoValue <= outputValues(i);
 											saving := true;
-											outputAcks(i) <= '1';
-										else
-											outputAcks(i) <= '0';
 										end if;
-									else
-										-- nothing to save
-										outputAcks(i) <= '1';
 									end if;
-								else
-									outputAcks(i) <= '0';
-									fifoDataInValid <= '0';
 								end if;
-							else
-								outputAcks(i) <= '0';
-								-- fifoDataInValid <= '0';
 							end if;
-							-- else
-							-- 	outputAcks(i) <= '0';
-							-- end if;
 						end loop;
 						if current = endQuery then
 							processDone <= '1';
 						end if;
 					when finished =>
 				end case; 
-				currentSignal <= current;
 			end if;
 	end process;
 
@@ -184,24 +133,20 @@ fifo: entity work.localFIFO(behavioral)
 		begin
 			if reset = '1' then
 				curState <= idle;
-				done <= '0';
 			-- main state machine
 			elsif rising_edge(clock) then 
 				case curState is
 					when idle =>
 						if inputReady = '1' then
 							curState <= active;
-							done <= '0';
 						end if;
 					when active =>
-						-- if no more to do and all kernels inactive
-						if processDone = '1' and inputWaiting = all_done then
+						if processDone = '1' then
 							curState <= finished;
 						end if;
 					when finished =>
-						if fifoEmpty = '1' then
+						if fifoCount = 0 then
 							curState <= idle;
-							done <= '1';
 						end if;
 				end case;
 			end if;

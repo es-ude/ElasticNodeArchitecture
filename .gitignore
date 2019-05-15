@@ -1,3 +1,5 @@
+*.jou
+*.log
 .vscode/
 src/wdsp/
 fpgamiddlewareproject/fpgamiddlewareproject.cache/
