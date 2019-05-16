@@ -16,7 +16,7 @@ END TestFirWishBone;
 
 ARCHITECTURE behavior OF TestFirWishBone IS 
 
-	signal clk, reset, writeEnable, stb : std_logic := '0';
+	signal clk, reset, writeEnable, stb, ready : std_logic := '0';
 	signal datain : int16_t;
 	signal dataout : int32_t;
 	signal addressIn : std_logic_vector(addressWidth-1 downto 0);
@@ -26,7 +26,7 @@ ARCHITECTURE behavior OF TestFirWishBone IS
 	BEGIN
 	-- Component Instantiation
 	uut: entity work.firWishbone PORT MAP(
-		clk, reset, writeEnable, stb, addressIn, datain, dataout
+		clk, reset, writeEnable, stb, ready, addressIn, datain, dataout
 	);
 
 		
@@ -53,35 +53,136 @@ tb : PROCESS
 		
 		wait for cycle*2;
 		wait for cycle/2;
-		-- input 0
-		datain <= to_signed(0, datain'length);
+--		-- input 0
+--		datain <= to_signed(0, datain'length);
 		addressIn <= (others => '0');
 		writeEnable <= '1';
-		stb <= '1';
-		wait for cycle;
-		stb <= '0';
-		wait for cycle *2;
+--		stb <= '1';
+--		wait for cycle;
+--		stb <= '0';
+--		wait for cycle *2;
 
 		-- input 1000
 		stb <= '1';
 		datain <= to_signed(1, datain'length);
 		wait for cycle;
 		stb <= '0';
-		wait for cycle *2;	
+		wait until ready = '1';
+		wait for cycle;
+		writeEnable <= '0';
+		stb <= '1';
+		wait for cycle;	
+		stb <= '0';
+		assert dataOut = to_signed(59, 16);
+		wait for cycle;	
+
 
 		-- input 0
-		stb <= '1';
+		writeEnable <= '1';
+   		stb <= '1';
 		datain <= to_signed(0, datain'length);
 		wait for cycle;
+		writeEnable <= '0';
 		stb <= '0';
-		wait for cycle *2;
-		for i in 0 to 30 loop
-			stb <= '1';
-			wait for cycle;
-			stb <= '0';
-			wait for cycle;
-		end loop;
+		wait until ready = '1';
+	    wait for cycle;
+		writeEnable <= '0';
+		stb <= '1';
+		wait for cycle;	
+		stb <= '0';
+		assert dataOut = to_signed(179, 16);
+		wait for cycle;	
+		
+		
+		-- long input 0
+       writeEnable <= '1';
+       stb <= '1';
+       wait for cycle;
+       stb <= '0';
+       writeEnable <= '0';
+  		wait until ready = '1';
+       stb <= '1';
+       wait for cycle;
+       assert dataOut = to_signed(492, 16);
+       stb <= '0';
+    
+       writeEnable <= '1';
+       stb <= '1';
+       wait for cycle;
+       stb <= '0';
+       writeEnable <= '0';
+  		wait until ready = '1';
+       stb <= '1';
+       wait for cycle;
+       assert dataOut = to_signed(829, 16);
+       stb <= '0';
+    
+       writeEnable <= '1';
+       stb <= '1';
+       wait for cycle;
+       stb <= '0';
+   		wait until ready = '1';
+      writeEnable <= '0';
+       stb <= '1';
+       wait for cycle;
+       assert dataOut = to_signed(974, 16);
+       stb <= '0';
+    
+       writeEnable <= '1';
+       stb <= '1';
+       wait for cycle;
+       stb <= '0';
+       writeEnable <= '0';
+  		wait until ready = '1';
+       stb <= '1';
+       wait for cycle;
+       assert dataOut = to_signed(829, 16);
+       stb <= '0';
+    
+       writeEnable <= '1';
+       stb <= '1';
+       wait for cycle;
+       stb <= '0';
+       writeEnable <= '0';
+  		wait until ready = '1';
+       stb <= '1';
+       wait for cycle;
+       assert dataOut = to_signed(492, 16);
+       stb <= '0';        
 
+       writeEnable <= '1';
+       stb <= '1';
+       wait for cycle;
+       stb <= '0';
+       writeEnable <= '0';
+       stb <= '1';
+       wait for cycle;
+       assert dataOut = to_signed(179, 16);
+       stb <= '0';
+        
+       writeEnable <= '1';
+       stb <= '1';
+       wait for cycle;
+       stb <= '0';
+       writeEnable <= '0';
+ 		wait until ready = '1';
+       stb <= '1';
+       wait for cycle;
+       assert dataOut = to_signed(59, 16);
+       stb <= '0'; 
+        
+       writeEnable <= '1';
+       stb <= '1';
+       wait for cycle;
+       stb <= '0';
+       writeEnable <= '0';
+       wait until ready = '1';
+       stb <= '1';
+       wait for cycle;
+       assert dataOut = to_signed(0, 16);
+       stb <= '0';  
+        
+           
 		-- done
 		stb <= '0';
 		writeEnable <= '0';

@@ -13,12 +13,12 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="810000001fs"></ZoomEndTime>
-      <Cursor1Time time="810000000fs"></Cursor1Time>
+      <ZoomEndTime time="112653062fs"></ZoomEndTime>
+      <Cursor1Time time="75000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="211"></NameColumnWidth>
-      <ValueColumnWidth column_width="58"></ValueColumnWidth>
+      <NameColumnWidth column_width="207"></NameColumnWidth>
+      <ValueColumnWidth column_width="110"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="2" />
    <wvobject fp_name="group73" type="group">
@@ -50,8 +50,8 @@
          <obj_property name="ObjectShortName">dataout[31:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/TestFirWishBone/addressIn" type="array">
-         <obj_property name="ElementShortName">addressIn[4:0]</obj_property>
-         <obj_property name="ObjectShortName">addressIn[4:0]</obj_property>
+         <obj_property name="ElementShortName">addressIn[3:0]</obj_property>
+         <obj_property name="ObjectShortName">addressIn[3:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/TestFirWishBone/finish" type="other">
          <obj_property name="ElementShortName">finish</obj_property>
@@ -82,9 +82,13 @@
          <obj_property name="ElementShortName">stb</obj_property>
          <obj_property name="ObjectShortName">stb</obj_property>
       </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/ready" type="logic">
+         <obj_property name="ElementShortName">ready</obj_property>
+         <obj_property name="ObjectShortName">ready</obj_property>
+      </wvobject>
       <wvobject fp_name="/TestFirWishBone/uut/addressIn" type="array">
-         <obj_property name="ElementShortName">addressIn[4:0]</obj_property>
-         <obj_property name="ObjectShortName">addressIn[4:0]</obj_property>
+         <obj_property name="ElementShortName">addressIn[3:0]</obj_property>
+         <obj_property name="ObjectShortName">addressIn[3:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/TestFirWishBone/uut/dataIn" type="array">
          <obj_property name="ElementShortName">dataIn[15:0]</obj_property>
@@ -93,6 +97,7 @@
       <wvobject fp_name="/TestFirWishBone/uut/dataOut" type="array">
          <obj_property name="ElementShortName">dataOut[31:0]</obj_property>
          <obj_property name="ObjectShortName">dataOut[31:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/TestFirWishBone/uut/dataOutSignal" type="array">
          <obj_property name="ElementShortName">dataOutSignal[31:0]</obj_property>
@@ -107,6 +112,26 @@
          <obj_property name="ObjectShortName">y[31:0]</obj_property>
          <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
          <obj_property name="CellHeight">100</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/ytmp" type="array">
+         <obj_property name="ElementShortName">ytmp[31:0]</obj_property>
+         <obj_property name="ObjectShortName">ytmp[31:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/currentState" type="other">
+         <obj_property name="ElementShortName">currentState</obj_property>
+         <obj_property name="ObjectShortName">currentState</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/stateCount" type="other">
+         <obj_property name="ElementShortName">stateCount</obj_property>
+         <obj_property name="ObjectShortName">stateCount</obj_property>
       </wvobject>
       <wvobject fp_name="/TestFirWishBone/uut/q" type="array">
          <obj_property name="ElementShortName">q[15:0]</obj_property>
@@ -117,20 +142,22 @@
          <obj_property name="ObjectShortName">y0[31:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/TestFirWishBone/uut/u_pipe" type="array">
-         <obj_property name="ElementShortName">u_pipe[0:16][15:0]</obj_property>
-         <obj_property name="ObjectShortName">u_pipe[0:16][15:0]</obj_property>
+         <obj_property name="ElementShortName">u_pipe[0:8][15:0]</obj_property>
+         <obj_property name="ObjectShortName">u_pipe[0:8][15:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/TestFirWishBone/uut/y_pipe" type="array">
-         <obj_property name="ElementShortName">y_pipe[0:16][31:0]</obj_property>
-         <obj_property name="ObjectShortName">y_pipe[0:16][31:0]</obj_property>
+         <obj_property name="ElementShortName">y_pipe[0:8][31:0]</obj_property>
+         <obj_property name="ObjectShortName">y_pipe[0:8][31:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/TestFirWishBone/uut/filterClock" type="logic">
          <obj_property name="ElementShortName">filterClock</obj_property>
          <obj_property name="ObjectShortName">filterClock</obj_property>
       </wvobject>
       <wvobject fp_name="/TestFirWishBone/uut/b_signal" type="array">
-         <obj_property name="ElementShortName">b_signal[0:16][15:0]</obj_property>
-         <obj_property name="ObjectShortName">b_signal[0:16][15:0]</obj_property>
+         <obj_property name="ElementShortName">b_signal[0:8][15:0]</obj_property>
+         <obj_property name="ObjectShortName">b_signal[0:8][15:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
    </wvobject>
 </wave_config>

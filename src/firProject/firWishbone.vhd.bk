@@ -42,8 +42,6 @@ entity firWishbone is
 		reset 			: in std_logic;
 		writeEnable		: in std_logic;
 		stb				: in std_logic;
-
-		ready			: out std_logic;
 		
 		-- ack and cyc ignored for now
 		
@@ -61,8 +59,7 @@ architecture Behavioral of firWishbone is
 	signal dataOutSignal : int32_t;
 
 	signal u : signed(firWidth-1 downto 0);
-	signal y, ytmp : signed(firWidth*2-1 downto 0);
-	constant zero : signed(firWidth*2-1 downto 0) := (others => '0');
+	signal y : signed(firWidth*2-1 downto 0);
 
 	signal q : signed(u'range);
 
@@ -73,11 +70,6 @@ architecture Behavioral of firWishbone is
 	
 	signal filterClock : std_logic := '0';
 	signal b_signal : signed_vector(0 to order);
-	signal stateCount : integer range 0 to (order + 1);
-
-
-	type filterState is (idle, calculating);
-	signal currentState : filterState;
 -- attribute mult_style:string; attribute mult_style of fir:entity is "block";		--xilinx
 	
 begin
@@ -125,8 +117,8 @@ dataOutProcess: process (reset, clk, stb, writeEnable) is
 		end if;
 	end process;
 
-	-- u pipe part
-uChain: process(clk, filterClock, reset) is begin
+	-- filter part
+	uChain: process(clk, filterClock, reset) is begin
 		if reset = '1' then
 			u_pipe(0) <= (others => '0');
 		elsif falling_edge(clk) then
@@ -136,7 +128,7 @@ uChain: process(clk, filterClock, reset) is begin
 		end if;
 	end process;
 	-- u_pipe(0)<=u;
-u_dlyChain: for i in 1 to u_pipe'high generate
+	u_dlyChain: for i in 1 to u_pipe'high generate
 		delayChain: process(clk, filterClock, reset) is begin
 			if reset = '1' then
 				u_pipe(i) <= (others => '0');
@@ -147,47 +139,28 @@ u_dlyChain: for i in 1 to u_pipe'high generate
 			end if;
 		end process delayChain;
 	end generate u_dlyChain;
-
-	-- filter part
-filterStateProcess: process (reset, clk, filterClock) is
-	begin
-		if reset = '1' then
-			currentState <= idle;
-			stateCount <= 0;
-			y <= zero;
-		elsif falling_edge(clk) then
-			if filterClock = '1' and currentState = idle then
-				currentState <= calculating;
-			elsif currentState = calculating then
-				if stateCount = order then
-					currentState <= idle;
-					stateCount <= 0;
-					y <= ytmp;
-				else
-					stateCount <= stateCount + 1;
-				end if;
-			end if;
-		end if;
-	end process;
-
-	-- calculation part
-filterProcess: process (reset, clk) is
-
-	begin
-		if reset = '1' then
-			ytmp <= zero;
-			ready <= '1';
-		elsif rising_edge(clk) then
-			if currentState = calculating then
-				ready <= '0';
-
-				ytmp <= ytmp + fir_coeff(stateCount) * u_pipe(stateCount);
-			else
-				ytmp <= zero;
-				ready <= '1';
-			end if;
-		end if;
-	end process;
+	
+	-- first u in pipe is not used for calculation
+	y_pipe(0)<=fir_coeff(0)*u_pipe(0);
+	y_dlyChain: for i in 1 to y_pipe'high generate
+		y_pipe(i)<=b_signal(i)*u_pipe(i) + y_pipe(i-1);
+	end generate y_dlyChain;
+	
+	y0<=y_pipe(y_pipe'high) when reset='0' else (others=>'0');
+	y<=y0(y'range);
+	
+--filter : entity work.fir(rtl)
+--	port map (reset, filterClock, dataIn, dataOutSignal);
+--
+--	dataOut <= dataOutSignal;
+--	filterClock <= clk and dataInValid and not reset;
+	
+--dataoutvalidprocess: 
+--	process(clk) is
+--		if rising_edge(clk) then
+--			dataOutValid <= dataInValid;
+--		end if;
+--	end process;
 
 end Behavioral;
 

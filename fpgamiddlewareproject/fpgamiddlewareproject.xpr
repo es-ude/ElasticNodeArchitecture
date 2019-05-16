@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="39" Path="/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.xpr">
+<Project Version="7" Minor="39" Path="C:/Users/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="5a9e39aa9bc54c56a6c4387a14e691ec"/>
@@ -21,7 +21,6 @@
     <Option Name="SimulatorLanguage" Val="VHDL"/>
     <Option Name="BoardPart" Val=""/>
     <Option Name="BoardPartRepoPaths" Val="$PPRDIR/../../../Downloads/arty/vivado-boards-master/new/board_files"/>
-    <Option Name="SourceMgmtMode" Val="DisplayOnly"/>
     <Option Name="ActiveSimSet" Val="sim_1"/>
     <Option Name="DefaultLib" Val="neuralnetwork"/>
     <Option Name="ProjectType" Val="Default"/>
@@ -35,7 +34,7 @@
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSAVendor" Val="xilinx"/>
     <Option Name="DSANumComputeUnits" Val="16"/>
-    <Option Name="WTXSimLaunchSim" Val="1669"/>
+    <Option Name="WTXSimLaunchSim" Val="1748"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -115,6 +114,13 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PPRDIR/../src/fpgamiddlewarelibs/implementationConstants.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="fpgamiddlewarelibs"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PPRDIR/../src/fpgamiddlewarelibs/SpiInterface/spi_master.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
@@ -188,6 +194,7 @@
       <File Path="$PPRDIR/../src/CommunicationStateMachine.vhd">
         <FileInfo>
           <Attr Name="Library" Val="work"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -195,6 +202,7 @@
       <File Path="$PPRDIR/../src/Diff.vhd">
         <FileInfo>
           <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -202,6 +210,7 @@
       <File Path="$PPRDIR/../src/FixedPoint_Logic.vhd">
         <FileInfo>
           <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -209,6 +218,7 @@
       <File Path="$PPRDIR/../src/InterfaceStateMachine.vhd">
         <FileInfo>
           <Attr Name="Library" Val="xil_defaultlib"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -216,20 +226,23 @@
       <File Path="$PPRDIR/../src/Logic_FixedPoint.vhd">
         <FileInfo>
           <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/MatrixMultiplicationPackage.vhd">
+      <File Path="$PPRDIR/../src/mmProject/MatrixMultiplicationPackage.vhd">
         <FileInfo>
           <Attr Name="Library" Val="matrixMultiplication"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/MatrixMultiplication.vhd">
+      <File Path="$PPRDIR/../src/mmProject/MatrixMultiplication.vhd">
         <FileInfo>
           <Attr Name="Library" Val="matrixmultiplication"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -237,6 +250,7 @@
       <File Path="$PPRDIR/../src/SignedANN.vhd">
         <FileInfo>
           <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -244,6 +258,7 @@
       <File Path="$PPRDIR/../src/SignedANNSkeleton.vhd">
         <FileInfo>
           <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -251,6 +266,7 @@
       <File Path="$PPRDIR/../src/VectorDotproduct.vhd">
         <FileInfo>
           <Attr Name="Library" Val="vectorDotProduct"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -258,20 +274,23 @@
       <File Path="$PPRDIR/../src/VectorDotproductSkeleton.vhd">
         <FileInfo>
           <Attr Name="Library" Val="vectorDotProduct"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/firPackage.vhd">
+      <File Path="$PPRDIR/../src/firProject/firPackage.vhd">
         <FileInfo>
           <Attr Name="Library" Val="work"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/firWishbone.vhd">
+      <File Path="$PPRDIR/../src/firProject/firWishbone.vhd">
         <FileInfo>
           <Attr Name="Library" Val="work"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -279,6 +298,7 @@
       <File Path="$PPRDIR/../src/fpgamiddlewarelibs/UartInterface/uartInterface.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -286,6 +306,7 @@
       <File Path="$PPRDIR/../src/fpgamiddlewarelibs/IcapInterface/icapInterface.vhdl">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -293,6 +314,7 @@
       <File Path="$PPRDIR/../src/middleware.vhdl">
         <FileInfo>
           <Attr Name="Library" Val="xil_defaultlib"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -300,6 +322,7 @@
       <File Path="$PPRDIR/../src/localFIFO.vhd">
         <FileInfo>
           <Attr Name="Library" Val="work"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -307,6 +330,7 @@
       <File Path="$PPRDIR/../src/fpgamiddlewarelibs/UartInterface/uart_rx.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -314,6 +338,7 @@
       <File Path="$PPRDIR/../src/fpgamiddlewarelibs/UartInterface/uart_tx.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -321,30 +346,35 @@
       <File Path="$PPRDIR/../src/genericProject.vhd">
         <FileInfo>
           <Attr Name="Library" Val="xil_defaultlib"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../src/TestSignedANNSkeleton.vhd">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../src/fpgamiddlewarelibs/Procedures.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/TestFirWishbone.vhd">
+      <File Path="$PPRDIR/../src/firProject/TestFirWishbone.vhd">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../src/SimulateNeuron.vhd">
         <FileInfo>
           <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
@@ -364,9 +394,10 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/FirWishboneSkeleton.vhd">
+      <File Path="$PPRDIR/../src/firProject/FirWishboneSkeleton.vhd">
         <FileInfo>
           <Attr Name="Library" Val="work"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -542,7 +573,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/TestFirSkeletonFIFO.vhd">
+      <File Path="$PPRDIR/../src/firProject/TestFirSkeletonFIFO.vhd">
         <FileInfo>
           <Attr Name="UserDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -598,8 +629,9 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/TestFirWishboneSkeleton.vhd">
+      <File Path="$PPRDIR/../src/firProject/TestFirWishboneSkeleton.vhd">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -821,7 +853,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/TestDummy.vhd">
+      <File Path="$PPRDIR/../src/dummyProject/TestDummy.vhd">
         <FileInfo>
           <Attr Name="UserDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -852,6 +884,7 @@
       <File Path="$PPRDIR/../src/fpgamiddlewarelibs/SpiInterface/TestFlashInterface.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
@@ -883,16 +916,10 @@
     </FileSet>
     <FileSet Name="sim_1" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/sim_1">
       <Filter Type="Srcs"/>
-      <File Path="$PPRDIR/../src/primeProject/prime.vhdl">
-        <FileInfo>
-          <Attr Name="Library" Val="prime"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PPRDIR/../src/primeProject/primeRange.vhd">
         <FileInfo>
           <Attr Name="Library" Val="prime"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -900,6 +927,7 @@
       <File Path="$PPRDIR/../src/primeProject/TestPrimeRange.vhd">
         <FileInfo>
           <Attr Name="Library" Val="prime"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -907,6 +935,7 @@
       <File Path="$PSRCDIR/sim_1/imports/fpgamiddlewarelibs/simulationConstants.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="ImportPath" Val="$PPRDIR/../src/fpgamiddlewarelibs/simulationConstants.vhd"/>
           <Attr Name="ImportTime" Val="1539246591"/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -916,12 +945,14 @@
       <File Path="$PPRDIR/../src/TestSignedANNSkeleton.vhd">
         <FileInfo>
           <Attr Name="Library" Val="neuralnetwork"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../src/TestHiddenLayers.vhd">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -929,11 +960,13 @@
       <File Path="$PPRDIR/../src/TestGenericProject.vhd">
         <FileInfo>
           <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../src/TestFixedPointANNSkeleton.vhd">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -941,6 +974,7 @@
       <File Path="$PPRDIR/../src/TestFixedPointANN.vhd">
         <FileInfo>
           <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
@@ -952,9 +986,10 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/TestDummy.vhd">
+      <File Path="$PPRDIR/../src/dummyProject/TestDummy.vhd">
         <FileInfo>
           <Attr Name="Library" Val="xil_defaultlib"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -986,6 +1021,7 @@
       <File Path="$PPRDIR/../src/TestMatrixMultiplicationSkeleton.vhd">
         <FileInfo>
           <Attr Name="Library" Val="matrixMultiplication"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -993,6 +1029,7 @@
       <File Path="$PPRDIR/../src/TestMatrixMultiply.vhd">
         <FileInfo>
           <Attr Name="Library" Val="matrixMultiplication"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -1000,6 +1037,7 @@
       <File Path="$PPRDIR/../src/TestMiddleware.vhd">
         <FileInfo>
           <Attr Name="Library" Val="xil_defaultlib"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -1007,6 +1045,7 @@
       <File Path="$PPRDIR/../src/TestPwm.vhd">
         <FileInfo>
           <Attr Name="Library" Val="Keyboard"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -1014,6 +1053,7 @@
       <File Path="$PPRDIR/../src/TestSignedANN.vhd">
         <FileInfo>
           <Attr Name="Library" Val="work"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -1021,6 +1061,7 @@
       <File Path="$PPRDIR/../TestSimulateNetworkSkeleton.vhd">
         <FileInfo>
           <Attr Name="Library" Val="xil_defaultlib"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -1028,6 +1069,7 @@
       <File Path="$PPRDIR/../src/fpgamiddlewarelibs/SpiInterface/TestSpiInterface.vhd">
         <FileInfo>
           <Attr Name="Library" Val="xil_defaultlib"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -1035,6 +1077,7 @@
       <File Path="$PPRDIR/../src/TestVectorDotproduct.vhd">
         <FileInfo>
           <Attr Name="Library" Val="vectorDotProduct"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -1042,6 +1085,7 @@
       <File Path="$PPRDIR/../src/TestVectorDotproductSkeleton.vhd">
         <FileInfo>
           <Attr Name="Library" Val="vectorDotProduct"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -1049,6 +1093,7 @@
       <File Path="$PPRDIR/../src/TestVectorToWeights.vhd">
         <FileInfo>
           <Attr Name="Library" Val="xil_defaultlib"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -1056,18 +1101,19 @@
       <File Path="$PPRDIR/../src/TestWeightToVector.vhd">
         <FileInfo>
           <Attr Name="Library" Val="xil_defaultlib"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/TestFirSkeletonFIFO.vhd">
+      <File Path="$PPRDIR/../src/firProject/TestFirSkeletonFIFO.vhd">
         <FileInfo>
           <Attr Name="UserDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/TestFirWishbone.vhd">
+      <File Path="$PPRDIR/../src/firProject/TestFirWishbone.vhd">
         <FileInfo>
           <Attr Name="UserDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -1122,9 +1168,8 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/TestFirWishbone.wcfg">
+      <File Path="$PPRDIR/../src/firProject/TestFirWishbone.wcfg">
         <FileInfo>
-          <Attr Name="UserDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
@@ -1284,8 +1329,9 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/TestFirWishboneSkeleton.wcfg">
+      <File Path="$PPRDIR/../src/firProject/TestFirWishboneSkeleton.wcfg">
         <FileInfo>
+          <Attr Name="UserDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
@@ -1322,6 +1368,7 @@
       <File Path="$PPRDIR/../src/primeProject/TestPrime.vhd">
         <FileInfo>
           <Attr Name="Library" Val="prime"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -1329,13 +1376,15 @@
       <File Path="$PPRDIR/../src/primeProject/PrimeSkeleton.vhd">
         <FileInfo>
           <Attr Name="Library" Val="prime"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/primeProject/Prime.vhd">
+      <File Path="$PPRDIR/../src/primeProject/prime.vhdl">
         <FileInfo>
           <Attr Name="Library" Val="prime"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -1343,19 +1392,21 @@
       <File Path="$PPRDIR/../src/primeProject/primeProject.vhd">
         <FileInfo>
           <Attr Name="Library" Val="prime"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../src/primeProject/TestPrimeRange.wcfg">
         <FileInfo>
+          <Attr Name="UserDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="TestPrimeRange"/>
-        <Option Name="TopLib" Val="prime"/>
+        <Option Name="TopModule" Val="TestFirWishBone"/>
+        <Option Name="TopLib" Val="neuralnetwork"/>
         <Option Name="TransportPathDelay" Val="0"/>
         <Option Name="TransportIntDelay" Val="0"/>
         <Option Name="SrcSet" Val="sources_1"/>
@@ -1392,17 +1443,11 @@
     <Simulator Name="Questa">
       <Option Name="Description" Val="Questa Advanced Simulator"/>
     </Simulator>
-    <Simulator Name="IES">
-      <Option Name="Description" Val="Incisive Enterprise Simulator (IES)"/>
-    </Simulator>
-    <Simulator Name="Xcelium">
-      <Option Name="Description" Val="Xcelium Parallel Simulator"/>
-    </Simulator>
-    <Simulator Name="VCS">
-      <Option Name="Description" Val="Verilog Compiler Simulator (VCS)"/>
-    </Simulator>
     <Simulator Name="Riviera">
       <Option Name="Description" Val="Riviera-PRO Simulator"/>
+    </Simulator>
+    <Simulator Name="ActiveHDL">
+      <Option Name="Description" Val="Active-HDL Simulator"/>
     </Simulator>
   </Simulators>
   <Runs Version="1" Minor="10">
