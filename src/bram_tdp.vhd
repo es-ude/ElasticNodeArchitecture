@@ -36,7 +36,7 @@ architecture rtl of bram_tdp is
     --signal mem_s : mem_type;
     --signal mem_w : fixed_point_matrix;
 begin
-
+--mem_s <= mem;
 -- Port A
 process(a_clk)
 begin

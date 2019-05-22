@@ -58,15 +58,17 @@ entity SoftSRAM is
 architecture Behavioral of SoftSRAM is
     -- type mem_type is array ( (2**ADDR)-1 downto 0 ) of std_logic_vector(DATA-1 downto 0);
     -- 2^ADDR might be too large for Block RAM. Here we assume we only need 64kB space.
-    type mem_type is array ( (2**16)-1 downto 0 ) of std_logic_vector(DATA-1 downto 0);
+    type mem_type is array ( (2**8)-1 downto 0 ) of std_logic_vector(DATA-1 downto 0);
     shared variable mem : mem_type;
     signal data_out : std_logic_vector(DATA-1 downto 0);
+    --signal test_softram : mem_type;
 begin
-
+    
     MEM_WRITE: process(address, cs_1, cs_2, write_enable, output_enable)
     begin
         if (cs_1 = '0' and cs_2='1' and write_enable='0') then
             mem(conv_integer(address)) := data_io;
+            --test_softram <= mem;
         end if;
     end process;
 

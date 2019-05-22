@@ -18,7 +18,10 @@
 --
 ----------------------------------------------------------------------------------
 library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_arith.all;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
 
 library fpgamiddlewarelibs;
 use fpgamiddlewarelibs.userlogicinterface.all;
@@ -35,6 +38,10 @@ use IEEE.NUMERIC_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity HiddenLayers is
+    generic (
+        sram_addr_width : integer := hw_sram_addr_width;
+        sram_data_width : integer := hw_sram_data_width
+    );
 	port (
 			clk						:	in std_logic;
 			reset 					: 	in std_logic; -- reset all variables and memory
@@ -51,15 +58,15 @@ entity HiddenLayers is
 			wanted					:	in fixed_point_vector;
 
 			reset_weights 			:	in std_logic;
-			flash_address			:	in uint24_t;
+			sram_address			:	in uint24_t;
 			load_weights			:	in std_logic;
 			store_weights			:	in std_logic;
 			flash_ready				:	out std_logic;
 
-			spi_cs					:	out std_logic;
-			spi_clk					:	out std_logic;
-			spi_mosi				:	out std_logic;
-			spi_miso				:	in std_logic;
+			ext_sram_addr                : out std_logic_vector(sram_addr_width-1 downto 0);
+            ext_sram_data                : inout std_logic_vector(hw_sram_data_width-1 downto 0);
+            ext_sram_output_enable       : out std_logic;
+            ext_sram_write_enable        : out std_logic;
 
 			debug					: 	out uint8_t
 			--weights_wr_en 			:	in std_logic;
@@ -81,12 +88,12 @@ signal n_feedback_s : integer range 0 to 2;
 
 -- weights ram interface
 constant WEIGHTS_RAM_WIDTH							: integer := log2(totalLayers);
-signal weights_wr_a, weights_wr_b, weights_wr_ext	: std_logic := '0';
+signal weights_wr_a, weights_wr_b: std_logic := '0';
 signal weights_address_a,weights_address_b,weights_address_ann,weights_address_flash			: std_logic_vector(WEIGHTS_RAM_WIDTH-1 downto 0);
 signal weights_din_a, weights_din_b, weights_din_ann, weights_din_ext, weights_dout_a, weights_dout_b 	: weights_vector; -- read entire layer's weights at a time 
 signal resetWeightsOscillate 						: boolean; -- indicates when weights should be written
 signal invert_clk									: std_logic;
-signal reset_counter 								: unsigned(WEIGHTS_RAM_WIDTH-1 downto 0) := (others => '0'); -- l+1 means it's done
+-- signal reset_counter 								: unsigned(WEIGHTS_RAM_WIDTH-1 downto 0) := (others => '0'); -- l+1 means it's done
 
 -- conn ram interface
 constant CONN_RAM_WIDTH							: integer := log2(totalLayers+1);
@@ -108,51 +115,100 @@ signal current_neuron_sample_signal : uint8_t;
 
  --flash interface
 --signal flashAddress : uint16_t;
-signal flashWrRequest, flashRdRequest, flashDataInRequest, flashDataOutAvail, flashDone : std_logic;
+signal flashWrRequest, flashRdRequest, flashDataInRequest, flashDone : std_logic;
 signal flashNumBytes : integer range 0 to 256;
 signal flashDataIn, flashDataOut : uint8_t;
 
 signal weights_wr_flash, weights_rd_flash, bias_wr_flash, bias_rd_flash : std_logic;
-signal weights_din_flash : weights_vector;
+signal weights_din_sram : weights_vector;
 signal flashState : flashStateType;
 
+
+
+signal sram_mode : sramModeType;
+
+
+-- for sram reset functions
+signal sram_reset_address : std_logic_vector(sram_addr_width-1 downto 0);
+signal sram_reset_data : std_logic_vector(hw_sram_data_width-1 downto 0);
+
+
+-- for sram conn process
+signal conn_wr_request : std_logic;
+signal sram_conn_write_address : std_logic_vector(sram_addr_width-1 downto 0);
+signal sram_conn_read_address : std_logic_vector(sram_addr_width-1 downto 0);
+signal sram_conn_write_data : std_logic_vector(hw_sram_data_width-1 downto 0);
+signal sram_conn_read_data : std_logic_vector(hw_sram_data_width-1 downto 0);
+
+
+signal sram_write_ctl : std_logic;
+ 
 -- debug
 signal layerIndex_s, index_s : integer;
 
 begin
 
+
+sram_mode <= sramReset when dist_mode = resetWeights else
+             connWrite when conn_wr_request='1' else
+             
+             --<expression> when <condition> else
+             idle;
+             
+with sram_mode select
+  ext_sram_addr <= (others=>'0') when idle,
+            sram_reset_address when sramReset,
+            sram_conn_write_address when connWrite,
+            (others=>'0') when others;
+
+with sram_mode select
+  ext_sram_data <= (others=>'0') when idle,
+            sram_reset_data when sramReset,
+            sram_conn_write_data when connWrite,
+            (others=>'0') when others;
+            
+            
+
+sram_write_ctl <= '0' when (sram_mode = sramReset) or (sram_mode = connWrite)
+	else '1';
+	
+
+          
 lay: 
 	entity neuralNetwork.Layer(Behavioral) port map
 	(
 		clk, reset, n_feedback, dist_mode, current_layer, current_neuron, conn_in, conn_out, conn_out_prev, err_in, err_out, weights_in, weights_out, biases_in, biases_out
 	);
 
--- flash loading
-flash:
-	entity fpgamiddlewarelibs.FlashInterface(Behavioral) generic map
-	(
-		prescaler => 2
-	)
-	port map
-	(
-		clk => clk,
-		reset => reset,
+    
+    ext_sram_write_enable <=  sram_write_ctl or clk;
+---- flash loading
+--flash:
+--	entity fpgamiddlewarelibs.FlashInterface(Behavioral)
+----	 generic map
+----	(
+----		prescaler => 2
+----	)
+--	port map
+--	(
+--		clk => clk,
+--		reset => reset,
 
-		addressIn => flash_address,
-		writeRequest => flashWrRequest,
-		readRequest => flashRdRequest,
-		numBytes => flashNumBytes,
-		dataIn => flashDataIn,
-		dataInRequest => flashDataInRequest,
-		dataOut => flashDataOut,
-		dataOutAvailable => flashDataOutAvail,
-		done => flashDone,
+--		addressIn => flash_address,
+--		writeRequest => flashWrRequest,
+--		readRequest => flashRdRequest,
+--		numBytes => flashNumBytes,
+--		dataIn => flashDataIn,
+--		dataInRequest => flashDataInRequest,
+--		dataOut => flashDataOut,
+--		dataOutAvailable => flashDataOutAvail,
+--		done => flashDone,
 
-		spi_cs => spi_cs,
-		spi_clk => spi_clk,
-		spi_mosi => spi_mosi,
-		spi_miso => spi_miso
-	);
+--		spi_cs => spi_cs,
+--		spi_clk => spi_clk,
+--		spi_mosi => spi_mosi,
+--		spi_miso => spi_miso
+--	);
 
 -- half speed clock to only write memory every second cycle
 resetWeightsOscillate_process:
@@ -174,27 +230,28 @@ begin
 	end if;
 end process;
 
--- process for reading/writing flash chip
-flash_process:
-process (clk, reset, reset_weights, load_weights, flashDataOutAvail) is
+-- process for reading/writing sram chip
+sram_process:
+process (clk, reset, reset_weights, load_weights) is
 	variable index : integer range 0 to totalLayers+1;
-	constant bytesPerLayerWeights : integer := b*maxWidth*maxWidth/8;
-	constant bytesPerLayerBias : integer := b*maxWidth/8;
-	variable layerIndex : integer range 0 to bytesPerLayerWeights + 1;
-	variable currentByte : uint8_t;
+	
+	variable layerIndex : integer range 0 to totalLayers + 1;
+	-- variable neuronIndex : integer range 1 to maxWidth + 1; -- chao added it useless
+	-- variable currentByte : integer;
 	variable waitIndex : integer range 0 to finishedDelay + 1;
 	variable firstByte : boolean;
+	
 begin
 	if reset = '1' then
 		flashState <= idle;
-		weights_din_flash <= (others => '0');
+		weights_din_sram <= (others => '0');
 		weights_address_flash <= (others => '0');
 		flashRdRequest <= '0';
 		flashWrRequest <= '0';
 		waitIndex := 0;
 		firstByte := false;
 	elsif rising_edge(clk) then
-		case flashState is
+        case flashState is
 		
 		when idle =>
 			if load_weights = '1' then
@@ -204,14 +261,16 @@ begin
 			elsif reset_weights = '1' then
 				flashState <= waitResetWeights;
 			end if;
-			-- current state flags
-			weights_wr_flash <= '0';
-			weights_rd_flash <= '0';
-			bias_wr_flash <= '0';
-			bias_rd_flash <= '0';
+			
+--			-- current state flags
+--			weights_wr_flash <= '0';
+--			weights_rd_flash <= '0';
+--			bias_wr_flash <= '0';
+--			bias_rd_flash <= '0';
+
 			index := 0;
 			layerIndex := 0;
-
+            
 		-- reset weights
 		when waitResetWeights =>
 			-- stay here until weights have been reset
@@ -220,171 +279,171 @@ begin
 				waitIndex := 0;
 			end if;
 
-		-- load weights from flash
-		when requestLoadWeights =>
-			--flashAddress <= x"A50F";
-			flashRdRequest <= '1';
-			flashNumBytes <= bytesPerLayerWeights * totalLayers + bytesPerLayerBias * totalLayers;
-			weights_address_flash <= (others => '0');
+--		-- load weights from flash
+--		when requestLoadWeights =>
+--			--flashAddress <= x"A50F";
+--			flashRdRequest <= '1';
+--			flashNumBytes <= bytesPerLayerWeights * totalLayers + bytesPerLayerBias * totalLayers;
+--			weights_address_flash <= (others => '0');
 
-			flashState <= waitingLoadingWeights;
-			firstByte := true; -- to ignore 
-		when loadingWeights =>
-			flashRdRequest <= '0';
+--			flashState <= waitingLoadingWeights;
+--			firstByte := true; -- to ignore 
+--		when loadingWeights =>
+--			flashRdRequest <= '0';
 
-			weights_din_flash((layerIndex+1)*8-1 downto layerIndex*8) <= std_logic_vector(currentByte);
+--			weights_din_flash((layerIndex+1)*8-1 downto layerIndex*8) <= std_logic_vector(currentByte);
 			
-			if layerIndex < bytesPerLayerWeights - 1 then
+--			if layerIndex < bytesPerLayerWeights - 1 then
 				
-				layerIndex := layerIndex + 1;
-				flashState <= waitingLoadingWeights;
+--				layerIndex := layerIndex + 1;
+--				flashState <= waitingLoadingWeights;
 
-			else 
-				layerIndex := 0;
-				weights_address_flash <= std_logic_vector(to_unsigned(index, weights_address_flash'length));
-				weights_wr_flash <= '1';
-				index := index + 1;
-				-- done
-				if index = totalLayers then
-					flashState <= finished;
-					waitIndex := 0;
-				else
-					flashState <= waitingLoadingWeights;
-				end if;
-			end if;
-		when waitingLoadingWeights =>
-			weights_wr_flash <= '0';
-			-- wait for next byte to be available from the flash
-			if flashDataOutAvail = '1' then
-				if firstByte then
-					firstByte := false;
-				else
-					flashState <= loadingWeights;
-					currentByte := flashDataOut;
-				end if;
-			end if;
+--			else 
+--				layerIndex := 0;
+--				weights_address_flash <= std_logic_vector(to_unsigned(index, weights_address_flash'length));
+--				weights_wr_flash <= '1';
+--				index := index + 1;
+--				-- done
+--				if index = totalLayers then
+--					flashState <= finished;
+--					waitIndex := 0;
+--				else
+--					flashState <= waitingLoadingWeights;
+--				end if;
+--			end if;
+--		when waitingLoadingWeights =>
+--			weights_wr_flash <= '0';
+--			-- wait for next byte to be available from the flash
+--			if flashDataOutAvail = '1' then
+--				if firstByte then
+--					firstByte := false;
+--				else
+--					flashState <= loadingWeights;
+--					currentByte := flashDataOut;
+--				end if;
+--			end if;
 
-		-- storing weights to flash
-		when requestStoreWeights =>
-			--flashAddress <= x"A50F";
-			flashNumBytes <= bytesPerLayerWeights * totalLayers + bytesPerLayerBias * totalLayers;
-			--assert flashNumBytes < 256 report "writing too many bytes to flash" severity failure;
-			weights_address_flash <= (others => '0');
-			bias_rd_address_flash <= (others => '0');
-			weights_rd_flash <= '1';
-			flashWrRequest <= '1';
-			layerIndex := 0;
+--		-- storing weights to flash
+--		when requestStoreWeights =>
+--			--flashAddress <= x"A50F";
+--			flashNumBytes <= bytesPerLayerWeights * totalLayers + bytesPerLayerBias * totalLayers;
+--			--assert flashNumBytes < 256 report "writing too many bytes to flash" severity failure;
+--			weights_address_flash <= (others => '0');
+--			bias_rd_address_flash <= (others => '0');
+--			weights_rd_flash <= '1';
+--			flashWrRequest <= '1';
+--			layerIndex := 0;
 
 
-			-- assert first data
-			flashState <= waitingStoringWeights;
-			flashDataIn <= unsigned(weights_dout_b((layerIndex+1)*8-1 downto layerIndex*8));
+--			-- assert first data
+--			flashState <= waitingStoringWeights;
+--			flashDataIn <= unsigned(weights_dout_b((layerIndex+1)*8-1 downto layerIndex*8));
 
-		when storingWeights =>
-			if layerIndex < bytesPerLayerWeights - 2 then				
-				layerIndex := layerIndex + 1;
-				flashState <= waitingStoringWeights;
-				-- first time layerIndex will be 1 here
-				flashDataIn <= unsigned(weights_dout_b((layerIndex+1)*8-1 downto layerIndex*8));
+--		when storingWeights =>
+--			if layerIndex < bytesPerLayerWeights - 2 then				
+--				layerIndex := layerIndex + 1;
+--				flashState <= waitingStoringWeights;
+--				-- first time layerIndex will be 1 here
+--				flashDataIn <= unsigned(weights_dout_b((layerIndex+1)*8-1 downto layerIndex*8));
 
-			-- read normally but queue read of next layer
-			elsif layerIndex = bytesPerLayerWeights - 2 then
-				layerIndex := layerIndex + 1;
-				flashState <= waitingStoringWeights;				
+--			-- read normally but queue read of next layer
+--			elsif layerIndex = bytesPerLayerWeights - 2 then
+--				layerIndex := layerIndex + 1;
+--				flashState <= waitingStoringWeights;				
 
-				-- read either next layer or end 
-				--if index = totalLayers - 1 then
-				--	flashState <= finished;
-				index := index + 1;
-				flashState <= waitingStoringWeights;
+--				-- read either next layer or end 
+--				--if index = totalLayers - 1 then
+--				--	flashState <= finished;
+--				index := index + 1;
+--				flashState <= waitingStoringWeights;
 				
-				if index /= totalLayers then
-					weights_address_flash <= std_logic_vector(to_unsigned(index, weights_address_flash'length));
-				end if;
+--				if index /= totalLayers then
+--					weights_address_flash <= std_logic_vector(to_unsigned(index, weights_address_flash'length));
+--				end if;
 
-				-- first time layerIndex will be 1 here
-				flashDataIn <= unsigned(weights_dout_b((layerIndex+1)*8-1 downto layerIndex*8));
+--				-- first time layerIndex will be 1 here
+--				flashDataIn <= unsigned(weights_dout_b((layerIndex+1)*8-1 downto layerIndex*8));
 
-			else
-				-- write first of next layer
-				layerIndex := 0;
-				flashState <= waitingStoringWeights;
+--			else
+--				-- write first of next layer
+--				layerIndex := 0;
+--				flashState <= waitingStoringWeights;
 				
-				if index = totalLayers then
-					index := 0;
-					-- set up first bias
-					weights_rd_flash <= '0';
-					bias_rd_flash <= '1';
+--				if index = totalLayers then
+--					index := 0;
+--					-- set up first bias
+--					weights_rd_flash <= '0';
+--					bias_rd_flash <= '1';
 
-					flashState <= waitingStoringBias;
-					flashDataIn <= unsigned(bias_dout((layerIndex+1)*8-1 downto layerIndex*8));
-				--end if;
-				--weights_wr_flash <= '1';
-				-- done
-				else
-					-- first time layerIndex will be 1 here
-					flashDataIn <= unsigned(weights_dout_b((layerIndex+1)*8-1 downto layerIndex*8));
-				end if;
-			end if;
+--					flashState <= waitingStoringBias;
+--					flashDataIn <= unsigned(bias_dout((layerIndex+1)*8-1 downto layerIndex*8));
+--				--end if;
+--				--weights_wr_flash <= '1';
+--				-- done
+--				else
+--					-- first time layerIndex will be 1 here
+--					flashDataIn <= unsigned(weights_dout_b((layerIndex+1)*8-1 downto layerIndex*8));
+--				end if;
+--			end if;
 
 			
-		when waitingStoringWeights =>
-			flashWrRequest <= '0';
+--		when waitingStoringWeights =>
+--			flashWrRequest <= '0';
 
-			--weights_wr_flash <= '0';
-			-- wait for next byte to be available from the flash
-			if flashDataInRequest = '1' then
-				flashState <= storingWeights;
-				currentByte := flashDataOut;
-			end if;
+--			--weights_wr_flash <= '0';
+--			-- wait for next byte to be available from the flash
+--			if flashDataInRequest = '1' then
+--				flashState <= storingWeights;
+--				currentByte := flashDataOut;
+--			end if;
 
-		-- storing bias to flash
-		when storingBias =>
-			if layerIndex < bytesPerLayerBias - 2 then				
-				layerIndex := layerIndex + 1;
-				flashState <= waitingStoringBias;
+--		-- storing bias to flash
+--		when storingBias =>
+--			if layerIndex < bytesPerLayerBias - 2 then				
+--				layerIndex := layerIndex + 1;
+--				flashState <= waitingStoringBias;
 
-			-- read normally but queue read of next layer
-			elsif layerIndex = bytesPerLayerBias - 2 then
-				layerIndex := layerIndex + 1;
-				flashState <= waitingStoringBias;				
+--			-- read normally but queue read of next layer
+--			elsif layerIndex = bytesPerLayerBias - 2 then
+--				layerIndex := layerIndex + 1;
+--				flashState <= waitingStoringBias;				
 
-				-- read either next layer or end 
-				--if index = totalLayers - 1 then
-				--	flashState <= finished;
-				index := index + 1;
-				flashState <= waitingStoringBias;
+--				-- read either next layer or end 
+--				--if index = totalLayers - 1 then
+--				--	flashState <= finished;
+--				index := index + 1;
+--				flashState <= waitingStoringBias;
 				
-				if index /= totalLayers then
-					bias_rd_address_flash <= std_logic_vector(to_unsigned(index, bias_rd_address_flash'length));
-				end if;
-			else
-				-- write first of next layer
-				layerIndex := 0;
-				flashState <= waitingStoringBias;
+--				if index /= totalLayers then
+--					bias_rd_address_flash <= std_logic_vector(to_unsigned(index, bias_rd_address_flash'length));
+--				end if;
+--			else
+--				-- write first of next layer
+--				layerIndex := 0;
+--				flashState <= waitingStoringBias;
 				
-				if index = totalLayers then
-					index := 0;
-					bias_rd_flash <= '0';
-					flashState <= finished;
-					waitIndex := 0;
+--				if index = totalLayers then
+--					index := 0;
+--					bias_rd_flash <= '0';
+--					flashState <= finished;
+--					waitIndex := 0;
 
-				end if;
-				--weights_wr_flash <= '1';
-				-- done
-			end if;
+--				end if;
+--				--weights_wr_flash <= '1';
+--				-- done
+--			end if;
 
-			-- first time layerIndex will be 1 here
-			flashDataIn <= unsigned(bias_dout((layerIndex+1)*8-1 downto layerIndex*8));
+--			-- first time layerIndex will be 1 here
+--			flashDataIn <= unsigned(bias_dout((layerIndex+1)*8-1 downto layerIndex*8));
 			
-		when waitingStoringBias =>
+--		when waitingStoringBias =>
 
-			--weights_wr_flash <= '0';
-			-- wait for next byte to be available from the flash
-			if flashDataInRequest = '1' then
-				flashState <= storingBias;
-				currentByte := flashDataOut;
-			end if;
+--			--weights_wr_flash <= '0';
+--			-- wait for next byte to be available from the flash
+--			if flashDataInRequest = '1' then
+--				flashState <= storingBias;
+--				currentByte := flashDataOut;
+--			end if;
 
 		-- done 
 		when finished =>
@@ -400,11 +459,17 @@ begin
 				waitIndex := 0;
 			end if;
 		when others =>
-
+            
 		end case;
 
 		layerIndex_s <= layerIndex;
 		index_s <= index;
+--	elsif falling_edge(clk) then
+--        case flashState is
+--        when waitResetWeights =>
+--            ext_sram_write_enable <= '1';   -- disable the sram write ability
+--        when others =>
+--        end case;
 	end if;
 end process;
 flash_ready <= '1' when flashState = finished else '0';
@@ -427,10 +492,12 @@ weights_wr_b <= '1' when (reset_weights = '1' and resetWeightsOscillate) or (n_f
 	else '0';
 -- output weights to buffer when not being written
 --weights <= (others => 'Z') when weights_wr_en = '1' else weights_dout_b; -- (others => '1'); -- when weights_wr_en = '0' else (others => 'Z'); -- weights_dout_b
-weights_din_b <= weights_din_flash when weights_wr_flash = '1' else weights_din_ann;
+weights_din_b <= weights_din_sram when weights_wr_flash = '1' else weights_din_ann;
 weights_address_b <= weights_address_flash when weights_wr_flash = '1' or weights_rd_flash = '1' else weights_address_ann;
 --weights_din_b <= weights_din_ann;
 
+    
+    
 	n_feedback_s <= n_feedback when (current_layer > 0 and current_layer < totalLayers-1) else 2;
 -- convert between ram vectors and weights
 vtw:
@@ -596,20 +663,51 @@ btv:
 	process(clk, current_layer, reset) is
 		variable current_layer_sample : integer range 0 to totalLayers;
 		variable last_neuron : boolean;
-
+        variable sram_reset_address_v : integer;
+        variable currentParam : integer;
+        variable last_time_neuron_index : uint8_t;
 	begin
 		if rising_edge(clk) then
 			if reset = '1' then
-				weights_wr_ext <= '0';
+				currentParam := 0;
+				last_time_neuron_index := to_unsigned(maxWidth,8);
+				
+				
 			elsif dist_mode = resetWeights then
+			    if (last_time_neuron_index /= current_neuron) and (currentParam /= 0) then 
+                    currentParam := 1;
+                    last_time_neuron_index := current_neuron;
+			    end if;
+			    
+                -- reset weights and bias here
+                if currentParam /= 0 then
+                
+                    if currentParam <= paramsPerNeuronWeights then
+                        sram_reset_data <= std_logic_vector(weights_out(to_integer(current_neuron))(currentParam-1));
+                    elsif currentParam = paramsPerNeuronWeights+1 then
+                        sram_reset_data <= std_logic_vector(biases_out(to_integer(current_neuron)));
+                    end if;
+                    
+                    sram_reset_address_v := ((to_integer(current_layer)+1)*maxWidth 
+                        + to_integer(current_neuron))*totalParamsPerNeuron + currentParam - 1;
+    
+                    -- SRAM Control
+                    sram_reset_address <= conv_std_logic_vector(sram_reset_address_v, sram_reset_address'length);
+                
+                end if;
+                
+                if  currentParam <= paramsPerNeuronWeights+1 then 
+                    currentParam := currentParam + 1;                   
+                end if;
+                
+                
 				weights_address_ann <= std_logic_vector(resize(current_layer, weights_address_ann'length));
 				bias_wr_address <= std_logic_vector(resize(current_layer, weights_address_b'length));
+			
 			elsif dist_mode = intermediate then -- used to be idle?
-				weights_wr_ext <= '0';
 				weights_address_ann <= std_logic_vector(to_unsigned(numHiddenLayers, WEIGHTS_RAM_WIDTH));
 			else
-				weights_wr_ext <= '0';
-				reset_counter <= (others => '0');
+--				reset_counter <= (others => '0');
 		
 				current_layer_sample := to_integer(current_layer);
 
@@ -626,8 +724,13 @@ btv:
 	end process;
 
 	-- connections ram process
-	process(reset, clk, current_layer) is
+	process(reset, clk, current_layer, conn_wr) is
 		variable current_layer_sample : integer range 0 to totalLayers;
+		
+		-- after a neuron's calculation finished, we need to save 
+		-- all output connection for a neuron.
+		variable write_conns_count : integer range 0 to maxWidth; 
+		variable sram_conn_write_address_v : integer;
 	begin
 		if reset = '1' then
 			conn_address_a <= (others => '0');
@@ -653,6 +756,47 @@ btv:
 			--	if n_feedback = 0 then
 			--	end if;
 			end if;
+			
+            
+            if conn_wr ='1' and sram_mode = idle then
+                conn_wr_request <= '1';
+                write_conns_count := 0;
+--                if dist_mode = waiting then -- forward, save the input conn.
+--                    sram_conn_write_address_v := 5;
+--                elsif dist_mode = feedforward then -- during forward, save connections
+                    sram_conn_write_address_v := ((to_integer(current_layer)) * maxWidth)*totalParamsPerNeuron + 5;
+--                else -- backward.
+                                            
+--                end if;
+                
+                sram_conn_write_address <= conv_std_logic_vector(sram_conn_write_address_v, 
+                                                              sram_reset_address'length);
+                sram_conn_write_data <= std_logic_vector(conn_write(write_conns_count));
+            end if;
+
+            
+            -- if we should write the conns[maxWidth] into sram now.
+            if conn_wr_request= '1' then
+            
+                write_conns_count := write_conns_count + 1;
+                if write_conns_count=maxWidth then
+                    conn_wr_request <= '0';
+                else
+--                    if dist_mode = waiting then -- forward, save the input conn.
+--                        sram_conn_write_address_v := write_conns_count*totalParamsPerNeuron + 5;
+--                    elsif dist_mode = feedforward then -- during forward, save connections
+                        sram_conn_write_address_v := ((to_integer(current_layer)) * maxWidth + write_conns_count)*totalParamsPerNeuron + 5;
+--                    else -- backward.
+                                                            
+--                    end if;
+
+                    sram_conn_write_address <= conv_std_logic_vector(sram_conn_write_address_v, 
+                                                                  sram_reset_address'length);
+                    sram_conn_write_data <= std_logic_vector(conn_write(write_conns_count));
+                end if;
+                                
+            end if;
+            
 		end if;
 	end process;
 	

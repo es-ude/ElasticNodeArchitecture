@@ -23,6 +23,9 @@ package Common is
 
 function max (A : in natural; B : in natural) return natural;
 
+constant hw_sram_addr_width : integer := 24;
+constant hw_sram_data_width : integer := 16;
+		
 constant inputWidth			:	natural := 4;
 constant hiddenWidth		: 	natural := 4;
 constant outputWidth		: 	natural := 4;
@@ -37,6 +40,10 @@ constant init_weight		:	fixed_point := to_signed(128, b);
 --constant maximum			:	fixed_point := '0' & (others => '1');
 --constant minimum			:	fixed_point := x"FE";
 
+constant paramsPerNeuronWeights : integer := maxWidth;
+constant paramsPerNeuronBias : integer := 1;
+constant totalParamsPerNeuron : integer := paramsPerNeuronWeights+paramsPerNeuronBias+1;
+
 subtype uintw_t is unsigned (maxWidth-1 downto 0);
 subtype weights_vector is std_logic_vector(b*maxWidth*maxWidth-1 downto 0);-- used for reading/writing ram
 subtype conn_vector is std_logic_vector(b*maxWidth-1 downto 0);-- used for reading/writing ram
@@ -45,6 +52,8 @@ subtype conn_vector is std_logic_vector(b*maxWidth-1 downto 0);-- used for readi
 type distributor_mode is (idle, feedforward, feedback, doneQuery, doneLearn, delay, waiting, intermediate, resetWeights, resetWeightsDone);
 type flashStateType is (idle, waitResetWeights, requestLoadWeights, loadingWeights, waitingLoadingWeights, requestStoreWeights, storingWeights, waitingStoringWeights, storingBias, waitingStoringBias, finished);
 -- 						0.      1                      2 				3 			4								5					6			7						8				9				10			
+
+type sramModeType is(idle, sramReset, connWrite, connRead);
 
 -- subtype fixed_point is integer range -10000 to 10000;
 type fixed_point_vector is array (maxWidth-1 downto 0) of fixed_point;

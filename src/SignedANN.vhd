@@ -40,6 +40,10 @@ library UNISIM;
 use UNISIM.VComponents.all;
 
 entity SignedANN is
+	generic (
+        sram_addr_width : integer := hw_sram_addr_width;
+        sram_data_width : integer := hw_sram_data_width
+    );
 	port (
 			clk					: 	in std_logic;
 			reset				:	in std_logic;
@@ -56,15 +60,15 @@ entity SignedANN is
 			wanted				:	in uintw_t;
 
 			reset_weights 		:	in std_logic;
-			flash_address		:	in uint24_t;
+			sram_address		:	in uint24_t;
 			load_weights		:	in std_logic;
 			store_weights		:	in std_logic;
 			flash_ready			:	out std_logic;
 
-			spi_cs				:	out std_logic;
-			spi_clk				:	out std_logic;
-			spi_mosi			:	out std_logic;
-			spi_miso			:	in std_logic;
+			ext_sram_addr                : out std_logic_vector(sram_addr_width-1 downto 0);
+		    ext_sram_data                : inout std_logic_vector(hw_sram_data_width-1 downto 0);
+			ext_sram_output_enable       : out std_logic;
+            ext_sram_write_enable        : out std_logic;
 
 			--weights_wr_en 		:	in std_logic;
 			--weights 			:	inout weights_vector;
@@ -135,15 +139,16 @@ begin
 		wanted_fp => wanted_fp,
 
 		reset_weights => reset_weights,
-		flash_address => flash_address,
+		sram_address => sram_address,
 		load_weights => load_weights,
 		store_weights => store_weights,
 		flash_ready => flash_ready,
 
-		spi_cs => spi_cs,
-		spi_clk => spi_clk,
-		spi_mosi => spi_mosi,
-		spi_miso => spi_miso,
+		-- SRAM interface
+        ext_sram_addr => ext_sram_addr,
+        ext_sram_data => ext_sram_data,
+        ext_sram_output_enable => ext_sram_output_enable,
+        ext_sram_write_enable => ext_sram_write_enable,
 		
 		--weights_wr_en => weights_wr_en,
 		--weights => weights_signal,

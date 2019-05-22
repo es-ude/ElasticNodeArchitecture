@@ -34,7 +34,7 @@
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSAVendor" Val="xilinx"/>
     <Option Name="DSANumComputeUnits" Val="16"/>
-    <Option Name="WTXSimLaunchSim" Val="1569"/>
+    <Option Name="WTXSimLaunchSim" Val="1723"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -156,14 +156,35 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/FixedPointANNSkeleton.vhd">
+      <File Path="$PPRDIR/../src/FixedPoint_Logic.vhd">
         <FileInfo>
           <Attr Name="Library" Val="neuralNetwork"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/fpgamiddlewarelibs/SpiInterface/spi_master.vhd">
+      <File Path="$PPRDIR/../src/Logic_FixedPoint.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/SignedANN.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/SignedANNSkeleton.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../fpgamiddlewarelibs/SpiInterface/spi_master.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
           <Attr Name="AutoDisabled" Val="1"/>
@@ -171,7 +192,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd">
+      <File Path="$PPRDIR/../../fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
           <Attr Name="AutoDisabled" Val="1"/>
@@ -179,7 +200,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/fpgamiddlewarelibs/SpiInterface/FlashInterface.vhd">
+      <File Path="$PPRDIR/../../fpgamiddlewarelibs/SpiInterface/FlashInterface.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
           <Attr Name="AutoDisabled" Val="1"/>
@@ -203,7 +224,39 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/FixedPoint_Logic.vhd">
+      <File Path="$PPRDIR/../src/firPackage.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="work"/>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/firWishbone.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="work"/>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/localFIFO.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="work"/>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/FirWishboneSkeleton.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="work"/>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/FixedPointANNSkeleton.vhd">
         <FileInfo>
           <Attr Name="Library" Val="neuralNetwork"/>
           <Attr Name="AutoDisabled" Val="1"/>
@@ -214,14 +267,6 @@
       <File Path="$PPRDIR/../src/InterfaceStateMachine.vhd">
         <FileInfo>
           <Attr Name="Library" Val="xil_defaultlib"/>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../src/Logic_FixedPoint.vhd">
-        <FileInfo>
-          <Attr Name="Library" Val="neuralNetwork"/>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -243,17 +288,23 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/SignedANN.vhd">
+      <File Path="$PPRDIR/../../fpgamiddlewarelibs/Procedures.vhd">
         <FileInfo>
-          <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="Library" Val="fpgamiddlewarelibs"/>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/SignedANNSkeleton.vhd">
+      <File Path="$PPRDIR/../src/SoftSRAM.vhd">
         <FileInfo>
-          <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/TestFirWishboneSkeleton.vhd">
+        <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -275,17 +326,17 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/firPackage.vhd">
+      <File Path="$PPRDIR/../src/middleware.vhdl">
         <FileInfo>
-          <Attr Name="Library" Val="work"/>
+          <Attr Name="Library" Val="xil_defaultlib"/>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/firWishbone.vhd">
+      <File Path="$PPRDIR/../src/genericProject.vhd">
         <FileInfo>
-          <Attr Name="Library" Val="work"/>
+          <Attr Name="Library" Val="xil_defaultlib"/>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -307,22 +358,6 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/middleware.vhdl">
-        <FileInfo>
-          <Attr Name="Library" Val="xil_defaultlib"/>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../src/localFIFO.vhd">
-        <FileInfo>
-          <Attr Name="Library" Val="work"/>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PPRDIR/../src/fpgamiddlewarelibs/UartInterface/uart_rx.vhd">
         <FileInfo>
           <Attr Name="Library" Val="fpgamiddlewarelibs"/>
@@ -339,25 +374,9 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/genericProject.vhd">
-        <FileInfo>
-          <Attr Name="Library" Val="xil_defaultlib"/>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PPRDIR/../src/TestSignedANNSkeleton.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../src/fpgamiddlewarelibs/Procedures.vhd">
-        <FileInfo>
-          <Attr Name="Library" Val="fpgamiddlewarelibs"/>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
@@ -386,14 +405,6 @@
         <FileInfo>
           <Attr Name="Library" Val="work"/>
           <Attr Name="UserDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../src/FirWishboneSkeleton.vhd">
-        <FileInfo>
-          <Attr Name="Library" Val="work"/>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -621,13 +632,6 @@
       <File Path="$PPRDIR/../src/mat_tb.vhd">
         <FileInfo>
           <Attr Name="UserDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../src/TestFirWishboneSkeleton.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -884,17 +888,9 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/SoftSRAM.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="FixedPointANNSkeleton"/>
-        <Option Name="TopAutoSet" Val="TRUE"/>
+        <Option Name="TopModule" Val="SignedANNSkeleton"/>
       </Config>
     </FileSet>
     <FileSet Name="constrs_1" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
@@ -919,8 +915,16 @@
     </FileSet>
     <FileSet Name="sim_1" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/sim_1">
       <Filter Type="Srcs"/>
+      <File Path="$PPRDIR/../src/TestSignedANNSkeleton.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="neuralnetwork"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PPRDIR/../src/TestSoftSRAM.vhd">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -931,14 +935,6 @@
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="ImportPath" Val="$PPRDIR/../src/fpgamiddlewarelibs/simulationConstants.vhd"/>
           <Attr Name="ImportTime" Val="1539246591"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../src/TestSignedANNSkeleton.vhd">
-        <FileInfo>
-          <Attr Name="Library" Val="neuralnetwork"/>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -1360,8 +1356,9 @@
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="TestSoftSRAM"/>
+        <Option Name="TopModule" Val="TestSignedANNSkeleton"/>
         <Option Name="TopLib" Val="neuralnetwork"/>
+        <Option Name="TopArchitecture" Val="behavior"/>
         <Option Name="TransportPathDelay" Val="0"/>
         <Option Name="TransportIntDelay" Val="0"/>
         <Option Name="SrcSet" Val="sources_1"/>
@@ -1374,6 +1371,7 @@
         <Option Name="XSimWcfgFile" Val="$PPRDIR/../src/TestFixedPointANNSkeleton.wcfg"/>
         <Option Name="XSimWcfgFile" Val="$PPRDIR/../src/TestFirWishbone.wcfg"/>
         <Option Name="XSimWcfgFile" Val="$PPRDIR/../src/fpgamiddlewarelibs/SpiInterface/TestFlashInterface.wcfg"/>
+        <Option Name="XSimWcfgFile" Val="$PPRDIR/../src/TestSignedANNSkeleton.wcfg"/>
         <Option Name="xsim.elaborate.mt_level" Val="16"/>
         <Option Name="xsim.simulate.runtime" Val="all"/>
         <Option Name="NGOutputHDLFormat" Val="vhdl"/>
