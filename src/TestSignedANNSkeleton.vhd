@@ -16,7 +16,7 @@
 	library fpgamiddlewarelibs;
 	use fpgamiddlewarelibs.userlogicinterface.all;
 	use fpgamiddlewarelibs.procedures.all;
-
+ 
 	ARCHITECTURE behavior OF TestSignedANNSkeleton IS 
 
 		-- control interface

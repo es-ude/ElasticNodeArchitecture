@@ -53,7 +53,7 @@ type distributor_mode is (idle, feedforward, feedback, doneQuery, doneLearn, del
 type flashStateType is (idle, waitResetWeights, requestLoadWeights, loadingWeights, waitingLoadingWeights, requestStoreWeights, storingWeights, waitingStoringWeights, storingBias, waitingStoringBias, finished);
 -- 						0.      1                      2 				3 			4								5					6			7						8				9				10			
 
-type sramModeType is(idle, sramReset, connWrite, connRead);
+type sramModeType is(idle, sramReset, connWrite, connRead, biasWeightsWrite, biasWeightsRead);
 
 -- subtype fixed_point is integer range -10000 to 10000;
 type fixed_point_vector is array (maxWidth-1 downto 0) of fixed_point;

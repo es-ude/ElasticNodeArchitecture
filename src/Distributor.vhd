@@ -140,6 +140,15 @@ begin
                                 else
                                     n_feedback_var := back;
                                     neuron_counter := 0;
+                                    
+                                    layer_counter := layer_counter - 1;
+                                    if layer_counter = -1 then
+                                        layer_counter := 0;
+                                        mode <= delay;
+                                        n_feedback_var := idle;
+                                        delayForDelayMode := (maxWidth+1)*maxWidth-1;
+                                    end if;
+                                                                    
                                 end if;
                                                      
 						    --end if;
@@ -148,18 +157,10 @@ begin
 						    -- is last neuron in layer?
                             if ((layer_counter = totalLayers-1) and (neuron_counter = outputWidth)) or (neuron_counter = maxWidth) then
                                 --elsif neuron_counter = maxWidth then 
-                                neuron_counter := 0;
+                                neuron_counter := neuron_counter-1;
                                 
                                 n_feedback_var := idle; -- one cycle delay
-                                
-                                layer_counter := layer_counter - 1;
-                                if layer_counter = -1 then
-                                    layer_counter := 0;
-                                    mode <= delay;
-                                    n_feedback_var := idle;
-                                    delayForDelayMode := (maxWidth+1)*maxWidth-1;
-                                end if;
-                                
+   
                                 delayBackwardPerLayer := (maxWidth+1)*maxWidth-1;
                             
                             end if;

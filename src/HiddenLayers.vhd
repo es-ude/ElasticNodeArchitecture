@@ -155,10 +155,12 @@ signal layerIndex_s, index_s : integer;
 
 begin
 
-
+sram_write_ctl <= '0' when (sram_mode = sramReset) or (sram_mode = connWrite) or (sram_mode = biasWeightsWrite)
+	else '1';
+	
 sram_mode <= sramReset when dist_mode = resetWeights else
              connWrite when conn_wr_request='1' else
-             
+             biasWeightsWrite when bias_and_weights_wr_request='1' else
              --<expression> when <condition> else
              idle;
              
@@ -166,18 +168,20 @@ with sram_mode select
   ext_sram_addr <= (others=>'0') when idle,
             sram_reset_address when sramReset,
             sram_conn_write_address when connWrite,
+            sram_bias_weights_write_address when biasWeightsWrite,
+            
             (others=>'0') when others;
 
 with sram_mode select
   ext_sram_data <= (others=>'0') when idle,
             sram_reset_data when sramReset,
             sram_conn_write_data when connWrite,
+            sram_bias_weights_write_data when biasWeightsWrite,
             (others=>'0') when others;
             
             
 
-sram_write_ctl <= '0' when (sram_mode = sramReset) or (sram_mode = connWrite)
-	else '1';
+
 	
 
           
@@ -675,17 +679,16 @@ btv:
         variable last_time_neuron_index : uint8_t;
         
         variable write_bias_weights_count : integer range 0 to maxWidth;
+        variable sram_bias_weights_write_basic_address_v : integer;
         variable sram_bias_weights_write_address_v : integer;
         variable storage_neuron_cnt,storage_param_cnt:integer;
-        variable bias_and_weights_wrting_state : std_logic;
 	begin
 		if rising_edge(clk) then
 			if reset = '1' then
 				currentParam := 0;
 				last_time_neuron_index := to_unsigned(maxWidth,8);
 				
-				 bias_and_weights_wr_request <='0';
-                 bias_and_weights_wrting_state := '0';
+				bias_and_weights_wr_request <='0';
                  
 			elsif dist_mode = resetWeights then
 			    if (last_time_neuron_index /= current_neuron) and (currentParam /= 0) then 
@@ -721,7 +724,6 @@ btv:
 			elsif dist_mode = intermediate then -- used to be idle?
 				weights_address_ann <= std_logic_vector(to_unsigned(numHiddenLayers, WEIGHTS_RAM_WIDTH));
 				bias_and_weights_wr_request <='0';
-				bias_and_weights_wrting_state := '0';
 			else
 		
 				current_layer_sample := to_integer(current_layer);
@@ -736,41 +738,42 @@ btv:
                         if sram_mode = idle and bias_and_weights_wr_request='0' then
                             storage_neuron_cnt:=0;
                             storage_param_cnt:=0;
-                            bias_and_weights_wrting_state := '1';
---                            sram_bias_weights_write_address_v := (to_integer(current_layer)+1)*totalParamsPerNeuron*maxWidth;
---                            sram_bias_weights_write_address <= conv_std_logic_vector(sram_bias_weights_write_address_v, sram_bias_weights_write_address'length);
---                            sram_bias_weights_write_data <= std_logic_vector(weights_out(storage_neuron_cnt)(storage_param_cnt));
+                            bias_and_weights_wr_request <= '1';
+                            sram_bias_weights_write_basic_address_v := (to_integer(current_layer)+1)*totalParamsPerNeuron*maxWidth;
+                            sram_bias_weights_write_address <= conv_std_logic_vector(sram_bias_weights_write_basic_address_v, sram_bias_weights_write_address'length);
+                            sram_bias_weights_write_data <= std_logic_vector(weights_out(storage_neuron_cnt)(storage_param_cnt));
                         end if;
                     end if; 
-                elsif bias_and_weights_wrting_state='1' then
+                
+				end if;
+				
+				if bias_and_weights_wr_request='1' then
                     
-                    bias_and_weights_wr_request <='1';
-                                    
+                    storage_param_cnt := storage_param_cnt+1;
+                                     
+                                     
                     if storage_param_cnt=totalParamsPerNeuron-1 then
                         
                         storage_neuron_cnt := storage_neuron_cnt+1;
                         
                         if storage_neuron_cnt=maxWidth then
-                            bias_and_weights_wrting_state := '0';
                             bias_and_weights_wr_request <= '0';
                         else
                             storage_param_cnt := 0;
-                            sram_bias_weights_write_address_v := (to_integer(current_layer)+2)*totalParamsPerNeuron*maxWidth+storage_neuron_cnt*totalParamsPerNeuron+storage_param_cnt;
                             sram_bias_weights_write_data <= std_logic_vector(weights_out(storage_neuron_cnt)(storage_param_cnt));
                         end if;
                         
                     elsif storage_param_cnt=totalParamsPerNeuron-2 then -- save bias
-                        sram_bias_weights_write_address_v := (to_integer(current_layer)+2)*totalParamsPerNeuron*maxWidth+storage_neuron_cnt*totalParamsPerNeuron+storage_param_cnt;
                         sram_bias_weights_write_data <= std_logic_vector(biases_out(storage_neuron_cnt));
                     else
-                        sram_bias_weights_write_address_v := (to_integer(current_layer)+2)*totalParamsPerNeuron*maxWidth+storage_neuron_cnt*totalParamsPerNeuron+storage_param_cnt;
                         sram_bias_weights_write_data <= std_logic_vector(weights_out(storage_neuron_cnt)(storage_param_cnt));
                     end if;
-                    
+                   
+                    sram_bias_weights_write_address_v := sram_bias_weights_write_basic_address_v+storage_neuron_cnt*totalParamsPerNeuron+storage_param_cnt;
                     sram_bias_weights_write_address <= conv_std_logic_vector(sram_bias_weights_write_address_v, sram_bias_weights_write_address'length);
                     
-                    storage_param_cnt := storage_param_cnt+1; 
-				end if;
+                     
+                end if;
 	
 			end if;
 

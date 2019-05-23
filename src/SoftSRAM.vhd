@@ -53,7 +53,7 @@ entity SoftSRAM is
         upper_byte_select   : in std_logic;
         lower_byte_select   : in std_logic
     );
-    end SoftSRAM;
+    end SoftSRAM; 
 
 architecture Behavioral of SoftSRAM is
     -- type mem_type is array ( (2**ADDR)-1 downto 0 ) of std_logic_vector(DATA-1 downto 0);
