@@ -65,6 +65,8 @@ begin
 	variable delayReset : boolean; -- used to delay the reset to two cycles per layer
 	variable delayWaiting : integer range 0 to maxWidth-1; -- delay for storage all connections
 	variable delayIntermediate : integer range 0 to maxWidth-1; -- delay for storage all connections
+	variable delayBackwardPerLayer : integer range 0 to (maxWidth+1)*maxWidth-1;
+	variable delayForDelayMode : integer range 0 to (maxWidth+1)*maxWidth-1;
 	begin
 
 		-- set up before the clock cycle for hidden layers to sample current_layer
@@ -129,39 +131,57 @@ begin
 						end if;
 
 					when feedback => -- feedback
-						neuron_counter := neuron_counter + 1;
+					    
 						-- was delayed, resume and restore variables
 						if n_feedback_var = idle then
-							n_feedback_var := back;
-							neuron_counter := 0;
-						-- is last neuron in layer?
-						elsif ((layer_counter = totalLayers-1) and (neuron_counter = outputWidth)) or (neuron_counter = maxWidth) then
-						--elsif neuron_counter = maxWidth then
-							neuron_counter := 0;
-							
-							n_feedback_var := idle; -- one cycle delay
+						   --if layer_counter > 0 then
+                                if delayBackwardPerLayer /=0 then
+                                    delayBackwardPerLayer := delayBackwardPerLayer-1;
+                                else
+                                    n_feedback_var := back;
+                                    neuron_counter := 0;
+                                end if;
+                                                     
+						    --end if;
+						else
+						    neuron_counter := neuron_counter + 1;
+						    -- is last neuron in layer?
+                            if ((layer_counter = totalLayers-1) and (neuron_counter = outputWidth)) or (neuron_counter = maxWidth) then
+                                --elsif neuron_counter = maxWidth then 
+                                neuron_counter := 0;
+                                
+                                n_feedback_var := idle; -- one cycle delay
+                                
+                                layer_counter := layer_counter - 1;
+                                if layer_counter = -1 then
+                                    layer_counter := 0;
+                                    mode <= delay;
+                                    n_feedback_var := idle;
+                                    delayForDelayMode := (maxWidth+1)*maxWidth-1;
+                                end if;
+                                
+                                delayBackwardPerLayer := (maxWidth+1)*maxWidth-1;
+                            
+                            end if;
+                            -- apparently not used ??
+                            --when 3 => -- input layer low then high
+                            --    n_feedback_var := forward;
+                            --    mode <= feedforward; -- back to feedforward
+                            --                    data_rdy <= '0';
+						end if;    
 						
-							layer_counter := layer_counter - 1;
-							if layer_counter = -1 then
-								layer_counter := 0;
-								mode <= delay;
-								n_feedback_var := idle;
-								--counter := 0;
-							end if;
-						end if;
-					-- apparently not used ??
-					--when 3 => -- input layer low then high
-					--	n_feedback_var := forward;
-					--	mode <= feedforward; -- back to feedforward
-	--					data_rdy <= '0';
 					when doneQuery | doneLearn => -- wait for next input
 						n_feedback_var := idle;
 						mode <= idle;
 						data_rdy <= '1';
 					when delay => -- input layer high 
 						n_feedback_var := idle;
+						if delayForDelayMode /= 0 then
+						    delayForDelayMode := delayForDelayMode-1;
+						else
+						    mode <= doneLearn;
+						end if;
 						
-						mode <= doneLearn;
 					when intermediate => -- intermediate
                         if delayIntermediate /= 0 then
                             delayIntermediate := delayIntermediate-1;
@@ -171,6 +191,7 @@ begin
                             layer_counter := totalLayers-1; 
                             mode <= feedback;
                             neuron_counter := 0; -- neuron_counter + 1;
+                            DelayBackwardPerLayer := (maxWidth+1)*maxWidth-1 ;
                         end if;
                         
 					when waiting => -- wait until calculate goes low

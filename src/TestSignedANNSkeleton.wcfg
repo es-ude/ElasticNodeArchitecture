@@ -13,20 +13,22 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="9924167000fs"></ZoomStartTime>
-      <ZoomEndTime time="14989167001fs"></ZoomEndTime>
-      <Cursor1Time time="12619167000fs"></Cursor1Time>
+      <ZoomStartTime time="11618299400fs"></ZoomStartTime>
+      <ZoomEndTime time="17253299401fs"></ZoomEndTime>
+      <Cursor1Time time="14900000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="170"></NameColumnWidth>
-      <ValueColumnWidth column_width="159"></ValueColumnWidth>
+      <NameColumnWidth column_width="250"></NameColumnWidth>
+      <ValueColumnWidth column_width="143"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="10" />
+   <WVObjectSize size="18" />
    <wave_markers>
       <marker time="10061667000" label="" />
       <marker time="10304493000" label="" />
       <marker time="12619167000" label="" />
-      <marker time="14660000000" label="" />
+      <marker time="19557412000" label="" />
+      <marker time="16700000000" label="" />
+      <marker time="16780000000" label="" />
    </wave_markers>
    <wvobject fp_name="/TestSignedANNSkeleton/uut/clock" type="logic">
       <obj_property name="ElementShortName">clock</obj_property>
@@ -81,5 +83,38 @@
    <wvobject fp_name="/TestSignedANNSkeleton/mSoftSRAM/write_enable" type="logic">
       <obj_property name="ElementShortName">write_enable</obj_property>
       <obj_property name="ObjectShortName">write_enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/lay/previous_neuron_int" type="other">
+      <obj_property name="ElementShortName">previous_neuron_int</obj_property>
+      <obj_property name="ObjectShortName">previous_neuron_int</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/bias/b_wr" type="logic">
+      <obj_property name="ElementShortName">b_wr</obj_property>
+      <obj_property name="ObjectShortName">b_wr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/bias/b_addr" type="array">
+      <obj_property name="ElementShortName">b_addr[2:0]</obj_property>
+      <obj_property name="ObjectShortName">b_addr[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/bias/b_din" type="array">
+      <obj_property name="ElementShortName">b_din[63:0]</obj_property>
+      <obj_property name="ObjectShortName">b_din[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/biases_out" type="array">
+      <obj_property name="ElementShortName">biases_out[3:0][15:0]</obj_property>
+      <obj_property name="ObjectShortName">biases_out[3:0][15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/sram_bias_weights_write_address" type="array">
+      <obj_property name="ElementShortName">sram_bias_weights_write_address[23:0]</obj_property>
+      <obj_property name="ObjectShortName">sram_bias_weights_write_address[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/sram_bias_weights_write_data" type="array">
+      <obj_property name="ElementShortName">sram_bias_weights_write_data[15:0]</obj_property>
+      <obj_property name="ObjectShortName">sram_bias_weights_write_data[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/bias_and_weights_wr_request" type="logic">
+      <obj_property name="ElementShortName">bias_and_weights_wr_request</obj_property>
+      <obj_property name="ObjectShortName">bias_and_weights_wr_request</obj_property>
    </wvobject>
 </wave_config>

@@ -91,7 +91,7 @@ constant WEIGHTS_RAM_WIDTH							: integer := log2(totalLayers);
 signal weights_wr_a, weights_wr_b: std_logic := '0';
 signal weights_address_a,weights_address_b,weights_address_ann,weights_address_flash			: std_logic_vector(WEIGHTS_RAM_WIDTH-1 downto 0);
 signal weights_din_a, weights_din_b, weights_din_ann, weights_din_ext, weights_dout_a, weights_dout_b 	: weights_vector; -- read entire layer's weights at a time 
-signal resetWeightsOscillate 						: boolean; -- indicates when weights should be written
+--signal resetWeightsOscillate 						: boolean; -- indicates when weights should be written
 signal invert_clk									: std_logic;
 -- signal reset_counter 								: unsigned(WEIGHTS_RAM_WIDTH-1 downto 0) := (others => '0'); -- l+1 means it's done
 
@@ -139,6 +139,13 @@ signal sram_conn_write_address : std_logic_vector(sram_addr_width-1 downto 0);
 signal sram_conn_read_address : std_logic_vector(sram_addr_width-1 downto 0);
 signal sram_conn_write_data : std_logic_vector(hw_sram_data_width-1 downto 0);
 signal sram_conn_read_data : std_logic_vector(hw_sram_data_width-1 downto 0);
+
+-- for sram bias & weights process
+signal bias_and_weights_wr_request : std_logic;
+signal sram_bias_weights_write_address : std_logic_vector(sram_addr_width-1 downto 0);
+signal sram_bias_weights_read_address : std_logic_vector(sram_addr_width-1 downto 0);
+signal sram_bias_weights_write_data : std_logic_vector(hw_sram_data_width-1 downto 0);
+signal sram_bias_weights_read_data : std_logic_vector(hw_sram_data_width-1 downto 0);
 
 
 signal sram_write_ctl : std_logic;
@@ -211,24 +218,24 @@ lay:
 --	);
 
 -- half speed clock to only write memory every second cycle
-resetWeightsOscillate_process:
-process(clk, reset, reset_weights)
-begin
-	if reset = '1' then
-		resetWeightsOscillate <= true;
+--resetWeightsOscillate_process:
+--process(clk, reset, reset_weights)
+--begin
+--	if reset = '1' then
+--		resetWeightsOscillate <= true;
 
-	elsif falling_edge(clk) then
-		if dist_mode = resetWeights then
-			if resetWeightsOscillate then
-				resetWeightsOscillate <= false;
-			else
-				resetWeightsOscillate <= true;
-			end if;
-		else
-			resetWeightsOscillate <= false;
-		end if;
-	end if;
-end process;
+--	elsif falling_edge(clk) then
+--		if dist_mode = resetWeights then
+--			if resetWeightsOscillate then
+--				resetWeightsOscillate <= false;
+--			else
+--				resetWeightsOscillate <= true;
+--			end if;
+--		else
+--			resetWeightsOscillate <= false;
+--		end if;
+--	end if;
+--end process;
 
 -- process for reading/writing sram chip
 sram_process:
@@ -488,7 +495,7 @@ weights_bram:
 	);
 -- simple writing logic
 -- write when resetting, or after each feedback layer, or after last feedback layer, or when weights are being set from outside
-weights_wr_b <= '1' when (reset_weights = '1' and resetWeightsOscillate) or (n_feedback = 2 and dist_mode = feedback) or (dist_mode = delay) or (weights_wr_flash = '1') -- or (weights_wr_ext = '1') reset = '1' or 
+weights_wr_b <= '1' when (reset_weights = '1') or (n_feedback = 2 and dist_mode = feedback) or (dist_mode = delay) or (weights_wr_flash = '1') -- or (weights_wr_ext = '1') reset = '1' or 
 	else '0';
 -- output weights to buffer when not being written
 --weights <= (others => 'Z') when weights_wr_en = '1' else weights_dout_b; -- (others => '1'); -- when weights_wr_en = '0' else (others => 'Z'); -- weights_dout_b
@@ -587,7 +594,7 @@ bias:
 		invert_clk, '0', bias_rd_address, (others => '0'), bias_dout, clk, bias_wr, bias_wr_address, bias_din, open
 	);
 bias_rd_address <= bias_rd_address_flash when bias_rd_flash = '1' else bias_rd_address_ann;
-bias_wr <= '1' when (reset_weights = '1' and resetWeightsOscillate) or (n_feedback = 2 and dist_mode = feedback) or (dist_mode = delay)
+bias_wr <= '1' when (reset_weights = '1') or (n_feedback = 2 and dist_mode = feedback) or (dist_mode = delay)
 	else '0';
 vtb:
 	entity neuralnetwork.vectortoconn(Behavioral) port map
@@ -666,13 +673,20 @@ btv:
         variable sram_reset_address_v : integer;
         variable currentParam : integer;
         variable last_time_neuron_index : uint8_t;
+        
+        variable write_bias_weights_count : integer range 0 to maxWidth;
+        variable sram_bias_weights_write_address_v : integer;
+        variable storage_neuron_cnt,storage_param_cnt:integer;
+        variable bias_and_weights_wrting_state : std_logic;
 	begin
 		if rising_edge(clk) then
 			if reset = '1' then
 				currentParam := 0;
 				last_time_neuron_index := to_unsigned(maxWidth,8);
 				
-				
+				 bias_and_weights_wr_request <='0';
+                 bias_and_weights_wrting_state := '0';
+                 
 			elsif dist_mode = resetWeights then
 			    if (last_time_neuron_index /= current_neuron) and (currentParam /= 0) then 
                     currentParam := 1;
@@ -706,8 +720,9 @@ btv:
 			
 			elsif dist_mode = intermediate then -- used to be idle?
 				weights_address_ann <= std_logic_vector(to_unsigned(numHiddenLayers, WEIGHTS_RAM_WIDTH));
+				bias_and_weights_wr_request <='0';
+				bias_and_weights_wrting_state := '0';
 			else
---				reset_counter <= (others => '0');
 		
 				current_layer_sample := to_integer(current_layer);
 
@@ -716,8 +731,47 @@ btv:
 				if last_neuron then
 					weights_address_ann <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
 					bias_wr_address <= std_logic_vector(resize(current_layer, BIAS_RAM_WIDTH));
-
+					
+                    if dist_mode = feedback then 
+                        if sram_mode = idle and bias_and_weights_wr_request='0' then
+                            storage_neuron_cnt:=0;
+                            storage_param_cnt:=0;
+                            bias_and_weights_wrting_state := '1';
+--                            sram_bias_weights_write_address_v := (to_integer(current_layer)+1)*totalParamsPerNeuron*maxWidth;
+--                            sram_bias_weights_write_address <= conv_std_logic_vector(sram_bias_weights_write_address_v, sram_bias_weights_write_address'length);
+--                            sram_bias_weights_write_data <= std_logic_vector(weights_out(storage_neuron_cnt)(storage_param_cnt));
+                        end if;
+                    end if; 
+                elsif bias_and_weights_wrting_state='1' then
+                    
+                    bias_and_weights_wr_request <='1';
+                                    
+                    if storage_param_cnt=totalParamsPerNeuron-1 then
+                        
+                        storage_neuron_cnt := storage_neuron_cnt+1;
+                        
+                        if storage_neuron_cnt=maxWidth then
+                            bias_and_weights_wrting_state := '0';
+                            bias_and_weights_wr_request <= '0';
+                        else
+                            storage_param_cnt := 0;
+                            sram_bias_weights_write_address_v := (to_integer(current_layer)+2)*totalParamsPerNeuron*maxWidth+storage_neuron_cnt*totalParamsPerNeuron+storage_param_cnt;
+                            sram_bias_weights_write_data <= std_logic_vector(weights_out(storage_neuron_cnt)(storage_param_cnt));
+                        end if;
+                        
+                    elsif storage_param_cnt=totalParamsPerNeuron-2 then -- save bias
+                        sram_bias_weights_write_address_v := (to_integer(current_layer)+2)*totalParamsPerNeuron*maxWidth+storage_neuron_cnt*totalParamsPerNeuron+storage_param_cnt;
+                        sram_bias_weights_write_data <= std_logic_vector(biases_out(storage_neuron_cnt));
+                    else
+                        sram_bias_weights_write_address_v := (to_integer(current_layer)+2)*totalParamsPerNeuron*maxWidth+storage_neuron_cnt*totalParamsPerNeuron+storage_param_cnt;
+                        sram_bias_weights_write_data <= std_logic_vector(weights_out(storage_neuron_cnt)(storage_param_cnt));
+                    end if;
+                    
+                    sram_bias_weights_write_address <= conv_std_logic_vector(sram_bias_weights_write_address_v, sram_bias_weights_write_address'length);
+                    
+                    storage_param_cnt := storage_param_cnt+1; 
 				end if;
+	
 			end if;
 
 		end if;
@@ -761,13 +815,8 @@ btv:
             if conn_wr ='1' and sram_mode = idle then
                 conn_wr_request <= '1';
                 write_conns_count := 0;
---                if dist_mode = waiting then -- forward, save the input conn.
---                    sram_conn_write_address_v := 5;
---                elsif dist_mode = feedforward then -- during forward, save connections
-                    sram_conn_write_address_v := ((to_integer(current_layer)) * maxWidth)*totalParamsPerNeuron + 5;
---                else -- backward.
-                                            
---                end if;
+                
+                sram_conn_write_address_v := ((to_integer(current_layer)) * maxWidth)*totalParamsPerNeuron + 5;
                 
                 sram_conn_write_address <= conv_std_logic_vector(sram_conn_write_address_v, 
                                                               sram_reset_address'length);
@@ -782,14 +831,8 @@ btv:
                 if write_conns_count=maxWidth then
                     conn_wr_request <= '0';
                 else
---                    if dist_mode = waiting then -- forward, save the input conn.
---                        sram_conn_write_address_v := write_conns_count*totalParamsPerNeuron + 5;
---                    elsif dist_mode = feedforward then -- during forward, save connections
-                        sram_conn_write_address_v := ((to_integer(current_layer)) * maxWidth + write_conns_count)*totalParamsPerNeuron + 5;
---                    else -- backward.
-                                                            
---                    end if;
 
+                    sram_conn_write_address_v := ((to_integer(current_layer)) * maxWidth + write_conns_count)*totalParamsPerNeuron + 5;
                     sram_conn_write_address <= conv_std_logic_vector(sram_conn_write_address_v, 
                                                                   sram_reset_address'length);
                     sram_conn_write_data <= std_logic_vector(conn_write(write_conns_count));
