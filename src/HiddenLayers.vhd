@@ -19,8 +19,10 @@
 ----------------------------------------------------------------------------------
 library IEEE;
 use ieee.std_logic_1164.all;
-use ieee.std_logic_arith.all;
-use IEEE.STD_LOGIC_UNSIGNED.ALL;
+--use ieee.std_logic_arith.all;
+--use IEEE.STD_LOGIC_SIGNED.ALL;
+--use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
 
 
 library fpgamiddlewarelibs;
@@ -131,22 +133,28 @@ signal sram_mode : sramModeType;
 -- for sram reset functions
 signal sram_reset_address : std_logic_vector(sram_addr_width-1 downto 0);
 signal sram_reset_data : std_logic_vector(hw_sram_data_width-1 downto 0);
-
+signal sram_read_address : std_logic_vector(sram_addr_width-1 downto 0);
 
 -- for sram conn process
-signal conn_wr_request : std_logic;
-signal sram_conn_write_address : std_logic_vector(sram_addr_width-1 downto 0);
-signal sram_conn_read_address : std_logic_vector(sram_addr_width-1 downto 0);
-signal sram_conn_write_data : std_logic_vector(hw_sram_data_width-1 downto 0);
-signal sram_conn_read_data : std_logic_vector(hw_sram_data_width-1 downto 0);
+--signal conn_wr_request : std_logic;
+--signal sram_conn_write_address : std_logic_vector(sram_addr_width-1 downto 0);
+--signal sram_conn_read_address : std_logic_vector(sram_addr_width-1 downto 0);
+--signal sram_conn_write_data : std_logic_vector(hw_sram_data_width-1 downto 0);
+--signal sram_conn_read_data : std_logic_vector(hw_sram_data_width-1 downto 0);
 
 -- for sram bias & weights process
 signal bias_and_weights_wr_request : std_logic;
+signal bias_and_weights_rd_request : std_logic;
+--signal sram_bias_weights_write_read_address : std_logic_vector(sram_addr_width-1 downto 0);
 signal sram_bias_weights_write_address : std_logic_vector(sram_addr_width-1 downto 0);
 signal sram_bias_weights_read_address : std_logic_vector(sram_addr_width-1 downto 0);
+--signal sram_bias_weights_write_read_data : std_logic_vector(hw_sram_data_width-1 downto 0);
 signal sram_bias_weights_write_data : std_logic_vector(hw_sram_data_width-1 downto 0);
 signal sram_bias_weights_read_data : std_logic_vector(hw_sram_data_width-1 downto 0);
 
+signal weights_rd_from_sram : fixed_point_matrix;
+signal biases_rd_from_sram : fixed_point_vector;
+signal conn_rd_from_sram : fixed_point_vector;
 
 signal sram_write_ctl : std_logic;
  
@@ -157,34 +165,41 @@ begin
 
 sram_write_ctl <= '0' when (sram_mode = sramReset) or (sram_mode = connWrite) or (sram_mode = biasWeightsWrite)
 	else '1';
-	
+
+ext_sram_write_enable <=  sram_write_ctl or ((clk));
+
+ext_sram_output_enable <= '0' when bias_and_weights_rd_request='1'
+    else '1';
+    
 sram_mode <= sramReset when dist_mode = resetWeights else
-             connWrite when conn_wr_request='1' else
+--             connWrite when conn_wr_request='1' else
              biasWeightsWrite when bias_and_weights_wr_request='1' else
+             biasWeightsRead when bias_and_weights_rd_request='1' else
              --<expression> when <condition> else
              idle;
-             
+
+sram_bias_weights_read_data <= ext_sram_data;
+        
 with sram_mode select
   ext_sram_addr <= (others=>'0') when idle,
             sram_reset_address when sramReset,
-            sram_conn_write_address when connWrite,
+--            sram_conn_write_address when connWrite,
             sram_bias_weights_write_address when biasWeightsWrite,
-            
-            (others=>'0') when others;
+            sram_bias_weights_read_address when biasWeightsRead,
+            (others=>'Z') when others;
+
+
 
 with sram_mode select
   ext_sram_data <= (others=>'0') when idle,
             sram_reset_data when sramReset,
-            sram_conn_write_data when connWrite,
+--            sram_conn_write_data when connWrite,
             sram_bias_weights_write_data when biasWeightsWrite,
+            (others=>'Z') when biasWeightsRead,
             (others=>'0') when others;
-            
-            
-
-
-	
 
           
+            
 lay: 
 	entity neuralNetwork.Layer(Behavioral) port map
 	(
@@ -192,7 +207,7 @@ lay:
 	);
 
     
-    ext_sram_write_enable <=  sram_write_ctl or clk;
+    
 ---- flash loading
 --flash:
 --	entity fpgamiddlewarelibs.FlashInterface(Behavioral)
@@ -504,7 +519,7 @@ weights_wr_b <= '1' when (reset_weights = '1') or (n_feedback = 2 and dist_mode 
 -- output weights to buffer when not being written
 --weights <= (others => 'Z') when weights_wr_en = '1' else weights_dout_b; -- (others => '1'); -- when weights_wr_en = '0' else (others => 'Z'); -- weights_dout_b
 weights_din_b <= weights_din_sram when weights_wr_flash = '1' else weights_din_ann;
-weights_address_b <= weights_address_flash when weights_wr_flash = '1' or weights_rd_flash = '1' else weights_address_ann;
+weights_address_b <=  weights_address_ann;
 --weights_din_b <= weights_din_ann;
 
     
@@ -645,7 +660,7 @@ btv:
 					if n_feedback = 1 then
 						if last_neuron and current_layer < totalLayers - 1 then -- dont load l+1 weights
 							-- used to load current_layer+1
-							weights_address_a <= std_logic_vector(resize(current_layer+1, WEIGHTS_RAM_WIDTH));
+							weights_address_a <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
 						end if;
 					-- when backward, load next 
 					elsif n_feedback = 0 then
@@ -662,6 +677,7 @@ btv:
 					-- inbetween 
 					elsif dist_mode = intermediate then
 						weights_address_a <= std_logic_vector(to_unsigned(numHiddenLayers, weights_address_a'length)); -- preload first one 
+						--weights_rd_from_sram <= weights_in;
 					end if;
 					-- weights_in <= vector_to_weights(weights_dout); -- weights((current_layer_sample+1)*maxWidth-1 downto current_layer_sample*w);
 				end if;
@@ -677,19 +693,23 @@ btv:
         variable sram_reset_address_v : integer;
         variable currentParam : integer;
         variable last_time_neuron_index : uint8_t;
-        
+        variable start_write,start_read : std_logic;
         variable write_bias_weights_count : integer range 0 to maxWidth;
         variable sram_bias_weights_write_basic_address_v : integer;
+        variable sram_bias_weights_read_basic_address_v : integer;
         variable sram_bias_weights_write_address_v : integer;
-        variable storage_neuron_cnt,storage_param_cnt:integer;
+        variable sram_bias_weights_read_address_v : integer;
+        variable storage_neuron_cnt,storage_param_cnt, read_neuron_cnt, read_param_cnt : integer;
+        variable temp_data : fixed_point;
 	begin
 		if rising_edge(clk) then
 			if reset = '1' then
 				currentParam := 0;
 				last_time_neuron_index := to_unsigned(maxWidth,8);
-				
-				bias_and_weights_wr_request <='0';
-                 
+				start_read := '0';
+				start_write:= '0';
+				bias_and_weights_wr_request <= '0';
+                bias_and_weights_rd_request <= '0';
 			elsif dist_mode = resetWeights then
 			    if (last_time_neuron_index /= current_neuron) and (currentParam /= 0) then 
                     currentParam := 1;
@@ -709,7 +729,7 @@ btv:
                         + to_integer(current_neuron))*totalParamsPerNeuron + currentParam - 1;
     
                     -- SRAM Control
-                    sram_reset_address <= conv_std_logic_vector(sram_reset_address_v, sram_reset_address'length);
+                    sram_reset_address <= std_logic_vector(to_signed(sram_reset_address_v, sram_reset_address'length));
                 
                 end if;
                 
@@ -725,7 +745,6 @@ btv:
 				weights_address_ann <= std_logic_vector(to_unsigned(numHiddenLayers, WEIGHTS_RAM_WIDTH));
 				bias_and_weights_wr_request <='0';
 			else
-		
 				current_layer_sample := to_integer(current_layer);
 
 				last_neuron := (current_neuron = maxWidth-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1)); -- or ((current_layer_sample = 0) and (current_neuron = inputWidth-1));
@@ -735,29 +754,119 @@ btv:
 					bias_wr_address <= std_logic_vector(resize(current_layer, BIAS_RAM_WIDTH));
 					
                     if dist_mode = feedback then 
-                        if sram_mode = idle and bias_and_weights_wr_request='0' then
+                        if sram_mode = idle and bias_and_weights_wr_request='0' and start_read='0' then
                             storage_neuron_cnt:=0;
                             storage_param_cnt:=0;
                             bias_and_weights_wr_request <= '1';
                             sram_bias_weights_write_basic_address_v := (to_integer(current_layer)+1)*totalParamsPerNeuron*maxWidth;
-                            sram_bias_weights_write_address <= conv_std_logic_vector(sram_bias_weights_write_basic_address_v, sram_bias_weights_write_address'length);
+                            
+                            sram_bias_weights_write_address <= std_logic_vector(to_signed(sram_bias_weights_write_basic_address_v, sram_bias_weights_write_address'length));
                             sram_bias_weights_write_data <= std_logic_vector(weights_out(storage_neuron_cnt)(storage_param_cnt));
+
                         end if;
-                    end if; 
+                    elsif dist_mode = intermediate or dist_mode = feedforward then
+                        if sram_mode = idle and bias_and_weights_wr_request='0' and bias_and_weights_rd_request='0' then
+                            bias_and_weights_wr_request <= '1';
+                            storage_param_cnt:=0;
+                            sram_bias_weights_write_basic_address_v := (to_integer(current_layer))*totalParamsPerNeuron*maxWidth+totalParamsPerNeuron-1;
+                            sram_bias_weights_write_address <= std_logic_vector(to_signed(sram_bias_weights_write_basic_address_v, sram_bias_weights_write_address'length));
+                            sram_bias_weights_write_data <= std_logic_vector(conn_out(storage_param_cnt));
+                        end if;
+                    end if;
                 
 				end if;
 				
-				if bias_and_weights_wr_request='1' then
-                    
-                    storage_param_cnt := storage_param_cnt+1;
-                                     
-                                     
-                    if storage_param_cnt=totalParamsPerNeuron-1 then
+				if dist_mode = waiting and bias_and_weights_wr_request='0' and bias_and_weights_rd_request='0' then
+				    bias_and_weights_wr_request <= '1';
+                    storage_param_cnt:=0;
+                    sram_bias_weights_write_basic_address_v := (to_integer(current_layer))*totalParamsPerNeuron*maxWidth+totalParamsPerNeuron-1;
+                    sram_bias_weights_write_address <= std_logic_vector(to_signed(sram_bias_weights_write_basic_address_v, sram_bias_weights_write_address'length));
+                    sram_bias_weights_write_data <= std_logic_vector(connections_in(storage_param_cnt));
+				end if;
+				
+                -- waiting, save the input connection
+                if dist_mode = waiting and bias_and_weights_wr_request='1' then
+                     storage_param_cnt := storage_param_cnt + 1;
+                     if storage_param_cnt < maxWidth then
+                         sram_bias_weights_write_address_v := sram_bias_weights_write_basic_address_v + storage_param_cnt*totalParamsPerNeuron;
+                         sram_bias_weights_write_address <= std_logic_vector(to_signed(sram_bias_weights_write_address_v, sram_bias_weights_write_address'length));
+                         sram_bias_weights_write_data <= std_logic_vector(connections_in(storage_param_cnt));
+                     else
+                        storage_param_cnt := 0;
+                        bias_and_weights_wr_request <='0';
+                        bias_and_weights_rd_request <='1';
+                        read_param_cnt := 0;
+                        read_neuron_cnt:= 0;
+                        sram_bias_weights_read_basic_address_v := (to_integer(current_layer+1))*totalParamsPerNeuron*maxWidth;
+                        sram_bias_weights_read_address <= std_logic_vector(to_signed(sram_bias_weights_read_basic_address_v, sram_bias_weights_write_address'length));
+                                            
+                     end if;
+                end if;
+                 
+                
+                if dist_mode = waiting and bias_and_weights_rd_request='1' then
+                    read_param_cnt := read_param_cnt+1;
+                    if read_param_cnt=totalParamsPerNeuron-1 then
+                        read_neuron_cnt := read_neuron_cnt+1;
                         
+                        if read_neuron_cnt=maxWidth then
+                            bias_and_weights_rd_request <= '0';                  
+                        else
+                            read_param_cnt := 0;
+                        end if;
+                    end if;
+                    sram_bias_weights_read_address_v := sram_bias_weights_read_basic_address_v+read_neuron_cnt*totalParamsPerNeuron+read_param_cnt;
+                    sram_bias_weights_read_address <= std_logic_vector(to_signed(sram_bias_weights_read_address_v, sram_bias_weights_write_address'length));
+                    
+                end if;
+                                
+                                
+                -- Forward, save connections after per neuron's calculation	
+                if dist_mode = feedforward and bias_and_weights_wr_request='1' then
+                     storage_param_cnt := storage_param_cnt + 1;
+                     if storage_param_cnt < maxWidth then
+                         sram_bias_weights_write_address_v := sram_bias_weights_write_basic_address_v + storage_param_cnt*totalParamsPerNeuron;
+                         sram_bias_weights_write_address <= std_logic_vector(to_signed(sram_bias_weights_write_address_v, sram_bias_weights_write_address'length));
+                         sram_bias_weights_write_data <= std_logic_vector(conn_out(storage_param_cnt));
+                     else
+                        storage_param_cnt := 0;
+                        bias_and_weights_wr_request <='0';
+                        bias_and_weights_rd_request <= '1';
+                        read_neuron_cnt := 0;
+                        read_param_cnt := 0;
+                        sram_bias_weights_read_basic_address_v := (to_integer(current_layer+1))*totalParamsPerNeuron*maxWidth;
+                        sram_bias_weights_read_address <= std_logic_vector(to_signed(sram_bias_weights_read_basic_address_v, sram_bias_weights_write_address'length));
+                     end if;
+                end if;
+                
+                -- Forward, read biases and weights for nextlayer.
+                if dist_mode = feedforward and bias_and_weights_rd_request='1' then
+                    read_param_cnt := read_param_cnt+1;
+                    if read_param_cnt=totalParamsPerNeuron-1 then
+                        read_neuron_cnt := read_neuron_cnt+1;
+                        
+                        if read_neuron_cnt=maxWidth then
+                            bias_and_weights_rd_request <= '0';                  
+                        else
+                            read_param_cnt := 0;
+                        end if;
+                    end if;
+                    
+                    sram_bias_weights_read_address_v := sram_bias_weights_read_basic_address_v+read_neuron_cnt*totalParamsPerNeuron+read_param_cnt;
+                    sram_bias_weights_read_address <= std_logic_vector(to_signed(sram_bias_weights_read_address_v, sram_bias_weights_write_address'length));
+                end if;
+                                    
+                
+				if dist_mode = feedback and bias_and_weights_wr_request='1' then
+                           
+                    if storage_param_cnt=totalParamsPerNeuron-1 then
+
                         storage_neuron_cnt := storage_neuron_cnt+1;
                         
                         if storage_neuron_cnt=maxWidth then
                             bias_and_weights_wr_request <= '0';
+                            sram_bias_weights_write_data <= (others=>'Z');
+                            start_read := '1';
                         else
                             storage_param_cnt := 0;
                             sram_bias_weights_write_data <= std_logic_vector(weights_out(storage_neuron_cnt)(storage_param_cnt));
@@ -770,13 +879,84 @@ btv:
                     end if;
                    
                     sram_bias_weights_write_address_v := sram_bias_weights_write_basic_address_v+storage_neuron_cnt*totalParamsPerNeuron+storage_param_cnt;
-                    sram_bias_weights_write_address <= conv_std_logic_vector(sram_bias_weights_write_address_v, sram_bias_weights_write_address'length);
                     
-                     
+                    sram_bias_weights_write_address <= std_logic_vector(to_signed(sram_bias_weights_write_address_v, sram_bias_weights_write_address'length));
+                    
+                    storage_param_cnt := storage_param_cnt+1;
                 end if;
-	
-			end if;
+                
+                if dist_mode = feedback and bias_and_weights_wr_request='0' and start_read='1' then
+                    start_read:='0';
+                    read_neuron_cnt:=0;
+                    bias_and_weights_rd_request<='1';
+                    if current_layer_sample/=0 then
+                        sram_bias_weights_read_basic_address_v := (to_integer(current_layer)+1)*totalParamsPerNeuron*maxWidth-totalParamsPerLayer;                                       
+                    else
+                        sram_bias_weights_read_basic_address_v := (to_integer(current_layer)+1)*totalParamsPerNeuron*maxWidth;
+                    end if;
+                    
+                    sram_bias_weights_read_address <= std_logic_vector(to_signed(sram_bias_weights_read_basic_address_v, sram_bias_weights_write_address'length));
+                    read_param_cnt:=0;
+                end if;
+                          
+                if dist_mode = feedback and bias_and_weights_rd_request='1' then
+                    read_param_cnt := read_param_cnt+1;
+                    if read_param_cnt=totalParamsPerNeuron then
+                        read_neuron_cnt := read_neuron_cnt+1;
+                        
+                        if read_neuron_cnt=maxWidth then
+                            bias_and_weights_rd_request <= '0';                  
+                        else
+                            read_param_cnt := 0;
+                        end if;
+                    end if;
+                    
+                    if current_layer_sample/=0 then
+                        if read_param_cnt = totalParamsPerNeuron-1 then
+                            sram_bias_weights_read_address_v := sram_bias_weights_read_basic_address_v+read_neuron_cnt*totalParamsPerNeuron+read_param_cnt-totalParamsPerLayer;
+                        else
+                            sram_bias_weights_read_address_v := sram_bias_weights_read_basic_address_v+read_neuron_cnt*totalParamsPerNeuron+read_param_cnt;
+                        end if;
+                        
+                    else
+                        sram_bias_weights_read_address_v := sram_bias_weights_read_basic_address_v+read_neuron_cnt*totalParamsPerNeuron+read_param_cnt;
+                    end if;
+                    
+                    sram_bias_weights_read_address <= std_logic_vector(to_signed(sram_bias_weights_read_address_v, sram_bias_weights_write_address'length));
+                    
+                end if;
 
+			end if;
+			
+        elsif falling_edge(clk) then
+            temp_data :=signed(sram_bias_weights_read_data);
+            if bias_and_weights_rd_request='1' then
+                if dist_mode = waiting then
+                    if read_param_cnt=totalParamsPerNeuron-2 then
+                        biases_rd_from_sram(read_neuron_cnt) <= temp_data;
+                    elsif read_param_cnt=totalParamsPerNeuron-1 then    
+                        conn_rd_from_sram(read_neuron_cnt) <= temp_data;
+                    elsif read_param_cnt<totalParamsPerNeuron-2 then
+                        weights_rd_from_sram(read_neuron_cnt)(read_param_cnt) <= temp_data;
+                    end if;
+                elsif dist_mode = feedforward then
+                    if read_param_cnt=totalParamsPerNeuron-2 then
+                        biases_rd_from_sram(read_neuron_cnt) <= temp_data;
+                    elsif read_param_cnt=totalParamsPerNeuron-1 then    
+                        conn_rd_from_sram(read_neuron_cnt) <= temp_data;
+                    elsif read_param_cnt<totalParamsPerNeuron-2 then
+                        weights_rd_from_sram(read_neuron_cnt)(read_param_cnt) <= temp_data;
+                    end if;
+                elsif dist_mode = feedback then
+                    if read_param_cnt=totalParamsPerNeuron-2 then
+                        biases_rd_from_sram(read_neuron_cnt) <= temp_data;
+                    elsif read_param_cnt=totalParamsPerNeuron-1 then    
+                        conn_rd_from_sram(read_neuron_cnt) <= temp_data;
+                    elsif read_param_cnt<totalParamsPerNeuron-2 then
+                        weights_rd_from_sram(read_neuron_cnt)(read_param_cnt) <= temp_data;
+                    end if;
+                end if;
+            end if;
 		end if;
 	end process;
 
@@ -802,7 +982,7 @@ btv:
 			if (current_neuron = maxWidth-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1)) then -- or ((current_layer_sample = 0) and (current_neuron = inputWidth-1)) then
 				-- when forward, load weights for next (clocks inverted)
 				if n_feedback = 1 then
-					conn_address_a <= std_logic_vector(resize(current_layer + 1, CONN_RAM_WIDTH));
+					conn_address_a <= std_logic_vector(resize(current_layer, CONN_RAM_WIDTH));
 					conn_address_b <= std_logic_vector(to_unsigned(totalLayers-1, CONN_RAM_WIDTH));
 				-- when backward, load next 
 				elsif n_feedback = 0 then
@@ -815,34 +995,34 @@ btv:
 			end if;
 			
             
-            if conn_wr ='1' and sram_mode = idle then
-                conn_wr_request <= '1';
-                write_conns_count := 0;
+--            if conn_wr ='1' and sram_mode = idle then
+--                conn_wr_request <= '1';
+--                write_conns_count := 0;
                 
-                sram_conn_write_address_v := ((to_integer(current_layer)) * maxWidth)*totalParamsPerNeuron + 5;
+--                sram_conn_write_address_v := ((to_integer(current_layer)) * maxWidth)*totalParamsPerNeuron + 5;
                 
-                sram_conn_write_address <= conv_std_logic_vector(sram_conn_write_address_v, 
-                                                              sram_reset_address'length);
-                sram_conn_write_data <= std_logic_vector(conn_write(write_conns_count));
-            end if;
+--                sram_conn_write_address <= std_logic_vector(to_signed(sram_conn_write_address_v, 
+--                                                              sram_reset_address'length));
+--                sram_conn_write_data <= std_logic_vector(conn_write(write_conns_count));
+--            end if;
 
             
             -- if we should write the conns[maxWidth] into sram now.
-            if conn_wr_request= '1' then
+--            if conn_wr_request= '1' then
             
-                write_conns_count := write_conns_count + 1;
-                if write_conns_count=maxWidth then
-                    conn_wr_request <= '0';
-                else
+--                write_conns_count := write_conns_count + 1;
+--                if write_conns_count=maxWidth then
+--                    conn_wr_request <= '0';
+--                else
 
-                    sram_conn_write_address_v := ((to_integer(current_layer)) * maxWidth + write_conns_count)*totalParamsPerNeuron + 5;
-                    sram_conn_write_address <= conv_std_logic_vector(sram_conn_write_address_v, 
-                                                                  sram_reset_address'length);
-                    sram_conn_write_data <= std_logic_vector(conn_write(write_conns_count));
-                end if;
+--                    --sram_conn_write_address_v := ((to_integer(current_layer)) * maxWidth + write_conns_count)*totalParamsPerNeuron + 5;
+--                    --sram_conn_write_address <= std_logic_vector(to_signed(sram_conn_write_address_v, 
+--                                                                  sram_reset_address'length));
+--                    --sram_conn_write_data <= std_logic_vector(conn_write(write_conns_count));
+--                end if;
                                 
-            end if;
-            
+--            end if;
+        
 		end if;
 	end process;
 	
@@ -868,7 +1048,7 @@ btv:
 					if last_neuron then
 						-- just stay in final layer for intermediate
 						if current_layer < totalLayers-1 then
-							bias_rd_address_ann <= std_logic_vector(resize(current_layer + 1, BIAS_RAM_WIDTH));
+							bias_rd_address_ann <= std_logic_vector(resize(current_layer, BIAS_RAM_WIDTH));
 						end if;
 					end if;
 				-- when backward, load next 
@@ -882,6 +1062,7 @@ btv:
 				-- between feedback and feedforward
 				elsif dist_mode = intermediate then
 					bias_rd_address_ann <= std_logic_vector(to_unsigned(totalLayers-1, BIAS_RAM_WIDTH));
+                    --biases_rd_from_sram <= biases_in;			
 				elsif dist_mode = idle then
 					bias_rd_address_ann <= (others => '0');
 				end if;

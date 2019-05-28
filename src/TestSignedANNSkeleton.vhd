@@ -141,7 +141,7 @@
 
 
 
-			for i in 0 to 20 loop
+			for i in 0 to 2000 loop
 				wait for clock_period * 2; -- wait until global set/reset completes
 				
 				-- inputs

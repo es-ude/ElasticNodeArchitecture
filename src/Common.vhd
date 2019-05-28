@@ -43,6 +43,7 @@ constant init_weight		:	fixed_point := to_signed(128, b);
 constant paramsPerNeuronWeights : integer := maxWidth;
 constant paramsPerNeuronBias : integer := 1;
 constant totalParamsPerNeuron : integer := paramsPerNeuronWeights+paramsPerNeuronBias+1;
+constant totalParamsPerLayer : integer := totalParamsPerNeuron*maxWidth;
 
 subtype uintw_t is unsigned (maxWidth-1 downto 0);
 subtype weights_vector is std_logic_vector(b*maxWidth*maxWidth-1 downto 0);-- used for reading/writing ram

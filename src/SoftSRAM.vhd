@@ -53,7 +53,7 @@ entity SoftSRAM is
         upper_byte_select   : in std_logic;
         lower_byte_select   : in std_logic
     );
-    end SoftSRAM; 
+    end SoftSRAM;
 
 architecture Behavioral of SoftSRAM is
     -- type mem_type is array ( (2**ADDR)-1 downto 0 ) of std_logic_vector(DATA-1 downto 0);
@@ -72,14 +72,14 @@ begin
         end if;
     end process;
 
-    data_io <= data_out when (cs_1 = '0' and cs_2 ='1' and output_enable = '0') else (others=>'Z');
+    data_io <= data_out when (cs_1 = '0' and cs_2 ='1' and output_enable = '0' and write_enable='1') else (others=>'Z');
 
     MEM_READ: process(address, cs_1, cs_2, write_enable, output_enable)
     begin
         if (cs_1 = '0' and cs_2 ='1' and write_enable='1' and output_enable='0') then
             data_out <= mem(conv_integer(address));
-        else
-            data_out <= (others=>'0');
+        --else
+            --data_out <= (others=>'0');
         end if;
     end process;
 end Behavioral;
