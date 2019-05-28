@@ -64,10 +64,10 @@ begin
 	variable reset_counter : integer range 0 to maxWidth :=0;
 	variable delayReset : boolean; -- used to delay the reset to two cycles per layer
 	variable delayWaiting : integer range 0 to maxWidth*(maxWidth+2); -- delay for storage all connections
-	variable delayIntermediate : integer range 0 to maxWidth-1; -- delay for storage all connections
+	variable delayIntermediate : integer range 0 to maxWidth; -- delay for storage all connections
 	variable delayBackwardPerLayer : integer range 0 to (maxWidth+1)*maxWidth*2+maxWidth+1;
 	variable delayForwardPerLayer : integer range 0 to (maxWidth+2)*maxWidth-1;
-	variable delayForDelayMode : integer range 0 to (maxWidth+2)*maxWidth*2-1;
+	variable delayForDelayMode : integer range 0 to (maxWidth+2)*maxWidth*2+1;
 	begin
 
 		-- set up before the clock cycle for hidden layers to sample current_layer

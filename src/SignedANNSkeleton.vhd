@@ -89,8 +89,16 @@ architecture Behavioral of SignedANNSkeleton is
 
 	signal weights 			: weights_vector;
 	signal weights_wr		: std_logic := '0';
-
+    
+    signal ext_sram_addr_s	: std_logic_vector(sram_addr_width-1 downto 0);
+    signal ext_sram_data_s 	: std_logic_vector(hw_sram_data_width-1 downto 0);
+    signal ext_sram_output_enable_s : std_logic;
+    signal ext_sram_write_enable_s : std_logic;
+     
 	signal sram_address	: uint24_t;
+	signal sram_address_configure : std_logic_vector(sram_addr_width-1 downto 0);
+	signal sram_data_configure : uint16_t;
+	
 	signal load_weights, load_weights_delayed, store_weights, store_weights_delayed, flash_ready, reset_weights : std_logic;
 
 	signal debug			: uint8_t;
@@ -137,10 +145,10 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 		flash_ready => flash_ready,
 
 		-- SRAM interface
-        ext_sram_addr => ext_sram_addr,
-        ext_sram_data => ext_sram_data,
-        ext_sram_output_enable => ext_sram_output_enable,
-        ext_sram_write_enable => ext_sram_write_enable,
+        ext_sram_addr => ext_sram_addr_s,
+        ext_sram_data => ext_sram_data_s,
+        ext_sram_output_enable => ext_sram_output_enable_s,
+        ext_sram_write_enable => ext_sram_write_enable_s,
 
 		--weights_wr_en => weights_wr,
 		--weights => weights,
@@ -151,8 +159,28 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
     -- SRAM Static control: Chip enable, up- and low-byte-enable.
     ext_sram_cs_1 <= '0';
     ext_sram_cs_2 <= '1';
-    ext_sram_upper_byte_select <= '0';
-    ext_sram_lower_byte_select <= '0';
+    
+    ext_sram_output_enable <= '0' when ((address_in=11 or address_in=12) and rd='0' and wr='1')
+        else ext_sram_output_enable_s;
+    
+    ext_sram_write_enable <= '0' when ((address_in=11 or address_in=12) and wr='0')
+        else ext_sram_write_enable_s;
+    
+    ext_sram_data <= std_logic_vector(sram_data_configure) when ((address_in=11 or address_in=12) and wr='0') 
+        else (others=>'Z') when ((address_in=11 or address_in=12) and rd='0' and wr='1')
+        else ext_sram_data_s;
+        
+    -- Control one byte write and read mode depend on address_in
+    ext_sram_upper_byte_select <= '1' when (address_in=11)
+        else '0';
+    ext_sram_lower_byte_select <= '1' when (address_in=12)
+        else '0';
+        
+    ext_sram_addr <= sram_address_configure when (address_in=11 or address_in=12)
+        else ext_sram_addr_s;
+        
+    ext_sram_lower_byte_select <= '1' when (address_in=12)
+                else '0';    
     
 	-- process data receive 
 	process (clock, rd, wr, reset)
@@ -191,16 +219,20 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 							calculate <= '0';
 							run_counter <= run_counter + to_unsigned(1, run_counter'length);
 						when 4 =>
-							sram_address(7 downto 0) <= data_in;
+							sram_address_configure(23 downto 16) <= std_logic_vector(data_in);
 						when 5 =>
-							sram_address(15 downto 8) <= data_in;
+							sram_address_configure(15 downto 8) <= std_logic_vector(data_in);
 						when 6 =>
-							sram_address(23 downto 16) <= data_in;
+							sram_address_configure(7 downto 0) <= std_logic_vector(data_in);
 						when 7 => 
 						    -- if data_in == 0, it means disable three functions below.
 							load_weights <= data_in(0);      -- 1
 							store_weights <= data_in(1);     -- 2
 							reset_weights <= data_in(4);     -- 16
+					    when 11 =>
+					       sram_data_configure(7 downto 0) <= data_in;
+					    when 12 => 
+					       sram_data_configure(15 downto 8) <= data_in;
 						when others =>
 						end case;
 					elsif rd = '0' then
@@ -237,6 +269,10 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 							data_out(5) <= load_weights_delayed;
 						when 8 =>
 							data_out <= debug;
+					    when 11 =>
+					        data_out <= unsigned(ext_sram_data(7 downto 0));
+					    when 12 =>
+					        data_out <= unsigned(ext_sram_data(15 downto 8));
 						when 200 => 
 							data_out <= run_counter(7 downto 0);
 						when 201 =>

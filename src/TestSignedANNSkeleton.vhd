@@ -139,6 +139,13 @@
 
 --			wait for clock_period * 16;
 
+            -- read_uint8_t(x"0002", address_in, rd, data_out, data);
+            write_uint8_t(0, x"0004", address_in, data_in, wr); -- SRAM_address[7:0]
+            write_uint8_t(0, x"0005", address_in, data_in, wr); -- SRAM_address[15:8]
+            write_uint8_t(24, x"0006", address_in, data_in, wr); -- SRAM_address[23:16]
+            read_uint8_t(x"000B", address_in, rd, data_out, data); -- SRAM_address[7:0]
+            read_uint8_t(x"000C", address_in, rd, data_out, data); -- SRAM_address[15:8]
+            
 
 
 			for i in 0 to 2000 loop
