@@ -64,10 +64,19 @@ architecture Behavioral of SoftSRAM is
     --signal test_softram : mem_type;
 begin
     
-    MEM_WRITE: process(address, cs_1, cs_2, write_enable, output_enable)
+    MEM_WRITE: process(address, cs_1, cs_2, write_enable, output_enable,upper_byte_select,lower_byte_select)
     begin
         if (cs_1 = '0' and cs_2='1' and write_enable='0') then
-            mem(conv_integer(address)) := data_io;
+            if(upper_byte_select='0' and lower_byte_select='0') then
+                mem(conv_integer(address)) := data_io;
+            elsif (upper_byte_select='1' and lower_byte_select='0') then
+                mem(conv_integer(address))(7 downto 0) := data_io(7 downto 0);
+            elsif (upper_byte_select='0' and lower_byte_select='1') then
+                mem(conv_integer(address))(15 downto 8) := data_io(15 downto 8);
+            else
+            
+            end if;
+            
             --test_softram <= mem;
         end if;
     end process;

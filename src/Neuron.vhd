@@ -172,7 +172,8 @@ sig:
 				-- these weights are the incoming connection weights
 				for i in 0 to weights_in'length - 1 loop 
 					output_errors(i) <= multiply(weights_in(i), delta);
-				
+				    
+				    delta := multiply(learning_rate,delta);
 					weights := weights_in(i) + multiply(delta, input_connections(i));
 					weights_out(i) <= weights;
 				end loop;

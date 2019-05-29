@@ -34,6 +34,7 @@ constant maxWidth			: 	natural := max(max(inputWidth, hiddenWidth), outputWidth)
 constant numHiddenLayers	:	natural := 4;
 constant totalLayers		:	natural := numHiddenLayers + 1;
 constant init_weight		:	fixed_point := to_signed(128, b);
+constant learning_rate		:	fixed_point := to_signed(1024, b);
 --constant input_number		:	natural := 0;
 --constant output_number		:	natural := 0;
 

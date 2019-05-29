@@ -84,7 +84,7 @@
                 output_enable => ext_sram_output_enable,
                 write_enable => ext_sram_write_enable,
                 upper_byte_select => ext_sram_upper_byte_select,
-                lower_byte_select => ext_sram_upper_byte_select
+                lower_byte_select => ext_sram_lower_byte_select
             );
 		
 		clock_process : process
@@ -101,6 +101,7 @@
 		tb : PROCESS
 			variable address : uint16_t := (others => '0');
 			variable data : uint8_t;
+			variable parameter : uint16_t;
 		BEGIN
 			reset <= '1';
 
@@ -114,79 +115,71 @@
             write_uint8_t(0, x"0007", address_in, data_in, wr);  -- disable restet weights function
             wait for clock_period * 10;
 
---			-- request storing of weights
---			write_uint8_t(123456, x"0004", address_in, data_in, wr); -- connections in
---			write_uint8_t(1, x"0007", address_in, data_in, wr); -- connections in
-
---			wait for clock_period * 16;
-
---			wait for 350 us;
-			
-			
-			
-			--write_uint8_t(0, x"0007", address_in, data_in, wr); -- connections in
-
-			--wait for clock_period * 3000;
-
-
-
-
---			read_uint8_t(x"0007", address_in, rd, data_out, data);
-
---			write_uint8_t(0, x"0007", address_in, data_in, wr); -- connections in
-
---			write_uint8_t(0, x"0007", address_in, data_in, wr); -- connections in
-
---			wait for clock_period * 16;
-
-            -- read_uint8_t(x"0002", address_in, rd, data_out, data);
-            write_uint8_t(0, x"0004", address_in, data_in, wr); -- SRAM_address[7:0]
-            write_uint8_t(0, x"0005", address_in, data_in, wr); -- SRAM_address[15:8]
-            write_uint8_t(24, x"0006", address_in, data_in, wr); -- SRAM_address[23:16]
-            read_uint8_t(x"000B", address_in, rd, data_out, data); -- SRAM_address[7:0]
-            read_uint8_t(x"000C", address_in, rd, data_out, data); -- SRAM_address[15:8]
             
+            for i in 0 to 4 loop
+                -- read_uint8_t(x"0002", address_in, rd, data_out, data);
+                write_uint8_t(0, x"0004", address_in, data_in, wr); -- SRAM_address[7:0]
+                write_uint8_t(0, x"0005", address_in, data_in, wr); -- SRAM_address[15:8]
+                write_uint8_t(24+i, x"0006", address_in, data_in, wr); -- SRAM_address[23:16]
+                
+                write_uint8_t(10, x"000B", address_in, data_in, wr); -- data[15:8]
+                write_uint8_t(5+i, x"000C", address_in, data_in, wr); -- data[7:0]
+                wait for clock_period * 1;
+            end loop;
+                        
+            for i in 0 to 4 loop
+                -- read_uint8_t(x"0002", address_in, rd, data_out, data);
+                write_uint8_t(0, x"0004", address_in, data_in, wr); -- SRAM_address[7:0]
+                write_uint8_t(0, x"0005", address_in, data_in, wr); -- SRAM_address[15:8]
+                write_uint8_t(24+i, x"0006", address_in, data_in, wr); -- SRAM_address[23:16]
+                read_uint8_t(x"000B", address_in, rd, data_out, data); -- SRAM_address[7:0]
+                parameter(15 downto 8) := data;
+                read_uint8_t(x"000C", address_in, rd, data_out, data); -- SRAM_address[15:8]
+                parameter(7 downto 0) := data;
+            end loop;
+             
+                        
 
 
 			for i in 0 to 2000 loop
 				wait for clock_period * 2; -- wait until global set/reset completes
 				
 				-- inputs
-				write_uint8_t(3, x"0000", address_in, data_in, wr); -- connections in
-				write_uint8_t(0, x"0001", address_in, data_in, wr); -- wanted
-				write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
---				wait for clock_period * 2; -- wait connection_in to be saved in SRAM
-				write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
-				
-				wait until busy = '0';
-				wait for clock_period * 2;
-
-				write_uint8_t(1, x"0000", address_in, data_in, wr); -- connections in
-				write_uint8_t(1, x"0001", address_in, data_in, wr); -- wanted
-				write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
---				wait for clock_period * 2; -- wait connection_in to be saved in SRAM
-				write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
-				
-				wait until busy = '0';
-				wait for clock_period * 2;
-				
 				write_uint8_t(0, x"0000", address_in, data_in, wr); -- connections in
 				write_uint8_t(0, x"0001", address_in, data_in, wr); -- wanted
 				write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
---				wait for clock_period * 2; -- wait connection_in to be saved in SRAM
 				write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
 				
 				wait until busy = '0';
 				wait for clock_period * 2;
 				
-				write_uint8_t(2, x"0000", address_in, data_in, wr); -- connections in
-				write_uint8_t(1, x"0001", address_in, data_in, wr); -- wanted
-				write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
---				wait for clock_period * 2; -- wait connection_in to be saved in SRAM
-				write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
-				
-				wait until busy = '0';
-				wait for clock_period * 2;
+				-- inputs
+                write_uint8_t(1, x"0000", address_in, data_in, wr); -- connections in
+                write_uint8_t(1, x"0001", address_in, data_in, wr); -- wanted
+                write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
+                write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
+                
+                wait until busy = '0';
+                wait for clock_period * 2;
+                
+				-- inputs
+                write_uint8_t(2, x"0000", address_in, data_in, wr); -- connections in
+                write_uint8_t(1, x"0001", address_in, data_in, wr); -- wanted
+                write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
+                write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
+                
+                wait until busy = '0';
+                wait for clock_period * 2;
+                
+				-- inputs
+                write_uint8_t(3, x"0000", address_in, data_in, wr); -- connections in
+                write_uint8_t(0, x"0001", address_in, data_in, wr); -- wanted
+                write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
+                write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
+                
+                wait until busy = '0';
+                wait for clock_period * 2;
+
 			end loop;
 
 			---- check learned results
