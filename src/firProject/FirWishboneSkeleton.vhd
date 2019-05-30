@@ -68,7 +68,7 @@ constant FIR_ID 		: uint8_t := x"BB";
 signal addressVector : std_logic_vector(address_in'length-1 downto 0);
 signal invertClock : std_logic; -- , half_clock
 -- 16-bit interface
-signal hwfStb, stb, writeEnable : std_logic;
+signal hwfStb, stb, writeEnable, ready : std_logic;
 signal hwfAddressIn, hwfAddress : std_logic_vector(addressWidth-1 downto 0);
 signal hwfDataIn : int16_t;
 signal hwfDataOut : int32_t;
@@ -97,7 +97,7 @@ begin
 			
 
 	hwf: entity work.firWishbone PORT MAP(
-		invertClock, reset, writeEnable, stb, hwfAddress, hwfDataIn, hwfDataOut
+		invertClock, reset, writeEnable, stb, ready, hwfAddress, hwfDataIn, hwfDataOut
 	);
 	hwfAddress <= fifoAddress when fifoDataRequest = '1' else hwfAddressIn;
 	stb <= hwfStb or fifoStb;
