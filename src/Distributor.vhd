@@ -126,7 +126,7 @@ begin
                             end if;
                         else
                            neuron_counter := neuron_counter + 1;
-                           if ((layer_counter = totalLayers-1) and (neuron_counter = outputWidth)) or (neuron_counter = maxWidth) then -- ((layer_counter = 0) and (neuron_counter = inputWidth)) or                  end if;
+                           if ((layer_counter = 0) and (neuron_counter = inputWidth)) or ((layer_counter = totalLayers-1) and (neuron_counter = outputWidth)) or (neuron_counter = maxWidth) then -- ((layer_counter = 0) and (neuron_counter = inputWidth)) or                  end if;
                                --elsif neuron_counter = maxWidth then 
                                neuron_counter := neuron_counter-1;
                                
@@ -163,7 +163,7 @@ begin
 						else
 						    neuron_counter := neuron_counter + 1;
 						    -- is last neuron in layer?
-                            if ((layer_counter = totalLayers-1) and (neuron_counter = outputWidth)) or (neuron_counter = maxWidth) then
+                            if ((layer_counter = 0) and (neuron_counter = inputWidth)) or ((layer_counter = totalLayers-1) and (neuron_counter = outputWidth)) or (neuron_counter = maxWidth) then
                                 --elsif neuron_counter = maxWidth then 
                                 neuron_counter := neuron_counter-1;
                                 
@@ -212,7 +212,7 @@ begin
                                 mode <= waiting;
                             elsif calculate = '0' then
                                 mode <= feedforward;
-                                n_feedback_var := idle;
+                                n_feedback_var := forward;
                                 layer_counter := 0;
                                 neuron_counter := 0; -- neuron_counter + 1;
                             end if;

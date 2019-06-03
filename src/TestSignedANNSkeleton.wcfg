@@ -13,18 +13,22 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="4630146666667fs"></ZoomStartTime>
-      <ZoomEndTime time="4638606666668fs"></ZoomEndTime>
-      <Cursor1Time time="4632780000000fs"></Cursor1Time>
+      <ZoomStartTime time="7827982200fs"></ZoomStartTime>
+      <ZoomEndTime time="20147982201fs"></ZoomEndTime>
+      <Cursor1Time time="34380000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="257"></NameColumnWidth>
-      <ValueColumnWidth column_width="498"></ValueColumnWidth>
+      <ValueColumnWidth column_width="181"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="29" />
+   <WVObjectSize size="20" />
    <wave_markers>
-      <marker time="12260000000" label="" />
-      <marker time="10663141000" label="" />
+      <marker time="12039960000" label="" />
+      <marker time="12439960000" label="" />
+      <marker time="14101960000" label="" />
+      <marker time="14179960000" label="" />
+      <marker time="14260000000" label="" />
+      <marker time="14340000000" label="" />
    </wave_markers>
    <wvobject fp_name="/TestSignedANNSkeleton/uut/clock" type="logic">
       <obj_property name="ElementShortName">clock</obj_property>
@@ -54,16 +58,6 @@
       <obj_property name="ElementShortName">ext_sram_data[15:0]</obj_property>
       <obj_property name="ObjectShortName">ext_sram_data[15:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/sram_bias_weights_write_address" type="array">
-      <obj_property name="ElementShortName">sram_bias_weights_write_address[23:0]</obj_property>
-      <obj_property name="ObjectShortName">sram_bias_weights_write_address[23:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/sram_bias_weights_read_address" type="array">
-      <obj_property name="ElementShortName">sram_bias_weights_read_address[23:0]</obj_property>
-      <obj_property name="ObjectShortName">sram_bias_weights_read_address[23:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
    <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/n_feedback" type="other">
       <obj_property name="ElementShortName">n_feedback</obj_property>
       <obj_property name="ObjectShortName">n_feedback</obj_property>
@@ -72,79 +66,97 @@
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/biases_in" type="array">
-      <obj_property name="ElementShortName">biases_in[3:0][15:0]</obj_property>
-      <obj_property name="ObjectShortName">biases_in[3:0][15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/biases_rd_from_sram" type="array">
-      <obj_property name="ElementShortName">biases_rd_from_sram[3:0][15:0]</obj_property>
-      <obj_property name="ObjectShortName">biases_rd_from_sram[3:0][15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_in" type="array">
-      <obj_property name="ElementShortName">weights_in[3:0][3:0][15:0]</obj_property>
-      <obj_property name="ObjectShortName">weights_in[3:0][3:0][15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_rd_from_sram" type="array">
-      <obj_property name="ElementShortName">weights_rd_from_sram[3:0][3:0][15:0]</obj_property>
-      <obj_property name="ObjectShortName">weights_rd_from_sram[3:0][3:0][15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/sram_bias_weights_read_data" type="array">
-      <obj_property name="ElementShortName">sram_bias_weights_read_data[15:0]</obj_property>
-      <obj_property name="ObjectShortName">sram_bias_weights_read_data[15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/sram_bias_weights_write_data" type="array">
-      <obj_property name="ElementShortName">sram_bias_weights_write_data[15:0]</obj_property>
-      <obj_property name="ObjectShortName">sram_bias_weights_write_data[15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/ext_sram_write_enable" type="logic">
-      <obj_property name="ElementShortName">ext_sram_write_enable</obj_property>
-      <obj_property name="ObjectShortName">ext_sram_write_enable</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/sram_bias_weights_read_address" type="array">
-      <obj_property name="ElementShortName">sram_bias_weights_read_address[23:0]</obj_property>
-      <obj_property name="ObjectShortName">sram_bias_weights_read_address[23:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/ext_sram_addr" type="array">
-      <obj_property name="ElementShortName">ext_sram_addr[23:0]</obj_property>
-      <obj_property name="ObjectShortName">ext_sram_addr[23:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/mSoftSRAM/data_io" type="array">
-      <obj_property name="ElementShortName">data_io[15:0]</obj_property>
-      <obj_property name="ObjectShortName">data_io[15:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/sram_mode" type="other">
       <obj_property name="ElementShortName">sram_mode</obj_property>
       <obj_property name="ObjectShortName">sram_mode</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_in" type="array">
-      <obj_property name="ElementShortName">conn_in[3:0][15:0]</obj_property>
-      <obj_property name="ObjectShortName">conn_in[3:0][15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_out" type="array">
-      <obj_property name="ElementShortName">conn_out[3:0][15:0]</obj_property>
-      <obj_property name="ObjectShortName">conn_out[3:0][15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/ext_sram_addr" type="array">
-      <obj_property name="ElementShortName">ext_sram_addr[23:0]</obj_property>
-      <obj_property name="ObjectShortName">ext_sram_addr[23:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/ext_sram_data" type="array">
-      <obj_property name="ElementShortName">ext_sram_data[15:0]</obj_property>
-      <obj_property name="ObjectShortName">ext_sram_data[15:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/bias_and_weights_rd_request" type="logic">
       <obj_property name="ElementShortName">bias_and_weights_rd_request</obj_property>
       <obj_property name="ObjectShortName">bias_and_weights_rd_request</obj_property>
    </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/bias_and_weights_wr_request" type="logic">
-      <obj_property name="ElementShortName">bias_and_weights_wr_request</obj_property>
-      <obj_property name="ObjectShortName">bias_and_weights_wr_request</obj_property>
+   <wvobject fp_name="/TestSignedANNSkeleton/mSoftSRAM/data_io" type="array">
+      <obj_property name="ElementShortName">data_io[15:0]</obj_property>
+      <obj_property name="ObjectShortName">data_io[15:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_wr" type="logic">
-      <obj_property name="ElementShortName">conn_wr</obj_property>
-      <obj_property name="ObjectShortName">conn_wr</obj_property>
+   <wvobject fp_name="/TestSignedANNSkeleton/mSoftSRAM/address" type="array">
+      <obj_property name="ElementShortName">address[23:0]</obj_property>
+      <obj_property name="ObjectShortName">address[23:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/wanted_fp" type="array">
+      <obj_property name="ElementShortName">wanted_fp[3:0][15:0]</obj_property>
+      <obj_property name="ObjectShortName">wanted_fp[3:0][15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/error_out_abs" type="array">
+      <obj_property name="ElementShortName">error_out_abs[15:0]</obj_property>
+      <obj_property name="ObjectShortName">error_out_abs[15:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">UNSIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">10</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CellHeight">100</obj_property>
+      <obj_property name="AnalogYRangeMin">-0.173215</obj_property>
+      <obj_property name="AnalogYRRangeMax">1.21581</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_LINEAR</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_FIXED</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/error_out" type="array">
+      <obj_property name="ElementShortName">error_out[15:0]</obj_property>
+      <obj_property name="ObjectShortName">error_out[15:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">10</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/connections_out_fp" type="array">
+      <obj_property name="ElementShortName">connections_out_fp[3:0][15:0]</obj_property>
+      <obj_property name="ObjectShortName">connections_out_fp[3:0][15:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">10</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_connections_out_fp" type="array">
+      <obj_property name="ElementShortName">hidden_connections_out_fp[3:0][15:0]</obj_property>
+      <obj_property name="ObjectShortName">hidden_connections_out_fp[3:0][15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">10</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_connections_out_fp[3]" type="array">
+         <obj_property name="ElementShortName">[3][15:0]</obj_property>
+         <obj_property name="ObjectShortName">[3][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_connections_out_fp[2]" type="array">
+         <obj_property name="ElementShortName">[2][15:0]</obj_property>
+         <obj_property name="ObjectShortName">[2][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_connections_out_fp[1]" type="array">
+         <obj_property name="ElementShortName">[1][15:0]</obj_property>
+         <obj_property name="ObjectShortName">[1][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_connections_out_fp[0]" type="array">
+         <obj_property name="ElementShortName">[0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">[0][15:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">10</obj_property>
+         <obj_property name="radix_otherWidth">0</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/lay/neur/sig/arg" type="array">
+      <obj_property name="ElementShortName">arg[15:0]</obj_property>
+      <obj_property name="ObjectShortName">arg[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/lay/neur/sig/ret" type="array">
+      <obj_property name="ElementShortName">ret[15:0]</obj_property>
+      <obj_property name="ObjectShortName">ret[15:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">10</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
    </wvobject>
 </wave_config>

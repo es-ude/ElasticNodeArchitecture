@@ -26,12 +26,12 @@ function max (A : in natural; B : in natural) return natural;
 constant hw_sram_addr_width : integer := 24;
 constant hw_sram_data_width : integer := 16;
 		
-constant inputWidth			:	natural := 4;
+constant inputWidth			:	natural := 2;
 constant hiddenWidth		: 	natural := 4;
-constant outputWidth		: 	natural := 4;
+constant outputWidth		: 	natural := 1;
 constant maxWidth			: 	natural := max(max(inputWidth, hiddenWidth), outputWidth);
 
-constant numHiddenLayers	:	natural := 4;
+constant numHiddenLayers	:	natural := 2;
 constant totalLayers		:	natural := numHiddenLayers + 1;
 constant init_weight		:	fixed_point := to_signed(128, b);
 constant learning_rate		:	fixed_point := to_signed(1024, b);
