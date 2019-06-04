@@ -108,7 +108,9 @@ sig:
 		variable out_prev			: 	fixed_point;
 		variable delta				:	fixed_point := zero;
 		variable weights			: 	fixed_point;
+		variable errors             :  	fixed_point;
 		variable first_hidden_layer	: 	boolean;
+		variable output_layer	    : 	boolean;
 
 	variable TEMPv : double_fixed_point;
 	variable TEMP2v : fixed_point;
@@ -171,7 +173,8 @@ sig:
 				-- correct weight
 				-- these weights are the incoming connection weights
 				for i in 0 to weights_in'length - 1 loop 
-					output_errors(i) <= multiply(weights_in(i), delta);
+				    errors := multiply(weights_in(i), delta);
+					output_errors(i) <= errors;
 				    
 				    --delta := multiply(learning_rate,delta);
 					weights := weights_in(i) + multiply(delta, input_connections(i));
@@ -184,7 +187,18 @@ sig:
 				
 					--weights := weights_in(i) + multiply(delta, input_connections(i));
 					weights_out(i) <= zero;
-				end loop;	
+				end loop;
+				
+--				output_layer := (to_integer(current_layer) = totalLayers-1);
+--				if output_layer then
+--                    for i in outputWidth to weights_in'length-1 loop
+--                        output_errors(i) <= zero;
+                                    
+--                        --weights := weights_in(i) + multiply(delta, input_connections(i));
+--                        weights_out(i) <= zero;
+--                    end loop;
+--				end if;
+				
 			end if;
 		end if;
 	end process;

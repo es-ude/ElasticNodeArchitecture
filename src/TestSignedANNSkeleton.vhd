@@ -111,7 +111,7 @@
 
             -- restet weights
             write_uint8_t(16, x"0007", address_in, data_in, wr); -- restet weights
-            wait for clock_period * 400;
+            wait for clock_period * 200;
             write_uint8_t(0, x"0007", address_in, data_in, wr);  -- disable restet weights function
             wait for clock_period * 10;
 
@@ -141,44 +141,44 @@
                         
 
 
-			for i in 0 to 2000 loop
+			for i in 0 to 10000 loop
 				wait for clock_period * 2; -- wait until global set/reset completes
 				
---				-- inputs
---				write_uint8_t(0, x"0000", address_in, data_in, wr); -- connections in
---				write_uint8_t(0, x"0001", address_in, data_in, wr); -- wanted
---				write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
---				write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
+				-- inputs
+				write_uint8_t(0, x"0000", address_in, data_in, wr); -- connections in
+				write_uint8_t(0, x"0001", address_in, data_in, wr); -- wanted
+				write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
+				write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
 				
---				wait until busy = '0';
---				wait for clock_period * 2;
+				wait until busy = '0';
+				wait for clock_period * 2;
 				
 				-- inputs
-                write_uint8_t(0, x"0000", address_in, data_in, wr); -- connections in
-                write_uint8_t(0, x"0001", address_in, data_in, wr); -- wanted
+                write_uint8_t(1, x"0000", address_in, data_in, wr); -- connections in
+                write_uint8_t(1, x"0001", address_in, data_in, wr); -- wanted
                 write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
                 write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
                 
                 wait until busy = '0';
                 wait for clock_period * 2;
                 
---				-- inputs
---                write_uint8_t(2, x"0000", address_in, data_in, wr); -- connections in
---                write_uint8_t(1, x"0001", address_in, data_in, wr); -- wanted
---                write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
---                write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
+				-- inputs
+                write_uint8_t(2, x"0000", address_in, data_in, wr); -- connections in
+                write_uint8_t(1, x"0001", address_in, data_in, wr); -- wanted
+                write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
+                write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
                 
---                wait until busy = '0';
---                wait for clock_period * 2;
+                wait until busy = '0';
+                wait for clock_period * 2;
                 
---				-- inputs
---                write_uint8_t(3, x"0000", address_in, data_in, wr); -- connections in
---                write_uint8_t(0, x"0001", address_in, data_in, wr); -- wanted
---                write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
---                write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
+				-- inputs
+                write_uint8_t(3, x"0000", address_in, data_in, wr); -- connections in
+                write_uint8_t(0, x"0001", address_in, data_in, wr); -- wanted
+                write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
+                write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
                 
---                wait until busy = '0';
---                wait for clock_period * 2;
+                wait until busy = '0';
+                wait for clock_period * 2;
                 
 
 

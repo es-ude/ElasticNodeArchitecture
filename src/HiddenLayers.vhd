@@ -514,7 +514,7 @@ weights_bram:
 	);
 -- simple writing logic
 -- write when resetting, or after each feedback layer, or after last feedback layer, or when weights are being set from outside
-weights_wr_b <= '1' when (reset_weights = '1') or (n_feedback = 2 and dist_mode = feedback) or (dist_mode = delay) or (weights_wr_flash = '1') -- or (weights_wr_ext = '1') reset = '1' or 
+weights_wr_b <= '1' when (dist_mode = resetWeights) or (n_feedback = 2 and dist_mode = feedback) or (dist_mode = delay) or (weights_wr_flash = '1') -- or (weights_wr_ext = '1') reset = '1' or 
 	else '0';
 -- output weights to buffer when not being written
 --weights <= (others => 'Z') when weights_wr_en = '1' else weights_dout_b; -- (others => '1'); -- when weights_wr_en = '0' else (others => 'Z'); -- weights_dout_b
@@ -613,7 +613,7 @@ bias:
 		invert_clk, '0', bias_rd_address, (others => '0'), bias_dout, clk, bias_wr, bias_wr_address, bias_din, open
 	);
 bias_rd_address <= bias_rd_address_flash when bias_rd_flash = '1' else bias_rd_address_ann;
-bias_wr <= '1' when (reset_weights = '1') or (n_feedback = 2 and dist_mode = feedback) or (dist_mode = delay)
+bias_wr <= '1' when ( dist_mode = resetWeights ) or (n_feedback = 2 and dist_mode = feedback) --or (dist_mode = delay)
 	else '0';
 vtb:
 	entity neuralnetwork.vectortoconn(Behavioral) port map
@@ -660,7 +660,7 @@ btv:
 					if n_feedback = 1 then
 						if last_neuron and current_layer < totalLayers - 1 then -- dont load l+1 weights
 							-- used to load current_layer+1
-							weights_address_a <= std_logic_vector(resize(current_layer, WEIGHTS_RAM_WIDTH));
+							weights_address_a <= std_logic_vector(resize(current_layer+1, WEIGHTS_RAM_WIDTH));
 						end if;
 					-- when backward, load next 
 					elsif n_feedback = 0 then
@@ -768,7 +768,7 @@ btv:
                         if sram_mode = idle and bias_and_weights_wr_request='0' and bias_and_weights_rd_request='0' then
                             bias_and_weights_wr_request <= '1';
                             storage_param_cnt:=0;
-                            sram_bias_weights_write_basic_address_v := (to_integer(current_layer))*totalParamsPerNeuron*maxWidth+totalParamsPerNeuron-1;
+                            sram_bias_weights_write_basic_address_v := (to_integer(current_layer)+1)*totalParamsPerNeuron*maxWidth+totalParamsPerNeuron-1;
                             sram_bias_weights_write_address <= std_logic_vector(to_signed(sram_bias_weights_write_basic_address_v, sram_bias_weights_write_address'length));
                             sram_bias_weights_write_data <= std_logic_vector(conn_out(storage_param_cnt));
                         end if;
@@ -834,7 +834,7 @@ btv:
                         bias_and_weights_rd_request <= '1';
                         read_neuron_cnt := 0;
                         read_param_cnt := 0;
-                        sram_bias_weights_read_basic_address_v := (to_integer(current_layer+1))*totalParamsPerNeuron*maxWidth;
+                        sram_bias_weights_read_basic_address_v := (to_integer(current_layer+2))*totalParamsPerNeuron*maxWidth;
                         sram_bias_weights_read_address <= std_logic_vector(to_signed(sram_bias_weights_read_basic_address_v, sram_bias_weights_write_address'length));
                      end if;
                 end if;
@@ -982,11 +982,11 @@ btv:
 			if (current_neuron = maxWidth-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1)) then -- or ((current_layer_sample = 0) and (current_neuron = inputWidth-1)) then
 				-- when forward, load weights for next (clocks inverted)
 				if n_feedback = 1 then
-					conn_address_a <= std_logic_vector(resize(current_layer, CONN_RAM_WIDTH));
-					conn_address_b <= std_logic_vector(to_unsigned(totalLayers-1, CONN_RAM_WIDTH));
+					conn_address_a <= std_logic_vector(resize(current_layer+1, CONN_RAM_WIDTH));
+					conn_address_b <= std_logic_vector(to_unsigned(totalLayers, CONN_RAM_WIDTH));
 				-- when backward, load next 
 				elsif n_feedback = 0 then
-					conn_address_b <= std_logic_vector(resize(current_layer-1, CONN_RAM_WIDTH)); 	-- conn_prev
+					conn_address_b <= std_logic_vector(resize(current_layer, CONN_RAM_WIDTH)); 	-- conn_prev
 					conn_address_a <= std_logic_vector(resize(current_layer, CONN_RAM_WIDTH));		-- conn_in
 				end if;
 			--elsif current_neuron = maxWidth-1-1 then
@@ -1048,7 +1048,7 @@ btv:
 					if last_neuron then
 						-- just stay in final layer for intermediate
 						if current_layer < totalLayers-1 then
-							bias_rd_address_ann <= std_logic_vector(resize(current_layer, BIAS_RAM_WIDTH));
+							bias_rd_address_ann <= std_logic_vector(resize(current_layer+1, BIAS_RAM_WIDTH));
 						end if;
 					end if;
 				-- when backward, load next 
