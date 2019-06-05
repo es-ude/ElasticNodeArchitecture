@@ -1,9 +1,9 @@
-# !/usr/bin/env python2
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python2
+# coding: utf-8
 
 test = False
 unit = True
-predef_coeff = True
+predef_coeff = False
 
 import sys
 if test:
@@ -12,8 +12,10 @@ if test:
 import numpy as np
 import math
 import scipy.signal as sp
+import datetime 
 
-scalingFactor = 10000
+scalingFactor = 1 << 12
+print "scalingFactor", scalingFactor
 
 initial = "\
 library IEEE;\n\
@@ -60,16 +62,18 @@ if __name__ == "__main__":
 	# check arguments
 	if len(sys.argv) < 2:
 		print ("Usage: ./genFirPackage.py ORDER")
-		print ("Assuming ORDER=16")
+		order = 8
+		print ("Assuming ORDER=%d" % order)
 		# sys.exit(1)
-		order = 16
 	else:
 		order = int(sys.argv[1])
 
 	print ("Generating FIR filter with order", order)
 
 	# create package file
-	outputFile = open("firPackage.vhd", "w")
+	outputFile = open("src/firPackage.vhd", "w")
+
+	outputFile.write("-- generated %s\n" % datetime.datetime.now())
 	outputFile.write(initial)
 	# print initial
 
@@ -133,16 +137,22 @@ if __name__ == "__main__":
 				val -= 0x10000
 			fir.append(val)
 		sout2 = sp.lfilter(fir, 1, s)
-		print (lpf)
+		print "Coefficients:", (lpf)
+
+	unitInputData = np.zeros((100,))
+	unitInputData[0] = 1
+	unitOutputData = sp.lfilter(lpf, 1, unitInputData)
+
+	if unit:
+		print 'unit output:'
+		print unitOutputData
 
 	if test:
 		if unit:
-			inputData = np.zeros((100,))
-			inputData[0] = 1
-			outputData = sp.lfilter(lpf, 1, inputData)
 
-			pp.plot(inputData)
-			pp.plot(outputData, 'x-')
+
+			pp.plot(unitInputData)
+			pp.plot(unitOutputData, 'x-')
 			pp.show()
 		else:
 			ft = pl.fft(s)/len(s)
@@ -181,4 +191,5 @@ if __name__ == "__main__":
 
 
 	outputFile.write(post)
+	outputFile.close()
 	# print post

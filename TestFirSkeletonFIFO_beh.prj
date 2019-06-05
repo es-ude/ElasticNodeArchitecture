@@ -1,0 +1,6 @@
+vhdl work "src/localFIFO.vhd"
+vhdl fpgamiddlewarelibs "src/fpgamiddlewarelibs/UserLogicInterface/UserLogicInterface.vhd"
+vhdl work "src/fir.vhdl"
+vhdl fpgamiddlewarelibs "src/fpgamiddlewarelibs/Procedures.vhd"
+vhdl work "src/firSkeletonFIFO.vhd"
+vhdl work "src/TestFirSkeletonFIFO.vhd"

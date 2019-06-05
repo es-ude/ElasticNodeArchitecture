@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="TestPrimeSkeleton_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="TestPrimeSkeleton" />
+            <top_module name="procedures" />
+            <top_module name="userlogicinterface" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="4700000001fs"></ZoomEndTime>
+      <Cursor1Time time="4700000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="210"></NameColumnWidth>
+      <ValueColumnWidth column_width="73"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="3" />
+   <wvobject fp_name="group96" type="group">
+      <obj_property name="label">test</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestPrimeSkeleton/clock" type="logic">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/run" type="logic">
+         <obj_property name="ElementShortName">run</obj_property>
+         <obj_property name="ObjectShortName">run</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/ready" type="logic">
+         <obj_property name="ElementShortName">ready</obj_property>
+         <obj_property name="ObjectShortName">ready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/done" type="logic">
+         <obj_property name="ElementShortName">done</obj_property>
+         <obj_property name="ObjectShortName">done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/rd" type="logic">
+         <obj_property name="ElementShortName">rd</obj_property>
+         <obj_property name="ObjectShortName">rd</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/wr" type="logic">
+         <obj_property name="ElementShortName">wr</obj_property>
+         <obj_property name="ObjectShortName">wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/address_in" type="array">
+         <obj_property name="ElementShortName">address_in[15:0]</obj_property>
+         <obj_property name="ObjectShortName">address_in[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/data_in" type="array">
+         <obj_property name="ElementShortName">data_in[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_in[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/data_out" type="array">
+         <obj_property name="ElementShortName">data_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_out[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/sim_busy" type="other">
+         <obj_property name="ElementShortName">sim_busy</obj_property>
+         <obj_property name="ObjectShortName">sim_busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/clock_period" type="other">
+         <obj_property name="ElementShortName">clock_period</obj_property>
+         <obj_property name="ObjectShortName">clock_period</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group113" type="group">
+      <obj_property name="label">uut</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/clock" type="logic">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/busy" type="logic">
+         <obj_property name="ElementShortName">busy</obj_property>
+         <obj_property name="ObjectShortName">busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/rd" type="logic">
+         <obj_property name="ElementShortName">rd</obj_property>
+         <obj_property name="ObjectShortName">rd</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/wr" type="logic">
+         <obj_property name="ElementShortName">wr</obj_property>
+         <obj_property name="ObjectShortName">wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/data_in" type="array">
+         <obj_property name="ElementShortName">data_in[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_in[7:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/address_in" type="array">
+         <obj_property name="ElementShortName">address_in[15:0]</obj_property>
+         <obj_property name="ObjectShortName">address_in[15:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/data_out" type="array">
+         <obj_property name="ElementShortName">data_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_out[7:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/startQuery" type="array">
+         <obj_property name="ElementShortName">startQuery[15:0]</obj_property>
+         <obj_property name="ObjectShortName">startQuery[15:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/endQuery" type="array">
+         <obj_property name="ElementShortName">endQuery[15:0]</obj_property>
+         <obj_property name="ObjectShortName">endQuery[15:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/outputValue" type="array">
+         <obj_property name="ElementShortName">outputValue[15:0]</obj_property>
+         <obj_property name="ObjectShortName">outputValue[15:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/inputReady" type="logic">
+         <obj_property name="ElementShortName">inputReady</obj_property>
+         <obj_property name="ObjectShortName">inputReady</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/outputReady" type="logic">
+         <obj_property name="ElementShortName">outputReady</obj_property>
+         <obj_property name="ObjectShortName">outputReady</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/outputAck" type="logic">
+         <obj_property name="ElementShortName">outputAck</obj_property>
+         <obj_property name="ObjectShortName">outputAck</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/done" type="logic">
+         <obj_property name="ElementShortName">done</obj_property>
+         <obj_property name="ObjectShortName">done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/PR_ID" type="array">
+         <obj_property name="ElementShortName">PR_ID[7:0]</obj_property>
+         <obj_property name="ObjectShortName">PR_ID[7:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group114" type="group">
+      <obj_property name="label">primeRange</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/clock" type="logic">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/startQuery" type="array">
+         <obj_property name="ElementShortName">startQuery[15:0]</obj_property>
+         <obj_property name="ObjectShortName">startQuery[15:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/endQuery" type="array">
+         <obj_property name="ElementShortName">endQuery[15:0]</obj_property>
+         <obj_property name="ObjectShortName">endQuery[15:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/inputReady" type="logic">
+         <obj_property name="ElementShortName">inputReady</obj_property>
+         <obj_property name="ObjectShortName">inputReady</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/outputValue" type="array">
+         <obj_property name="ElementShortName">outputValue[15:0]</obj_property>
+         <obj_property name="ObjectShortName">outputValue[15:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/outputReady" type="logic">
+         <obj_property name="ElementShortName">outputReady</obj_property>
+         <obj_property name="ObjectShortName">outputReady</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/outputAck" type="logic">
+         <obj_property name="ElementShortName">outputAck</obj_property>
+         <obj_property name="ObjectShortName">outputAck</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/done" type="logic">
+         <obj_property name="ElementShortName">done</obj_property>
+         <obj_property name="ObjectShortName">done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/inputQueries" type="array">
+         <obj_property name="ElementShortName">inputQueries[1:21][15:0]</obj_property>
+         <obj_property name="ObjectShortName">inputQueries[1:21][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/outputValues" type="array">
+         <obj_property name="ElementShortName">outputValues[1:21][15:0]</obj_property>
+         <obj_property name="ObjectShortName">outputValues[1:21][15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/inputReadies" type="array">
+         <obj_property name="ElementShortName">inputReadies[1:21]</obj_property>
+         <obj_property name="ObjectShortName">inputReadies[1:21]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/inputWaiting" type="array">
+         <obj_property name="ElementShortName">inputWaiting[1:21]</obj_property>
+         <obj_property name="ObjectShortName">inputWaiting[1:21]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/outputReadies" type="array">
+         <obj_property name="ElementShortName">outputReadies[1:21]</obj_property>
+         <obj_property name="ObjectShortName">outputReadies[1:21]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/outputAcks" type="array">
+         <obj_property name="ElementShortName">outputAcks[1:21]</obj_property>
+         <obj_property name="ObjectShortName">outputAcks[1:21]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/dones" type="array">
+         <obj_property name="ElementShortName">dones[1:21]</obj_property>
+         <obj_property name="ObjectShortName">dones[1:21]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/fifoEmpty" type="logic">
+         <obj_property name="ElementShortName">fifoEmpty</obj_property>
+         <obj_property name="ObjectShortName">fifoEmpty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/fifoFull" type="logic">
+         <obj_property name="ElementShortName">fifoFull</obj_property>
+         <obj_property name="ObjectShortName">fifoFull</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/fifoDataInValid" type="logic">
+         <obj_property name="ElementShortName">fifoDataInValid</obj_property>
+         <obj_property name="ObjectShortName">fifoDataInValid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/fifoDataOutRequest" type="logic">
+         <obj_property name="ElementShortName">fifoDataOutRequest</obj_property>
+         <obj_property name="ObjectShortName">fifoDataOutRequest</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/fifoDataIn" type="array">
+         <obj_property name="ElementShortName">fifoDataIn[15:0]</obj_property>
+         <obj_property name="ObjectShortName">fifoDataIn[15:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/fifoDataOut" type="array">
+         <obj_property name="ElementShortName">fifoDataOut[15:0]</obj_property>
+         <obj_property name="ObjectShortName">fifoDataOut[15:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/processDone" type="logic">
+         <obj_property name="ElementShortName">processDone</obj_property>
+         <obj_property name="ObjectShortName">processDone</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/currentSignal" type="array">
+         <obj_property name="ElementShortName">currentSignal[15:0]</obj_property>
+         <obj_property name="ObjectShortName">currentSignal[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/curState" type="other">
+         <obj_property name="ElementShortName">curState</obj_property>
+         <obj_property name="ObjectShortName">curState</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/invert_clock" type="logic">
+         <obj_property name="ElementShortName">invert_clock</obj_property>
+         <obj_property name="ObjectShortName">invert_clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/fifodepth" type="other">
+         <obj_property name="ElementShortName">fifodepth</obj_property>
+         <obj_property name="ObjectShortName">fifodepth</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/zero" type="array">
+         <obj_property name="ElementShortName">zero[15:0]</obj_property>
+         <obj_property name="ObjectShortName">zero[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/NUM_KERNELS" type="other">
+         <obj_property name="ElementShortName">NUM_KERNELS</obj_property>
+         <obj_property name="ObjectShortName">NUM_KERNELS</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestPrimeSkeleton/uut/prime/all_done" type="array">
+         <obj_property name="ElementShortName">all_done[1:21]</obj_property>
+         <obj_property name="ObjectShortName">all_done[1:21]</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

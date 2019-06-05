@@ -1,0 +1,550 @@
+#-----------------------------------------------------------
+# Vivado v2017.2 (64-bit)
+# SW Build 1909853 on Thu Jun 15 18:39:10 MDT 2017
+# IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+# Start of session at: Tue Sep 18 16:03:06 2018
+# Process ID: 14023
+# Current directory: /home/alwynster/git/fpgamiddlewareproject
+# Command line: vivado
+# Log file: /home/alwynster/git/fpgamiddlewareproject/vivado.log
+# Journal file: /home/alwynster/git/fpgamiddlewareproject/vivado.jou
+#-----------------------------------------------------------
+Sourcing tcl script '/home/alwynster/.Xilinx/Vivado/Vivado_init.tcl'
+start_gui
+open_project /home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.xpr
+CRITICAL WARNING: [Project 1-19] Could not find the file '/home/alwynster/git/fpgamiddlewareproject/src/NeuralNetworkSkeleton.vhd'.
+CRITICAL WARNING: [Project 1-19] Could not find the file '/home/alwynster/git/fpgamiddlewareproject/src/Sigmoid.py'.
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2017.2/data/ip'.
+update_compile_order -fileset sources_1
+add_files -norecurse {/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/FlashInterface.vhd /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/TestFlashInterface.vhd /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/spi_master.vhd /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/TestSpiInterface.vhd}
+WARNING: [filemgmt 56-12] File '/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/spi_master.vhd' cannot be added to the project because it already exists in the project, skipping this file
+WARNING: [filemgmt 56-12] File '/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd' cannot be added to the project because it already exists in the project, skipping this file
+set_property library fpgamiddlewarelibs [get_files -of_objects [get_filesets sources_1] {/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/FlashInterface.vhd /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/TestFlashInterface.vhd /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/TestSpiInterface.vhd}]
+update_compile_order -fileset sources_1
+set_property top TestFlashInterface [get_filesets sim_1]
+set_property top_lib fpgamiddlewarelibs [get_filesets sim_1]
+update_compile_order -fileset sim_1
+set_property used_in_synthesis false [get_files -of_objects [get_filesets sources_1] {/home/alwynster/git/fpgamiddlewareproject/src/TestFirWishbone.vhd /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/TestFlashInterface.vhd}]
+launch_simulation
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'TestFlashInterface' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav'
+xvhdl -m64 --relax -prj TestFlashInterface_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/UserLogicInterface/UserLogicInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/FlashInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-307] analyzing entity FlashInterface
+ERROR: [VRFC 10-149] 'spiinterface' is not compiled in library fpgamiddlewarelibs [/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/FlashInterface.vhd:183]
+ERROR: [VRFC 10-1504] unit behavioral ignored due to previous errors [/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/FlashInterface.vhd:32]
+INFO: [VRFC 10-240] VHDL file /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/FlashInterface.vhd ignored due to errors
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/TestFlashInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-307] analyzing entity TestFlashInterface
+INFO: [USF-XSim-69] 'compile' step finished in '0' seconds
+INFO: [USF-XSim-99] Step results log file:'/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xvhdl.log'
+ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xvhdl.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+set_property is_enabled true [get_files  /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd]
+update_compile_order -fileset sources_1
+launch_simulation
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'TestFlashInterface' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav'
+xvhdl -m64 --relax -prj TestFlashInterface_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/UserLogicInterface/UserLogicInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-307] analyzing entity spiInterface
+ERROR: [VRFC 10-149] 'spi_master' is not compiled in library fpgamiddlewarelibs [/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd:49]
+ERROR: [VRFC 10-1504] unit behavioral ignored due to previous errors [/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd:41]
+INFO: [VRFC 10-240] VHDL file /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd ignored due to errors
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/FlashInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-307] analyzing entity FlashInterface
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/TestFlashInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-307] analyzing entity TestFlashInterface
+INFO: [USF-XSim-69] 'compile' step finished in '0' seconds
+INFO: [USF-XSim-99] Step results log file:'/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xvhdl.log'
+ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xvhdl.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+set_property is_enabled true [get_files  /home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/spi_master.vhd]
+update_compile_order -fileset sources_1
+launch_simulation
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'TestFlashInterface' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav'
+xvhdl -m64 --relax -prj TestFlashInterface_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/UserLogicInterface/UserLogicInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/spi_master.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-307] analyzing entity spi_master
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-307] analyzing entity spiInterface
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/FlashInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-307] analyzing entity FlashInterface
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/TestFlashInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-307] analyzing entity TestFlashInterface
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav'
+Vivado Simulator 2017.2
+Copyright 1986-1999, 2001-2016 Xilinx, Inc. All Rights Reserved.
+Running: /opt/Xilinx/Vivado/2017.2/bin/unwrapped/lnx64.o/xelab -wto 5a9e39aa9bc54c56a6c4387a14e691ec --debug typical --relax --mt 16 -L fpgamiddlewarelibs -L secureip --snapshot TestFlashInterface_behav fpgamiddlewarelibs.TestFlashInterface -log elaborate.log 
+Using 16 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package fpgamiddlewarelibs.userlogicinterface
+Compiling package unisim.vcomponents
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_unsigned
+Compiling architecture logic of entity fpgamiddlewarelibs.spi_master [\spi_master(d_width=8)\]
+Compiling architecture behavioral of entity fpgamiddlewarelibs.spiInterface [spiinterface_default]
+Compiling architecture behavioral of entity fpgamiddlewarelibs.FlashInterface [flashinterface_default]
+Compiling architecture behavioral of entity fpgamiddlewarelibs.testflashinterface
+Built simulation snapshot TestFlashInterface_behav
+
+****** Webtalk v2017.2 (64-bit)
+  **** SW Build 1909853 on Thu Jun 15 18:39:10 MDT 2017
+  **** IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+    ** Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+source /home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xsim.dir/TestFlashInterface_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-186] '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xsim.dir/TestFlashInterface_behav/webtalk/usage_statistics_ext_xsim.xml' has been successfully sent to Xilinx on Thu Sep 20 09:51:22 2018. For additional details about this file, please refer to the WebTalk help file at /opt/Xilinx/Vivado/2017.2/doc/webtalk_introduction.html.
+INFO: [Common 17-206] Exiting Webtalk at Thu Sep 20 09:51:22 2018...
+run_program: Time (s): cpu = 00:00:02 ; elapsed = 00:00:13 . Memory (MB): peak = 6285.086 ; gain = 0.000 ; free physical = 12102 ; free virtual = 47184
+INFO: [USF-XSim-69] 'elaborate' step finished in '13' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "TestFlashInterface_behav -key {Behavioral:sim_1:Functional:TestFlashInterface} -tclbatch {TestFlashInterface.tcl} -view {/home/alwynster/git/fpgamiddlewareproject/src/TestFixedPointANNSkeleton.wcfg} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2017.2
+Time resolution is 1 ps
+open_wave_config /home/alwynster/git/fpgamiddlewareproject/src/TestFixedPointANNSkeleton.wcfg
+WARNING: Simulation object /TestFixedPointANNSkeleton/clock was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/reset was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/run was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/ready was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/done was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/busy was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/rd was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/wr was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/address_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/data_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/data_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/sim_busy was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/results was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/errors was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/clock_period was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/clock was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/reset was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/busy was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/rd was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/wr was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/data_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/address_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/data_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/learn was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/data_rdy was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/calculate was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/connections_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/wanted was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/connections_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/error_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/run_counter was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/half_clock was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/busy_signal was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/weights was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/weights_wr was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/clk_divider was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/clk was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/reset was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/learn was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/data_rdy was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/busy was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/calculate was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/connections_in_fp was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/connections_out_fp was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/wanted_fp was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/error_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/debug was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_connections_out_fp was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/err_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/data_rdy_s was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/mode_out_signal was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/mode_out_signal_delay was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/n_feedback_bus was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/n_feedback was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/n_feedback_buffered was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/current_layer was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/current_neuron was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/error_out_abs was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/weights_signal was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/clk was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/reset was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/n_feedback was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/current_layer was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/current_neuron was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/dist_mode was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/connections_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/connections_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/wanted was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/errors_accrue_s was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/weights_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/weights_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/conn_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/conn_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/conn_out_prev was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/err_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/err_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/bias_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/bias_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/n_feedback_s was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/weights_wr_a was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/weights_wr_b was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/weights_wr_ext was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/weights_address_a was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/weights_address_b was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/weights_din_a was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/weights_din_b was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/weights_din_ann was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/weights_din_ext was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/weights_dout_a was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/weights_dout_b was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/invert_clk was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/reset_counter was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/conn_wr was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/conn_address_a was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/conn_address_b was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/conn_wr_din was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/conn_rd_dout_a was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/conn_rd_dout_b was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/conn_write was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/conn_rd_b was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/conn_feedback was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/bias_wr was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/bias_rd_address was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/bias_wr_address was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/bias_din was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/bias_dout was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/biases_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/biases_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/current_layer_sample_signal was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/current_neuron_sample_signal was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/WEIGHTS_RAM_WIDTH was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/CONN_RAM_WIDTH was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/BIAS_RAM_WIDTH was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/clk was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/reset was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/n_feedback was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/dist_mode was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/current_layer was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/current_neuron was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/connections_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/connections_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/connections_out_prev was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/errors_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/errors_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/weights_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/weights_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/biases_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/biases_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/reset_mux was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neuron_clk was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/mux_clk was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/muxEn was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/conn_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/error_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/weight_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/weight_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/conn_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/error_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/conn_out_prev was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/current_neuron_int was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/next_neuron_int was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/previous_neuron_int was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/bias_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/bias_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/next_neuron was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/output_previous_buffer was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/errors_out_seq was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/clk was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/reset was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/n_feedback was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/current_layer was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/current_neuron was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/input_connections was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/input_error was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/output_connection was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/output_previous was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/output_errors was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/weights_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/weights_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/bias_in was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/bias_out was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/delta_signal was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/output_factor_s was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/lastHidden_s was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/tf_signal was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/output_connection_signal was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/output_layer was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/index was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/first_hidden_layer_s was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/TEMP was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/TEMP2 was not found in the design.
+WARNING: Simulation object /TestFixedPointANNSkeleton/uut/nn/hidden_layers/lay/neur/TEMP3 was not found in the design.
+source TestFlashInterface.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run all
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'TestFlashInterface_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for all
+launch_simulation: Time (s): cpu = 00:00:08 ; elapsed = 00:00:16 . Memory (MB): peak = 6331.410 ; gain = 46.324 ; free physical = 12061 ; free virtual = 47144
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+set_property is_enabled false [get_files  /home/alwynster/git/fpgamiddlewareproject/src/TestFixedPointANNSkeleton.wcfg]
+launch_simulation
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'TestFlashInterface' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav'
+xvhdl -m64 --relax -prj TestFlashInterface_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/UserLogicInterface/UserLogicInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/spi_master.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-307] analyzing entity spi_master
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-307] analyzing entity spiInterface
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/FlashInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-307] analyzing entity FlashInterface
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/TestFlashInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-307] analyzing entity TestFlashInterface
+INFO: [USF-XSim-69] 'compile' step finished in '0' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav'
+Vivado Simulator 2017.2
+Copyright 1986-1999, 2001-2016 Xilinx, Inc. All Rights Reserved.
+Running: /opt/Xilinx/Vivado/2017.2/bin/unwrapped/lnx64.o/xelab -wto 5a9e39aa9bc54c56a6c4387a14e691ec --debug typical --relax --mt 16 -L fpgamiddlewarelibs -L secureip --snapshot TestFlashInterface_behav fpgamiddlewarelibs.TestFlashInterface -log elaborate.log 
+Using 16 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package fpgamiddlewarelibs.userlogicinterface
+Compiling package unisim.vcomponents
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_unsigned
+Compiling architecture logic of entity fpgamiddlewarelibs.spi_master [\spi_master(d_width=8)\]
+Compiling architecture behavioral of entity fpgamiddlewarelibs.spiInterface [spiinterface_default]
+Compiling architecture behavioral of entity fpgamiddlewarelibs.FlashInterface [flashinterface_default]
+Compiling architecture behavioral of entity fpgamiddlewarelibs.testflashinterface
+Built simulation snapshot TestFlashInterface_behav
+
+****** Webtalk v2017.2 (64-bit)
+  **** SW Build 1909853 on Thu Jun 15 18:39:10 MDT 2017
+  **** IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+    ** Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+source /home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xsim.dir/TestFlashInterface_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-186] '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xsim.dir/TestFlashInterface_behav/webtalk/usage_statistics_ext_xsim.xml' has been successfully sent to Xilinx on Thu Sep 20 09:51:46 2018. For additional details about this file, please refer to the WebTalk help file at /opt/Xilinx/Vivado/2017.2/doc/webtalk_introduction.html.
+INFO: [Common 17-206] Exiting Webtalk at Thu Sep 20 09:51:46 2018...
+run_program: Time (s): cpu = 00:00:01 ; elapsed = 00:00:12 . Memory (MB): peak = 6331.410 ; gain = 0.000 ; free physical = 12089 ; free virtual = 47171
+INFO: [USF-XSim-69] 'elaborate' step finished in '13' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "TestFlashInterface_behav -key {Behavioral:sim_1:Functional:TestFlashInterface} -tclbatch {TestFlashInterface.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2017.2
+Time resolution is 1 ps
+source TestFlashInterface.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run all
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'TestFlashInterface_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for all
+launch_simulation: Time (s): cpu = 00:00:03 ; elapsed = 00:00:14 . Memory (MB): peak = 6331.410 ; gain = 0.000 ; free physical = 12076 ; free virtual = 47158
+save_wave_config {/home/alwynster/git/fpgamiddlewareproject/src/TestFlashInterface.wcfg}
+restart
+INFO: [Simtcl 6-17] Simulation restarted
+run all
+update_compile_order -fileset sources_1
+relaunch_sim
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'TestFlashInterface' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav'
+xvhdl -m64 --relax -prj TestFlashInterface_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/UserLogicInterface/UserLogicInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/spi_master.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-307] analyzing entity spi_master
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/SpiInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-307] analyzing entity spiInterface
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/FlashInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-307] analyzing entity FlashInterface
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/fpgamiddlewarelibs/SpiInterface/TestFlashInterface.vhd" into library fpgamiddlewarelibs
+INFO: [VRFC 10-307] analyzing entity TestFlashInterface
+INFO: [USF-XSim-69] 'compile' step finished in '0' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav'
+INFO: [Common 17-41] Interrupt caught. Command should exit soon.
+Vivado Simulator 2017.2
+Copyright 1986-1999, 2001-2016 Xilinx, Inc. All Rights Reserved.
+Running: /opt/Xilinx/Vivado/2017.2/bin/unwrapped/lnx64.o/xelab -wto 5a9e39aa9bc54c56a6c4387a14e691ec --debug typical --relax --mt 16 -L fpgamiddlewarelibs -L secureip --snapshot TestFlashInterface_behav fpgamiddlewarelibs.TestFlashInterface -log elaborate.log 
+Using 16 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package fpgamiddlewarelibs.userlogicinterface
+Compiling package unisim.vcomponents
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_unsigned
+Compiling architecture logic of entity fpgamiddlewarelibs.spi_master [\spi_master(d_width=8)\]
+Compiling architecture behavioral of entity fpgamiddlewarelibs.spiInterface [spiinterface_default]
+Compiling architecture behavioral of entity fpgamiddlewarelibs.FlashInterface [flashinterface_default]
+Compiling architecture behavioral of entity fpgamiddlewarelibs.testflashinterface
+Built simulation snapshot TestFlashInterface_behav
+INFO: [Common 17-344] 'run_program' was cancelled
+INFO: [Vivado 12-5357] 'elaborate' step aborted
+INFO: [Common 17-344] 'launch_simulation' was cancelled
+INFO: [Common 17-344] 'relaunch_sim' was cancelled
+save_wave_config {/home/alwynster/git/fpgamiddlewareproject/src/TestFlashInterface.wcfg}
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+set_property is_enabled true [get_files -of_objects [get_filesets sources_1] /home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd]
+update_compile_order -fileset sources_1
+set_property top TestHiddenLayers [get_filesets sim_1]
+set_property top_lib work [get_filesets sim_1]
+launch_simulation
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'TestHiddenLayers' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav'
+xvhdl -m64 --relax -prj TestHiddenLayers_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd" into library work
+ERROR: [VRFC 10-149] 'userlogicinterface' is not compiled in library fpgamiddlewarelibs [/home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd:34]
+ERROR: [VRFC 10-149] 'common' is not compiled in library neuralnetwork [/home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd:37]
+INFO: [VRFC 10-307] analyzing entity TestHiddenLayers
+ERROR: [VRFC 10-1504] unit testhiddenlayers ignored due to previous errors [/home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd:39]
+INFO: [VRFC 10-240] VHDL file /home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd ignored due to errors
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xvhdl.log'
+ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xvhdl.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'TestHiddenLayers' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav'
+xvhdl -m64 --relax -prj TestHiddenLayers_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd" into library work
+ERROR: [VRFC 10-149] 'userlogicinterface' is not compiled in library fpgamiddlewarelibs [/home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd:34]
+ERROR: [VRFC 10-149] 'common' is not compiled in library neuralnetwork [/home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd:37]
+INFO: [VRFC 10-307] analyzing entity TestHiddenLayers
+ERROR: [VRFC 10-1504] unit testhiddenlayers ignored due to previous errors [/home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd:39]
+INFO: [VRFC 10-240] VHDL file /home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd ignored due to errors
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xvhdl.log'
+ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xvhdl.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+set_property used_in_synthesis false [get_files -of_objects [get_filesets sources_1] /home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd]
+set_property library neuralNetwork [get_files -of_objects [get_filesets sim_1] /home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd]
+launch_simulation
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'TestHiddenLayers' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav'
+xvhdl -m64 --relax -prj TestHiddenLayers_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd" into library neuralNetwork
+ERROR: [VRFC 10-149] 'userlogicinterface' is not compiled in library fpgamiddlewarelibs [/home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd:34]
+ERROR: [VRFC 10-149] 'common' is not compiled in library neuralnetwork [/home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd:37]
+INFO: [VRFC 10-307] analyzing entity TestHiddenLayers
+ERROR: [VRFC 10-1504] unit testhiddenlayers ignored due to previous errors [/home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd:39]
+INFO: [VRFC 10-240] VHDL file /home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd ignored due to errors
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xvhdl.log'
+ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xvhdl.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+WARNING: [IP_Flow 19-3899] Cannot get the environment domain name variable for the component vendor name. Setting the vendor name to 'user.org'.
+WARNING: [IP_Flow 19-3899] Cannot get the environment domain name variable for the component vendor name. Setting the vendor name to 'user.org'.
+set_property used_in_synthesis false [get_files -of_objects [get_filesets sim_1] /home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd]
+set_property top_lib neuralNetwork [get_filesets sim_1]
+set_property top_arch Behavioral [get_filesets sim_1]
+WARNING: [IP_Flow 19-3899] Cannot get the environment domain name variable for the component vendor name. Setting the vendor name to 'user.org'.
+WARNING: [IP_Flow 19-3899] Cannot get the environment domain name variable for the component vendor name. Setting the vendor name to 'user.org'.
+WARNING: [IP_Flow 19-3899] Cannot get the environment domain name variable for the component vendor name. Setting the vendor name to 'user.org'.
+launch_simulation
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'TestHiddenLayers' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav'
+xvhdl -m64 --relax -prj TestHiddenLayers_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd" into library neuralNetwork
+ERROR: [VRFC 10-149] 'userlogicinterface' is not compiled in library fpgamiddlewarelibs [/home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd:34]
+ERROR: [VRFC 10-149] 'common' is not compiled in library neuralnetwork [/home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd:37]
+INFO: [VRFC 10-307] analyzing entity TestHiddenLayers
+ERROR: [VRFC 10-1504] unit testhiddenlayers ignored due to previous errors [/home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd:39]
+INFO: [VRFC 10-240] VHDL file /home/alwynster/git/fpgamiddlewareproject/src/TestHiddenLayers.vhd ignored due to errors
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xvhdl.log'
+ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or '/home/alwynster/git/fpgamiddlewareproject/fpgamiddlewareproject/fpgamiddlewareproject.sim/sim_1/behav/xvhdl.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+exit
+INFO: [Common 17-206] Exiting Vivado at Thu Sep 20 10:57:40 2018...

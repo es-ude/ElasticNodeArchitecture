@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="TestFirWishBone_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="TestFirWishBone" />
+            <top_module name="firpackage" />
+            <top_module name="userlogicinterface" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="112653062fs"></ZoomEndTime>
+      <Cursor1Time time="75000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="207"></NameColumnWidth>
+      <ValueColumnWidth column_width="110"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="2" />
+   <wvobject fp_name="group73" type="group">
+      <obj_property name="label">test</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestFirWishBone/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/writeEnable" type="logic">
+         <obj_property name="ElementShortName">writeEnable</obj_property>
+         <obj_property name="ObjectShortName">writeEnable</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/stb" type="logic">
+         <obj_property name="ElementShortName">stb</obj_property>
+         <obj_property name="ObjectShortName">stb</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/datain" type="array">
+         <obj_property name="ElementShortName">datain[15:0]</obj_property>
+         <obj_property name="ObjectShortName">datain[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/dataout" type="array">
+         <obj_property name="ElementShortName">dataout[31:0]</obj_property>
+         <obj_property name="ObjectShortName">dataout[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/addressIn" type="array">
+         <obj_property name="ElementShortName">addressIn[3:0]</obj_property>
+         <obj_property name="ObjectShortName">addressIn[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/finish" type="other">
+         <obj_property name="ElementShortName">finish</obj_property>
+         <obj_property name="ObjectShortName">finish</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/cycle" type="other">
+         <obj_property name="ElementShortName">cycle</obj_property>
+         <obj_property name="ObjectShortName">cycle</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group90" type="group">
+      <obj_property name="label">uut</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestFirWishBone/uut/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/writeEnable" type="logic">
+         <obj_property name="ElementShortName">writeEnable</obj_property>
+         <obj_property name="ObjectShortName">writeEnable</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/stb" type="logic">
+         <obj_property name="ElementShortName">stb</obj_property>
+         <obj_property name="ObjectShortName">stb</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/ready" type="logic">
+         <obj_property name="ElementShortName">ready</obj_property>
+         <obj_property name="ObjectShortName">ready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/addressIn" type="array">
+         <obj_property name="ElementShortName">addressIn[3:0]</obj_property>
+         <obj_property name="ObjectShortName">addressIn[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/dataIn" type="array">
+         <obj_property name="ElementShortName">dataIn[15:0]</obj_property>
+         <obj_property name="ObjectShortName">dataIn[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/dataOut" type="array">
+         <obj_property name="ElementShortName">dataOut[31:0]</obj_property>
+         <obj_property name="ObjectShortName">dataOut[31:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/dataOutSignal" type="array">
+         <obj_property name="ElementShortName">dataOutSignal[31:0]</obj_property>
+         <obj_property name="ObjectShortName">dataOutSignal[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/u" type="array">
+         <obj_property name="ElementShortName">u[15:0]</obj_property>
+         <obj_property name="ObjectShortName">u[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/y" type="array">
+         <obj_property name="ElementShortName">y[31:0]</obj_property>
+         <obj_property name="ObjectShortName">y[31:0]</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+         <obj_property name="CellHeight">100</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/ytmp" type="array">
+         <obj_property name="ElementShortName">ytmp[31:0]</obj_property>
+         <obj_property name="ObjectShortName">ytmp[31:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/currentState" type="other">
+         <obj_property name="ElementShortName">currentState</obj_property>
+         <obj_property name="ObjectShortName">currentState</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/stateCount" type="other">
+         <obj_property name="ElementShortName">stateCount</obj_property>
+         <obj_property name="ObjectShortName">stateCount</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/q" type="array">
+         <obj_property name="ElementShortName">q[15:0]</obj_property>
+         <obj_property name="ObjectShortName">q[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/y0" type="array">
+         <obj_property name="ElementShortName">y0[31:0]</obj_property>
+         <obj_property name="ObjectShortName">y0[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/u_pipe" type="array">
+         <obj_property name="ElementShortName">u_pipe[0:8][15:0]</obj_property>
+         <obj_property name="ObjectShortName">u_pipe[0:8][15:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/y_pipe" type="array">
+         <obj_property name="ElementShortName">y_pipe[0:8][31:0]</obj_property>
+         <obj_property name="ObjectShortName">y_pipe[0:8][31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/filterClock" type="logic">
+         <obj_property name="ElementShortName">filterClock</obj_property>
+         <obj_property name="ObjectShortName">filterClock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestFirWishBone/uut/b_signal" type="array">
+         <obj_property name="ElementShortName">b_signal[0:8][15:0]</obj_property>
+         <obj_property name="ObjectShortName">b_signal[0:8][15:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

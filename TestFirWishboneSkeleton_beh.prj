@@ -1,0 +1,7 @@
+vhdl fpgamiddlewarelibs "src/fpgamiddlewarelibs/UserLogicInterface/UserLogicInterface.vhd"
+vhdl work "src/firPackage.vhd"
+vhdl work "src/localFIFO.vhd"
+vhdl work "src/firWishbone.vhd"
+vhdl fpgamiddlewarelibs "src/fpgamiddlewarelibs/Procedures.vhd"
+vhdl work "src/FirWishboneSkeleton.vhd"
+vhdl work "src/TestFirWishboneSkeleton.vhd"

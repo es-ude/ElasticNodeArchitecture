@@ -63,6 +63,8 @@ architecture Behavioral of VectorDotproductSkeleton is
 	
 	-- debug
 	signal current_dimension_s : uint32_t;
+
+	constant VDP_ID : uint8_t := x"CD";
 begin
 
 	-- done <= '1' when result = x"0ABCD000" else '0';
@@ -174,6 +176,8 @@ vdp: entity work.VectorDotproduct(Behavioral)
 						data_out <= result(23 downto 16);
 					when 15 =>
 						data_out <= result(31 downto 24);
+					when 255 =>
+						data_out <= VDP_ID;
 					when others =>
 						data_out <= address_in(7 downto 0) + address_in(15 downto 8);
 					end case;

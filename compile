@@ -1,0 +1,7 @@
+#!/bin/bash
+source /opt/Xilinx/14.7/ISE_DS/settings64.sh
+xst -intstyle ise -ifn "/home/alwynster/git/fpgamiddlewareproject/genericProject.xst" -ofn "/home/alwynster/git/fpgamiddlewareproject/genericProject.syr"
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc "/home/alwynster/git/fpgamiddlewareproject/src/mapping_fix.ucf" -uc "/home/alwynster/git/fpgamiddlewareproject/elasticNode.ucf" -bm "/home/alwynster/git/fpgamiddlewareproject/src/xessdemo.bmm" -p xc6slx9-tqg144-2 "/home/alwynster/git/fpgamiddlewareproject/genericProject.ngc" "/home/alwynster/git/fpgamiddlewareproject/genericProject.ngd"
+map -intstyle ise -p xc6slx9-tqg144-2 -w -logic_opt on -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt 2 -detail -ir off -ignore_keep_hierarchy -pr off -lc auto -bp -power off -o "/home/alwynster/git/fpgamiddlewareproject/genericProject_map.ncd" "/home/alwynster/git/fpgamiddlewareproject/genericProject.ngd" "/home/alwynster/git/fpgamiddlewareproject/genericProject.pcf"
+par -w -intstyle ise -ol high -mt 4 "/home/alwynster/git/fpgamiddlewareproject/genericProject_map.ncd" "/home/alwynster/git/fpgamiddlewareproject/genericProject.ncd" "/home/alwynster/git/fpgamiddlewareproject/genericProject.pcf"
+bitgen -intstyle ise -f "/home/alwynster/git/fpgamiddlewareproject/genericProject.ut" "/home/alwynster/git/fpgamiddlewareproject/genericProject.ncd"
