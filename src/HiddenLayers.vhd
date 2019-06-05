@@ -83,7 +83,7 @@ constant finishedDelay : integer := 320000;
 -- signal weights : fixed_point_matrix_array := (others => (others => (others => init_weight))); -- weights for all the hidden layers
 -- signal weights : fixed_point_matrix := (others => (others => init_weight));
 signal errors_accrue_s : fixed_point_vector;
-signal weights_in, weights_out : fixed_point_matrix;
+signal new_weights_in,weights_in, weights_out : fixed_point_matrix;
 signal conn_in, conn_out, new_conn_out_prev,conn_out_prev, err_in, err_out, bias_in, bias_out, new_conn_in_prev: fixed_point_vector;
 -- signal connections : fixed_point_array;
 signal n_feedback_s : integer range 0 to 2;
@@ -98,11 +98,11 @@ signal invert_clk									: std_logic;
 -- signal reset_counter 								: unsigned(WEIGHTS_RAM_WIDTH-1 downto 0) := (others => '0'); -- l+1 means it's done
 
 -- conn ram interface
-constant CONN_RAM_WIDTH							: integer := log2(totalLayers+1);
+--constant CONN_RAM_WIDTH							: integer := log2(totalLayers+1);
 signal conn_wr									: std_logic := '0';
-signal conn_address_a,conn_address_b			: std_logic_vector(CONN_RAM_WIDTH-1 downto 0);
-signal conn_wr_din, conn_rd_dout_a, conn_rd_dout_b	: conn_vector;
-signal conn_write, conn_rd_b					: fixed_point_vector; -- data to be written
+--signal conn_address_a,conn_address_b			: std_logic_vector(CONN_RAM_WIDTH-1 downto 0);
+--signal conn_wr_din, conn_rd_dout_a, conn_rd_dout_b	: conn_vector;
+--signal conn_write					: fixed_point_vector; -- data to be written
 signal conn_feedback							: fixed_point_vector;
 
 -- bias ram interface
@@ -134,13 +134,6 @@ signal sram_mode : sramModeType;
 signal sram_reset_address : std_logic_vector(sram_addr_width-1 downto 0);
 signal sram_reset_data : std_logic_vector(hw_sram_data_width-1 downto 0);
 signal sram_read_address : std_logic_vector(sram_addr_width-1 downto 0);
-
--- for sram conn process
---signal conn_wr_request : std_logic;
---signal sram_conn_write_address : std_logic_vector(sram_addr_width-1 downto 0);
---signal sram_conn_read_address : std_logic_vector(sram_addr_width-1 downto 0);
---signal sram_conn_write_data : std_logic_vector(hw_sram_data_width-1 downto 0);
---signal sram_conn_read_data : std_logic_vector(hw_sram_data_width-1 downto 0);
 
 -- for sram bias & weights process
 signal bias_and_weights_wr_request : std_logic;
@@ -200,11 +193,11 @@ with sram_mode select
             (others=>'0') when others;
 
           
-            
+new_weights_in <= weights_rd_from_sram;            
 lay: 
 	entity neuralNetwork.Layer(Behavioral) port map
 	(
-		clk, reset, n_feedback, dist_mode, current_layer, current_neuron, conn_in, conn_out, new_conn_out_prev, err_in, err_out, weights_in, weights_out, biases_in, biases_out
+		clk, reset, n_feedback, dist_mode, current_layer, current_neuron, conn_in, conn_out, new_conn_out_prev, err_in, err_out,  new_weights_in, weights_out, biases_rd_from_sram, biases_out
 	);
 
     
@@ -492,21 +485,21 @@ wtv:
 		weights_out, weights_din_ann
 	);
 	
-connections:
-	entity neuralnetwork.bram_tdp(rtl) generic map
-	(
-		b*maxWidth, CONN_RAM_WIDTH
-	) port map
-	(
-		clk, conn_wr, conn_address_a, conn_wr_din, conn_rd_dout_a, invert_clk, '0', conn_address_b, (others => '0'), conn_rd_dout_b
-	);
+--connections:
+--	entity neuralnetwork.bram_tdp(rtl) generic map
+--	(
+--		b*maxWidth, CONN_RAM_WIDTH
+--	) port map
+--	(
+--		clk, conn_wr, conn_address_a, conn_wr_din, conn_rd_dout_a, invert_clk, '0', conn_address_b, (others => '0'), conn_rd_dout_b
+--	);
 -- data to be written for connections out
-conn_write <= connections_in when (conn_address_a = std_logic_vector(to_unsigned(0, conn_address_a'length))) 
-					else conn_out when n_feedback = 1
-					else conn_out; -- (others => (others => '1')); -- write connections in in address 0, otherwise outputs
+--conn_write <= connections_in when (conn_address_a = std_logic_vector(to_unsigned(0, conn_address_a'length))) 
+--					else conn_out when n_feedback = 1
+--					else conn_out; -- (others => (others => '1')); -- write connections in in address 0, otherwise outputs
 -- write connections out after each layer in feed forward, connection in during calculate
-conn_wr <= '1' when (n_feedback = 2 and (dist_mode = intermediate or dist_mode = feedforward)) or dist_mode = waiting
-					else '0';
+--conn_wr <= '1' when (n_feedback = 2 and (dist_mode = intermediate or dist_mode = feedforward)) or dist_mode = waiting
+--					else '0';
 
 -- sample the neuron for conn in
 process(clk) is 
@@ -551,21 +544,21 @@ end process;
 --conn_in <= conn_rd_b when n_feedback = '0'
 --					else conn_feedback when n_feedback = '1'
 --					else connections_in;
-vtc_a:
-	entity neuralnetwork.vectortoconn(Behavioral) port map
-	(
-		conn_rd_dout_a, conn_out_prev
-	);
-vtc_b:
-	entity neuralnetwork.vectortoconn(Behavioral) port map
-	(
-		conn_rd_dout_b, conn_rd_b
-	);
-ctv:
-	entity neuralnetwork.conntovector(Behavioral) port map
-	(
-		conn_write, conn_wr_din
-	);
+--vtc_a:
+--	entity neuralnetwork.vectortoconn(Behavioral) port map
+--	(
+--		conn_rd_dout_a, conn_out_prev
+--	);
+--vtc_b:
+--	entity neuralnetwork.vectortoconn(Behavioral) port map
+--	(
+--		conn_rd_dout_b, conn_rd_b
+--	);
+--ctv:
+--	entity neuralnetwork.conntovector(Behavioral) port map
+--	(
+--		conn_write, conn_wr_din
+--	);
 	
 bias:
 	entity neuralnetwork.bram_tdp(rtl) generic map
@@ -735,7 +728,7 @@ btv:
 --                            end if;
                         end if;
                     elsif dist_mode = intermediate or dist_mode = feedforward then
-                        if sram_mode = idle and bias_and_weights_wr_request='0' and bias_and_weights_rd_request='0' then
+                        if sram_mode = idle and bias_and_weights_wr_request='0' and bias_and_weights_rd_request='0' and (current_layer_sample /= totalLayers-1) then
                             bias_and_weights_wr_request <= '1';
                             storage_param_cnt:=0;
                             sram_bias_weights_write_basic_address_v := (to_integer(current_layer)+1)*totalParamsPerNeuron*maxWidth+totalParamsPerNeuron-1;
@@ -780,7 +773,7 @@ btv:
                         read_neuron_cnt := read_neuron_cnt+1;
                         
                         if read_neuron_cnt=maxWidth then
-                            bias_and_weights_rd_request <= '0';                  
+                            bias_and_weights_rd_request <= '0';        
                         else
                             read_param_cnt := 0;
                         end if;
@@ -941,8 +934,8 @@ btv:
 		variable hold_conn_prev_flag:boolean;
 	begin
 		if reset = '1' then
-			conn_address_a <= (others => '0');
-			conn_address_b <= (others => '0');
+--			conn_address_a <= (others => '0');
+--			conn_address_b <= (others => '0');
 			hold_conn_prev_flag := false;
 		elsif rising_edge(clk) then
 			-- conn_wr <= '0';
@@ -954,13 +947,13 @@ btv:
 			if (current_neuron = maxWidth-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1)) then -- or ((current_layer_sample = 0) and (current_neuron = inputWidth-1)) then
 				-- when forward, load weights for next (clocks inverted)
 				if n_feedback = 1 then
-					conn_address_a <= std_logic_vector(resize(current_layer+1, CONN_RAM_WIDTH)); -- write
-					conn_address_b <= std_logic_vector(to_unsigned(totalLayers-1, CONN_RAM_WIDTH)); --read
+--					conn_address_a <= std_logic_vector(resize(current_layer+1, CONN_RAM_WIDTH)); -- write
+--					conn_address_b <= std_logic_vector(to_unsigned(totalLayers-1, CONN_RAM_WIDTH)); --read
 					hold_conn_prev_flag := false;
 				-- when backward, load next 
 				elsif n_feedback = 0 then
-					conn_address_b <= std_logic_vector(resize(current_layer-1, CONN_RAM_WIDTH)); 	-- conn_prev --read
-					conn_address_a <= std_logic_vector(resize(current_layer, CONN_RAM_WIDTH));		-- conn_in -- write
+--					conn_address_b <= std_logic_vector(resize(current_layer-1, CONN_RAM_WIDTH)); 	-- conn_prev --read
+--					conn_address_a <= std_logic_vector(resize(current_layer, CONN_RAM_WIDTH));		-- conn_in -- write
 					hold_conn_prev_flag := false;
 		        elsif n_feedback = 2 then
                     if hold_conn_prev_flag=false and dist_mode = feedback then 

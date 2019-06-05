@@ -13,15 +13,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="6651907666666fs"></ZoomStartTime>
-      <ZoomEndTime time="6671507666667fs"></ZoomEndTime>
-      <Cursor1Time time="6654605000000fs"></Cursor1Time>
+      <ZoomStartTime time="6822081000000fs"></ZoomStartTime>
+      <ZoomEndTime time="6840321000001fs"></ZoomEndTime>
+      <Cursor1Time time="6825301000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="253"></NameColumnWidth>
-      <ValueColumnWidth column_width="152"></ValueColumnWidth>
+      <ValueColumnWidth column_width="165"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="18" />
+   <WVObjectSize size="16" />
    <wave_markers>
       <marker time="12039960000" label="" />
       <marker time="12439960000" label="" />
@@ -80,44 +80,40 @@
       <obj_property name="ElementShortName">times_s</obj_property>
       <obj_property name="ObjectShortName">times_s</obj_property>
    </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_in" type="array">
-      <obj_property name="ElementShortName">conn_in[3:0][15:0]</obj_property>
-      <obj_property name="ObjectShortName">conn_in[3:0][15:0]</obj_property>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/bias_and_weights_rd_request" type="logic">
+      <obj_property name="ElementShortName">bias_and_weights_rd_request</obj_property>
+      <obj_property name="ObjectShortName">bias_and_weights_rd_request</obj_property>
    </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_rd_b" type="array">
-      <obj_property name="ElementShortName">conn_rd_b[3:0][15:0]</obj_property>
-      <obj_property name="ObjectShortName">conn_rd_b[3:0][15:0]</obj_property>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/new_weights_in" type="array">
+      <obj_property name="ElementShortName">new_weights_in[3:0][3:0][15:0]</obj_property>
+      <obj_property name="ObjectShortName">new_weights_in[3:0][3:0][15:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_rd_b" type="array">
-      <obj_property name="ElementShortName">conn_rd_b[3:0][15:0]</obj_property>
-      <obj_property name="ObjectShortName">conn_rd_b[3:0][15:0]</obj_property>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/biases_rd_from_sram" type="array">
+      <obj_property name="ElementShortName">biases_rd_from_sram[3:0][15:0]</obj_property>
+      <obj_property name="ObjectShortName">biases_rd_from_sram[3:0][15:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_rd_dout_a" type="array">
-      <obj_property name="ElementShortName">conn_rd_dout_a[63:0]</obj_property>
-      <obj_property name="ObjectShortName">conn_rd_dout_a[63:0]</obj_property>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/biases_in" type="array">
+      <obj_property name="ElementShortName">biases_in[3:0][15:0]</obj_property>
+      <obj_property name="ObjectShortName">biases_in[3:0][15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_rd_from_sram" type="array">
+      <obj_property name="ElementShortName">weights_rd_from_sram[3:0][3:0][15:0]</obj_property>
+      <obj_property name="ObjectShortName">weights_rd_from_sram[3:0][3:0][15:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/weights_in" type="array">
+      <obj_property name="ElementShortName">weights_in[3:0][3:0][15:0]</obj_property>
+      <obj_property name="ObjectShortName">weights_in[3:0][3:0][15:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/lay/weights_in" type="array">
+      <obj_property name="ElementShortName">weights_in[3:0][3:0][15:0]</obj_property>
+      <obj_property name="ObjectShortName">weights_in[3:0][3:0][15:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_out" type="array">
       <obj_property name="ElementShortName">conn_out[3:0][15:0]</obj_property>
       <obj_property name="ObjectShortName">conn_out[3:0][15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_rd_from_sram" type="array">
-      <obj_property name="ElementShortName">conn_rd_from_sram[3:0][15:0]</obj_property>
-      <obj_property name="ObjectShortName">conn_rd_from_sram[3:0][15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/conn_out_prev" type="array">
-      <obj_property name="ElementShortName">conn_out_prev[3:0][15:0]</obj_property>
-      <obj_property name="ObjectShortName">conn_out_prev[3:0][15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/new_conn_out_prev" type="array">
-      <obj_property name="ElementShortName">new_conn_out_prev[3:0][15:0]</obj_property>
-      <obj_property name="ObjectShortName">new_conn_out_prev[3:0][15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/n_feedback_s" type="other">
-      <obj_property name="ElementShortName">n_feedback_s</obj_property>
-      <obj_property name="ObjectShortName">n_feedback_s</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestSignedANNSkeleton/uut/nn/ann/hidden_layers/lay/neur/n_feedback" type="other">
-      <obj_property name="ElementShortName">n_feedback</obj_property>
-      <obj_property name="ObjectShortName">n_feedback</obj_property>
    </wvobject>
 </wave_config>
