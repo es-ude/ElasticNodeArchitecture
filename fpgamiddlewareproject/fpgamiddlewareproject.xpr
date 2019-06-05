@@ -34,7 +34,7 @@
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSAVendor" Val="xilinx"/>
     <Option Name="DSANumComputeUnits" Val="16"/>
-    <Option Name="WTXSimLaunchSim" Val="2572"/>
+    <Option Name="WTXSimLaunchSim" Val="2577"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -72,13 +72,6 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../src/ConnToVector.vhd">
-        <FileInfo>
-          <Attr Name="Library" Val="neuralNetwork"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PPRDIR/../src/Distributor.vhd">
         <FileInfo>
           <Attr Name="Library" Val="neuralNetwork"/>
@@ -108,34 +101,6 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../src/Layer.vhd">
-        <FileInfo>
-          <Attr Name="Library" Val="neuralNetwork"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../src/bram_tdp.vhd">
-        <FileInfo>
-          <Attr Name="Library" Val="neuralNetwork"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../src/VectorToWeights.vhd">
-        <FileInfo>
-          <Attr Name="Library" Val="neuralNetwork"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../src/WeightsToVector.vhd">
-        <FileInfo>
-          <Attr Name="Library" Val="neuralNetwork"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../src/VectorToConn.vhd">
         <FileInfo>
           <Attr Name="Library" Val="neuralNetwork"/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -180,6 +145,46 @@
       <File Path="$PPRDIR/../src/SignedANNSkeleton.vhd">
         <FileInfo>
           <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/bram_tdp.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/VectorToWeights.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/WeightsToVector.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/ConnToVector.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/VectorToConn.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="neuralNetwork"/>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
