@@ -45,8 +45,9 @@
         signal ext_sram_upper_byte_select   : std_logic;
         signal ext_sram_lower_byte_select   : std_logic;
 		
-		constant clock_period 	: time := 20 ns;
+		constant clock_period 	: time := 1 ns;
 		signal sim_busy 		: boolean := true;
+		signal times_s : integer;
 
 	BEGIN
 
@@ -70,7 +71,7 @@
 			ext_sram_write_enable => ext_sram_write_enable,
 			ext_sram_upper_byte_select => ext_sram_upper_byte_select,
 			ext_sram_lower_byte_select => ext_sram_lower_byte_select
-			);
+			); 
 			
 		-- soft Sram instaniation
 		mSoftSRAM: entity neuralnetwork.SoftSRAM 
@@ -102,6 +103,7 @@
 			variable address : uint16_t := (others => '0');
 			variable data : uint8_t;
 			variable parameter : uint16_t;
+			variable times: integer;
 		BEGIN
 			reset <= '1';
 
@@ -115,7 +117,7 @@
             write_uint8_t(0, x"0007", address_in, data_in, wr);  -- disable restet weights function
             wait for clock_period * 10;
 
-            
+            times :=0;
 --            for i in 0 to 4 loop
 --                -- read_uint8_t(x"0002", address_in, rd, data_out, data);
 --                write_uint8_t(0, x"0004", address_in, data_in, wr); -- SRAM_address[7:0]
@@ -141,47 +143,39 @@
                         
 
 
-			for i in 0 to 10000 loop
-				wait for clock_period * 2; -- wait until global set/reset completes
-				
-				-- inputs
-				write_uint8_t(0, x"0000", address_in, data_in, wr); -- connections in
-				write_uint8_t(0, x"0001", address_in, data_in, wr); -- wanted
-				write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
-				write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
-				
-				wait until busy = '0';
-				wait for clock_period * 2;
-				
-				-- inputs
+			for i in 1 to 4000 loop
+                -- inputs
+                write_uint8_t(3, x"0000", address_in, data_in, wr); -- connections in
+                write_uint8_t(0, x"0001", address_in, data_in, wr); -- wanted
+                write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
+                write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
+                wait until busy = '0';
+                
+                -- inputs
+                write_uint8_t(2, x"0000", address_in, data_in, wr); -- connections in
+                write_uint8_t(1, x"0001", address_in, data_in, wr); -- wanted
+                write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
+                write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
+                wait until busy = '0';
+                
+                -- inputs
                 write_uint8_t(1, x"0000", address_in, data_in, wr); -- connections in
                 write_uint8_t(1, x"0001", address_in, data_in, wr); -- wanted
                 write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
                 write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
                 
                 wait until busy = '0';
-                wait for clock_period * 2;
                 
-				-- inputs
-                write_uint8_t(2, x"0000", address_in, data_in, wr); -- connections in
-                write_uint8_t(1, x"0001", address_in, data_in, wr); -- wanted
-                write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
-                write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
-                
-                wait until busy = '0';
-                wait for clock_period * 2;
-                
-				-- inputs
-                write_uint8_t(3, x"0000", address_in, data_in, wr); -- connections in
+                -- inputs
+                write_uint8_t(0, x"0000", address_in, data_in, wr); -- connections in
                 write_uint8_t(0, x"0001", address_in, data_in, wr); -- wanted
                 write_uint8_t(1, x"0002", address_in, data_in, wr); -- control
                 write_uint8_t(1, x"0003", address_in, data_in, wr); -- start
                 
                 wait until busy = '0';
-                wait for clock_period * 2;
-                
 
-
+                times := times+4;
+                times_s <= times;
 			end loop;
 
 			---- check learned results

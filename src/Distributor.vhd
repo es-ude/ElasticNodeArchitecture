@@ -61,7 +61,7 @@ begin
 	variable n_feedback_var : FeedbackType := idle;
 	variable layer_counter : integer range -1 to totalLayers := 0;
 	variable neuron_counter : integer range 0 to maxWidth := 0;
-	variable reset_counter : integer range 0 to maxWidth :=0;
+	variable reset_counter : integer range 0 to totalParamsPerNeuron :=0;
 	variable delayReset : boolean; -- used to delay the reset to two cycles per layer
 	variable delayWaiting : integer range 0 to maxWidth*(maxWidth+2); -- delay for storage all connections
 	variable delayIntermediate : integer range 0 to maxWidth; -- delay for storage all connections
@@ -226,10 +226,10 @@ begin
 --						else
 --                            delayReset := true;
 
-							if reset_counter < paramsPerNeuronWeights+paramsPerNeuronBias then
+							if reset_counter < totalParamsPerNeuron then
                                 reset_counter := reset_counter + 1;
 							else
-                                reset_counter := 1;
+                                reset_counter := 0;
                                 neuron_counter := neuron_counter + 1;                       
                                 if (neuron_counter = maxWidth) or ((layer_counter = totalLayers-1) and (neuron_counter = outputWidth)) then 
                                     

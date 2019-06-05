@@ -514,7 +514,7 @@ weights_bram:
 	);
 -- simple writing logic
 -- write when resetting, or after each feedback layer, or after last feedback layer, or when weights are being set from outside
-weights_wr_b <= '1' when (dist_mode = resetWeights) or (n_feedback = 2 and dist_mode = feedback) or (dist_mode = delay) or (weights_wr_flash = '1') -- or (weights_wr_ext = '1') reset = '1' or 
+weights_wr_b <= '1' when (dist_mode = resetWeights) or (n_feedback = 2 and dist_mode = feedback) or (weights_wr_flash = '1') -- or (weights_wr_ext = '1') reset = '1' or 
 	else '0';
 -- output weights to buffer when not being written
 --weights <= (others => 'Z') when weights_wr_en = '1' else weights_dout_b; -- (others => '1'); -- when weights_wr_en = '0' else (others => 'Z'); -- weights_dout_b
@@ -711,9 +711,13 @@ btv:
 				bias_and_weights_wr_request <= '0';
                 bias_and_weights_rd_request <= '0';
 			elsif dist_mode = resetWeights then
-			    if (last_time_neuron_index /= current_neuron) and (currentParam /= 0) then 
-                    currentParam := 1;
+			    if (last_time_neuron_index /= current_neuron) then 
+                    currentParam := 0;
                     last_time_neuron_index := current_neuron;
+--                elsif (last_time_neuron_index = current_neuron) and (currentParam > paramsPerNeuronWeights+1) then 
+--                    currentParam := 0;
+--                else
+--                    last_time_neuron_index := current_neuron;
 			    end if;
 			    
                 -- reset weights and bias here
@@ -730,13 +734,12 @@ btv:
     
                     -- SRAM Control
                     sram_reset_address <= std_logic_vector(to_signed(sram_reset_address_v, sram_reset_address'length));
-                
+                    
                 end if;
                 
                 if  currentParam <= paramsPerNeuronWeights+1 then 
                     currentParam := currentParam + 1;                   
                 end if;
-                
                 
 				weights_address_ann <= std_logic_vector(resize(current_layer, weights_address_ann'length));
 				bias_wr_address <= std_logic_vector(resize(current_layer, weights_address_b'length));
@@ -982,12 +985,12 @@ btv:
 			if (current_neuron = maxWidth-1) or ((current_layer_sample = totalLayers-1) and (current_neuron = outputWidth-1)) then -- or ((current_layer_sample = 0) and (current_neuron = inputWidth-1)) then
 				-- when forward, load weights for next (clocks inverted)
 				if n_feedback = 1 then
-					conn_address_a <= std_logic_vector(resize(current_layer+1, CONN_RAM_WIDTH));
-					conn_address_b <= std_logic_vector(to_unsigned(totalLayers, CONN_RAM_WIDTH));
+					conn_address_a <= std_logic_vector(resize(current_layer+1, CONN_RAM_WIDTH)); -- write
+					conn_address_b <= std_logic_vector(to_unsigned(totalLayers-1, CONN_RAM_WIDTH)); --read
 				-- when backward, load next 
 				elsif n_feedback = 0 then
-					conn_address_b <= std_logic_vector(resize(current_layer, CONN_RAM_WIDTH)); 	-- conn_prev
-					conn_address_a <= std_logic_vector(resize(current_layer, CONN_RAM_WIDTH));		-- conn_in
+					conn_address_b <= std_logic_vector(resize(current_layer-1, CONN_RAM_WIDTH)); 	-- conn_prev --read
+					conn_address_a <= std_logic_vector(resize(current_layer, CONN_RAM_WIDTH));		-- conn_in -- write
 				end if;
 			--elsif current_neuron = maxWidth-1-1 then
 			--	if n_feedback = 0 then
