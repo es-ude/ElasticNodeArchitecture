@@ -102,7 +102,7 @@ architecture Behavioral of SignedANNSkeleton is
 	signal sram_address_configure : std_logic_vector(sram_addr_width-1 downto 0);
 	signal sram_data_configure : uint16_t;
 	
-	signal load_weights, load_weights_delayed, store_weights, store_weights_delayed, flash_ready, reset_weights : std_logic;
+	signal load_weights, load_weights_delayed, store_weights, store_weights_delayed, reset_weights : std_logic;
 
 	signal debug			: uint8_t;
 begin
@@ -145,7 +145,6 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 		sram_address => sram_address,
 		load_weights => load_weights_delayed,
 		store_weights => store_weights_delayed,
-		flash_ready => flash_ready,
 
 		-- SRAM interface
         ext_sram_addr => ext_sram_addr_s,
@@ -276,7 +275,6 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 							data_out <= (others => '0');
 							data_out(0) <= load_weights;
 							data_out(1) <= store_weights;
-							data_out(2) <= flash_ready;
 							data_out(3) <= store_weights_delayed;
 							data_out(4) <= reset_weights;
 							data_out(5) <= load_weights_delayed;

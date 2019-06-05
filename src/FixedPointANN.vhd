@@ -63,7 +63,6 @@ entity FixedPointANN is
 			sram_address		:	in uint24_t;
 			load_weights		:	in std_logic;
 			store_weights		:	in std_logic;
-			flash_ready			:	out std_logic;
 
 			ext_sram_addr                : out std_logic_vector(sram_addr_width-1 downto 0);
             ext_sram_data                : inout std_logic_vector(hw_sram_data_width-1 downto 0);
@@ -191,7 +190,6 @@ hidden_layers: entity work.HiddenLayers(Behavioral) port map
 		sram_address => sram_address,
 		load_weights => load_weights,
 		store_weights => store_weights,
-		flash_ready => flash_ready,
 
         -- SRAM interface
         ext_sram_addr => ext_sram_addr,
