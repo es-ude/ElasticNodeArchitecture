@@ -133,7 +133,7 @@ begin
 
 			-- no change if currently idle
 			if dist_mode /= waiting then
-				if current_neuron < maxWidth-1 then
+				if ((to_integer(current_layer) < totalLayers-1) and current_neuron < maxWidth-1) or ((to_integer(current_layer) = totalLayers-1) and current_neuron<outputWidth-1) then
 					next_neuron <= current_neuron + 1;
 				else
 					next_neuron <= (others => '0');
