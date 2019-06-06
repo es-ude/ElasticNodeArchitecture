@@ -91,16 +91,16 @@
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="19"/>
       <library xil_pn:name="matrixMultiplication"/>
     </file>
-    <file xil_pn:name="src/MatrixMultiplication.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/mmProject/MatrixMultiplication.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
       <library xil_pn:name="matrixMultiplication"/>
     </file>
-    <file xil_pn:name="src/Dummy.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/dummyProject/Dummy.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
-    <file xil_pn:name="src/TestDummy.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/dummyProject/TestDummy.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="144"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="144"/>
@@ -124,12 +124,12 @@
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="155"/>
       <library xil_pn:name="matrixMultiplication"/>
     </file>
-    <file xil_pn:name="src/MatrixMultiplicationSkeleton.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/mmProject/MatrixMultiplicationSkeleton.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
       <library xil_pn:name="matrixMultiplication"/>
     </file>
-    <file xil_pn:name="src/MatrixMultiplicationPackage.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/mmProject/MatrixMultiplicationPackage.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
       <library xil_pn:name="matrixMultiplication"/>
@@ -436,7 +436,7 @@
     <file xil_pn:name="src/bscan_elasticNode.ucf" xil_pn:type="FILE_UCF">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
-    <file xil_pn:name="src/fir.vhdl" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/firProject/fir.vhdl" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
@@ -446,7 +446,7 @@
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="134"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="134"/>
     </file>
-    <file xil_pn:name="src/TestFirWishbone.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/firProject/TestFirWishbone.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="136"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="136"/>
@@ -462,25 +462,25 @@
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="152"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="152"/>
     </file>
-    <file xil_pn:name="src/firSkeletonFIFO.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/firProject/firSkeletonFIFO.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
-    <file xil_pn:name="src/TestFirSkeletonFIFO.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/firProject/TestFirSkeletonFIFO.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="174"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="174"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="174"/>
     </file>
-    <file xil_pn:name="src/firWishbone.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/firProject/firWishbone.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="4"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="9"/>
     </file>
-    <file xil_pn:name="src/FirWishboneSkeleton.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/firProject/FirWishboneSkeleton.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="6"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="12"/>
     </file>
-    <file xil_pn:name="src/firPackage.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/firProject/firPackage.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="2"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="4"/>
     </file>
@@ -527,13 +527,13 @@
     <file xil_pn:name="elasticNode.ucf" xil_pn:type="FILE_UCF">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
-    <file xil_pn:name="src/TestFirWishboneSkeleton.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/firProject/TestFirWishboneSkeleton.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="7"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="223"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="223"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="223"/>
     </file>
-    <file xil_pn:name="src/firProject.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/firProject/firProject.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="232"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="13"/>
     </file>
@@ -541,12 +541,15 @@
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="234"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
-    <file xil_pn:name="src/firProject/firProject.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="236"/>
+    <file xil_pn:name="src/firProject/elasticNode.ucf" xil_pn:type="FILE_UCF">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
-    <file xil_pn:name="src/firProject/elasticNode.ucf" xil_pn:type="FILE_UCF">
-      <association xil_pn:name="Implementation" xil_pn:seqID="238"/>
+    <file xil_pn:name="src/dummyProject/dummyProject.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="205"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
+    </file>
+    <file xil_pn:name="src/dummyProject/elasticNode.ucf" xil_pn:type="FILE_UCF">
+      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
   </files>
 
@@ -590,7 +593,7 @@
     <property xil_pn:name="Configuration Pin M2" xil_pn:value="Pull Up" xil_pn:valueState="default"/>
     <property xil_pn:name="Configuration Pin Program" xil_pn:value="Pull Up" xil_pn:valueState="default"/>
     <property xil_pn:name="Configuration Rate" xil_pn:value="4" xil_pn:valueState="default"/>
-    <property xil_pn:name="Configuration Rate spartan6" xil_pn:value="2" xil_pn:valueState="default"/>
+    <property xil_pn:name="Configuration Rate spartan6" xil_pn:value="26" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Correlate Output to Input Design" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Create ASCII Configuration File" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Create Binary Configuration File" xil_pn:value="true" xil_pn:valueState="non-default"/>
@@ -671,9 +674,9 @@
     <property xil_pn:name="ISim UUT Instance Name" xil_pn:value="UUT" xil_pn:valueState="default"/>
     <property xil_pn:name="Ignore User Timing Constraints Map" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Ignore User Timing Constraints Par" xil_pn:value="false" xil_pn:valueState="default"/>
-    <property xil_pn:name="Implementation Top" xil_pn:value="Architecture|mmProject|Behavioral" xil_pn:valueState="non-default"/>
-    <property xil_pn:name="Implementation Top File" xil_pn:value="src/mmProject/mmProject.vhd" xil_pn:valueState="non-default"/>
-    <property xil_pn:name="Implementation Top Instance Path" xil_pn:value="/mmProject" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="Implementation Top" xil_pn:value="Architecture|firProject|Behavioral" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="Implementation Top File" xil_pn:value="src/firProject/firProject.vhd" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="Implementation Top Instance Path" xil_pn:value="/firProject" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Include 'uselib Directive in Verilog File" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Include SIMPRIM Models in Verilog File" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Include UNISIM Models in Verilog File" xil_pn:value="false" xil_pn:valueState="default"/>
@@ -744,12 +747,12 @@
     <property xil_pn:name="Other XPWR Command Line Options" xil_pn:value="" xil_pn:valueState="default"/>
     <property xil_pn:name="Other XST Command Line Options" xil_pn:value="" xil_pn:valueState="default"/>
     <property xil_pn:name="Output Extended Identifiers" xil_pn:value="false" xil_pn:valueState="default"/>
-    <property xil_pn:name="Output File Name" xil_pn:value="mmProject" xil_pn:valueState="default"/>
+    <property xil_pn:name="Output File Name" xil_pn:value="firProject" xil_pn:valueState="default"/>
     <property xil_pn:name="Overwrite Compiled Libraries" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Overwrite Existing Symbol" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Pack I/O Registers into IOBs" xil_pn:value="Auto" xil_pn:valueState="default"/>
     <property xil_pn:name="Pack I/O Registers/Latches into IOBs" xil_pn:value="Off" xil_pn:valueState="default"/>
-    <property xil_pn:name="Package" xil_pn:value="tqg144" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="Package" xil_pn:value="tqg144" xil_pn:valueState="default"/>
     <property xil_pn:name="Perform Advanced Analysis" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Perform Advanced Analysis Post Trace" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Perform Timing-Driven Packing and Placement" xil_pn:value="false" xil_pn:valueState="default"/>
@@ -760,10 +763,10 @@
     <property xil_pn:name="Placer Effort Level Map" xil_pn:value="High" xil_pn:valueState="default"/>
     <property xil_pn:name="Placer Extra Effort Map" xil_pn:value="None" xil_pn:valueState="default"/>
     <property xil_pn:name="Port to be used" xil_pn:value="Auto - default" xil_pn:valueState="default"/>
-    <property xil_pn:name="Post Map Simulation Model Name" xil_pn:value="mmProject_map.vhd" xil_pn:valueState="default"/>
-    <property xil_pn:name="Post Place &amp; Route Simulation Model Name" xil_pn:value="mmProject_timesim.vhd" xil_pn:valueState="default"/>
-    <property xil_pn:name="Post Synthesis Simulation Model Name" xil_pn:value="mmProject_synthesis.vhd" xil_pn:valueState="default"/>
-    <property xil_pn:name="Post Translate Simulation Model Name" xil_pn:value="mmProject_translate.vhd" xil_pn:valueState="default"/>
+    <property xil_pn:name="Post Map Simulation Model Name" xil_pn:value="firProject_map.vhd" xil_pn:valueState="default"/>
+    <property xil_pn:name="Post Place &amp; Route Simulation Model Name" xil_pn:value="firProject_timesim.vhd" xil_pn:valueState="default"/>
+    <property xil_pn:name="Post Synthesis Simulation Model Name" xil_pn:value="firProject_synthesis.vhd" xil_pn:valueState="default"/>
+    <property xil_pn:name="Post Translate Simulation Model Name" xil_pn:value="firProject_translate.vhd" xil_pn:valueState="default"/>
     <property xil_pn:name="Power Reduction Map" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Power Reduction Map spartan6" xil_pn:value="Off" xil_pn:valueState="default"/>
     <property xil_pn:name="Power Reduction Par" xil_pn:value="false" xil_pn:valueState="default"/>
@@ -788,7 +791,7 @@
     <property xil_pn:name="Release Write Enable (Output Events)" xil_pn:value="Default (6)" xil_pn:valueState="default"/>
     <property xil_pn:name="Rename Design Instance in Testbench File to" xil_pn:value="UUT" xil_pn:valueState="default"/>
     <property xil_pn:name="Rename Top Level Architecture To" xil_pn:value="Structure" xil_pn:valueState="default"/>
-    <property xil_pn:name="Rename Top Level Entity to" xil_pn:value="mmProject" xil_pn:valueState="default"/>
+    <property xil_pn:name="Rename Top Level Entity to" xil_pn:value="firProject" xil_pn:valueState="default"/>
     <property xil_pn:name="Rename Top Level Module To" xil_pn:value="" xil_pn:valueState="default"/>
     <property xil_pn:name="Report Fastest Path(s) in Each Constraint" xil_pn:value="true" xil_pn:valueState="default"/>
     <property xil_pn:name="Report Fastest Path(s) in Each Constraint Post Trace" xil_pn:value="true" xil_pn:valueState="default"/>
@@ -909,7 +912,8 @@
     <binding xil_pn:location="/genericProject" xil_pn:name="src/mapping_fix.ucf"/>
     <binding xil_pn:location="/bscan" xil_pn:name="src/bscan_elasticNode.ucf"/>
     <binding xil_pn:location="/genericProject" xil_pn:name="elasticNode.ucf"/>
-    <binding xil_pn:location="/mmProject" xil_pn:name="src/firProject/elasticNode.ucf"/>
+    <binding xil_pn:location="/firProject" xil_pn:name="src/firProject/elasticNode.ucf"/>
+    <binding xil_pn:location="/dummyProject" xil_pn:name="src/dummyProject/elasticNode.ucf"/>
   </bindings>
 
   <libraries>

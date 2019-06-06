@@ -62,7 +62,7 @@ architecture Behavioral of genericProject is
 signal invert_clk				: std_logic;
 
 -- flash 
-signal spi_cs,spi_clk,spi_miso,spi_mosi	: std_logic;
+signal spi_cs,spi_clk,spi_miso,spi_mosi	: std_logic := '1';
 signal mcu_cs : 				std_logic;
 
 

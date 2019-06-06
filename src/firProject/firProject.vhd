@@ -38,7 +38,7 @@ entity firProject is
 		-- xmem
 		mcu_ad				: inout std_logic_vector(7 downto 0) := (others => 'Z');
 		mcu_ale				: in std_logic;
-		mcu_a				: in std_logic_vector(14 downto 8);
+		mcu_a				: in std_logic_vector(15 downto 8);
 		mcu_rd				: in std_logic;
 		mcu_wr				: in std_logic;
 		
@@ -62,7 +62,7 @@ architecture Behavioral of firProject is
 signal invert_clk				: std_logic;
 
 -- flash 
-signal spi_cs,spi_clk,spi_miso,spi_mosi	: std_logic;
+signal spi_cs,spi_clk,spi_miso,spi_mosi	: std_logic := '1';
 signal mcu_cs : 				std_logic;
 
 
@@ -104,7 +104,7 @@ ARD_RESET <= '0';
 
 invert_clk <= not clk;
 
-clk <= clk_32;
+clk <= clk_50;
 
 -- half the clock
 clk_process: process (clk_50, reset) is
@@ -123,7 +123,7 @@ leds <= (others => '1') when (reset = '1' or flash_available = '0') else mw_leds
 
 gpio(19 downto 0) <= (others => '0');
 
-mcu_a_s(14 downto 8) <= mcu_a;
+mcu_a_s(15 downto 8) <= mcu_a;
 
 -- flash_xx pins connected to physical flash, spi connected to internal module
 flash_cs <= '0' when (spi_cs = '0' or mcu_cs = '0') else '1'; -- there is a pullup resistor

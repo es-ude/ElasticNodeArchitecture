@@ -169,10 +169,14 @@ begin
 							data_out <= unsigned(fifoDataOut(31 downto 24));
 						when 4 => 
 							data_out <= fifoCountVector;
-						when 255 =>
-							data_out <= FIR_ID;
+						when 5 => 
+							data_out(0) <= ready;
+							data_out(7 downto 1) <= (others => '0');
+						--when 255 =>
+							--data_out <= FIR_ID;
 						when others =>
-							data_out <= address_in(7 downto 0);
+							data_out <= FIR_ID;
+							--address_in(7 downto 0);
 						end case; 
 					end if; 
 				else

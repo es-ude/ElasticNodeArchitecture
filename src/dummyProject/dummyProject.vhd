@@ -134,8 +134,8 @@ leds <= (others => '1') when (reset = '1' or flash_available = '0') else mw_leds
 
 gpio(19 downto 14) <= (others => '0');
 
-mcu_a_s(14 downto 8) <= mcu_a;
-mcu_a_s(15) <= '0';
+mcu_a_s(15 downto 8) <= mcu_a;
+--mcu_a_s(15) <= '0';
 
 -- flash_xx pins connected to physical flash, spi connected to internal module
 flash_cs <= '0' when (spi_cs = '0' or mcu_cs = '0') else '1'; -- there is a pullup resistor
