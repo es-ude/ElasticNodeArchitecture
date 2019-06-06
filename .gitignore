@@ -3,7 +3,7 @@
 *.log
 .vscode/
 src/wdsp/
-fpgamiddlewareproject/fpgamiddlewareproject.cache/
+fpgamiddlewareproject/fpgamiddlewareproject.cache
 *.swp
 *.save*
 .DS_Store
