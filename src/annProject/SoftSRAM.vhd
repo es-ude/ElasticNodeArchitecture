@@ -63,33 +63,33 @@ architecture Behavioral of SoftSRAM is
     type mem_type is array ( (2**8)-1 downto 0 ) of std_logic_vector(DATA-1 downto 0);
     shared variable mem : mem_type;
     signal data_out : std_logic_vector(DATA-1 downto 0);
+    signal cs, read_enable, write_enable_cs, write_enable_lower, write_enable_upper : boolean;
+
     --signal test_softram : mem_type;
 begin
-    
+    cs <= cs_1 = '0' and cs_2='1';
+    read_enable <= cs and write_enable='1' and output_enable='0';
+    write_enable_cs <= cs and write_enable='0';
+    write_enable_lower <= write_enable_cs and lower_byte_select='0';
+    write_enable_upper <= write_enable_cs and upper_byte_select='0';
+
     MEM_WRITE_clk: process (reset, clk) 
     begin
-        --if reset = '1' then
-        --    mem := (others=>(others=>'0'));
-        if (rising_edge(clk)) then --  or falling_edge(clk)) then
-            if (cs_1 = '0' and cs_2='1' and write_enable='0') then
-                if(upper_byte_select='0' and lower_byte_select='0') then
-                    mem(conv_integer(address)) := data_io;
-                elsif (upper_byte_select='1' and lower_byte_select='0') then
-                    mem(conv_integer(address))(7 downto 0) := data_io(7 downto 0);
-                elsif (upper_byte_select='0' and lower_byte_select='1') then
-                    mem(conv_integer(address))(15 downto 8) := data_io(15 downto 8);
-                else
-                
-                end if;
-            elsif (cs_1 = '0' and cs_2 ='1' and write_enable='1' and output_enable='0') then
-                data_out <= mem(conv_integer(address));
-                --test_softram <= mem;
+        if (rising_edge(clk)) then
+            if (write_enable_upper) then
+                mem(conv_integer(address))(15 downto 8) := data_io(15 downto 8);
             end if;
+            if (write_enable_lower) then
+                mem(conv_integer(address))(7 downto 0) := data_io(7 downto 0);
+            end if;
+
+            data_out <= mem(conv_integer(address));
+            
         end if;
     end process;
     
 
-    data_io <= data_out when (cs_1 = '0' and cs_2 ='1' and output_enable = '0' and write_enable='1') else (others=>'Z');
+    data_io <= data_out when (read_enable) else (others=>'Z');
     
     --MEM_Read_clk: process (reset, clk) 
     --begin

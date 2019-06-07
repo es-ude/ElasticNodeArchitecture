@@ -1,7 +1,7 @@
 Release 14.7 - par P.20131013 (lin64)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-Fri Jun  7 11:09:41 2019
+Fri Jun  7 15:19:44 2019
 
 
 INFO: The IO information is provided in three file formats as part of the Place and Route (PAR) process.  These formats are:
@@ -67,7 +67,7 @@ Pinout by Pin Number:
 |P45       |mcu_ad<3>      |IOB      |IO_L49N_D4_2              |BIDIR    |LVTTL      |2             |12        |SLOW     |           |NONE     |         |LOCATED   |NO         |NONE            |
 |P46       |mcu_ad<4>      |IOB      |IO_L49P_D3_2              |BIDIR    |LVTTL      |2             |12        |SLOW     |           |NONE     |         |LOCATED   |NO         |NONE            |
 |P47       |               |IOBS     |IO_L48N_RDWR_B_VREF_2     |UNUSED   |           |2             |          |         |           |         |         |PROHIBITED|           |                |
-|P48       |mcu_ad<0>      |IOB      |IO_L48P_D7_2              |BIDIR    |LVTTL      |2             |12        |SLOW     |           |NONE     |         |LOCATED   |NO         |NONE            |
+|P48       |mcu_ad<0>      |IOB      |IO_L48P_D7_2              |BIDIR    |LVTTL      |2             |12        |SLOW     |           |NONE     |         |LOCATED   |YES        |NONE            |
 |P49       |               |         |GND                       |         |           |              |          |         |           |         |         |          |           |                |
 |P50       |               |IOBS     |IO_L31N_GCLK30_D15_2      |UNUSED   |           |2             |          |         |           |         |         |          |           |                |
 |P51       |clk_50         |IOB      |IO_L31P_GCLK31_D14_2      |INPUT    |LVTTL      |2             |          |         |           |NONE     |         |LOCATED   |NO         |NONE            |

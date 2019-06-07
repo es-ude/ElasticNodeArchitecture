@@ -84,6 +84,8 @@
 		generic map (
             16, 24)
 		port map(
+			    clk => clock,
+	            reset => reset,
                 address => ext_sram_addr,
                 data_io => ext_sram_data,
                 cs_1 => ext_sram_cs_1,
