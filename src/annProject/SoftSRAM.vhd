@@ -44,6 +44,8 @@ entity SoftSRAM is
         ADDR    : integer := 19
     );
     port (
+        clk                 : in std_logic;
+        reset               : in std_logic;
         address             : in std_logic_vector(ADDR-1 downto 0);
         data_io             : inout std_logic_vector(DATA-1 downto 0);
         cs_1                : in std_logic;
@@ -64,31 +66,38 @@ architecture Behavioral of SoftSRAM is
     --signal test_softram : mem_type;
 begin
     
-    MEM_WRITE: process(address, cs_1, cs_2, write_enable, output_enable,upper_byte_select,lower_byte_select)
+    MEM_WRITE_clk: process (reset, clk) 
     begin
-        if (cs_1 = '0' and cs_2='1' and write_enable='0') then
-            if(upper_byte_select='0' and lower_byte_select='0') then
-                mem(conv_integer(address)) := data_io;
-            elsif (upper_byte_select='1' and lower_byte_select='0') then
-                mem(conv_integer(address))(7 downto 0) := data_io(7 downto 0);
-            elsif (upper_byte_select='0' and lower_byte_select='1') then
-                mem(conv_integer(address))(15 downto 8) := data_io(15 downto 8);
-            else
-            
+        --if reset = '1' then
+        --    mem := (others=>(others=>'0'));
+        if (rising_edge(clk)) then --  or falling_edge(clk)) then
+            if (cs_1 = '0' and cs_2='1' and write_enable='0') then
+                if(upper_byte_select='0' and lower_byte_select='0') then
+                    mem(conv_integer(address)) := data_io;
+                elsif (upper_byte_select='1' and lower_byte_select='0') then
+                    mem(conv_integer(address))(7 downto 0) := data_io(7 downto 0);
+                elsif (upper_byte_select='0' and lower_byte_select='1') then
+                    mem(conv_integer(address))(15 downto 8) := data_io(15 downto 8);
+                else
+                
+                end if;
+            elsif (cs_1 = '0' and cs_2 ='1' and write_enable='1' and output_enable='0') then
+                data_out <= mem(conv_integer(address));
+                --test_softram <= mem;
             end if;
-            
-            --test_softram <= mem;
         end if;
     end process;
+    
 
     data_io <= data_out when (cs_1 = '0' and cs_2 ='1' and output_enable = '0' and write_enable='1') else (others=>'Z');
-
-    MEM_READ: process(address, cs_1, cs_2, write_enable, output_enable)
-    begin
-        if (cs_1 = '0' and cs_2 ='1' and write_enable='1' and output_enable='0') then
-            data_out <= mem(conv_integer(address));
-        --else
-            --data_out <= (others=>'0');
-        end if;
-    end process;
+    
+    --MEM_Read_clk: process (reset, clk) 
+    --begin
+    --    --if reset = '1' then
+    --    --       ---
+    --    if (rising_edge(clk)) then -- or falling_edge(clk)) then
+            
+    --    end if;
+    --end process;
+    
 end Behavioral;

@@ -1,3 +1,6 @@
+!*.xml
+
+webtalk_pn.xml
 *.str
 *.jou
 *.log
@@ -154,7 +157,6 @@ _xmsgs/
 #XPR  +  *.XML ? XPR (Files are merged into a single XPR file for 2014.1 version)
 #Do NOT ignore *.xpr files
 #Include *.xml files for 2013.4 or earlier version
-!*.xml
 #########
 #Constraint files
 #########
