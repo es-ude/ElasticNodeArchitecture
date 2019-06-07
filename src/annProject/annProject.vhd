@@ -14,6 +14,7 @@ use fpgamiddlewarelibs.Constants.all;
 library matrixMultiplication;
 --library vectordotproduct;
 library neuralnetwork;
+use neuralnetwork.common.all;
 
 --!
 --! @brief      Main class for connecting all the components involved in the
@@ -98,6 +99,17 @@ signal debug					: uint8_t;
 signal rx, tx, ard_reset		: std_logic;
 
 signal half_clk					: std_logic;
+
+-- sram interface
+signal ext_sram_addr                : std_logic_vector(hw_sram_addr_width-1 downto 0);
+signal ext_sram_data                : std_logic_vector(hw_sram_data_width-1 downto 0);
+signal ext_sram_cs_1                : std_logic;
+signal ext_sram_cs_2                : std_logic;
+signal ext_sram_output_enable       : std_logic;
+signal ext_sram_write_enable        : std_logic;
+signal ext_sram_upper_byte_select   : std_logic;
+signal ext_sram_lower_byte_select   : std_logic;
+
 begin
 
 ARD_RESET <= '0';
@@ -202,6 +214,21 @@ mw: entity work.middleware(Behavioral)
 		end if;
 	end process;
 	
+	-- soft Sram instaniation
+	mSoftSRAM: entity neuralnetwork.SoftSRAM 
+	generic map (
+        16, 24)
+	port map(
+            address => ext_sram_addr,
+            data_io => ext_sram_data,
+            cs_1 => ext_sram_cs_1,
+            cs_2 => ext_sram_cs_2,
+            output_enable => ext_sram_output_enable,
+            write_enable => ext_sram_write_enable,
+            upper_byte_select => ext_sram_upper_byte_select,
+            lower_byte_select => ext_sram_lower_byte_select
+        );
+
 	-- initialise user logic
 	-- ul: entity work.Dummy(Behavioral) port map
 	-- ul: entity vectorDotProduct.vectorDotproductSkeleton(Behavioral) port map
@@ -212,7 +239,16 @@ mw: entity work.middleware(Behavioral)
 	-- ul: entity work.KeyboardSkeleton(Behavioral) port map
 	-- ul: entity work.FirWishboneSkeleton(Behavioral) port map
 		(
-			invert_clk, userlogic_reset, userlogic_busy_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out -- , flash_available, spi_cs, spi_clk, spi_mosi, spi_miso --, calculate, debug --, kb_leds
+			invert_clk, userlogic_reset, userlogic_busy_s, userlogic_rd, userlogic_wr, userlogic_data_in, userlogic_address, userlogic_data_out,
+			ext_sram_addr => ext_sram_addr,
+			ext_sram_data => ext_sram_data,
+			ext_sram_cs_1 => ext_sram_cs_1,
+			ext_sram_cs_2 => ext_sram_cs_2,
+			ext_sram_output_enable => ext_sram_output_enable,
+			ext_sram_write_enable => ext_sram_write_enable,
+			ext_sram_upper_byte_select => ext_sram_upper_byte_select,
+			ext_sram_lower_byte_select => ext_sram_lower_byte_select
+			 -- , flash_available, spi_cs, spi_clk, spi_mosi, spi_miso --, calculate, debug --, kb_leds
 		);
 	--userlogic_busy <= userlogic_busy_s;
 	--userlogic_sleep <= userlogic_reset;

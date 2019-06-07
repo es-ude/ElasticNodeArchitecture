@@ -266,11 +266,11 @@ nn: entity neuralnetwork.SignedANN(Behavioral)
 						when 3 =>
 							data_out(maxWidth-1 downto 0) <= connections_out(maxWidth-1 downto 0);
 						when 4 =>
-							data_out <= sram_address(7 downto 0);
+							data_out <= unsigned(sram_address_configure(23 downto 16));
 						when 5 =>
-							data_out <= sram_address(15 downto 8);
+							data_out <= unsigned(sram_address_configure(15 downto 8));
 						when 6 =>
-							data_out <= sram_address(23 downto 16);
+							data_out <= unsigned(sram_address_configure(7 downto 0));
 						when 7 =>
 							data_out <= (others => '0');
 							data_out(0) <= load_weights;

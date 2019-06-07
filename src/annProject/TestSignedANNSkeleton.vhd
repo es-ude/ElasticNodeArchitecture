@@ -52,6 +52,8 @@
 		constant clock_period 	: time := 1 ns;
 		signal sim_busy 		: boolean := true;
 		signal times_s : integer;
+		
+		signal address : uint24_t;
 
 	BEGIN
 
@@ -119,19 +121,10 @@
 
 			reset <= '0';
 
-<<<<<<< HEAD:src/annProject/TestSignedANNSkeleton.vhd
-            -- restet weights
-            write_uint8_t(16, x"0007", address_in, data_in, wr); -- restet weights
-            wait for clock_period * 300;
-            write_uint8_t(0, x"0007", address_in, data_in, wr);  -- disable restet weights function
-            wait for clock_period * 10;
-
-=======
             wait for clock_period * 10; -- a few delay for reset weights start.
             
             wait until busy = '0';  -- wait for reset finished.
             
->>>>>>> origin/chao_ann_dev:src/TestSignedANNSkeleton.vhd
             times :=0;
             
             -- Read_out weights in first hidden_layer
@@ -145,6 +138,11 @@
                     write_uint8_t(sram_address(15 downto 8)  , x"0005", address_in, data_in, wr); -- SRAM_address[15:8]
                     write_uint8_t(sram_address(7 downto 0) , x"0006", address_in, data_in, wr); -- SRAM_address[7:0]
                     
+                    
+                    read_uint8_t(x"0006", address_in, rd, data_out, data); 
+                    address(7 downto 0) := data;
+
+
                     read_uint8_t(x"000B", address_in, rd, data_out, data); 
                     parameter(15 downto 8) := data;
                     read_uint8_t(x"000C", address_in, rd, data_out, data); 

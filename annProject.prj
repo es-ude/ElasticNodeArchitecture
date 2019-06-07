@@ -17,5 +17,6 @@ vhdl fpgamiddlewarelibs "src/fpgamiddlewarelibs/IcapInterface/icapInterface.vhdl
 vhdl neuralNetwork "src/annProject/SignedANN.vhd"
 vhdl work "src/middleware.vhdl"
 vhdl fpgamiddlewarelibs "src/fpgamiddlewarelibs/implementationConstants.vhd"
+vhdl neuralNetwork "src/annProject/SoftSRAM.vhd"
 vhdl neuralNetwork "src/annProject/SignedANNSkeleton.vhd"
 vhdl work "src/annProject/annProject.vhd"
