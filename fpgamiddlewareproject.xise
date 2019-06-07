@@ -17,14 +17,14 @@
   <files>
     <file xil_pn:name="src/middleware.vhdl" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="10"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="18"/>
     </file>
     <file xil_pn:name="src/xessdemo.bmm" xil_pn:type="FILE_BMM">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
     <file xil_pn:name="src/fpgamiddlewarelibs/IcapInterface/icapInterface.vhdl" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="8"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="16"/>
       <library xil_pn:name="fpgamiddlewarelibs"/>
     </file>
     <file xil_pn:name="src/fpgamiddlewarelibs/SpiInterface/spi_master.vhd" xil_pn:type="FILE_VHDL">
@@ -39,17 +39,17 @@
     </file>
     <file xil_pn:name="src/fpgamiddlewarelibs/UartInterface/uart_rx.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="3"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="11"/>
       <library xil_pn:name="fpgamiddlewarelibs"/>
     </file>
     <file xil_pn:name="src/fpgamiddlewarelibs/UartInterface/uart_tx.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="2"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="10"/>
       <library xil_pn:name="fpgamiddlewarelibs"/>
     </file>
     <file xil_pn:name="src/fpgamiddlewarelibs/UartInterface/uartInterface.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="7"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="15"/>
       <library xil_pn:name="fpgamiddlewarelibs"/>
     </file>
     <file xil_pn:name="src/fpgamiddlewarelibs/SpiInterface/TestSpiInterface.vhd" xil_pn:type="FILE_VHDL">
@@ -73,14 +73,14 @@
       <association xil_pn:name="Implementation" xil_pn:seqID="1"/>
       <library xil_pn:name="fpgamiddlewarelibs"/>
     </file>
-    <file xil_pn:name="src/TestVectorDotproduct.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/vdpProject/TestVectorDotproduct.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="16"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="16"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="16"/>
       <library xil_pn:name="vectorDotProduct"/>
     </file>
-    <file xil_pn:name="src/VectorDotproduct.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/vdpProject/VectorDotproduct.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
@@ -106,11 +106,11 @@
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="144"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="144"/>
     </file>
-    <file xil_pn:name="src/VectorDotproductSkeleton.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/vdpProject/VectorDotproductSkeleton.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
-    <file xil_pn:name="src/TestVectorDotproductSkeleton.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/vdpProject/TestVectorDotproductSkeleton.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="24"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="24"/>
@@ -136,7 +136,7 @@
     </file>
     <file xil_pn:name="src/InterfaceStateMachine.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="6"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="14"/>
     </file>
     <file xil_pn:name="src/TestPwm.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
@@ -212,62 +212,62 @@
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
       <library xil_pn:name="fpgamiddlewarelibs"/>
     </file>
-    <file xil_pn:name="src/SimulateDiff.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/SimulateDiff.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="39"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="39"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="39"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/SimulateDistributor.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/SimulateDistributor.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="40"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="40"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="40"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/SimulateLayer.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/SimulateLayer.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="41"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="41"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="41"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/SimulateNetwork.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/SimulateNetwork.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="42"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="42"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="42"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/SimulateNeuron.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/SimulateNeuron.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="43"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="43"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="43"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/TestFixedPointANN.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/TestFixedPointANN.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="306"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="306"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="306"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/SimulateOutputLayer.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/SimulateOutputLayer.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="45"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="45"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="45"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/SimulateSumMux.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/SimulateSumMux.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/Common.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/Common.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="2"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
     <file xil_pn:name="src/Diff.vhd" xil_pn:type="FILE_VHDL">
@@ -275,105 +275,105 @@
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/Distributor.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/Distributor.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="8"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/FixedPoint_Logic.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/FixedPoint_Logic.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="12"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
     <file xil_pn:name="src/Logic_FixedPoint.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="9"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/FixedPointANN.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/FixedPointANN.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="13"/>
+      <library xil_pn:name="neuralNetwork"/>
+    </file>
+    <file xil_pn:name="src/annProject/Neuron.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="5"/>
+      <library xil_pn:name="neuralNetwork"/>
+    </file>
+    <file xil_pn:name="src/annProject/OutputLayer.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/Neuron.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/OutputNeuron.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/OutputLayer.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/Sigmoid.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
-      <library xil_pn:name="neuralNetwork"/>
-    </file>
-    <file xil_pn:name="src/OutputNeuron.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
-      <library xil_pn:name="neuralNetwork"/>
-    </file>
-    <file xil_pn:name="src/Sigmoid.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="3"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
     <file xil_pn:name="src/sumMux.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="4"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/FixedPointANNSkeleton.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/FixedPointANNSkeleton.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/TestFixedPointANNSkeleton.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/TestFixedPointANNSkeleton.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="60"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="60"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="60"/>
     </file>
-    <file xil_pn:name="src/InputLayer.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/InputLayer.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/InputNeuron.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/InputNeuron.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/HiddenLayers.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/HiddenLayers.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="7"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/Layer.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/Layer.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="6"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/TestHiddenLayers.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/TestHiddenLayers.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="305"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="305"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="305"/>
     </file>
-    <file xil_pn:name="src/genSigmoid.py" xil_pn:type="FILE_USERDOC"/>
+    <file xil_pn:name="src/annProject/genSigmoid.py" xil_pn:type="FILE_USERDOC"/>
     <file xil_pn:name="src/bram_tdp.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/WeightsToVector.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/WeightsToVector.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/VectorToWeights.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/VectorToWeights.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/TestWeightToVector.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/TestWeightToVector.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="129"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="129"/>
@@ -386,18 +386,18 @@
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="135"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/TestVectorToWeights.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/vdpProject/TestVectorToWeights.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="73"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="73"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="73"/>
     </file>
-    <file xil_pn:name="src/VectorToConn.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/VectorToConn.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/ConnToVector.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/ConnToVector.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
       <library xil_pn:name="neuralNetwork"/>
@@ -454,7 +454,7 @@
     </file>
     <file xil_pn:name="src/localFIFO.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="3"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="5"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
     <file xil_pn:name="src/TestLocalFIFO.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
@@ -474,34 +474,34 @@
     </file>
     <file xil_pn:name="src/firProject/firWishbone.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="4"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="9"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
     <file xil_pn:name="src/firProject/FirWishboneSkeleton.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="6"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="12"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
     <file xil_pn:name="src/firProject/firPackage.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="2"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="4"/>
-    </file>
-    <file xil_pn:name="src/SignedANN.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
+    </file>
+    <file xil_pn:name="src/annProject/SignedANN.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="17"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/SignedANNSkeleton.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/SignedANNSkeleton.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="20"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/TestSignedANN.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/TestSignedANN.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="180"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="180"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="180"/>
       <library xil_pn:name="neuralNetwork"/>
     </file>
-    <file xil_pn:name="src/TestSignedANNSkeleton.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="src/annProject/TestSignedANNSkeleton.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="181"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="181"/>
@@ -521,7 +521,7 @@
       <library xil_pn:name="fpgamiddlewarelibs"/>
     </file>
     <file xil_pn:name="src/fpgamiddlewarelibs/implementationConstants.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="Implementation" xil_pn:seqID="11"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="19"/>
       <library xil_pn:name="fpgamiddlewarelibs"/>
     </file>
     <file xil_pn:name="elasticNode.ucf" xil_pn:type="FILE_UCF">
@@ -535,7 +535,7 @@
     </file>
     <file xil_pn:name="src/firProject/firProject.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="232"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="13"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
     <file xil_pn:name="src/mmProject/mmProject.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="234"/>
@@ -549,6 +549,13 @@
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
     <file xil_pn:name="src/dummyProject/elasticNode.ucf" xil_pn:type="FILE_UCF">
+      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
+    </file>
+    <file xil_pn:name="src/annProject/annProject.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="209"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="21"/>
+    </file>
+    <file xil_pn:name="src/annProject/elasticNode.ucf" xil_pn:type="FILE_UCF">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
   </files>
@@ -674,9 +681,9 @@
     <property xil_pn:name="ISim UUT Instance Name" xil_pn:value="UUT" xil_pn:valueState="default"/>
     <property xil_pn:name="Ignore User Timing Constraints Map" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Ignore User Timing Constraints Par" xil_pn:value="false" xil_pn:valueState="default"/>
-    <property xil_pn:name="Implementation Top" xil_pn:value="Architecture|firProject|Behavioral" xil_pn:valueState="non-default"/>
-    <property xil_pn:name="Implementation Top File" xil_pn:value="src/firProject/firProject.vhd" xil_pn:valueState="non-default"/>
-    <property xil_pn:name="Implementation Top Instance Path" xil_pn:value="/firProject" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="Implementation Top" xil_pn:value="Architecture|annProject|Behavioral" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="Implementation Top File" xil_pn:value="src/annProject/annProject.vhd" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="Implementation Top Instance Path" xil_pn:value="/annProject" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Include 'uselib Directive in Verilog File" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Include SIMPRIM Models in Verilog File" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Include UNISIM Models in Verilog File" xil_pn:value="false" xil_pn:valueState="default"/>
@@ -747,7 +754,7 @@
     <property xil_pn:name="Other XPWR Command Line Options" xil_pn:value="" xil_pn:valueState="default"/>
     <property xil_pn:name="Other XST Command Line Options" xil_pn:value="" xil_pn:valueState="default"/>
     <property xil_pn:name="Output Extended Identifiers" xil_pn:value="false" xil_pn:valueState="default"/>
-    <property xil_pn:name="Output File Name" xil_pn:value="firProject" xil_pn:valueState="default"/>
+    <property xil_pn:name="Output File Name" xil_pn:value="annProject" xil_pn:valueState="default"/>
     <property xil_pn:name="Overwrite Compiled Libraries" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Overwrite Existing Symbol" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Pack I/O Registers into IOBs" xil_pn:value="Auto" xil_pn:valueState="default"/>
@@ -763,10 +770,10 @@
     <property xil_pn:name="Placer Effort Level Map" xil_pn:value="High" xil_pn:valueState="default"/>
     <property xil_pn:name="Placer Extra Effort Map" xil_pn:value="None" xil_pn:valueState="default"/>
     <property xil_pn:name="Port to be used" xil_pn:value="Auto - default" xil_pn:valueState="default"/>
-    <property xil_pn:name="Post Map Simulation Model Name" xil_pn:value="firProject_map.vhd" xil_pn:valueState="default"/>
-    <property xil_pn:name="Post Place &amp; Route Simulation Model Name" xil_pn:value="firProject_timesim.vhd" xil_pn:valueState="default"/>
-    <property xil_pn:name="Post Synthesis Simulation Model Name" xil_pn:value="firProject_synthesis.vhd" xil_pn:valueState="default"/>
-    <property xil_pn:name="Post Translate Simulation Model Name" xil_pn:value="firProject_translate.vhd" xil_pn:valueState="default"/>
+    <property xil_pn:name="Post Map Simulation Model Name" xil_pn:value="annProject_map.vhd" xil_pn:valueState="default"/>
+    <property xil_pn:name="Post Place &amp; Route Simulation Model Name" xil_pn:value="annProject_timesim.vhd" xil_pn:valueState="default"/>
+    <property xil_pn:name="Post Synthesis Simulation Model Name" xil_pn:value="annProject_synthesis.vhd" xil_pn:valueState="default"/>
+    <property xil_pn:name="Post Translate Simulation Model Name" xil_pn:value="annProject_translate.vhd" xil_pn:valueState="default"/>
     <property xil_pn:name="Power Reduction Map" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Power Reduction Map spartan6" xil_pn:value="Off" xil_pn:valueState="default"/>
     <property xil_pn:name="Power Reduction Par" xil_pn:value="false" xil_pn:valueState="default"/>
@@ -791,7 +798,7 @@
     <property xil_pn:name="Release Write Enable (Output Events)" xil_pn:value="Default (6)" xil_pn:valueState="default"/>
     <property xil_pn:name="Rename Design Instance in Testbench File to" xil_pn:value="UUT" xil_pn:valueState="default"/>
     <property xil_pn:name="Rename Top Level Architecture To" xil_pn:value="Structure" xil_pn:valueState="default"/>
-    <property xil_pn:name="Rename Top Level Entity to" xil_pn:value="firProject" xil_pn:valueState="default"/>
+    <property xil_pn:name="Rename Top Level Entity to" xil_pn:value="annProject" xil_pn:valueState="default"/>
     <property xil_pn:name="Rename Top Level Module To" xil_pn:value="" xil_pn:valueState="default"/>
     <property xil_pn:name="Report Fastest Path(s) in Each Constraint" xil_pn:value="true" xil_pn:valueState="default"/>
     <property xil_pn:name="Report Fastest Path(s) in Each Constraint Post Trace" xil_pn:value="true" xil_pn:valueState="default"/>
@@ -914,6 +921,7 @@
     <binding xil_pn:location="/genericProject" xil_pn:name="elasticNode.ucf"/>
     <binding xil_pn:location="/firProject" xil_pn:name="src/firProject/elasticNode.ucf"/>
     <binding xil_pn:location="/dummyProject" xil_pn:name="src/dummyProject/elasticNode.ucf"/>
+    <binding xil_pn:location="/annProject" xil_pn:name="src/annProject/elasticNode.ucf"/>
   </bindings>
 
   <libraries>
