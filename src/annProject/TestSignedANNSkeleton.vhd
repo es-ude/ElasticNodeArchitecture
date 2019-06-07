@@ -1,10 +1,14 @@
 -- TestBench Template 
 
 	LIBRARY ieee;
-	USE ieee.std_logic_1164.ALL;
+    USE ieee.std_logic_1164.ALL;
 	USE ieee.numeric_std.ALL;
-	use ieee.std_logic_unsigned.all;
+    use ieee.std_logic_signed.all;
 	
+
+    library fpgamiddlewarelibs;
+    use fpgamiddlewarelibs.userlogicinterface.all;
+    
 	library neuralnetwork;
 	use neuralnetwork.all;
     use neuralnetwork.common.all; 
@@ -103,7 +107,11 @@
 			variable address : uint16_t := (others => '0');
 			variable data : uint8_t;
 			variable parameter : uint16_t;
+			variable parameter_v : std_logic_vector(15 downto 0);
 			variable times: integer;
+			variable weights_per_layer:fixed_point_matrix;
+			variable sram_address : uint24_t;
+			variable layer_count, neuron_coun, weight_count: integer;
 		BEGIN
 			reset <= '1';
 
@@ -111,13 +119,54 @@
 
 			reset <= '0';
 
+<<<<<<< HEAD:src/annProject/TestSignedANNSkeleton.vhd
             -- restet weights
             write_uint8_t(16, x"0007", address_in, data_in, wr); -- restet weights
             wait for clock_period * 300;
             write_uint8_t(0, x"0007", address_in, data_in, wr);  -- disable restet weights function
             wait for clock_period * 10;
 
+=======
+            wait for clock_period * 10; -- a few delay for reset weights start.
+            
+            wait until busy = '0';  -- wait for reset finished.
+            
+>>>>>>> origin/chao_ann_dev:src/TestSignedANNSkeleton.vhd
             times :=0;
+            
+            -- Read_out weights in first hidden_layer
+            layer_count := 0;
+            for neuron_coun in 0 to hiddenWidth-1 loop
+                for weight_count in 0 to paramsPerNeuronWeights loop
+                    sram_address := to_unsigned((layer_count+1) * totalParamsPerLayer + neuron_coun * totalParamsPerNeuron + weight_count, sram_address'length);
+                    
+                    -- set the address
+                    write_uint8_t(sram_address(23 downto 16)   , x"0004", address_in, data_in, wr); -- SRAM_address[23:16]
+                    write_uint8_t(sram_address(15 downto 8)  , x"0005", address_in, data_in, wr); -- SRAM_address[15:8]
+                    write_uint8_t(sram_address(7 downto 0) , x"0006", address_in, data_in, wr); -- SRAM_address[7:0]
+                    
+                    read_uint8_t(x"000B", address_in, rd, data_out, data); 
+                    parameter(15 downto 8) := data;
+                    read_uint8_t(x"000C", address_in, rd, data_out, data); 
+                    parameter(7 downto 0) := data;
+                    
+                    -- The line below doesn't work, my question is how can I convert a unsigned data to signed data.
+                    -- parameter_v := std_logic_vector(parameter);
+                    -- weights_per_layer(layer_count)(neuron_coun)(weight_count) := SIGNED(parameter_v);
+                    
+                end loop;
+            end loop;
+            
+            -- ToDo: Change to little endian.
+            -- example: a uint16_t value in mcu is:
+            -- uint16_t a=0x1028;(4128)
+            -- with little endian: a_L==0x10  a_H==0x28
+            -- when mcu send a_L and a_H to me, which one comes the first?
+            -- when send data to mcu which shold be sent the first?
+            
+            
+              
+            -- for testing write data to sram and read data to sram.
 --            for i in 0 to 4 loop
 --                -- read_uint8_t(x"0002", address_in, rd, data_out, data);
 --                write_uint8_t(0, x"0004", address_in, data_in, wr); -- SRAM_address[7:0]
@@ -139,9 +188,6 @@
 --                read_uint8_t(x"000C", address_in, rd, data_out, data); -- SRAM_address[15:8]
 --                parameter(7 downto 0) := data;
 --            end loop;
-             
-                        
-
 
 			for i in 1 to 4000 loop
                 -- inputs

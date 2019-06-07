@@ -68,6 +68,7 @@ begin
 	variable delayBackwardPerLayer : integer range 0 to (maxWidth+1)*maxWidth*2+maxWidth+1;
 	variable delayForwardPerLayer : integer range 0 to (maxWidth+2)*maxWidth-1;
 	variable delayForDelayMode : integer range 0 to (maxWidth+2)*maxWidth*2+1;
+	variable initialized_weights : boolean;
 	begin
 
 		-- set up before the clock cycle for hidden layers to sample current_layer
@@ -83,6 +84,7 @@ begin
 				neuron_counter := 0;
 				reset_counter := 0;
 				delayReset := true;
+				initialized_weights := false;
 			else
 				--if learn = '1' then 
 					-- start learning
@@ -92,8 +94,11 @@ begin
 						neuron_counter := 0;
 						n_feedback_var := idle;
 						
+						if initialized_weights = false then
+						  delayReset := true;
+                          mode <= resetWeights;
 						-- stay in idle until told to calculate
-						if calculate = '1' then 
+						elsif calculate = '1' then 
 							mode <= waiting;
 							n_feedback_var := forward;
 							data_rdy <= '0';
@@ -247,8 +252,10 @@ begin
 						end if;
 					when resetWeightsDone =>
 						-- return to idle once reset_weights goes low
-						-- to avoid continuously rewriting 
-						if reset_weights = '0' then
+						-- to avoid continuously rewriting
+						if  initialized_weights = false then 
+						    initialized_weights := true;
+						elsif reset_weights = '0' then
 							mode <= idle;
 						end if;
 					when others =>
