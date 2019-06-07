@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="TestHiddenLayers_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="TestHiddenLayers" />
+            <top_module name="common" />
+            <top_module name="constants" />
+            <top_module name="userlogicinterface" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="74541666fs"></ZoomStartTime>
+      <ZoomEndTime time="84181667fs"></ZoomEndTime>
+      <Cursor1Time time="82575000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="198"></NameColumnWidth>
+      <ValueColumnWidth column_width="66"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="16" />
+   <wvobject type="logic" fp_name="/TestHiddenLayers/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestHiddenLayers/reset">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/TestHiddenLayers/busy">
+      <obj_property name="ElementShortName">busy</obj_property>
+      <obj_property name="ObjectShortName">busy</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestHiddenLayers/calculate">
+      <obj_property name="ElementShortName">calculate</obj_property>
+      <obj_property name="ObjectShortName">calculate</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestHiddenLayers/reset_weights">
+      <obj_property name="ElementShortName">reset_weights</obj_property>
+      <obj_property name="ObjectShortName">reset_weights</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestHiddenLayers/uut/load_weights">
+      <obj_property name="ElementShortName">load_weights</obj_property>
+      <obj_property name="ObjectShortName">load_weights</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestHiddenLayers/uut/store_weights">
+      <obj_property name="ElementShortName">store_weights</obj_property>
+      <obj_property name="ObjectShortName">store_weights</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flash_ready">
+      <obj_property name="ElementShortName">flash_ready</obj_property>
+      <obj_property name="ObjectShortName">flash_ready</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group61">
+      <obj_property name="label">flash</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="other" fp_name="/TestHiddenLayers/uut/flashState">
+         <obj_property name="ElementShortName">flashState</obj_property>
+         <obj_property name="ObjectShortName">flashState</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/weights_wr_flash">
+         <obj_property name="ElementShortName">weights_wr_flash</obj_property>
+         <obj_property name="ObjectShortName">weights_wr_flash</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/weights_rd_flash">
+         <obj_property name="ElementShortName">weights_rd_flash</obj_property>
+         <obj_property name="ObjectShortName">weights_rd_flash</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/bias_rd_flash">
+         <obj_property name="ElementShortName">bias_rd_flash</obj_property>
+         <obj_property name="ObjectShortName">bias_rd_flash</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/bias_wr_flash">
+         <obj_property name="ElementShortName">bias_wr_flash</obj_property>
+         <obj_property name="ObjectShortName">bias_wr_flash</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/uut/index_s">
+         <obj_property name="ElementShortName">index_s</obj_property>
+         <obj_property name="ObjectShortName">index_s</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/uut/flash/index_s">
+         <obj_property name="ElementShortName">index_s</obj_property>
+         <obj_property name="ObjectShortName">index_s</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/uut/layerIndex_s">
+         <obj_property name="ElementShortName">layerIndex_s</obj_property>
+         <obj_property name="ObjectShortName">layerIndex_s</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/weights_address_flash">
+         <obj_property name="ElementShortName">weights_address_flash[1:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_address_flash[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/weights_din_flash">
+         <obj_property name="ElementShortName">weights_din_flash[255:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_din_flash[255:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/bias_rd_address_flash">
+         <obj_property name="ElementShortName">bias_rd_address_flash[1:0]</obj_property>
+         <obj_property name="ObjectShortName">bias_rd_address_flash[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/load_weights">
+         <obj_property name="ElementShortName">load_weights</obj_property>
+         <obj_property name="ObjectShortName">load_weights</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flashDataInRequest">
+         <obj_property name="ElementShortName">flashDataInRequest</obj_property>
+         <obj_property name="ObjectShortName">flashDataInRequest</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flashWrRequest">
+         <obj_property name="ElementShortName">flashWrRequest</obj_property>
+         <obj_property name="ObjectShortName">flashWrRequest</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flashRdRequest">
+         <obj_property name="ElementShortName">flashRdRequest</obj_property>
+         <obj_property name="ObjectShortName">flashRdRequest</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flashDone">
+         <obj_property name="ElementShortName">flashDone</obj_property>
+         <obj_property name="ObjectShortName">flashDone</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flash/clk">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flash/reset">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/flash/addressIn">
+         <obj_property name="ElementShortName">addressIn[23:0]</obj_property>
+         <obj_property name="ObjectShortName">addressIn[23:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flash/writeRequest">
+         <obj_property name="ElementShortName">writeRequest</obj_property>
+         <obj_property name="ObjectShortName">writeRequest</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flash/readRequest">
+         <obj_property name="ElementShortName">readRequest</obj_property>
+         <obj_property name="ObjectShortName">readRequest</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/uut/flash/numBytes">
+         <obj_property name="ElementShortName">numBytes</obj_property>
+         <obj_property name="ObjectShortName">numBytes</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/flash/dataIn">
+         <obj_property name="ElementShortName">dataIn[7:0]</obj_property>
+         <obj_property name="ObjectShortName">dataIn[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flash/dataInRequest">
+         <obj_property name="ElementShortName">dataInRequest</obj_property>
+         <obj_property name="ObjectShortName">dataInRequest</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/flash/dataOut">
+         <obj_property name="ElementShortName">dataOut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">dataOut[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flash/dataOutAvailable">
+         <obj_property name="ElementShortName">dataOutAvailable</obj_property>
+         <obj_property name="ObjectShortName">dataOutAvailable</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flash/done">
+         <obj_property name="ElementShortName">done</obj_property>
+         <obj_property name="ObjectShortName">done</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flash/spi_cs">
+         <obj_property name="ElementShortName">spi_cs</obj_property>
+         <obj_property name="ObjectShortName">spi_cs</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flash/spi_clk">
+         <obj_property name="ElementShortName">spi_clk</obj_property>
+         <obj_property name="ObjectShortName">spi_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flash/spi_mosi">
+         <obj_property name="ElementShortName">spi_mosi</obj_property>
+         <obj_property name="ObjectShortName">spi_mosi</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flash/spi_miso">
+         <obj_property name="ElementShortName">spi_miso</obj_property>
+         <obj_property name="ObjectShortName">spi_miso</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flash/spiEnable">
+         <obj_property name="ElementShortName">spiEnable</obj_property>
+         <obj_property name="ObjectShortName">spiEnable</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flash/spiBusy">
+         <obj_property name="ElementShortName">spiBusy</obj_property>
+         <obj_property name="ObjectShortName">spiBusy</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flash/spiContinue">
+         <obj_property name="ElementShortName">spiContinue</obj_property>
+         <obj_property name="ObjectShortName">spiContinue</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flash/spiDataInReady">
+         <obj_property name="ElementShortName">spiDataInReady</obj_property>
+         <obj_property name="ObjectShortName">spiDataInReady</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flash/spiDataInRequest">
+         <obj_property name="ElementShortName">spiDataInRequest</obj_property>
+         <obj_property name="ObjectShortName">spiDataInRequest</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/flash/spiDataOutReady">
+         <obj_property name="ElementShortName">spiDataOutReady</obj_property>
+         <obj_property name="ObjectShortName">spiDataOutReady</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/flash/spiDataIn">
+         <obj_property name="ElementShortName">spiDataIn[7:0]</obj_property>
+         <obj_property name="ObjectShortName">spiDataIn[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/flash/spiDataOut">
+         <obj_property name="ElementShortName">spiDataOut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">spiDataOut[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/flash/spi/spi/tx_data">
+         <obj_property name="ElementShortName">tx_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_data[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/flash/spi/spi/tx_buffer">
+         <obj_property name="ElementShortName">tx_buffer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_buffer[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/flash/spi/spi/rx_data">
+         <obj_property name="ElementShortName">rx_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rx_data[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/uut/flash/index_s">
+         <obj_property name="ElementShortName">index_s</obj_property>
+         <obj_property name="ObjectShortName">index_s</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/uut/flash/currentState">
+         <obj_property name="ElementShortName">currentState</obj_property>
+         <obj_property name="ObjectShortName">currentState</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/uut/flash/writingCycle">
+         <obj_property name="ElementShortName">writingCycle</obj_property>
+         <obj_property name="ObjectShortName">writingCycle</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group1950">
+      <obj_property name="label">weights</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/clk">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/uut/n_feedback">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/weights_rd_flash">
+         <obj_property name="ElementShortName">weights_rd_flash</obj_property>
+         <obj_property name="ObjectShortName">weights_rd_flash</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/weights_wr_flash">
+         <obj_property name="ElementShortName">weights_wr_flash</obj_property>
+         <obj_property name="ObjectShortName">weights_wr_flash</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/uut/dist_mode">
+         <obj_property name="ElementShortName">dist_mode</obj_property>
+         <obj_property name="ObjectShortName">dist_mode</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/current_layer">
+         <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/current_neuron">
+         <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/weights_bram/a_addr">
+         <obj_property name="ElementShortName">a_addr[1:0]</obj_property>
+         <obj_property name="ObjectShortName">a_addr[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/weights_bram/a_dout">
+         <obj_property name="ElementShortName">a_dout[255:0]</obj_property>
+         <obj_property name="ObjectShortName">a_dout[255:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/weights_address_b">
+         <obj_property name="ElementShortName">weights_address_b[1:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_address_b[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/weights_address_ann">
+         <obj_property name="ElementShortName">weights_address_ann[1:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_address_ann[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/weights_address_flash">
+         <obj_property name="ElementShortName">weights_address_flash[1:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_address_flash[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/weights_bram/b_wr">
+         <obj_property name="ElementShortName">b_wr</obj_property>
+         <obj_property name="ObjectShortName">b_wr</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/weights_bram/b_addr">
+         <obj_property name="ElementShortName">b_addr[1:0]</obj_property>
+         <obj_property name="ObjectShortName">b_addr[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/weights_bram/b_din">
+         <obj_property name="ElementShortName">b_din[255:0]</obj_property>
+         <obj_property name="ObjectShortName">b_din[255:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/weights_bram/b_dout">
+         <obj_property name="ElementShortName">b_dout[255:0]</obj_property>
+         <obj_property name="ObjectShortName">b_dout[255:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/weights_in">
+         <obj_property name="ElementShortName">weights_in[3:0][3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_in[3:0][3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/weights_out">
+         <obj_property name="ElementShortName">weights_out[3:0][3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_out[3:0][3:0][15:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group187">
+      <obj_property name="label">bias</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="other" fp_name="/TestHiddenLayers/uut/dist_mode">
+         <obj_property name="ElementShortName">dist_mode</obj_property>
+         <obj_property name="ObjectShortName">dist_mode</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/bias_rd_flash">
+         <obj_property name="ElementShortName">bias_rd_flash</obj_property>
+         <obj_property name="ObjectShortName">bias_rd_flash</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/bias_wr_flash">
+         <obj_property name="ElementShortName">bias_wr_flash</obj_property>
+         <obj_property name="ObjectShortName">bias_wr_flash</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/current_layer">
+         <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+         <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/current_neuron">
+         <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/uut/n_feedback">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/invert_clk">
+         <obj_property name="ElementShortName">invert_clk</obj_property>
+         <obj_property name="ObjectShortName">invert_clk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/weights_address_a">
+         <obj_property name="ElementShortName">weights_address_a[1:0]</obj_property>
+         <obj_property name="ObjectShortName">weights_address_a[1:0]</obj_property>
+         <obj_property name="CustomSignalColor">#FF0000</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/bias_rd_address">
+         <obj_property name="ElementShortName">bias_rd_address[1:0]</obj_property>
+         <obj_property name="ObjectShortName">bias_rd_address[1:0]</obj_property>
+         <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/bias_dout">
+         <obj_property name="ElementShortName">bias_dout[63:0]</obj_property>
+         <obj_property name="ObjectShortName">bias_dout[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/clk">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/bias_wr">
+         <obj_property name="ElementShortName">bias_wr</obj_property>
+         <obj_property name="ObjectShortName">bias_wr</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/bias_wr_address">
+         <obj_property name="ElementShortName">bias_wr_address[1:0]</obj_property>
+         <obj_property name="ObjectShortName">bias_wr_address[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/bias_din">
+         <obj_property name="ElementShortName">bias_din[63:0]</obj_property>
+         <obj_property name="ObjectShortName">bias_din[63:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group44">
+      <obj_property name="label">errors</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/clk">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/current_layer">
+         <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/uut/n_feedback">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/uut/dist_mode">
+         <obj_property name="ElementShortName">dist_mode</obj_property>
+         <obj_property name="ObjectShortName">dist_mode</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/wanted">
+         <obj_property name="ElementShortName">wanted[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">wanted[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/connections_out">
+         <obj_property name="ElementShortName">connections_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_out[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/err_in">
+         <obj_property name="ElementShortName">err_in[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">err_in[3:0][15:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/err_out">
+         <obj_property name="ElementShortName">err_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">err_out[3:0][15:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group1420">
+      <obj_property name="label">conn</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/clk">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/current_layer">
+         <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/current_neuron">
+         <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/uut/dist_mode">
+         <obj_property name="ElementShortName">dist_mode</obj_property>
+         <obj_property name="ObjectShortName">dist_mode</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/uut/n_feedback">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/conn_address_a">
+         <obj_property name="ElementShortName">conn_address_a[1:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_address_a[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/conn_wr">
+         <obj_property name="ElementShortName">conn_wr</obj_property>
+         <obj_property name="ObjectShortName">conn_wr</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/conn_wr_din">
+         <obj_property name="ElementShortName">conn_wr_din[63:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_wr_din[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/conn_rd_dout_a">
+         <obj_property name="ElementShortName">conn_rd_dout_a[63:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_rd_dout_a[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/uut/invert_clk">
+         <obj_property name="ElementShortName">invert_clk</obj_property>
+         <obj_property name="ObjectShortName">invert_clk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/conn_address_b">
+         <obj_property name="ElementShortName">conn_address_b[1:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_address_b[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/conn_rd_dout_b">
+         <obj_property name="ElementShortName">conn_rd_dout_b[63:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_rd_dout_b[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/conn_write">
+         <obj_property name="ElementShortName">conn_write[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_write[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/conn_in">
+         <obj_property name="ElementShortName">conn_in[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_in[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/connections_in">
+         <obj_property name="ElementShortName">connections_in[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">connections_in[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/conn_out">
+         <obj_property name="ElementShortName">conn_out[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_out[3:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/uut/conn_feedback">
+         <obj_property name="ElementShortName">conn_feedback[3:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">conn_feedback[3:0][15:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestHiddenLayers/uut/lay/weights_in">
+      <obj_property name="ElementShortName">weights_in[3:0][3:0][15:0]</obj_property>
+      <obj_property name="ObjectShortName">weights_in[3:0][3:0][15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestHiddenLayers/uut/lay/weights_out">
+      <obj_property name="ElementShortName">weights_out[3:0][3:0][15:0]</obj_property>
+      <obj_property name="ObjectShortName">weights_out[3:0][3:0][15:0]</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group3540">
+      <obj_property name="label">distr</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/distr/clk">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/distr/reset">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/distr/learn">
+         <obj_property name="ElementShortName">learn</obj_property>
+         <obj_property name="ObjectShortName">learn</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/distr/calculate">
+         <obj_property name="ElementShortName">calculate</obj_property>
+         <obj_property name="ObjectShortName">calculate</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/distr/reset_weights">
+         <obj_property name="ElementShortName">reset_weights</obj_property>
+         <obj_property name="ObjectShortName">reset_weights</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/distr/n_feedback_bus">
+         <obj_property name="ElementShortName">n_feedback_bus[3:0]</obj_property>
+         <obj_property name="ObjectShortName">n_feedback_bus[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/distr/n_feedback">
+         <obj_property name="ElementShortName">n_feedback</obj_property>
+         <obj_property name="ObjectShortName">n_feedback</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/distr/current_layer">
+         <obj_property name="ElementShortName">current_layer[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_layer[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestHiddenLayers/distr/current_neuron">
+         <obj_property name="ElementShortName">current_neuron[7:0]</obj_property>
+         <obj_property name="ObjectShortName">current_neuron[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestHiddenLayers/distr/data_rdy">
+         <obj_property name="ElementShortName">data_rdy</obj_property>
+         <obj_property name="ObjectShortName">data_rdy</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/distr/mode_out">
+         <obj_property name="ElementShortName">mode_out</obj_property>
+         <obj_property name="ObjectShortName">mode_out</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/TestHiddenLayers/distr/mode">
+         <obj_property name="ElementShortName">mode</obj_property>
+         <obj_property name="ObjectShortName">mode</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
